@@ -1,0 +1,37 @@
+<view class='whole-scroll'>
+    <view class='bg-white'>
+        <view class="weui-cells weui-cells_after-title fs14">
+            <view class="weui-cell weui-cell_input">
+                <view class="weui-cell__hd">
+                    <view class="weui-label">
+                        <text class='text-red'>*</text>真实姓名</view>
+                </view>
+                <view class="weui-cell__bd">
+                    <input class="weui-input" placeholder="请输入" value="{{name}}" disabled/>
+                </view>
+            </view>
+            <view class="weui-cell weui-cell_input">
+                <view class="weui-cell__hd">
+                    <view class="weui-label">
+                        <text class='text-red'>*</text>提现金额</view>
+                </view>
+                <view class="weui-cell__bd">
+                    <input class="weui-input" placeholder="0" type="digit" bindinput="getMoney" />
+                </view>
+            </view>
+        </view>
+        <view class="weui-cell account-balance">
+            <view class="weui-cell__bd">账户余额 {{balance}}元</view>
+            <view class="weui-cell__ft {{balance>=30? 'fc-jasper':''}}" bindtap="widthdrawAll">全部提现</view>
+        </view>
+        <view class='fc-red withdraw-notice'>提现金额不可超过账户余额，最小提现金额30元</view>
+    </view>
+    <view class="weui-flex weui-btn-area">
+        <view class="weui-flex__item pad">
+            <button class="weui-btn" type="default" bindtap="gotoMine">取消</button>
+        </view>
+        <view class="weui-flex__item pad">
+            <button class="weui-btn" type="primary" disabled="{{form.money<30||balance<30}}" bindtap="withdraw">提现</button>
+        </view>
+    </view>
+</view>

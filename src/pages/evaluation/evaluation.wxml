@@ -1,0 +1,54 @@
+<view>
+    <view class="rank-cell">
+        <view class="rank-nm">
+            服务态度
+            <text wx:for="{{5}}" wx:key="index" class="icon-star-full {{index<form.star?'fc-orange':'light-grey'}}" data-type="attitude" data-rate="{{index+1}}" bindtap="changeStar"></text>
+        </view>
+        <view>
+            服务效率
+            <text wx:for="{{5}}" wx:key="index" class="icon-star-full {{index<form.store_star?'fc-orange':'light-grey'}}" data-type="efficiency" data-rate="{{index+1}}" bindtap="changeStar"></text>
+        </view>
+    </view>
+    <view class='weui-cells'>
+        <view class="weui-cells_form bg-white">
+            <view class="weui-cell">
+                <view class="weui-cell__bd">
+                    <textarea class="weui-textarea" name="content" placeholder=" 请输入评价内容" rows="3" bindinput="getContent"></textarea>
+                    <view class="weui-textarea-counter">
+                        <text>{{cntentLength}}</text> /200
+                    </view>
+                </view>
+            </view>
+        </view>
+    </view>
+    <view class="weui-cells">
+        <view class="weui-cell">
+            <view class="weui-cell__bd">
+                <view class="weui-uploader">
+                    <view class="weui-uploader__hd">
+                        <view class="weui-uploader__title">上传图片</view>
+                        <view class="weui-uploader__info">{{imageList.length}}/3</view>
+                    </view>
+                    <view class="weui-uploader__bd">
+                        <view class="weui-uploader__files">
+                            <block wx:for="{{imageList}}" wx:key="index" wx:for-item="image">
+                                <view class="weui-uploader__file  weui-uploader__file_status" data-src="{{image}}" bindtap="previewImage">
+                                    <image class="weui-uploader__img" src="{{image}}" mode="aspectFill"></image>
+                                    <view class="weui-uploader__image" data-index="{{index}}" catchtap='deleteImage'>
+                                        <icon type="cancel" size="16" color="#F43530" class="weui-uploader__icon--cancel"></icon>
+                                    </view>
+                                </view>
+                            </block>
+                        </view>
+                        <view class="weui-uploader__input-box">
+                            <view class="weui-uploader__input" bindtap="chooseImages"></view>
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </view>
+    </view>
+    <view class="weui-btn-area">
+        <button class="weui-btn" type="primary" bindtap="submitEvaluation">提交</button>
+    </view>
+</view>

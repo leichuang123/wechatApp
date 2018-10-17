@@ -1,0 +1,54 @@
+<import src="../../../common/templates/top-tips.wxml" />
+<view wx:if="{{!isExpired}}">
+    <template is="top-tips" data="{{showTopTips,errorMsg}}"></template>
+    <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell">
+            <view class="weui-cell__bd">赠送内容</view>
+            <view class="weui-cell__ft">{{couponInfo.serviceName}}</view>
+        </view>
+        <view class="weui-cell">
+            <view class="weui-cell__bd">服务商家</view>
+            <view class="weui-cell__ft">{{couponInfo.storeName}}</view>
+        </view>
+    </view>
+    <form>
+        <view class="weui-cells">
+            <view class="weui-cell">
+                <view class="weui-cell__hd">
+                    <view class="weui-label">车牌号</view>
+                </view>
+                <view class="weui-cell__bd" bindtap="showKeyboard">
+                    <input type="text" name="car_number" value="{{carNumber}}" maxlength="8" placeholder="填写车牌号" disabled />
+                </view>
+            </view>
+            <view class="weui-cell">
+                <view class="weui-cell__hd">
+                    <view class="weui-label">手机号</view>
+                </view>
+                <view class="weui-cell__bd">
+                    <input id="mobile" type="number" name="mobile" placeholder="填写车手机号" bindinput="getInputValue" />
+                </view>
+            </view>
+            <view class="weui-cell">
+                <view class="weui-cell__hd">
+                    <view class="weui-label">联系人</view>
+                </view>
+                <view class="weui-cell__bd">
+                    <input id="contact" type="text" name="contact" placeholder="填写联系人" bindinput="getInputValue" />
+                </view>
+            </view>
+        </view>
+        <view class="weui-flex">
+            <view class="weui-flex__item pad">
+                <button class="weui-btn" type="primary" open-type="getUserInfo" bindgetuserinfo="onGetUserInfo">
+                    确认领取
+                </button>
+            </view>
+            <view class="weui-flex__item pad">
+                <button class="weui-btn" type="default" bindtap="gotoIndex">取消</button>
+            </view>
+        </view>
+    </form>
+    <car-keyboard keyboard-visible="{{keyboardVisible}}" bind:hidekeyboard="hideKeyboard" bind:getcarnumber="getCarNumber"></car-keyboard>
+</view>
+<view class="text-center" wx:else>页面已过期</view>

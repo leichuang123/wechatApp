@@ -1,0 +1,78 @@
+<import src="../../common/templates/top-tips.wxml" />
+<view>
+    <template is="top-tips" data="{{showTopTips,errorMsg}}"></template>
+    <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell">
+            <view class="weui-cell__bd">赠送内容</view>
+            <view class="weui-cell__ft">
+                <text wx:for="{{card.services}}" wx:key="index">{{item.service_name}}{{item.service_num}}<text style='margin-left:5px;'></text></text>
+            </view>
+        </view>
+        <view class="weui-cell">
+            <view class="weui-cell__bd">服务门店</view>
+            <view class="weui-cell__ft">{{card.store_name}}</view>
+        </view>
+    </view>
+    <form>
+        <view class="weui-cells">
+            <view class="weui-cell" wx:if="{{!isRegistered}}">
+                <view class="weui-cell__hd">
+                    <view class="weui-label">车牌号</view>
+                </view>
+                <view class="weui-cell__bd" bindtap="showKeyboard">
+                    <input type="text" name="car_number" value="{{carNumber}}" maxlength="8" placeholder="填写车牌号" disabled />
+                </view>
+            </view>
+            <view class="weui-cell" wx:if="{{!isRegistered}}">
+                <view class="weui-cell__hd">
+                    <view class="weui-label">手机号</view>
+                </view>
+                <view class="weui-cell__bd">
+                    <input type="number" name="mobile" type="number" maxlength="11" placeholder="填写手机号" bindinput="getMobile" />
+                </view>
+            </view>
+            <view class="weui-cell weui-cell_vcode" wx:if="{{!isRegistered}}">
+                <view class="weui-cell__hd">
+                    <view class="weui-label">验证码</view>
+                </view>
+                <view class="weui-cell__bd">
+                    <input name="code" type="number" placeholder="验证码" bindinput="getInputCode" />
+                </view>
+                <view class="weui-cell__ft">
+                    <view class="weui-vcode_btn" bindtap="getCode">{{codeText}}</view>
+                </view>
+            </view>
+            <view class="weui-cell weui-cell_select" wx:if="{{isRegistered&&carNumbers.length}}">
+                <view class="weui-cell__hd weui-cell__hd_in-select-after">
+                    <view class="weui-label">车牌号</view>
+                </view>
+                <view class="weui-cell__bd">
+                    <picker bindchange="changeCarNumber" value="{{carIndex}}" range="{{carNumbers}}">
+                        <view class="weui-select weui-select_in-select-after text-right">
+                            {{carNumbers[carIndex]}}
+                        </view>
+                    </picker>
+                </view>
+            </view>
+            <view class="weui-cell">
+                <view class="weui-cell__hd">
+                    <view class="weui-label">联系人</view>
+                </view>
+                <view class="weui-cell__bd">
+                    <input type="text" name="contactor" placeholder="填写联系人" bindinput='getContactName' />
+                </view>
+            </view>
+        </view>
+        <view class="weui-flex">
+            <view class="weui-flex__item pad">
+                <button class="weui-btn" type="primary" open-type="getUserInfo" bindgetuserinfo="onGetUserInfo">
+                    确认领取
+                </button>
+            </view>
+            <view class="weui-flex__item pad">
+                <button class="weui-btn" type="default" bindtap="gotoIndex">取消</button>
+            </view>
+        </view>
+    </form>
+    <car-keyboard keyboard-visible="{{keyboardVisible}}" bind:hidekeyboard="hideKeyboard" bind:getcarnumber="getCarNumber"></car-keyboard>
+</view>

@@ -1,0 +1,50 @@
+<template name="evaluations">
+<block wx:for="{{evaluations}}" wx:key="index">
+    <view class="weui-panel">
+        <view class="weui-panel__bd">
+            <view class="weui-media-box weui-media-box_small-appmsg">
+                <view class="weui-cells weui-cells_in-small-appmsg">
+                    <view class="weui-cell">
+                        <view class="weui-cell__hd">
+                            <image src="{{item.avatar}}" class="face-img-mine" />
+                        </view>
+                        <view class="weui-cell__bd">
+                            <view class="weui-flex">
+                                <view class="weui-flex__item small-size">{{item.mobile}}
+                                </view>
+                                <view class="weui-flex__item small-size">
+                                    <block wx:for="{{5}}" wx:for-item="it" wx:for-index="i" wx:key="i">
+                                        <text wx:if="{{item.star<it+0.5}}" class="icon-star-full light-grey"></text>
+                                        <text wx:if="{{item.star>=it+0.5&&item.star<it+1}}" class="icon-star-half fc-orange"></text>
+                                        <text wx:if="{{item.star>=it+1}}" class="icon-star-full fc-orange"></text>
+                                    </block>
+                                </view>
+                                <view class="small-size">{{item.time}}</view>
+                            </view>
+                        </view>
+                    </view>
+                    <view class="eavluate-content__padding">
+                        <view class="eavluate-content__margin small-size">
+                            {{item.content}}
+                        </view>
+                        <block wx:for="{{item.pic_url}}" wx:for-item="pic" wx:for-index="i" wx:key="i">
+                            <view class="img-box">
+                                <image src="{{pic}}" />
+                            </view>
+                        </block>
+                        <view class="small-size">
+                            服务项目：{{item.service}}
+                        </view>
+                    </view>
+                    <block wx:for="{{item.reply}}" wx:for-item="reply" wx:for-index="i" wx:key="i">
+                        <view class="eavluate-content__padding weui-flex small-size">
+                            <view class="reply-content weui-flex__item">{{reply.content}}</view>
+                            <view class="text-right wid-time">{{reply.create_time}}</view>
+                        </view>
+                    </block>
+                </view>
+            </view>
+        </view>
+    </view>
+</block>
+</template>

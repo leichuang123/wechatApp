@@ -1,0 +1,129 @@
+<import src="../../../common/templates/loading" />
+<import src="../../../common/templates/evaluations" />
+<view wx:if="{{!loadingVisible}}">
+    <view class="has-btm">
+        <view class="weui-cells weui-cells_after-title">
+            <view class="weui-cell">
+                <view class=" weui-media-box__hd_in-appmsg">
+                    <image src="{{business.logo}}" class="weui-media-box__thumb"></image>
+                </view>
+                <view class="weui-cell__bd">{{business.name}}</view>
+                <view class="weui-cell__ft fc-red">￥{{business.show_money}}</view>
+            </view>
+            <view class="weui-flex rank-cell tiny-size">
+                <view class="weui-flex__item">
+                    总订单
+                    <text class="padl">{{business.total_order_number}}</text>
+                    总评价
+                    <text class="padl">{{business.evaluate_num}}</text>
+                </view>
+                <view class="weui-flex__item text-right">{{business.handle_duration}}个工作日办结</view>
+            </view>
+        </view>
+        <view class="weui-flex more-detail-title">
+            <block wx:for="{{tabList}}" wx:key="index">
+                <view class="weui-flex__item {{tabIndex==index?'title-active':''}}" data-index="{{index}}" bindtap="switchTab">
+                    {{item}}
+                </view>
+            </block>
+        </view>
+        <view class="rank-cell" wx:if="{{tabIndex==0}}">
+            <view class="detail-cont bg-white">{{business.business_description}}</view>
+            <view class="small-size bg-white">
+                <text class="fc-oranges">温馨提示：</text>
+                <view class="grey">外省车辆需将资料邮寄到当地办理，办理周期比正常时间长</view>
+            </view>
+        </view>
+        <view wx:if="{{tabIndex==1}}" class="small-size">
+            <block wx:for="{{business.process}}" wx:key="index">
+                <view class="weui-cell bg-white" data-index="{{index}}" bindtap="togglePanel">
+                    <view class="weui-cell__bd">
+                        <text class="series-number">{{index+1}}</text> {{item.name}}
+                    </view>
+                    <view class="weui-cell__ft">
+                        <text class="{{item.open?'icon-angle-up':'icon-angle-down'}}"></text>
+                    </view>
+                </view>
+                <view class="rank-cell process-padding" wx:if="{{item.open}}">
+                    {{item.description}}
+                </view>
+            </block>
+        </view>
+        <view wx:if="{{tabIndex==2}}" class="small-size rank-cell">
+            <view>{{business.handle_condition}}</view>
+        </view>
+        <view wx:if="{{tabIndex==3}}" class="small-size rank-cell">
+            <view class="weui-flex text-center marb">
+                <view class="weui-flex__item2">
+                    <view class="placeholder">办理所需资料</view>
+                </view>
+                <view class="weui-flex__item">
+                    <view class="placeholder">个人</view>
+                </view>
+                <view class="weui-flex__item">
+                    <view class="placeholder">企业</view>
+                </view>
+            </view>
+            <block wx:for="{{business.need_data}}" wx:key="index">
+                <view class="weui-flex text-center">
+                    <view class="weui-flex__item2 marb">
+                        <view class="placeholder">{{item.need_data_name}}</view>
+                    </view>
+                    <view class="weui-flex__item">
+                        <view class="placeholder">
+                            <text class="{{item.personal_type==='Y'?'icon-check2 fc-green':''}}"></text>
+                        </view>
+                    </view>
+                    <view class="weui-flex__item">
+                        <view class="placeholder">
+                            <text class="{{item.crop_type==='Y'?'icon-check2 fc-green':''}}"></text>
+                        </view>
+                    </view>
+                </view>
+            </block>
+        </view>
+        <view wx:if="{{tabIndex==4}}" class="small-size evaluate-cell">
+            <view class="marb">
+                <!-- <block wx:for="{{business.evaluate.data}}" wx:key="index">
+                    <view class="weui-cell">
+                        <view class="weui-cell__hd">
+                            <image src="{{item.avatar}}" style="margin-right: 5px;vertical-align: middle;width: 40px; height: 40px; border-radius: 50%;"></image>
+                        </view>
+                        <view class="weui-cell__bd">{{item.mobile}}</view>
+                        <view class="weui-cell__ft">{{item.create_time}}</view>
+                    </view>
+                    <view class='detail-padl'>
+                        <block wx:for="{{5}}" wx:for-item="it" wx:for-index="i" wx:key="i">
+                            <text wx:if="{{item.star<it+0.5}}" class="icon-star-full light-grey"></text>
+                            <text wx:if="{{item.star>=it+0.5&&item.star<it+1}}" class="icon-star-half fc-orange"></text>
+                            <text wx:if="{{item.star>=it+1}}" class="icon-star-full fc-orange"></text>
+                        </block>
+                        <view>{{item.content}}</view>
+                        <view class="weui-uploader__bd">
+                            <view class="weui-uploader__file">
+                                <block wx:for="{{item.pic_url}}" wx:for-item="img" wx:for-index="idx" wx:key="idx">
+                                    <image class="weui-uploader__img" src="{{img.url}}" mode="aspectFill" />
+                                </block>
+                            </view>
+                        </view>
+                        <view class="weui-flex">
+                            <block wx:for="{{item.reply}}" wx:for-item="it" wx:for-index="idx" wx:key="idx">
+                                <view class="weui-flex__item">{{it.content}}</view>
+                                <view class='grey'>{{it.create_time}}</view>
+                            </block>
+                        </view>
+                    </view>
+                </block> -->
+                <template is="evaluations" data="{{evaluations}}" />
+            </view>
+        </view>
+    </view>
+    <view class="bottom-btn text-right">
+        <view class="rank-cell">
+            <button class="weui-btn mini-btn btn-margin" type="primary" size="mini" bindtap="gotoBusinessHandle">
+                立即办理
+            </button>
+        </view>
+    </view>
+</view>
+<template is="loading" data="{{ loadingVisible,hasData}}" />

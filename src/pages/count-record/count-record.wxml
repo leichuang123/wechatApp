@@ -1,0 +1,36 @@
+<import src="../../common/templates/loading" />
+<view>
+    <view class="weui-tab">
+        <view class="weui-navbar bg-white">
+            <block wx:for="{{tabs}}" wx:key="*this">
+                <view id="{{index}}" class="weui-navbar__item {{activeIndex == index ? 'weui-bar__item_on' : ''}}" bindtap="tabClick">
+                    <view class="weui-navbar__title">{{item}}</view>
+                </view>
+            </block>
+            <view class="weui-navbar__slider" style="width:{{sliderWidth}}px;left: {{sliderLeft}}px; transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px);"></view>
+        </view>
+        <view class="weui-tab__panel">
+            <block wx:for="{{records}}" wx:key="index">
+                <view class="rank-cell list-box">
+                    <view>服务时间：{{item.create_time}}</view>
+                    <view>服务项目：{{item.service}}</view>
+                    <view>可用次数：{{item.total_num}}</view>
+                    <view>使用次数：{{item.used_num}}</view>
+                    <view>变更次数：{{item.modify_count}}</view>
+                    <view>剩余次数：{{item.overplus}}</view>
+                    <view wx:if="{{item.car_number!==''}}">
+                        服务车辆：<text class="{{item.pay_for_another_status}}?'text-red':''">{{item.car_number}}</text>
+                    </view>
+                    <view class="ranking-btn" data-item="{{item}}" bindtap="gotoEvaluate" wx:if="{{item.evaluate_state==0&&item.pay_for_another_status==0}}">
+                        评价
+                    </view>
+                </view>
+            </block>
+            <template is="loading" data="{{loadingVisible, hasData}}" />
+            <view class="load-more" wx:if="{{hasMore&&records.length>0}}" bindtap="loadMore">
+                点击加载更多
+            </view>
+            <template is="loadMore" data="{{loadMoreVisible,hasMore,hasData}}" />
+        </view>
+    </view>
+</view>

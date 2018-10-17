@@ -1,0 +1,63 @@
+<view>
+    <view class="weui-form-preview">
+        <view class="weui-form-preview__hd">
+            <view class="weui-form-preview__item">
+                <view class="weui-form-preview__label">实时付款</view>
+                <view class="weui-form-preview__value_in-hd">￥{{form.money}}</view>
+            </view>
+        </view>
+        <view class="weui-form-preview__bd">
+            <view class="weui-form-preview__item">
+                <view class="weui-form-preview__label">门店</view>
+                <view class="weui-form-preview__value">{{form.store_name}}</view>
+            </view>
+            <view class="weui-form-preview__item">
+                <view class="weui-form-preview__label">车牌号</view>
+                <view class="weui-form-preview__value">{{form.car_number}}</view>
+            </view>
+
+            <view class="weui-form-preview__item">
+                <view class="weui-form-preview__label">商品</view>
+                <block wx:for="{{form.order}}" wx:key="index">
+                    <block wx:for="{{item.goods}}" wx:for-index="idx" wx:key="idx" wx:for-item="it">
+                        <view class="weui-form-preview__value">
+                            <text style="margin-right:10px;">{{it.name}}</text>x{{it.num}} ￥{{it.price}}</view>
+                    </block>
+                </block>
+            </view>
+            <view class="weui-form-preview__item">
+                <view class="weui-form-preview__label">合计</view>
+                <view class="weui-form-preview__value">
+                    <text style="margin-right:20px;">共{{form.num}}件</text>￥{{form.money}}</view>
+            </view>
+        </view>
+    </view>
+    <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell weui-cell_input">
+            <view class="weui-cell__hd">
+                <view class="remark">备注</view>
+            </view>
+            <view class="weui-cell__bd">
+                <input class="weui-input" placeholder="选填，给商家留言" maxlength="45" bindblur="getNote" />
+            </view>
+        </view>
+    </view>
+    <view class="prompt">
+        <view>
+            <text class="icon-sound"></text>温馨提示</view>
+        <view>
+            <view class="text-red">储值卡用户可选择到店支付，到店后用储值卡余额支付，若选择在线支付则表示不使用储值卡余额支付。</view>
+            <view>选择到店支付无积分，可到店享受服务时再行付款。</view>
+            <view>只有在线支付才能获得积分，积分可以参加优惠活动。</view>
+        </view>
+    </view>
+
+    <view class="weui-flex">
+        <view class="weui-flex__item pad">
+            <button class="weui-btn" type="default" bindtap="payOffline">到店支付</button>
+        </view>
+        <view class="weui-flex__item pad">
+            <button class="weui-btn" type="primary" bindtap="payOnline" loading="{{loading}}">在线支付</button>
+        </view>
+    </view>
+</view>

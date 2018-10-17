@@ -1,0 +1,27 @@
+<view class='bg-white'>
+    <view class="weui-cells__title total-money">累计获得佣金￥{{brokerage}}</view>
+    <view class='account-icon'>
+        <image src="../../../assets/images/thumb_raw.png"  />
+    </view>
+    <view class='text-center'>账户余额</view>
+    <view class='text-center'>￥{{balance}}</view>
+</view>
+<view class="weui-cells weui-cells_after-title ">
+    <navigator url="/pages/withdraw-cash/withdraw-cash?balance={{balance}}" class="weui-cell weui-cell_access"
+               hover-class="weui-cell_active">
+        <view class="weui-cell__bd">提现</view>
+        <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+    </navigator>
+    <navigator url="/pages/withdraw-cash/record" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+        <view class="weui-cell__bd">提现记录</view>
+        <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+    </navigator>
+    <navigator url="/pages/income-expenses/income-expenses" class="weui-cell weui-cell_access"
+               hover-class="weui-cell_active">
+        <view class="weui-cell__bd">收支明细</view>
+        <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+    </navigator>
+</view>
+<view class='btn-bottom'>
+    <button class="weui-btn" type="primary" plain="true" bindtap="gotoMine">返回</button>
+</view>

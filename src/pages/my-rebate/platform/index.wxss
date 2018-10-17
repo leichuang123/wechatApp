@@ -1,0 +1,3 @@
+ .total-money{margin-top: 0;padding-top: 10px;}
+ .account-icon {text-align: center;}
+.account-icon image{ width: 80px; height: 80px;}

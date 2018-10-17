@@ -1,0 +1,17 @@
+<import src="../../common/templates/loading" />
+<view class='weui-tab'>
+    <view class="weui-cell header">
+        <view class="weui-cell__bd">提现时间</view>
+        <view class="weui-cell__ft text-black">提现金额</view>
+    </view>
+    <view class="weui-tab__panel">
+        <block wx:for="{{records}}" wx:key="index">
+            <view class="weui-cell bg-white">
+                <view class="weui-cell__bd">{{item.create_time}}</view>
+                <view class="weui-cell__ft fc-red">{{item.money}}</view>
+            </view>
+        </block>
+        <template is="loading" data="{{ loadingVisible, hasData }}" />
+        <template is="loadMore" data="{{ loadMoreVisible,hasMore,hasData}}" />
+    </view>
+</view>

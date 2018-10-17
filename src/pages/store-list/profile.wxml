@@ -1,0 +1,89 @@
+<import src="../../common/templates/loading" />
+<import src="../../common/templates/evaluations" />
+<view>
+    <view class='weui-cell top-menu' bindtap="changView">
+        <view data-index="0" class="weui-cell__bd {{activeIndex==0?'cur':''}}">门店简介
+        </view>
+        <view data-index="1" class="weui-cell__bd {{activeIndex==1?'cur':''}}">门店评价
+        </view>
+    </view>
+    <loading wx:if="{{loading}}">加载中</loading>
+    <scroll-view class="has-menu {{activeIndex==0?'active':''}}" scroll-y wx:if="{{!loading}}">
+         <view class="weui-cell">
+            <view class="weui-cell__bd">
+                <view>{{storeInfo.store_name}}</view>
+                <view class="l-height">
+                    <text class="direct-sale">{{storeInfo.store_sattri}}</text>总销量：{{storeInfo.sale_count}} 总评价：{{storeInfo.evaluate_count}}</view>
+                <view class="tags">
+                    <text wx:for="{{storeInfo.store_tags}}" wx:key="index">{{item}}</text>
+                </view>
+            </view>
+            <view class="navigation-width">
+                <view class="collect-star" bindtap="switchCollection">
+                    <text class="icon-star-full {{collected==true?'fc-orange':'light-grey'}}"></text>收藏</view>
+                <view>{{storeInfo.distance}}</view>
+                <view bindtap="openLocation">
+                    <text class="icon-map-marker mine-icon"></text>导航
+                </view>
+            </view>
+        </view>
+        <view class="weui-cell">
+            <view class="weui-cell__bd">
+                <view>
+                    <text class="icon-map-marker mine-icon"></text>{{storeInfo.store_address}}</view>
+            </view>
+        </view> 
+         <view data-tel="{{storeInfo.contact}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active" bindtap="call">
+            <view class="weui-cell__bd">
+                <text class="icon-phone fc-jasper mine-icon"></text>{{storeInfo.contact}}</view>
+            <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+        </view>
+        <view class="weui-cell">
+            <view class="weui-cell__bd">
+                <text class="icon-alarm fc-jasper mine-icon"></text>营业时间：{{storeInfo.opening_hours}}
+            </view>
+        </view> 
+        <view class="weui-cell">
+            门店特色
+        </view>
+        <view class="rank-cell">
+            <view>
+                <text class="icon-star fc-orange"></text>星级服务</view>
+            <view class="weui-cell__bd">评价和服务水平都达到标准的明星门店</view>
+        </view>
+        <view class="rank-cell">
+            <view>
+                <text class="icon-heart fc-orange"></text>品质保证</view>
+            <view class="weui-cell__bd">产品质量有保障，售后服务到位</view>
+        </view>
+    </scroll-view>
+    <scroll-view class="has-menu {{activeIndex==1?'active':''}}" scroll-y style="height:{{scrollHeight}}px;" scroll-top="{{scrollTop}}" bindscrolltolower="loadMore">
+        <view class="weui-flex ranking-detail" wx:if="{{!loadingVisible}}">
+            <view class="weui-flex__item small-size">
+                <view>服务态度</view>
+                <view class="tiny-size">
+                    <text class="icon-star-full fc-orange"></text>
+                    <text class="icon-star-full fc-orange"></text>
+                    <text class="icon-star-full fc-orange"></text>
+                    <text class="icon-star-full fc-orange"></text>
+                    <text class="icon-star-full fc-orange"></text>
+                </view>
+                <view>4.90</view>
+            </view>
+            <view class="weui-flex__item small-size">
+                <view>服务效率</view>
+                <view class="tiny-size">
+                    <text class="icon-star-full fc-orange"></text>
+                    <text class="icon-star-full fc-orange"></text>
+                    <text class="icon-star-full fc-orange"></text>
+                    <text class="icon-star-full fc-orange"></text>
+                    <text class="icon-star-full fc-orange"></text>
+                </view>
+                <view>4.90</view>
+            </view>
+        </view>
+        <template is="evaluations" data="{{evaluations}}"/>
+        <template is="loadMore" data="{{ loadMoreVisible,hasMore,hasData}}" />
+        <template is="loading" data="{{ loadingVisible,hasData}}" />
+    </scroll-view>
+</view>

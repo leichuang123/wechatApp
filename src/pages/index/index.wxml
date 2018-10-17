@@ -1,0 +1,87 @@
+<view class="bg-white">
+    <view class="area">
+        <view class="weui-flex">
+            <navigator url="/pages/location/location" class="weui-flex__item" hover-class="none">{{city}}
+                <text class="icon-angle-down"></text>
+            </navigator>
+            <!-- <navigator url="/pages/register/register" class="weui-flex__item text-right" hover-class="none" wx:if="{{!IndexInfo.isRegist}}">注册</navigator>  -->
+            <!-- <button type="primary" plain="true" size="mini" open-type="getUserInfo" bindgetuserinfo="onGetUserInfo">微信授权</button> -->
+        </view>
+    </view>
+    <view class="btn-list">
+        <view class="weui-flex">
+            <navigator url="/pages/store-list/store-list?type=wash" hover-class="none" class="weui-flex__item">
+                <view class="icon-border automobile-border">
+                    <text class="icon-automobile"></text>
+                </view>
+                <view class="pad-top">叫号洗车</view>
+            </navigator>
+            <navigator url="/pages/store-list/store-list?type=server" hover-class="none" class="weui-flex__item">
+                <view class="icon-border calendar2-border">
+                    <text class="icon-calendar2"></text>
+                </view>
+                <view class="pad-top">预约保养</view>
+            </navigator>
+            <view class="weui-flex__item" bindtap="onBindStore">
+                <view class="icon-border maximize-border">
+                    <text class="icon-maximize"></text>
+                </view>
+                <view class="pad-top">绑定门店</view>
+            </view>
+        </view>
+    </view>
+    <view class="btn-list-four">
+        <view class="weui-flex">
+            <navigator url="/pages/record/record?month=1&type=consume" hover-class="none" class="weui-flex__item weui-cell">
+                <view class="icon-addbg icon-bg-cny">
+                    <text class="icon-cny"></text>
+                </view>
+                <view class="weui-cell__bd">消费记录</view>
+                <view class='add-bor'></view>
+            </navigator>
+            <navigator url="/pages/my-card/index" hover-class="none" class="weui-flex__item weui-cell">
+                <view class="icon-addbg icon-bg-card">
+                    <text class="icon-credit-card"></text>
+                </view>
+                <view class="weui-cell__bd">我的会员卡</view>
+            </navigator>
+        </view>
+        <view class="weui-flex">
+            <navigator url="/pages/my-coupon/index" hover-class="none" class="weui-cell weui-flex__item">
+                <view class="icon-addbg icon-bg-stack">
+                    <text class="icon-stack"></text>
+                </view>
+                <view class="weui-cell__bd">优惠券</view>
+                <view class='add-bor'></view>
+            </navigator>
+            <navigator url="/pages/my-invitation/my-invitation" hover-class="none" class="weui-cell weui-flex__item">
+                <view class="icon-addbg icon-light-blue">
+                    <text class="icon-user-plus"></text>
+                </view>
+                <view class="weui-cell__bd">邀请有奖</view>
+            </navigator>
+        </view>
+    </view>
+    <view class="list-title">当前排队</view>
+    <block wx:for="{{IndexInfo.queueInfo}}" wx:key="index">
+        <navigator url="/pages/queue/queue" hover-class="none" class="rank-cell regular-font">
+            <view>门店：{{item.store_name}}</view>
+            <view>服务项目：{{item.service_name}}</view>
+            <view class="text-red">排队号：{{item.queue_number}}</view>
+        </navigator>
+    </block>
+    <view class="no-info" wx:if="{{!IndexInfo.queueInfo||IndexInfo.queueInfo.length==0}}">
+        暂无排队信息
+    </view>
+    <view class="list-title">当前预约</view>
+    <block wx:for="{{IndexInfo.reserveInfo}}" wx:key="index">
+        <navigator url="/pages/reservation/reservation" hover-class="none" class="rank-cell regular-font">
+            <view>门店：{{item.store_name}}</view>
+            <view>预约项目：{{item.server_name}}</view>
+            <view class="text-red">到店时间：{{item.arrive_time}}</view>
+        </navigator>
+    </block>
+    <view class="no-info" wx:if="{{!IndexInfo.reserveInfo||IndexInfo.reserveInfo.length==0}}">
+        暂无预约信息
+    </view>
+</view>

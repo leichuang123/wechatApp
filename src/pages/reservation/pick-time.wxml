@@ -1,0 +1,24 @@
+<scroll-view scroll-x="true" class="scroll-view__container">
+    <block wx:for="{{days}}" wx:key="index">
+        <view class="scroll-view-item {{dayIndex==index?'scroll-view-item__active':''}}" bindtap="dayChange" data-date="{{item.date}}" data-index="{{index}}">
+            <view>{{item.week}}</view>
+            <view>{{item.day}}</view>
+        </view>
+    </block>
+</scroll-view>
+<time-picker second-visible="{{secondVisible}}" initial-time="{{initialTime}}" bind:timechange="timeChange"></time-picker>
+<view class="weui-flex bg-white reserve-top">
+    <view class="weui-flex__item">
+        <label class="solid-rectangle"></label>表示预约已满
+    </view>
+    <view class="weui-flex__item">
+        <label class="hollow-rectangle"></label>表示可以预约
+    </view>
+</view>
+<view class='times clearfix text-center'>
+    <view class="weui-grid fs14 bg-white {{!item.status?'time-red':''}}" wx:for="{{timetable}}" wx:key="index">{{item.hour}}</view>
+</view>
+<view class="weui-btn-area">
+    <button class="weui-btn" type="primary" bindtap="saveTime">确定</button>
+</view>
+<loading wx:if="{{loading}}">加载中</loading>

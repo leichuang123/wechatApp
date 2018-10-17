@@ -1,0 +1,17 @@
+<view class="whole-scroll bg-white">
+    <view class="weui-cell">
+        <view class="face-box">
+            <view class="face-img">
+                <image src="../../assets/images/knownege.jpg" />
+            </view>
+        </view>
+        <view class="weui-cell__bd mine-name">
+            <view>明天会更好</view>
+            <view>13526367891</view>
+        </view>
+    </view>
+    <view class="code">
+        <image src="../../assets/images/code.png" />
+        <view class='text-center'>扫一扫上面的二维码图案</view>
+    </view>
+</view>

@@ -1,0 +1,36 @@
+<import src="../../common/templates/loading" />
+<view>
+    <view class="weui-tab">
+        <view class="weui-navbar bg-white">
+            <block wx:for="{{tabs}}" wx:key="index">
+                <view data-index="{{index}}" class="weui-navbar__item {{activeIndex == index ? 'weui-bar__item_on' : ''}}" bindtap="tabClick">
+                    <view class="weui-navbar__title">{{item}}</view>
+                </view>
+            </block>
+            <view class="weui-navbar__slider" style="width:{{sliderWidth}}px;left: {{sliderLeft}}px; transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px);"></view>
+        </view>
+        <view class="weui-tab__panel">
+            <block wx:for="{{coupons}}" wx:key="index">
+                <view id="{{item.id}}" class="coupon-box" bindtap='gotoDetail'>
+                    <view class="weui-flex">
+                        <view class="face-box face-pad">
+                            <view class="face-img-mine">
+                                <image src='{{item.share_img_url}}'></image>
+                            </view>
+                            <view wx:if="{{form.type==1}}" class='fc-red fs13'>
+                                可分享{{item.share_times}}次
+                            </view>
+                        </view>
+                        <view class='weui-flex__item'>
+                            <view class="cup-money">{{item.name}}</view>
+                            <view>{{item.store_name}}</view>
+                            <view class='fs14'>活动期限：{{item.start_time}}至{{item.end_time}}</view>
+                        </view>
+                    </view>
+                </view>
+            </block>
+            <template is="loading" data="{{ loadingVisible, hasData }}" />
+            <template is="loadMore" data="{{ loadMoreVisible, hasMore,hasData }}" />
+        </view>
+    </view>
+</view>

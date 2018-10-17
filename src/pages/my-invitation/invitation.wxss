@@ -1,0 +1,106 @@
+.invitation-bg {
+    width: 100%;
+    height: 720px;
+}
+
+.list-dot {
+    width: 10px;
+    height: 10px;
+    display: inline-block;
+    border-radius: 50%;
+    margin-right: 10px;
+    background-color: #000;
+}
+
+.invitation-title {
+    color: #61b8a8;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.list-item {
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+.qr-code {
+    width: 160px;
+    height: 160px;
+}
+
+image-container {
+    z-index: 999;
+}
+
+.share-pic {
+    width: 240px;
+    height: 360px;
+    border-radius: 5px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-top: -180px;
+    margin-left: -120px;
+    z-index: 999;
+}
+
+.mask {
+    position: fixed;
+    background: rgba(0, 0, 0, 0.5);
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 99;
+}
+
+.save-btn {
+    z-index: 999;
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    margin-left: -60px;
+    width: 120px;
+}
+
+.share-bar {
+    background-color: #fff;
+    height: 48px;
+    line-height: 48px;
+    padding-left: 20%;
+    padding-right: 20%;
+    text-align: center;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    font-size: 14px;
+}
+button[type=default] {
+    background-color: #fff;
+    border: none;
+    padding: 0;
+}
+
+button[size=mini] {
+    display: inline-block;
+    line-height: 48px;
+    font-size: 14px;
+    padding: auto;
+}
+
+button[type=default]:after {
+    border: none;
+}
+
+.share-icon {
+    width: 30px;
+    height: 30px;
+    vertical-align: middle;
+}
+
+.button-hover[type="default"] {
+    color: #fff;
+    background-color: #fff;
+    opacity: 1;
+}

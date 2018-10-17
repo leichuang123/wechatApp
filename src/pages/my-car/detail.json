@@ -1,0 +1,6 @@
+{
+    "navigationBarTitleText": "我的爱车",
+    "usingComponents": {
+        "car-keyboard": "../../common/components/car-keyboard/car-keyboard"
+    }
+}

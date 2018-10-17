@@ -1,0 +1,6 @@
+<import src="../../../common/templates/loading" />
+<import src="../../../common/templates/evaluations" />
+<template is="evaluations" data="{{evaluations}}"/>
+<template is="loading" data="{{ loadingVisible, hasData }}" />
+<view class="load-more" wx:if="{{hasData&&hasMore&!loadingVisible}}" bindtap='loadMore'>点击加载更多</view>
+<template is="loadMore" data="{{ loadMoreVisible, hasMore,hasData }}" />

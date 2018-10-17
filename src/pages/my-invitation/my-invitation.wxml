@@ -1,0 +1,55 @@
+<import src="../../common/templates/loading" />
+<view class='has-btm fs14'>
+    <view class="weui-flex invited-top">
+        <view class="invited">
+            <text class='icon-user-plus'></text>
+        </view>
+        <view class="weui-flex__item">
+            <div class="weui-flex">
+                <view class='weui-flex__item'>我的邀请人数：{{invitedNumber}}人</view>
+                <navigator url="/pages/my-invitation/invitation-rule" class='fc-jasper'>邀请规则></navigator>
+            </div>
+            <view class="weui-flex">
+                累计获得佣金：￥{{totalBrokerage}}
+            </view>
+        </view>
+    </view>
+    <view class="weui-cells__title">佣金明细</view>
+    <view class='text-center'>
+        <view class="weui-flex light-green td-padding">
+            <view class="weui-flex__item">
+                时间
+            </view>
+            <view class="weui-flex__item">
+                佣金来源
+            </view>
+            <view class="weui-flex__item">
+                获得佣金
+            </view>
+        </view>
+        <block wx:for="{{list}}" wx:key="index">
+            <view class="weui-flex rank-cell border-bottom">
+                <view class="weui-flex__item">
+                    {{item.create_time}}
+                </view>
+                <view class="weui-flex__item">
+                    {{item.content}}
+                </view>
+                <view class="weui-flex__item">
+                    {{item.money}}
+                </view>
+            </view>
+        </block>
+        <template is="loading" data="{{ loadingVisible, hasData }}" />
+        <view class="load-more" wx:if="{{hasData&&hasMore}}" bindtap='loadMore'>点击加载更多</view>
+        <template is="loadMore" data="{{ loadMoreVisible, hasMore,hasData }}" />
+    </view>
+</view>
+<view class="weui-flex bottom-btn">
+    <view class="weui-flex__item pad">
+        <button class="weui-btn" type="default" bindtap='goBack'>返回</button>
+    </view>
+    <view class="weui-flex__item pad">
+        <button class="weui-btn" type="primary" bindtap="gotoInvitation">去邀请好友</button>
+    </view>
+</view>

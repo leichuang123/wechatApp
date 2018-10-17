@@ -1,0 +1,18 @@
+.icon-star {
+    padding: 0 3px;
+}
+
+.img-padding {
+    padding: 5px;
+}
+
+.weui-uploader__image {
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: #fff;
+}
+
+.weui-uploader__icon--cancel {
+    margin-top: -10px;
+}

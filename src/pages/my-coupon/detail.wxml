@@ -1,0 +1,40 @@
+<view wx:if="{{!loading}}">
+    <view class="weui-panel__bd weui-panel_access bg-white mart5">
+        <view class="weui-media-box weui-media-box_appmsg">
+            <view class='marl'>
+                <view class="face-img-mine">
+                    <image src="{{coupon.pic_url}}"></image>
+                </view>
+            </view>
+            <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
+                <view class="weui-media-box__title cup-money">{{coupon.coupon_name}}</view>
+                <view class="weui-media-box__desc cup-money">￥{{coupon.deduction_money}}</view>
+            </view>
+        </view>
+        <view class='rank-cell grey fs14'>
+            <view>有效期：{{coupon.expire_time_start}}至{{coupon.expire_time_end}}</view>
+            <view>优惠说明：{{coupon.notice}}</view>
+        </view>
+    </view>
+    <view class='weui-cells'>
+        <view class='rank-cell'>
+            {{coupon.store_name}}
+        </view>
+        <view class="weui-cell" bindtap="openLocation">
+            <text class='icon-map-marker grey'></text>
+            <view class="weui-cell__bd marl5">{{coupon.store_address}}</view>
+            <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+        </view>
+        <view data-tel="{{coupon.tel}}" class="weui-cell weui-cells_after-title" bindtap="call">
+            <text class='icon-phone grey'></text>
+            <view class="weui-cell__bd marl5">
+                {{coupon.tel}}</view>
+            <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+        </view>
+    </view>
+
+    <!-- <view class='btn-single'>
+        <button class="weui-btn" type="primary">放入微信卡包</button>
+    </view> -->
+</view>
+<loading wx:if="{{loading}}">加载中</loading>

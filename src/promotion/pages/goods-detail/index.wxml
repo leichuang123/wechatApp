@@ -1,0 +1,141 @@
+<import src="../../../assets/plugins/wxParse/wxParse.wxml" />
+<view wx:if="{{!loading}}" class="has-btm">
+    <view class="bg-white">
+        <view class="weui-cell">
+            <view class="weui-cell__bd fs18">
+                {{goodsDetail.related_name}}
+            </view>
+            <view class="weui-cell__ft weui-media-box__desc padl">截止日期
+                <text class="fc-red">{{goodsDetail.end_time}}</text>
+            </view>
+        </view>
+        <view class="cell fs13 fc-gray">{{goodsDetail.intro}} </view>
+        <view class="cell">
+            <text class="fc-red">￥{{goodsDetail.promotion_price}}</text>
+            <text class="strike fs13 padl">原价：¥{{goodsDetail.ori_price}}</text>
+        </view>
+    </view>
+    <view class="bg-white mart">
+        <view bindtap="gotoStorePromotion">
+            <view class="weui-cell">
+                <view class="weui-cell__bd">{{storeDetail.store_name}}</view>
+                <view class="weui-cell__ft">
+                    <text wx:if="{{item.verify_state==1}}" class="icon-checkmark fc-green text-right">已认证</text>
+                </view>
+            </view>
+            <view class="weui-flex cell fs13">
+                <view class="weui-flex__item">
+                    <text class="direct-sale">{{storeDetail.store_sattri}}</text>总销量：{{storeDetail.orderNumber}} 总评价：{{storeDetail.evaluate_count}}</view>
+            </view>
+            <view>
+                <view class="weui-cell">
+                    <view class="weui-cell__bd">
+                        <view class="tags">
+                            <text wx:for="{{storeDetail.store_tags}}" wx:key="index">{{item}}</text>
+                        </view>
+                    </view>
+                </view>
+            </view>
+        </view>
+        <view class="weui-cell weui-cell_access fs15" hover-class="weui-cell_active" bindtap="openLocation">
+            <view class="weui-cell__bd">
+                <text class="icon-map-marker mine-icon"></text> {{storeDetail.store_address}}</view>
+            <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+        </view>
+        <view data-tel="{{storeDetail.contact}}" class="weui-cell weui-cell_access fs15" hover-class="weui-cell_active" bindtap="call">
+            <view class="weui-cell__bd">
+                <text class="icon-phone mine-icon"></text>{{storeDetail.contact}}</view>
+            <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+        </view>
+
+        <view class="weui-cell fs15">
+            <text class="icon-alarm mine-icon"></text> 营业时间：{{storeDetail.opening_hours}}
+        </view>
+    </view>
+    <view class="wx-parse__detail fs15 light-black">
+        <template is="wxParse" data="{{wxParseData:detail.nodes}}" />
+    </view>
+    <block wx:for="{{evaluations}}" wx:key="index">
+        <view class="weui-panel">
+            <view class="weui-panel__bd">
+                <view class="weui-media-box weui-media-box_small-appmsg">
+                    <view class="weui-cells weui-cells_in-small-appmsg">
+                        <view class="weui-cell">
+                            <view class="weui-cell__hd">
+                                <image src="{{item.avatar}}" class="face-img-mine" />
+                            </view>
+                            <view class="weui-cell__bd">
+                                <view class="weui-flex">
+                                    <view class="weui-flex__item small-size">{{item.mobile}}
+                                    </view>
+                                    <view class="weui-flex__item small-size">
+                                        <block wx:for="{{5}}" wx:for-item="it" wx:for-index="i" wx:key="i">
+                                            <text wx:if="{{item.star<it+0.5}}" class="icon-star-full light-grey"></text>
+                                            <text wx:if="{{item.star>=it+0.5&&item.star<it+1}}" class="icon-star-half fc-orange"></text>
+                                            <text wx:if="{{item.star>=it+1}}" class="icon-star-full fc-orange"></text>
+                                        </block>
+                                    </view>
+                                    <view class="small-size">{{item.time}}</view>
+                                </view>
+                            </view>
+                        </view>
+                        <view class="eavluate-content__padding">
+                            <view class="eavluate-content__margin small-size">
+                                {{item.content}}
+                            </view>
+                            <block wx:for="{{item.pic_url}}" wx:for-item="pic" wx:for-index="i" wx:key="i">
+                                <view class="img-box">
+                                    <image src="{{pic}}" />
+                                </view>
+                            </block>
+                            <view class="small-size">
+                                服务项目：{{item.service}}
+                            </view>
+                        </view>
+                        <block wx:for="{{item.reply}}" wx:for-item="reply" wx:for-index="i" wx:key="i">
+                            <view class="eavluate-content__padding weui-flex small-size">
+                                <view class="reply-content weui-flex__item">{{reply.content}}</view>
+                                <view class="text-right wid-time">{{reply.create_time}}</view>
+                            </view>
+                        </block>
+                    </view>
+                </view>
+            </view>
+        </view>
+    </block>
+    <view class="weui-loadmore" bindtap="gotoEvaluationList" wx:if="{{evaluations.length>0}}">
+        <view class="weui-loadmore__tips">查看全部评价</view>
+    </view>
+     <view class="weui-loadmore" wx:if="{{evaluations.length===0}}">
+        <view class="weui-loadmore__tips">暂无评价</view>
+    </view>
+</view>
+
+<view wx:if="{{imageVisible}}">
+    <view class="mask" bindtap="hideImage"></view>
+    <view>
+        <image class="share-pic" src="{{sharingImage}}"></image>
+        <view>
+            <button class="save-btn" type='primary' bindtap="saveImage">保存图片</button>
+        </view>
+    </view>
+</view>
+<view class="bottom-btn">
+    <view class="weui-flex bottom-btn__box">
+        <view class='weui-flex__item' bindtap="gotoIndex">
+            <image src='/assets/images/home.png' class='share-icon'></image>
+        </view>
+        <view class='weui-flex__item'>
+            <button class="share-btn" type='default' size='mini' open-type="share">
+                <image src='/assets/images/share-gray.png' class='share-icon'></image>
+            </button>
+        </view>
+        <view class='weui-flex__item' bindtap='generateSharingImage'>
+            <image src='/assets/images/circle-share-gray.png' class='share-icon'></image>
+        </view>
+        <view class="weui-flex__item">
+            <text class="btn-purchase" bindtap="onGotoPay">立即购买</text>
+        </view>
+    </view>
+</view>
+<loading wx:if="{{loading}}">加载中</loading>

@@ -1,0 +1,16 @@
+<view class='bg-white'>
+    <view class="icon-box text-center">
+        <icon type="success" size="50" color="#61b8a8"></icon>
+        <view class="icon-box__ctn">
+            <view class="icon-box__title">询价成功</view>
+        </view>
+    </view>
+    <view class='rank-cell mart'>
+        <view class='fc-oranges'>温馨提示：</view>
+        <view class="notice-font">如果您时间不方便，部分业务可以将资料邮寄给我们邮寄时一定要发顺丰，寄件时请注明办理什么业务。</view>
+    </view>
+    <view class='rank-cell'>
+        <button class="weui-btn" type="primary" bindtap="gotoOrderDetail">查看详情</button>
+        <button class="weui-btn" type="default" bindtap="gotoIndex">返回首页</button>
+    </view>
+</view>

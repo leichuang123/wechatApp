@@ -1,0 +1,9 @@
+.picker-view__item {
+    line-height: 50px;
+}
+.picker-view {
+    width: 100%;
+    height: 150px;
+    text-align: center;
+}
+.bg-white{background: #fff;padding:10px 15px;}

@@ -1,0 +1,105 @@
+.keyboard {
+    z-index: 9999;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: auto;
+    background: #eaf1f9;
+    display: -webkit-flex;
+    display: flex;
+    flex-wrap: wrap;
+    border-bottom: 15rpx solid #eaf1f9;
+}
+
+.fold-keyboard {
+    z-index: 9999;
+    width: 100%;
+    height: 30px;
+    background: #fff;
+    border-bottom: 1rpx solid #cdd0d5;
+    border-top: 1rpx solid #cdd0d5;
+    margin-bottom: 15rpx;
+}
+
+.keyboard-arrow {
+    font-size: 24px;
+    float: right;
+    line-height: 30px;
+    margin-right: 10px;
+    height: 30px;
+}
+
+.td {
+    font-family: "微软雅黑";
+    flex-grow: 1;
+    text-align: center;
+    font-size: 36rpx;
+    height: 100rpx;
+    line-height: 100rpx;
+    background: #fff;
+    margin: 5rpx;
+    border: 1rpx solid #cdd0d5;
+    color: #1e1e1e;
+    border-radius: 10rpx 10rpx 10rpx 10rpx;
+    box-shadow: 5rpx 5rpx 2rpx #cdd0d5;
+}
+
+.td-nor {
+    flex: 1 1 8%;
+}
+
+.td-back {
+    flex: 1 1 12%;
+    background: #ddd;
+}
+
+.td-num_back {
+    flex: 1 1 18%;
+    background: #ddd;
+}
+
+.board-bg {
+    box-shadow: 0 0 0 #e5e5e5;
+    background: #e5e5e5;
+}
+
+.del-icon {
+    width: 100%;
+    height: 100%;
+}
+
+.brand-logo {
+    width: 96rpx;
+    height: 96rpx;
+    vertical-align: middle;
+    padding-right: 20rpx;
+}
+
+.text-black {
+    color: #000;
+}
+
+.icon-angle-down {
+    text-align: right;
+    color: #999;
+    padding-right: 13px;
+    position: relative;
+}
+
+.icon-angle-down:after {
+    content: " ";
+    display: inline-block;
+    height: 8px;
+    width: 8px;
+    border-width: 0 2px 2px 0;
+    border-color: #c8c8cd;
+    border-style: solid;
+    -webkit-transform: matrix(0.71, 0.71, -.71, 0.71, 0, 0);
+    transform: matrix(0.71, 0.71, -.71, 0.71, 0, 0);
+    top: -4px;
+    position: absolute;
+    top: 50%;
+    margin-top: -8px;
+    right: 2px;
+}

@@ -1,0 +1,6 @@
+.parl { padding-right: 5px;}
+.icon-group ,.icon-alarm { color: #ED6D8E;}
+.mart { margin-top: 10px;}
+.fc14{font-size: 14px;}
+.weui-grids {border:none;background-color: #fff;margin-bottom: 10px;}
+.weui-grid { border-right: 0;border-bottom: 0;}

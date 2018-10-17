@@ -1,0 +1,5 @@
+.martb { margin-top: 5px;margin-bottom: 5px;}
+.light-green{background:#EBFAF5;}
+.border-bottom { border-bottom: 1rpx solid #d9d9d9}
+.td-padding{padding-top: 4px;padding-bottom: 4px;}
+.load-more{padding-top:5px;padding-bottom: 5px;text-align: center;font-size: 14px;}

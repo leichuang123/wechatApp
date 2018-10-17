@@ -1,0 +1,4 @@
+.weui-cells{margin-top:0;}
+.weui-cell { background: #fff;}
+.row-number { position: absolute; top: 55px; right: 12px; }
+.store-nav{padding:10px 0;}

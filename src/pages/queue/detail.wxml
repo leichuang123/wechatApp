@@ -1,0 +1,29 @@
+<view class="weui-cell weui-cell_access">
+    <view class="weui-cell__bd">
+        <view class="text-center">
+            <icon type="success" size="20" style="margin-right:20px;" />取号成功</view>
+    </view>
+</view>
+<view class="weui-cells">
+    <view class="row-box">
+        <view class="weui-cell store-nav weui-cell_access" hover-class="weui-cell_active" bindtap="gotoStoreDetail">
+            <view class="weui-cell__bd">{{queueInfo.store_name}}</view>
+            <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+        </view>
+        <view class="row-number">
+            <text>{{queueInfo.queue_number}}</text>
+            <view>{{queueInfo.station_name}}</view>
+        </view>
+        <view>车牌号： {{queueInfo.car_number}}</view>
+        <view>服务项目：{{queueInfo.service}}</view>
+        <view>取号时间：{{queueInfo.create_time}}</view>
+        <view>还需等待：{{queueInfo.wait_car}}台</view>
+        <view>预计等待：{{queueInfo.wait_minute}}分钟</view>
+        <view>付款金额：￥{{queueInfo.money}}</view>
+        <view>支付状态：{{queueInfo.is_pay}}</view>
+    </view>
+</view>
+<view class="dashed-line">听到叫号请到洗车工位，过号作废，重新排号</view>
+<view class="weui-btn-area">
+    <button class="weui-btn" type="primary" bindtap="gotoStoreDetail">返回</button>
+</view>

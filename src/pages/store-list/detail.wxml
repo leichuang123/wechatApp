@@ -1,0 +1,111 @@
+<view wx:if="{{!loading}}">
+    <view class="banner-tag">{{storeInfo.store_pic.length}}</view>
+    <view class="detail-benner">
+        <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
+            <block wx:for="{{storeInfo.store_pic}}" wx:key="index">
+                <swiper-item>
+                    <image src="{{item}}" />
+                </swiper-item>
+            </block>
+        </swiper>
+    </view>
+    <view>
+        <view wx:if="{{serviceType==='wash'}}">
+            <view class='station-list' wx:if="{{storeInfo.waitMsg===''}}">
+                <view class="weui-flex bg-grey">
+                    <view class="weui-flex__item">工位名称</view>
+                    <view class="weui-flex__item">等待车数</view>
+                    <view class="weui-flex__item">预计等待</view>
+                </view>
+                <block wx:for="{{storeInfo.station}}" wx:for-index="idx" wx:key="{{idx}}" wx:for-item="it">
+                    <view class="weui-flex">
+                        <view class="weui-flex__item">{{it.name}}</view>
+                        <view class="weui-flex__item">{{it.wait}}台</view>
+                        <view class="weui-flex__item">{{it.time}}分钟</view>
+                    </view>
+                </block>
+                <view class="take-number">
+                    <button class="weui-btn mini-btn" type="primary" size="mini" bindtap="gotoQueue">排队取号</button>
+                </view>
+            </view>
+            <view class='station-list' wx:if="{{storeInfo.waitMsg!==''}}">
+                {{storeInfo.waitMsg}}
+            </view>
+            <view class="l-height text-center text-gray">
+                {{storeInfo.waitMsg===''?'请您提前将爱车开到门店，过号作废，需重新排号':''}}
+            </view>
+        </view>
+        <view wx:if="{{serviceType==='server'}}">
+            <view class='station-list'>
+                <view class="weui-flex bg-grey">
+                    <view class="weui-flex__item">预约时间</view>
+                    <view class="weui-flex__item">还可预约</view>
+                </view>
+                <view class="weui-flex">
+                    <view class="weui-flex__item">今天</view>
+                    <view class="weui-flex__item">{{storeInfo.reserveInfo.today?storeInfo.reserveInfo.today:0}}台</view>
+                </view>
+                <view class="weui-flex">
+                    <view class="weui-flex__item">明天</view>
+                    <view class="weui-flex__item">{{storeInfo.reserveInfo.tomorrow?storeInfo.reserveInfo.tomorrow:0}}台</view>
+                </view>
+                <view class="weui-flex">
+                    <view class="weui-flex__item">后天</view>
+                    <view class="weui-flex__item">{{storeInfo.reserveInfo.aftertomorrow?storeInfo.reserveInfo.aftertomorrow:0}}台</view>
+                </view>
+                <view class="take-number reserve-dotted">
+                    <button class="weui-btn mini-btn reserve-btn" type="primary" size="mini" bindtap="gotoReservation">预约</button>
+                </view>
+            </view>
+        </view>
+    </view>
+    <view class="list-box">
+        <view class="weui-cell" data-type="0" bindtap="gotoStoreEvaluation">
+            <view class="weui-cell__bd">
+                <text>{{storeInfo.store_name}}</text>
+                <view class="l-height">
+                    <text class="direct-sale">{{storeInfo.store_sattri}}</text>总销量：{{storeInfo.sale_count}} 总评价：{{storeInfo.evaluate_count}}</view>
+                <view class="tags">
+                    <text wx:for="{{storeInfo.store_tags}}" wx:key="index">{{item}}</text>
+                </view>
+            </view>
+            <view class="navigation-width" catchtap="openLocation">
+                <view>{{storeInfo.distance}}</view>
+                <view>
+                    <text class="icon-map-marker mine-icon"></text>导航
+                </view>
+            </view>
+        </view>
+        <view class="weui-cell">
+            <view class="weui-cell__bd">
+                <text class="icon-map-marker mine-icon"></text>{{storeInfo.store_address}}</view>
+        </view>
+        <view data-tel="{{storeInfo.contact}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active" bindtap="call">
+            <view class="weui-cell__bd">
+                <text class="icon-phone mine-icon"></text>{{storeInfo.contact}}</view>
+            <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+        </view>
+        <view class="weui-cell">
+            <view class="weui-cell__bd">
+                <text class="icon-alarm mine-icon"></text>营业时间：{{storeInfo.opening_hours}}</view>
+        </view>
+        <view class="weui-cell weui-cell_access" hover-class="weui-cell_active" bindtap="gotoStorePromotion">
+            <view class="weui-cell__bd">
+                <image src="../../assets/images/promotion-active.png" class="promotion-icon2"></image>
+                促销活动
+            </view>
+            <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+        </view>
+        <view class="weui-cell weui-cell_access" hover-class="weui-cell_active" bindtap="gotoGoodsList">
+            <view class="weui-cell__bd">
+                <span class="icon-stack mine-icon"></span>服务项目</view>
+            <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+        </view>
+        <view class="weui-cell weui-cell_access" hover-class="weui-cell_active" data-type="1" bindtap="gotoStoreEvaluation">
+            <view class="weui-cell__bd">
+                <span class="icon-message mine-icon"></span>门店评价</view>
+            <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+        </view>
+    </view>
+</view>
+<loading wx:if="{{loading}}">加载中</loading>

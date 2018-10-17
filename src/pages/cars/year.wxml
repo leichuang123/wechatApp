@@ -1,0 +1,19 @@
+<view wx:if="{{!loading}}">
+    <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell">
+            <view class="weui-cell__hd">
+                <image src="{{car.logo}}" class="brand-logo"></image>
+            </view>
+            <view class="weui-cell__bd">{{car.manufacturer}}--{{car.car_department}}</view>
+        </view>
+    </view>
+    <view class="weui-cells">
+        <block wx:for="{{years}}" wx:key="id">
+            <view class="weui-cell weui-cell_access" hover-class="weui-cell_active" data-item="{{item}}" bindtap="gotoCategory">
+                <view class="weui-cell__bd">{{item.productive_year}}</view>
+                <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+            </view>
+        </block>
+    </view>
+</view>
+<loading wx:if="{{loading}}">加载中</loading>

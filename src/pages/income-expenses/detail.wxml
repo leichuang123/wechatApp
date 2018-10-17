@@ -1,0 +1,46 @@
+<view wx:if="{{!loanding}}">
+    <view class="has-btm bg-white">
+        <view class="weui-cell">
+            <view class="weui-cell__bd">{{detail.type==='I'?'收入':'支出'}}</view>
+            <view class="weui-cell__ft">{{detail.money}}</view>
+        </view>
+        <view class="weui-cell">
+            <view class="weui-cell__bd">类型</view>
+            <view class="weui-cell__ft">{{detail.type==='I'?'收入':'支出'}}</view>
+        </view>
+        <view class="weui-cell">
+            <view class="weui-cell__bd">来源</view>
+            <view class="weui-cell__ft">{{detail.content}}</view>
+        </view>
+        <view class="weui-cell">
+            <view class="weui-cell__bd">支付方式</view>
+            <view class="weui-cell__ft">微信</view>
+        </view>
+        <view class="weui-cell">
+            <view class="weui-cell__bd">时间</view>
+            <view class="weui-cell__ft">{{detail.create_time}}</view>
+        </view>
+        <view class="weui-cell">
+            <view class="weui-cell__bd">流水号</view>
+            <view class="weui-cell__ft">{{detail.flow_number}}</view>
+        </view>
+        <view class="weui-cell">
+            <view class="weui-cell__bd">余额</view>
+            <view class="weui-cell__ft">{{detail.balance}}元</view>
+        </view>
+        <view class="weui-cell">
+            <view class="weui-cell__bd">佣金来源</view>
+            <view class="weui-cell__ft">服务开单</view>
+        </view>
+        <view class="weui-cell">
+            <view class="weui-cell__bd">备注</view>
+            <view class="weui-cell__ft"></view>
+        </view>
+    </view>
+    <view class='bottom-btn'>
+        <view class='btn-single'>
+            <button class="weui-btn" type="primary" bindtap="goBack">返回</button>
+        </view>
+    </view>
+</view>
+<loading wx:if="{{loanding}}">加载中</loading>

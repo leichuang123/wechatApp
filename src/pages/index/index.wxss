@@ -1,0 +1,26 @@
+.scroll-view_H {
+    position: absolute;
+    top: 50px;
+}
+
+.icon-border text {
+    font-size: 26px;
+    border: 2px solid #61b8a8;
+    color: #61b8a8;
+    border-radius:100%;
+    padding: 10px;
+}
+
+.pad-top {
+    margin-top: 22px;
+    color: #4D4D4D;
+}
+
+.btn-list .icon-border {
+    font-size: 20px;
+}
+.bor-left { border-left: 1px solid #4D4D4D;}
+.no-info{text-align: center;color: gray;padding:10px 15px;font-size: 14px;}
+.btn-list {text-align:center;padding:10px 0 10px;}
+.regular-font{font-size: 14px;}
+button[type="primary"][plain] {border:none;}

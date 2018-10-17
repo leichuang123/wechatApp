@@ -1,0 +1,35 @@
+<import src="../../common/templates/loading" />
+<view>
+    <block wx:for="{{queueInfo}}" wx:key="index">
+        <view style="margin-bottom:15px">
+            <view class="weui-cell weui-cell_access">
+                <view class="weui-cell__bd">
+                    <view>{{item.store_name}}</view>
+                    <view class='small-size grey'>{{item.create_time}}</view>
+                </view>
+                <view class="weui-cell__ft fc-red">{{item.state_name}}
+                </view>
+            </view>
+            <view class="weui-cells">
+                <view class="row-box">
+                    <view class="row-number">
+                        <text>{{item.queue_number}}</text>
+                        <view>{{item.station_name}}</view>
+                    </view>
+                    <view>服务车牌号：{{item.car_number}}</view>
+                    <view>服务项目：{{item.service}}</view>
+                    <view>取号时间：{{item.create_time}}</view>
+                    <view>还需等待：{{item.wait_car}}台</view>
+                    <view>预计等待：{{item.wait_minute}}分钟</view>
+                    <view>付款金额：￥{{item.money}}</view>
+                    <view>支付状态：{{item.is_pay}}</view>
+                    <view class="cancel-btn" wx:if="{{item.state==1}}">
+                        <button id="{{item.id}}" size="mini" type="primary" plain="true" bindtap="onCancelQueue">取消排队</button>
+                    </view>
+                </view>
+            </view>
+            <view class="dashed-line" wx:if="{{item.state==1}}">听到叫号请到洗车工位，过号作废，重新排号</view>
+        </view>
+    </block>
+    <template is="loading" data="{{ loadingVisible, hasData }}" />
+</view>

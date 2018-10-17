@@ -1,0 +1,60 @@
+<view>
+    <view class="weui-form-preview">
+        <view class="weui-form-preview__hd">
+            <view class="weui-form-preview__item">
+                <view class="weui-form-preview__label">实时付款</view>
+                <view class="weui-form-preview__value_in-hd">￥{{form.money}}</view>
+            </view>
+        </view>
+        <view class="weui-form-preview__bd">
+            <view class="weui-form-preview__item">
+                <view class="weui-form-preview__label">门店</view>
+                <view class="weui-form-preview__value">{{form.store_name}}</view>
+            </view>
+            <view class="weui-form-preview__item">
+                <view class="weui-form-preview__label">车牌号</view>
+                <view class="weui-form-preview__value">
+                    <picker bindchange="changeCarNumber" value="{{carIndex}}" range="{{carNumbers}}">
+                        <view class="weui-select weui-select_in-select-after">{{carNumbers[carIndex]}}</view>
+                    </picker>
+                </view>
+            </view>
+            <view class="weui-form-preview__item">
+                <view class="weui-form-preview__label">商品</view>
+                <view class="weui-form-preview__value">
+                    <text style="margin-right:10px;">{{form.goods_name}}</text>x1 ￥{{form.money}}</view>
+            </view>
+            <view class="weui-form-preview__item">
+                <view class="weui-form-preview__label">合计</view>
+                <view class="weui-form-preview__value">
+                    <text style="margin-right:20px;">共1件</text>￥{{form.money}}</view>
+            </view>
+        </view>
+    </view>
+    <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell weui-cell_input">
+            <view class="weui-cell__hd">
+                <view class="remark">备注</view>
+            </view>
+            <view class="weui-cell__bd">
+                <input class="weui-input" placeholder="选填，给商家留言" maxlength="45" bindblur="getNote" />
+            </view>
+        </view>
+    </view>
+    <view class="prompt">
+        <view>
+            <text class="icon-sound"></text>温馨提示</view>
+        <view>
+            <view>在线支付后，在门店营业时间内到达提供服务的门店，即可享受服务。</view>
+        </view>
+    </view>
+
+    <view class="weui-flex">
+        <view class="weui-flex__item pad">
+            <button class="weui-btn" type="default" bindtap="payOffline">到店支付</button>
+        </view>
+        <view class="weui-flex__item pad">
+            <button class="weui-btn" type="primary" bindtap="payOnline" loading="{{loading}}">在线支付</button>
+        </view>
+    </view>
+</view>

@@ -1,0 +1,19 @@
+.weui-cells {
+    margin-bottom: 6px;
+}
+
+.order-bottom {
+    margin-bottom: 62px;
+}
+
+button {
+    font-size: 14px;
+}
+
+.order-btn {
+    min-width: 86px;
+}
+
+.bottom-btn {
+    bottom: 10px;
+}

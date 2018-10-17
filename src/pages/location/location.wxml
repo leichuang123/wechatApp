@@ -1,0 +1,62 @@
+<view class='fs14'>
+    <view class="weui-search-bar">
+        <view class="weui-search-bar__form">
+            <view class="weui-search-bar__box">
+                <icon class="weui-icon-search_in-box" type="search" size="14"></icon>
+                <input type="text" class="weui-search-bar__input" placeholder="城市/行政区" value="{{inputVal}}" focus="{{inputShowed}}" bindinput="queryCity" />
+                <view class="weui-icon-clear" wx:if="{{inputVal.length > 0}}" bindtap="clearInput">
+                    <icon type="clear" size="14"></icon>
+                </view>
+            </view>
+            <label class="weui-search-bar__label" hidden="{{inputShowed}}" bindtap="showInput">
+                <icon class="weui-icon-search" type="search" size="14"></icon>
+                <view class="weui-search-bar__text">搜索</view>
+            </label>
+        </view>
+        <view class="weui-search-bar__cancel-btn" hidden="{{!inputShowed}}" bindtap="hideInput">
+            取消
+        </view>
+    </view>
+    <scroll-view scroll-y class="weui-cells searchbar-result" wx:if="{{searchResult.length>0}}">
+        <view class="weui-cell" wx:for="{{searchResult}}" wx:key="index" hover-class="weui-cell_active" data-name="{{item.name}}" bindtap="gotoIndex">
+            <view class="weui-cell__bd">
+                <view>{{item.name}}</view>
+            </view>
+        </view>
+    </scroll-view>
+    <scroll-view scroll-y style="height: {{winHeight}};" scroll-into-view="{{toView}}">
+        <view id="cur" class="weui-cells__title letter-margin">
+            <span>定位城市</span>
+        </view>
+        <view class="rank-cell">
+            <button wx:if="{{isLocated}}" class="weui-btn" type="primary" plain="true" size="mini" style="height:80rpx;line-height:80rpx" data-name="{{city}}" bindtap="gotoIndex">
+                <text class="icon-map-marker mine-icon"></text>
+                {{city}}
+            </button>
+            <button wx:else class="weui-btn" type="primary" plain="true" size="mini" style="height:80rpx;line-height:80rpx" open-type="openSetting">
+                <text class="icon-map-marker mine-icon"></text>
+                {{city}}
+            </button>
+        </view>
+        <view id="hot" class="weui-cells__title letter-margin">热门城市</view>
+        <view class="hot-city">
+            <view class="hot-city__item" wx:for="{{hotCities}}" wx:key="index" data-name="{{item}}" bindtap="gotoIndex">
+                <view>
+                    <view hover-class="weui-cell_active">{{item}}</view>
+                </view>
+            </view>
+        </view>
+        <block wx:for="{{cities}}" wx:key="index">
+            <view id="{{item.first}}" class="weui-cells__title city-margin">{{item.first}}</view>
+            <view class="weui-cell bg-white" hover-class="weui-cell_active" wx:for="{{item.city}}" wx:for-item="city" wx:key="idx" data-name="{{city.name}}" bindtap="gotoIndex">
+                <view class="weui-cell__bd">{{city.name}}</view>
+            </view>
+        </block>
+    </scroll-view>
+    <view class="letter-search">
+        <view data-id="{{item}}" wx:for="{{letters}}" wx:key="index" bindtap="clickLetter">
+            {{item}}
+        </view>
+    </view>
+    <view hidden="{{hidden}}" class="show-letter">{{showLetter}}</view>
+</view>

@@ -1,0 +1,74 @@
+<view>
+    <view>
+        <view class="weui-search-bar">
+            <view class="weui-search-bar__form">
+                <view class="weui-search-bar__box">
+                    <icon class="weui-icon-search_in-box" type="search" size="14"></icon>
+                    <input type="text" class="weui-search-bar__input" placeholder="品牌" value="{{inputVal}}" focus="{{inputShowed}}" bindconfirm="queryBrands" />
+                    <view class="weui-icon-clear" wx:if="{{inputVal.length > 0}}" bindtap="clearInput">
+                        <icon type="clear" size="14"></icon>
+                    </view>
+                </view>
+                <label class="weui-search-bar__label" hidden="{{inputShowed}}" bindtap="showInput">
+                    <icon class="weui-icon-search" type="search" size="14"></icon>
+                    <view class="weui-search-bar__text">搜索</view>
+                </label>
+            </view>
+            <view class="weui-search-bar__cancel-btn" hidden="{{!inputShowed}}" bindtap="hideInput">取消</view>
+        </view>
+        <scroll-view scroll-y style="height: {{winHeight}};" scroll-into-view="{{toView}}">
+            <view id="hot" class="weui-cells__title letter-margin">热门品牌</view>
+            <view class="hot-brand">
+                <block wx:for="{{hotBrands}}" wx:key="index">
+                    <view data-item="{{item}}" class="hot-brand__item" catchtap="chooseBrand">
+                        <view>
+                            <image class="brand-logo" src="{{item.logo}}" />
+                        </view>
+                        <view>{{item.car_brand_name}}</view>
+                    </view>
+                </block>
+            </view>
+            <block wx:for="{{brands}}" wx:key="index" wx:for-item="item">
+                <view id="{{index}}" class="weui-cells__title letter-margin">{{index}}</view>
+                <view class="weui-cells weui-cells_after-title">
+                    <block wx:for="{{item}}" wx:key="id" wx:for-item="brand">
+                        <view data-item="{{brand}}" class="weui-cell" bindtap="chooseBrand">
+                            <image class="brand-logo" style="margin-right:10px" src="{{brand.logo}}" />{{brand.car_brand_name}}
+                        </view>
+                    </block>
+                </view>
+            </block>
+        </scroll-view>
+    </view>
+    <view class="letter-search">
+        <view data-id="{{item}}" style="height: {{lineHeight}};" wx:for="{{letters}}" wx:key="index" catchtap="clickLetter">{{item}}</view>
+    </view>
+    <view hidden="{{hidden}}" class="show-letter">
+        {{toView}}
+    </view>
+    <view class="modal" wx:if="{{open}}" bindtap="hideSeries"></view>
+    <view class="series {{open?'series-show':''}}">
+        <view class="weui-cells weui-cells_after-title">
+            <view class="weui-cell">
+                <view class="weui-cell__hd">
+                    <image src="{{car.logo}}" class="brand-logo"></image>
+                </view>
+                <view class="weui-cell__bd">{{car.car_brand_name}}</view>
+            </view>
+        </view>
+        <scroll-view scroll-y style="height:{{seriesHeight}}">
+            <block wx:for="{{series}}" wx:key="index">
+                <view class="weui-cells__title letter-margin">{{item.name}}</view>
+                <view class="weui-cells weui-cells_after-title">
+                    <block wx:for="{{item.data}}" wx:for-item="it" wx:key="id">
+                        <view data-manufacturer="{{item.name}}" data-item="{{it}}" class="weui-cell weui-cell_access" bindtap="toVolume">
+                            <view class="weui-cell__bd">{{it.car_department}}</view>
+                            <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+                        </view>
+                    </block>
+                </view>
+            </block>
+        </scroll-view>
+    </view>
+    <loading wx:if="{{loading}}">加载中</loading>
+</view>

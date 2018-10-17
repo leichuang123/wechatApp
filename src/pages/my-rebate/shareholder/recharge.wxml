@@ -1,0 +1,43 @@
+<view class="weui-panel__bd bg-white">
+    <navigator url="" class="weui-media-box weui-media-box_appmsg" hover-class="weui-cell_active">
+        <view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
+            <image class="weui-media-box__thumb" src="{{card.pic_url}}" />
+        </view>
+        <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
+            <view class="weui-media-box__title">{{card.card_name}}</view>
+        </view>
+        <view class="weui-media-box__bd fs15">
+            <view>卡号：{{card.card_number}}</view>
+            <view>余额：{{card.balance}}</view>
+        </view>
+    </navigator>
+</view>
+<view class='mart8 bg-white'>
+    <view class="weui-cell">
+        <view class="weui-cell__bd">
+            <text class='fc-red'>*</text>车牌号</view>
+        <view class="weui-cell__bd" bindtap="showKeyboard">
+            <input type="text" name="car_number" value="{{carNumber}}" maxlength="8" placeholder="" disabled />
+        </view>
+    </view>
+    <view class="weui-cell">
+        <view class="weui-cell__bd">
+            <text class='fc-red'>*</text>充值金额</view>
+        <view class="weui-cell__bd">
+            <input placeholder="0" type="digit" bindinput="getMoney" />
+        </view>
+    </view>
+    <view class="weui-cell fs14">
+        <view class="weui-cell__bd grey">分红账户余额 1000.00元</view>
+        <view class="weui-cell__ft fc-primary">全部充值</view>
+    </view>
+</view>
+<view class="weui-flex btn-bottom">
+    <view class="weui-flex__item cell">
+        <button class="weui-btn" type="primary" disabled="{{!rechargeable}}" bindtap="onRecharge">确认充值</button>
+    </view>
+    <view class="weui-flex__item cell">
+        <button class="weui-btn" type="default">取消</button>
+    </view>
+</view>
+<car-keyboard keyboard-visible="{{keyboardVisible}}" bind:hidekeyboard="hideKeyboard" bind:getcarnumber="getCarNumber"></car-keyboard>

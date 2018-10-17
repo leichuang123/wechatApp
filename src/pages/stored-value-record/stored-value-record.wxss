@@ -1,0 +1,26 @@
+.page{
+    font-size:14px;
+}
+.mart-right {
+    margin-right: 5px;
+}
+
+.table {
+    text-align: center;
+    background-color: #fff;
+}
+
+.table-header {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    background-color: #defaf3;
+}
+
+.table-row {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.s-top {
+    padding-top: 5px;
+}

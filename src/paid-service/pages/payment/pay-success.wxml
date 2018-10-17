@@ -1,0 +1,23 @@
+<view class='bg-white'>
+    <view class="icon-box text-center">
+        <icon type="success" size="50" color="#61b8a8"></icon>
+        <view class="icon-box__ctn">
+            <view class="icon-box__title">支付成功</view>
+            <view class="icon-box__title">￥{{form.money}}</view>
+        </view>
+        <view class='text-center grey mart'>您已支付成功，可以去查看详情</view>
+    </view>
+
+    <view class='rank-cell'>
+        <button class="weui-btn" type="primary" bindtap="gotoOrderDetail">查看详情</button>
+        <button class="weui-btn" type="default" bindtap="gotoIndex">返回首页</button>
+    </view>
+    <view wx:if="{{postVisible}}" class='rank-cell'>
+        <view> 邮寄信息：</view>
+        <view> 收件人： 李经理</view>
+        <view>收件电话：11111111111</view>
+        <view>邮寄地址：湖北省武汉市洪山区某某街道---号</view>
+        <view class='fc-oranges mart'>温馨提示：</view>
+        <view>邮寄时一定要发顺丰，寄件时请注明办理什么业务。</view>
+    </view>
+</view>

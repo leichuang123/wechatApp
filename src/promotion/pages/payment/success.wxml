@@ -1,0 +1,17 @@
+<view class="page">
+    <view class="weui-msg">
+        <view class="weui-msg__icon-area">
+            <icon type="success" size="93"></icon>
+        </view>
+        <view class="weui-msg__text-area">
+            <view class="weui-msg__title">支付成功</view>
+            <view class="weui-msg__desc">你购买的商品已支付成功，可以去<view class="weui-msg__link" bindtap="gotoOrderDetail">查看详情</view></view>
+        </view>
+        <view class="weui-msg__opr-area">
+            <view class="weui-btn-area">
+                <button class="weui-btn" type="primary" bindtap="gotoOrderDetail">查看详情</button>
+                <button class="weui-btn" type="default" bindtap="gotoIndex">返回首页</button>
+            </view>
+        </view>
+    </view>
+</view>

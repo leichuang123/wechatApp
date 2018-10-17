@@ -1,0 +1,17 @@
+<import src="../../../common/templates/loading" />
+<view class="whole-scroll bg-white" wx:if="{{!loadingVisible}}">
+    <view class="privilege">
+        <view class="weui-flex">
+            <view class="weui-flex__item pad-lr"></view>
+            <view>会员特权</view>
+            <view class="bg-img">
+                <image src="../../../assets/images/pri.png" />
+            </view>
+            <view class="weui-flex__item pad-lr"></view>
+        </view>
+        <view class='pri-height'>
+            <view>{{description}}</view>
+        </view>
+    </view>
+</view>
+<template is="loading" data="{{ loadingVisible,hasData}}" />

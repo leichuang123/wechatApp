@@ -1,0 +1,31 @@
+<view>
+    <block wx:if="{{keyboardVisible}}">
+        <view class="keyboard">
+            <view class="fold-keyboard" bindtap="_hideKeyboard">
+                <view class="icon-angle-down keyboard-arrow"></view>
+            </view>
+            <view wx:if="{{!alphaVisible}}" class="td {{idx == 30||idx == 38?'td-back':'td-nor'}}" wx:for="{{provinces}}" wx:for-index="idx" wx:key="index" data-index="{{idx}}" data-val="{{item}}" hover-class="board-bg" hover-start-time="0" hover-stay-time="80">
+                <view class="del-icon" wx:if="{{idx == 38}}">
+                    <image src="../../../assets/images/del_icon.png" mode="aspectFit" class="del-icon" data-index="{{idx}}" data-val="{{item}}" bindtap="tapKeyboard"></image>
+                </view>
+                <view wx:else bindtap="tapKeyboard" data-index="{{idx}}" data-val="{{item}}">
+                    {{item}}
+                </view>
+            </view>
+            <view wx:if="{{alphaVisible && !numVisible}}" class="td td-nor board-bg" wx:for="{{numbers}}" wx:for-index="idx" wx:key="index">
+                {{item}}
+            </view>
+            <view wx:if="{{alphaVisible && numVisible}}" class="td td-nor" wx:for="{{numbers}}" wx:for-index="idx" wx:key="index" bindtap="tapKeyboard" data-index="{{idx}}" data-val="{{item}}" hover-class="board-bg" hover-start-time="0" hover-stay-time="80">
+                {{item}}
+            </view>
+            <view wx:if="{{alphaVisible}}" class="td {{idx == 20||idx == 27?'td-num_back':'td-nor'}}" wx:for="{{alpha}}" wx:for-index="idx" wx:key="index" hover-class="board-bg" hover-start-time="0" hover-stay-time="80">
+                <view class="del-icon" wx:if="{{idx == 27}}">
+                    <image src="../../../assets/images/del_icon.png" mode="aspectFit" class="del-icon" data-index="{{idx}}" data-val="{{item}}" bindtap="tapKeyboard"></image>
+                </view>
+                <view wx:else="{{idx != 27}}" bindtap="tapKeyboard" data-index="{{idx}}" data-val="{{item}}">
+                    {{item}}
+                </view>
+            </view>
+        </view>
+    </block>
+</view>

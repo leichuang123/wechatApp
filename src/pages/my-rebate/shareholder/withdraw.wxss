@@ -1,0 +1,14 @@
+.title-img { width: 40px;height: 40px;display: inline-block;background: #ccc;color: #fff;border-radius: 100%;text-align: center;line-height: 40px;margin-right: 10px;}
+/* .weui-cell::before{border:none;} */
+
+.account-balance{
+    color: #999;
+    font-size: 14px;
+}
+.withdraw-notice{
+    color: #e51c23;
+    padding:10px 15px;
+    font-size: 14px;  
+}
+.fs14{font-size:14px;}
+.text-gray{color:#999;}

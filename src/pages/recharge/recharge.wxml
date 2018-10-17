@@ -1,0 +1,58 @@
+<!--pages/recharge/recharge.wxml-->
+<view class="bg-white clearfix">
+  <view class="weui-cell">
+    <view class="weui-cell__bd">
+      <view>充值金额</view>
+    </view>
+    <view class="weui-cell__bd">
+      <input class="weui-input" type="number" pattern="[0-9]*" placeholder="请输入充值金额" />
+
+    </view>
+    <view>元</view>
+  </view>
+  <view class="largess">赠送100元</view>
+</view>
+<view class="recharge-amuount">
+  <view class="weui-flex">
+    <view class="weui-flex__item">
+      <view class='charge-money'>100元
+        <text>赠送10元</text>
+      </view>
+    </view>
+    <view class="weui-flex__item">
+      <view class='charge-money'>500元
+        <text>赠送500元</text>
+      </view>
+    </view>
+    <view class="weui-flex__item">
+      <view class='charge-money'>1000元
+        <text>赠送1000元</text>
+      </view>
+    </view>
+  </view>
+  <view class="weui-flex">
+    <view class="weui-flex__item">
+      <view class='charge-money'>2000元
+        <text>赠送2000元</text>
+      </view>
+    </view>
+    <view class="weui-flex__item">
+      <view class='charge-money'>3000元
+        <text>赠送3000元</text>
+      </view>
+    </view>
+    <view class="weui-flex__item">
+      <view class='charge-money'>5000元
+        <text>赠送5000元</text>
+      </view>
+    </view>
+  </view>
+</view>
+<view class="weui-flex">
+  <view class="weui-flex__item pad">
+    <button class="weui-btn" type="default">取消</button>
+  </view>
+  <view class="weui-flex__item pad">
+    <button class="weui-btn" type="primary">立即充值</button>
+  </view>
+</view>

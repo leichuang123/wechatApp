@@ -1,0 +1,5 @@
+{
+    "navigationBarTitleText": "计次记录",
+    "enablePullDownRefresh": true,
+    "onReachBottomDistance":50
+}

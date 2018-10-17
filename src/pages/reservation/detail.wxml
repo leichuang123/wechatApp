@@ -1,0 +1,23 @@
+<view class="weui-cell bg-white">
+    <view class="weui-cell__bd">
+        <view class="text-center">
+            <icon type="success" size="20" color="green" style="margin-right:20px;" />预约成功</view>
+    </view>
+</view>
+<view class="weui-cells weui-cells_after-title">
+    <view class="weui-cell weui-cell_access" hover-class="weui-cell_active" bindtap="gotoStoreDetail">
+        <view class="weui-cell__bd">{{reservationInfo.store_name}}</view>
+        <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+    </view>
+</view>
+<view class="weui-cells weui-cells_after-title">
+    <view class="row-box">
+        <view>服务车牌号： {{reservationInfo.car_number}}</view>
+        <view>预约到店：{{reservationInfo.reserve_time}}</view>
+        <view>服务类型：{{reservationInfo.category}}</view>
+    </view>
+</view>
+<view class="dashed-line">工作人员会尽快与您联系，请保持电话畅通</view>
+<view class="weui-btn-area">
+    <button class="weui-btn" type="primary" bindtap="gotoStoreDetail">返回</button>
+</view>

@@ -1,0 +1,91 @@
+.zindex {
+    z-index: 99;
+}
+
+.cue {
+    padding: 8px 15px;
+    background: #f2dbaa;
+}
+
+.hot-brand {
+    display: -webkit-flex;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 5px 15px;
+    background: #fff;
+}
+
+.hot-brand__item {
+    flex: 1 1 20%;
+    flex-grow: 1;
+    text-align: center;
+    margin: 5px;
+}
+
+.brand-logo {
+    width: 96rpx;
+    height: 96rpx;
+    vertical-align: middle;
+}
+
+.letter-search {
+    position: fixed;
+    width: 15px;
+    right: 5px;
+    text-align: center;
+    font-size: 13px;
+    margin-top: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 99;
+}
+
+.letter-margin {
+    margin-top: 0.3em;
+    margin-bottom: 0.3em;
+}
+
+.brand-top {
+    margin-top: 0;
+}
+
+.show-letter {
+    width: 160rpx;
+    height: 160rpx;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 50%;
+    line-height: 160rpx;
+    text-align: center;
+    font-size: 10vw;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 999;
+    color: #fff;
+}
+
+.series {
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 100%;
+    background-color: #fff;
+    z-index: 9999;
+    transition: All 0.4s ease;
+}
+
+.series-show {
+    transform: translate(-82%, 0%);
+}
+
+.modal {
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    opacity: 0.1;
+    z-index: 9998;
+}

@@ -1,0 +1,5 @@
+.grid image{ width:40px;height: 40px;}
+
+.weui-grid {
+    border:none;
+}

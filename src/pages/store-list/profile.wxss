@@ -1,0 +1,33 @@
+.weui-cell {
+    background: #fff;
+}
+
+.has-menu {
+    display: none;
+}
+
+.has-menu.active {
+    display: block;
+}
+
+.evaluate-time__right {
+    float: right;
+    color: #999;
+    font-size: 13px;
+}
+
+.eavluate-content__padding {
+    padding:0 15px 15px 60px;
+}
+
+.eavluate-content__margin {
+    margin-bottom: 10px;
+}
+.reply-content{color: #61b8a8;}
+.weui-panel {
+    margin-top: 1px;
+}
+.face-img-mine { width: 40px; height: 40px; border-radius: 50%; margin-right:5px;overflow: hidden; }
+.wid-time { width:105px;}
+
+

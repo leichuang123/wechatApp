@@ -1,0 +1,33 @@
+<import src="../../common/templates/loading" />
+<view>
+    <view class="weui-tab">
+        <view class="weui-navbar bg-white">
+            <block wx:for="{{tabs}}" wx:key="*this">
+                <view id="{{index}}" class="weui-navbar__item {{activeIndex == index ? 'weui-bar__item_on' : ''}}" bindtap="tabClick">
+                    <view class="weui-navbar__title">{{item}}</view>
+                </view>
+            </block>
+            <view class="weui-navbar__slider" style="width:{{sliderWidth}}px;left: {{sliderLeft}}px; transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px);"></view>
+        </view>
+        <view class="weui-tab__panel">
+            <block wx:for="{{coupons}}" wx:key="index">
+                <navigator url="detail?id={{item.id}}" class="coupon-box">
+                    <view class="weui-flex">
+                        <view class="face-box face-pad">
+                            <view class="face-img-mine">
+                                <image src='{{item.pic_url}}'></image>
+                            </view>
+                        </view>
+                        <view class='weui-flex__item'>
+                            <view class="cup-money">{{item.coupon_name}}</view>
+                            <view>{{item.store_name}}</view>
+                            <view class='fs13'>有效期：{{item.expire_time_start}}至{{item.expire_time_end}}</view>
+                        </view>
+                    </view>
+                </navigator>
+            </block>
+            <template is="loading" data="{{ loadingVisible, hasData }}" />
+            <template is="loadMore" data="{{ loadMoreVisible, hasMore,hasData }}" />
+        </view>
+    </view>
+</view>

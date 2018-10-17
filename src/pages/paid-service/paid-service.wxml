@@ -1,0 +1,12 @@
+<import src="../../common/templates/loading" />
+<view class="weui-grids bg-white">
+    <block wx:for="{{businessClassList}}" wx:key="index">
+        <navigator url="../../paid-service/pages/business/business?id={{item.id}}" class="weui-grid" hover-class="weui-grid_active">
+            <view class='text-center grid'>
+                <image src="{{item.logo}}"></image>
+            </view>
+            <view class="weui-grid__label">{{item.name}}</view>
+        </navigator>
+    </block>
+</view>
+<template is="loading" data="{{ loadingVisible,hasData}}" />

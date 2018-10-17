@@ -1,0 +1,11 @@
+<view class="weui-cells weui-cells_after-title">
+  <view class="weui-cell">
+    <view class="weui-cell__bd">
+      <textarea class="weui-textarea" placeholder="您的意见对我们很重要" style="height: 3.3em" bindinput="getContent"/>
+      <view class="weui-textarea-counter"><text>{{cntentLength}}</text>/200</view>
+    </view>
+  </view>
+</view>
+<view class="pad text-right">
+<button class="weui-btn mini-btn" type="primary" size="mini" bindtap="submit">提交</button>
+</view>

@@ -1,0 +1,35 @@
+.mart {
+    margin-top: 8px;
+}
+
+.weui-uploader__image {
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: #fff;
+}
+
+.weui-uploader__icon--cancel {
+    margin-top: -10px;
+}
+
+.notice-title {
+    margin-top: 0.3em;
+    color: #000;
+    font-size: 17px;
+    border-top: solid #ddd 1px;
+}
+
+.btn-padding {
+    padding: 8px 15px;
+}
+.weui-cell_form{
+    background-color: #FFFFFF;
+    line-height: 1.47058824;
+    font-size: 17px;
+    overflow: hidden;
+    position: relative;
+}
+.form-items{
+    margin-bottom: 10px;
+}

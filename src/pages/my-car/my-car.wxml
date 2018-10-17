@@ -1,0 +1,43 @@
+<import src="../../common/templates/loading" />
+<view>
+    <view class="weui-cell" wx:if="{{carVisible}}">
+        <view class="weui-cell__bd">
+            <view class="weui-flex licence-plate">
+                <view class="weui-flex__item text-center">{{carNumber}}</view>
+            </view>
+        </view>
+        <view class="weui-cell__ft">
+            <button class="weui-btn" type="primary" size="mini" plain="true" bindtap="gotoCars">完善信息</button>
+        </view>
+    </view>
+    <block wx:for="{{cars}}" wx:key="index">
+        <view class="bg-white">
+            <navigator url="detail?id={{item.id}}&&action=" hover-class="none" class="weui-cell">
+                <view class="car-log">
+                    <image src="{{item.car_brand_logo}}" />
+                </view>
+                <view class="weui-cell__bd">
+                    <view wx:if="{{item.car_brand!==null}}">{{item.car_brand}}-{{item.car_serie}}</view>
+                    <view wx:if="{{item.car_category!==null}}">{{item.car_category}}</view>
+                    <view>{{item.car_number}}</view>
+                </view>
+            </navigator>
+            <view class="footer-btn">
+                <view class="weui-flex">
+                    <view class="weui-flex__item pad">
+                        <button class="weui-btn" wx:if="{{item.is_default==1}}" size="mini" disabled="true" type="primary" plain="true">已默认</button>
+                        <button data-item="{{item}}" class="weui-btn" size="mini" wx:if="{{item.is_default!=1}}" type="primary" plain="true" bindtap="setDefault">设为默认</button>
+                    </view>
+                    <view class="weui-flex__item pad">
+                        <button data-item="{{item}}" class="weui-btn" size="mini" type="primary" plain="true" bindtap="deleteCar">删除</button>
+                    </view>
+                </view>
+            </view>
+        </view>
+    </block>
+    <view class="weui-btn-area" wx:if="{{cars.length>0}}">
+        <button class="weui-btn" type="primary" bindtap="gotoAddCar">添加车辆</button>
+    </view>
+     <template is="loading" data="{{ loadingVisible, hasData }}" />
+</view>
+<loading wx:if="{{loading}}">加载中</loading>

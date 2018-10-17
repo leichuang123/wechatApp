@@ -1,0 +1,25 @@
+<import src="../../../common/templates/loading" />
+<view class="weui-tab">
+    <view class="weui-navbar">
+        <view class="weui-navbar__item" bindtap="tabClick">
+            <view class="weui-navbar__title">联系人</view>
+        </view>
+        <view class="weui-navbar__item" bindtap="tabClick">
+            <view class="weui-navbar__title">名称</view>
+        </view>
+        <view class="weui-navbar__item" bindtap="tabClick">
+            <view class="weui-navbar__title">分红收入</view>
+        </view>
+    </view>
+    <view class="weui-tab__panel fs14">
+        <block class="bg-white" wx:for="{{customers}}" wx:key="index">
+            <view class="weui-flex text-center space6  bg-white">
+                <view class="weui-flex__item">{{item.customer_name}}</view>
+                <view class="weui-flex__item">{{item.nickname}}</view>
+                <view class="weui-flex__item fc-red">{{item.total_money}}</view>
+            </view>
+        </block>
+        <template is="loading" data="{{ loadingVisible,hasData}}" />
+        <template is="loadMore" data="{{ loadMoreVisible, hasMore,hasData }}" />
+    </view>
+</view>

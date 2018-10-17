@@ -1,0 +1,17 @@
+.mart {
+    margin-top: 10px;
+}
+.space6 {
+    padding-top: 6px;
+    padding-bottom: 6px;
+}
+.section {
+    position: absolute;
+    top: 40%;
+    transform: translateY(-50%);
+    width: 100%;
+}
+.bort {
+    border-top: 1px solid #61b8a8;
+    padding-top: 8px;
+}

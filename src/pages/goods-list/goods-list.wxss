@@ -1,0 +1,154 @@
+.pad-right {
+    padding-right: 13px;
+    font-size: 21px;
+    color: #595758;
+}
+
+.line-set {
+    font-weight: bold;
+    line-height: 110rpx;
+    padding-left: 30rpx;
+    color: #595758;
+}
+
+.contact-btn {
+    color: #61b8a8;
+    margin-bottom: -10rpx;
+}
+
+.item-box {
+    opacity: 0;
+    position: relative;
+    background-color: #fff;
+    line-height: 1.41176471;
+    font-size: 28rpx;
+    transform: translateY(-50%);
+    transition: 0.3s;
+}
+
+.item-box-show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.service-item {
+    opacity: 0;
+    position: relative;
+    transform: translateY(-50%);
+    transition: 0.3s;
+}
+
+.service-item-show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.item {
+    padding: 20rpx 30rpx;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.item:before {
+    content: " ";
+    position: absolute;
+    left: 30rpx;
+    top: 0;
+    right: 30rpx;
+    height: 1px;
+    border-top: 1rpx solid #d8d8d8;
+    color: #d8d8d8;
+}
+
+.item:first-child:before {
+    display: none;
+}
+
+.item-text {
+    flex: 1;
+}
+
+.kind-list-item {
+    margin: 10rpx 0;
+    background-color: #fff;
+    border-radius: 4rpx;
+    overflow: hidden;
+}
+
+.kind-list-item:first-child {
+    margin-top: 0;
+}
+
+.kind-list-text {
+    flex: 1;
+}
+
+.kind-list-item-hd {
+    padding: 20rpx 30rpx;
+    display: flex;
+    align-items: center;
+    transition: opacity 0.3s;
+}
+
+.kind-list-item-bd {
+    height: 0;
+    overflow: hidden;
+}
+
+.kind-list-item-bd-show {
+    height: auto;
+}
+
+.weui-form-preview__bd {
+    padding: 0 15px 30px 44px;
+}
+
+.service-num__margin {
+    margin-left: 8rpx;
+}
+
+.item-title__mf {
+    margin-left: 10rpx;
+}
+
+.cs-title {
+    font-size: 12px;
+    position: fixed;
+    bottom: 0;
+    right: 200rpx;
+}
+
+.small-text {
+    float: left;
+    margin-right: 1em;
+    padding-left: 9px;
+    color: #999;
+}
+
+.cs-button {
+    background-color: rgba(255, 255, 255, 0);
+    border: none;
+    width: 50rpx;
+    height: 70rpx;
+    position: fixed;
+    right: 200rpx;
+}
+
+button[open-type="contact"] {
+    border: 0;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.cs-button:after {
+    border: 0px;
+}
+
+.cs-image {
+    width: 50rpx;
+    height: 50rpx;
+    bottom: 40rpx;
+    right: 200rpx;
+    z-index: 9999;
+}

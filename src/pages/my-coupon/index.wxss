@@ -1,0 +1,3 @@
+/* pages/coupon/CouponList.wxss */
+.mart5 { margin-top: 5px;}
+.card-circle-icon { font-size: 30px;}

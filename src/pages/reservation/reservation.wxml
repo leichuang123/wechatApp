@@ -1,0 +1,64 @@
+<import src="../../common/templates/loading" />
+<view>
+    <view class="weui-tab">
+        <view class="weui-navbar bg-white">
+            <block wx:for="{{tabs}}" wx:key="*this">
+                <view id="{{index}}" data-state="{{index+1}}" class="weui-navbar__item {{activeIndex == index ? 'weui-bar__item_on' : ''}}" bindtap="tabClick">
+                    <view class="weui-navbar__title">{{item}}</view>
+                </view>
+            </block>
+            <view class="weui-navbar__slider" style="width:{{sliderWidth}}px;left: {{sliderLeft}}px; transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px);"></view>
+        </view>
+        <view class="weui-tab__panel">
+            <block wx:for="{{reservations}}" wx:key="index">
+                <view class="weui-cells weui-cells_after-title">
+                    <view class="weui-cell">
+                        <view class="weui-cell__bd">
+                            <view>预约车牌号</view>
+                        </view>
+                        <view class="weui-cell__ft text-color">{{item.car_number}}</view>
+                    </view>
+                    <view class="weui-cell">
+                        <view class="weui-cell__bd">
+                            <view>预约门店</view>
+                        </view>
+                        <view class="weui-cell__ft text-color">{{item.store_name}}</view>
+                    </view>
+                    <view class="weui-cell">
+                        <view class="weui-cell__bd">
+                            <view>预约项目</view>
+                        </view>
+                        <view class="weui-cell__ft text-color">{{item.category}}</view>
+                    </view>
+                    <view class="weui-cell">
+                        <view class="weui-cell__bd">
+                            <view>到店时间</view>
+                        </view>
+                        <view class="weui-cell__ft text-color">{{item.reserve_time}}</view>
+                    </view>
+                    <view class="weui-cell">
+                        <view class="weui-cell__bd">
+                            <view>状态</view>
+                        </view>
+                        <view class="text-right state-color">{{item.state}}</view>
+                    </view>
+                    <view class="weui-cell" wx:if="{{item.state==='待处理'}}" data-tel="{{item.store_mobile}}" hover-class="weui-cell_active" bindtap="call">
+                        <view class="weui-cell__bd">
+                            <view>联系电话</view>
+                        </view>
+                        <view class="text-right">
+                            {{item.store_mobile}}
+                            <text class="icon-phone mine-icon"></text>
+                        </view>
+                    </view>
+                    <view class="weui-cell" wx:if="{{item.state==='待处理'}}" id="{{item.id}}" hover-class="weui-cell_active" bindtap="onCancelReservation">
+                        <view class="weui-cell__bd cancel-btn">
+                            <view>取消预约</view>
+                        </view>
+                    </view>
+                </view>
+            </block>
+            <template is="loading" data="{{ loadingVisible, hasData}}" />
+        </view>
+    </view>
+</view>

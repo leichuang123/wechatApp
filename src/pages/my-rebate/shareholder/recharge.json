@@ -1,0 +1,6 @@
+{
+    "usingComponents":
+    {
+        "car-keyboard": "../../../common/components/car-keyboard/car-keyboard"
+    }
+}

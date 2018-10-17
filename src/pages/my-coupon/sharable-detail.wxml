@@ -1,0 +1,63 @@
+<view wx:if="{{!loading}}">
+    <view class="weui-panel__bd weui-panel_access bg-white mart5">
+        <view class="weui-media-box weui-media-box_appmsg">
+            <view class='marl'>
+                <view class="face-img-mine">
+                    <image src="{{coupon.share_img_url}}"></image>
+                </view>
+            </view>
+            <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
+                <view class="weui-media-box__title cup-money">{{coupon.name}}</view>
+                <view class="weui-media-box__desc cup-money">￥{{coupon.deduction_money}}</view>
+            </view>
+        </view>
+        <view class='rank-cell fs13'>
+            <view>活动期限：{{coupon.start_time}}至{{coupon.end_time}}</view>
+            <view>优惠说明：{{coupon.instructions}}</view>
+        </view>
+        <view class='rank-cell fs13'>
+            <view class='fc-red'>可分享次数：{{coupon.share_times}}</view>
+            <view wx:if="{{coupon.award_coupon_name!=''}}">
+                <view class='fc-red'>分享奖励：{{coupon.award_coupon_name}}</view>
+                <view class='grey'>说明：达到分享数量后可进行奖励，同一个活动不会进行重复奖励</view>
+            </view>
+        </view>
+        <view class='btn-single' wx:if="{{form.type==1}}">
+            <button class="weui-btn" type="primary" open-type='share'>分享给好友</button>
+        </view>
+    </view>
+    <view class='weui-cells'>
+        <view class='rank-cell'>
+            {{coupon.store_name}}
+        </view>
+        <view class="weui-cell" bindtap="openLocation">
+            <text class='icon-map-marker grey'></text>
+            <view class="weui-cell__bd marl8">{{coupon.store_address}}</view>
+            <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+        </view>
+        <view data-tel="{{coupon.tel}}" class="weui-cell weui-cells_after-title" bindtap="call">
+            <text class='icon-phone grey'></text>
+            <view class="weui-cell__bd marl8">
+                {{coupon.tel}}</view>
+            <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+        </view>
+    </view>
+    <view class='bg-white fs14'>
+        <view class='center-title'>领取记录</view>
+        <view wx:if="{{!!coupon.get_record&&coupon.get_record.length>0}}">
+            <block wx:for="{{coupon.get_record}}" wx:key="index">
+                <view class="weui-cells weui-cells_after-title fs14">
+                    <view class="weui-cell">
+                        <view class="weui-cell__hd member-face">
+                            <image src="{{item.receiver_avatar}}"></image>
+                        </view>
+                        <view class="weui-cell__bd">{{item.receiver_nick_name}}</view>
+                        <view class="weui-cell__ft grey">{{item.create_time}}</view>
+                    </view>
+                </view>
+            </block>
+        </view>
+        <view class='text-center grey' wx:else>暂无领取记录</view>
+    </view>
+</view>
+<loading wx:if="{{loading}}">加载中</loading>

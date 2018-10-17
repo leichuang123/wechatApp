@@ -1,0 +1,106 @@
+<view wx:if="{{!loading}}">
+    <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell bg-white">
+            <view class="weui-cell__bd">订单状态</view>
+            <view class="weui-cell__ft">
+                <text class="fc-orange">{{orderInfo.state}}</text>
+            </view>
+        </view>
+    </view>
+    <view class="weui-cells weui-cells_after-title" wx:if="{{orderInfo.category_value!=6}}">
+        <view class="rank-cell">
+            <text> {{orderInfo.store_name}}</text>
+        </view>
+        <view class="weui-cell">
+            <view class="detail-img">
+                <image src="{{orderInfo.store_template}}" />
+            </view>
+            <view class="weui-cell__bd">
+                <view>{{orderInfo.store_address}}</view>
+                <view class="weui-cell__bd" bindtap="openLocation">
+                    <text class="icon-map-marker mine-icon"></text>导航去门店</view>
+            </view>
+        </view>
+    </view>
+    <view class="weui-cells weui-cells_after-title" wx:if="{{orderInfo.category_value!=6}}">
+        <block wx:for="{{orderInfo.goods}}" wx:key="index">
+            <view class="weui-cell">
+                <view class="list-img">
+                    <image src="{{item.goods_img}}" />
+                </view>
+                <view class="weui-cell__bd">
+                    <view>{{item.goods_name}}</view>
+                </view>
+                <view class="weui-cell__ft">
+                    <text class="fc-orange">￥{{item.goods_price}}</text>
+                    <view>×{{item.buy_num}}</view>
+                </view>
+            </view>
+        </block>
+        <view class="weui-cell">
+            <view class="weui-cell__bd">
+                <view>共{{orderInfo.goods.length}}件</view>
+            </view>
+            <view class="weui-cell__ft">
+                <text class="fc-orange">￥{{orderInfo.actual_price}}</text>
+            </view>
+        </view>
+    </view>
+    <view class="weui-cells weui-cells_after-title" wx:if="{{orderInfo.category_value==6}}">
+        <view class="weui-cell">
+            <view class="weui-cell__bd">
+                <view>{{orderInfo.content}}</view>
+            </view>
+            <view class="weui-cell__ft">
+                <text class="fc-orange">￥{{orderInfo.actual_price}}</text>
+            </view>
+        </view>
+        <view class="weui-cell">
+            <view class="weui-cell__bd">
+                <view>共1件</view>
+            </view>
+            <view class="weui-cell__ft">
+                <text class="fc-orange">￥{{orderInfo.actual_price}}</text>
+            </view>
+        </view>
+    </view>
+    <view class="weui-cells weui-cells_after-title order-bottom">
+        <view class="rank-cell">
+            <view>订单编号：{{orderInfo.order_number}}</view>
+            <view>下单时间：{{orderInfo.create_time}}</view>
+            <view>车牌号：{{orderInfo.car_number}}</view>
+            <view wx:if="{{form.type==2||form.type==3||form.type==4}}">支付方式：{{orderInfo.payment_method}}</view>
+            <view wx:if="{{form.type==2||form.type==3||form.type==4}}">付款时间：{{orderInfo.update_time}}</view>
+            <view wx:if="{{form.type==3||form.type==4}}">完成时间：{{orderInfo.finish_time}}</view>
+        </view>
+    </view>
+    <view class="bottom-btn">
+        <view class="weui-flex text-center">
+            <view class="weui-flex__item" wx:if="{{form.type==1||form.type==2}}">
+                <button class="weui-btn order-btn" type="primary" plain="true" size="mini" open-type="contact">在线咨询</button>
+            </view>
+            <view class="weui-flex__item" wx:if="{{orderInfo.category_value==6&&(form.type==2||form.type==3)}}">
+                <button class="weui-btn order-btn" type="primary" plain="true" size="mini" bindtap="gotoComplain">投诉</button>
+            </view>
+            <view class="weui-flex__item" wx:if="{{form.type==1}}">
+                <button class="weui-btn order-btn" type="default" plain="true" size="mini" bindtap="onCancelOrder">取消订单</button>
+            </view>
+            <view class="weui-flex__item" wx:if="{{form.type==1}}">
+                <button class="weui-btn order-btn" type="primary" size="mini" bindtap="pay">立即付款</button>
+            </view>
+            <view class="weui-flex__item" wx:if="{{orderInfo.category_value!=6&&(form.type==2||form.type==3)}}">
+                <button class="weui-btn order-btn" type="primary" plain="true" size="mini" bindtap="onApplyForRefund">申请退款</button>
+            </view>
+            <view class="weui-flex__item" wx:if="{{orderInfo.category_value==6&&form.type==3}}">
+                <button class="weui-btn order-btn" type="primary" plain="true" size="mini" bindtap="gotoProgresss">查看进度</button>
+            </view>
+            <view class="weui-flex__item" wx:if="{{orderInfo.category_value==6&&form.type==2}}">
+                <button class="weui-btn order-btn" type="primary" size="mini" bindtap="confirmFinish">确认完成</button>
+            </view>
+            <view class="weui-flex__item" wx:if="{{form.type==3}}">
+                <button class="weui-btn order-btn" type="primary" size="mini" bindtap="gotoEvaluate">评价</button>
+            </view>
+        </view>
+    </view>
+</view>
+<loading wx:if="{{loading}}">加载中</loading>

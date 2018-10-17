@@ -1,0 +1,5 @@
+{
+    "usingComponents": {
+        "time-picker": "../../common/components/time-picker/time-picker"
+    }
+}

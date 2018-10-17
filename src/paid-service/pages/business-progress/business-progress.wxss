@@ -1,0 +1,2 @@
+/* pages/CheckProgress/CheckProgress.wxss */
+.success{background: #3bbca5}

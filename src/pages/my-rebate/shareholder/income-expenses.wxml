@@ -1,0 +1,35 @@
+<import src="../../../common/templates/loading" />
+<view class="fs14">
+    <view class="weui-cell bg-white marb">
+        <view class="weui-cell__bd" bindtap="toggleMenu">
+            {{currentType}}
+            <text class="icon-caret-down2"></text>
+        </view>
+        <view class="dropdown" wx:if="{{open}}">
+            <view wx:for="{{typeList}}" wx:key="index" data-index="{{index}}" bindtap="chooseType">
+                {{item.name}}
+            </view>
+        </view>
+        <view class="weui-cell__ft">
+            <text class="time-btn {{timeIndex==index?'cur':''}}" wx:for="{{timeList}}" wx:key="index" data-index="{{index}}" bindtap="chooseMonth">{{item.name}} </text>
+        </view>
+    </view>
+    <view>
+        <template is="loading" data="{{ loadingVisible, hasData }}" />
+        <block wx:for="{{records}}" wx:key="index">
+            <navigator url="detail?id={{item.id}}" class="rank-cell border-bottom">
+                <view class="weui-flex">
+                    <view class="weui-flex__item">{{item.operate_name}}</view>
+                    <view class="weui-flex__item text-right grey">余额：{{item.balance}}</view>
+                </view>
+                <view class="weui-flex">
+                    <view class="weui-flex__item grey">{{item.create_time}}</view>
+                    <view class="weui-flex__item text-right {{item.type==='I'?'fc-jasper':'fc-orange'}}">
+                        {{item.money}}
+                    </view>
+                </view>
+            </navigator>
+        </block>
+        <template is="loadMore" data="{{ loadMoreVisible,hasMore,hasData}}" />
+    </view>
+</view>

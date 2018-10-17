@@ -1,0 +1,38 @@
+<view class='has-btm'>
+    <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell">
+            <view class="weui-cell__bd">
+                <textarea class="weui-textarea" placeholder="请输入投诉原因" style="height: 3.3em" bindinput='getReason' />
+                <view class="weui-textarea-counter">{{contentLength}}/200</view>
+            </view>
+        </view>
+    </view>
+    <view class="weui-cells__title">上传图片</view>
+    <view class="weui-cell bg-white">
+        <view class="weui-cell__bd">
+            <view class="weui-uploader">
+                <view class="weui-uploader__bd">
+                    <view class="weui-uploader__files">
+                        <block wx:for="{{imageList}}" wx:key="index">
+                            <view class="weui-uploader__file weui-uploader__file_status" data-src="{{item}}" bindtap="previewImage" >
+                                <image class="weui-uploader__img" src="{{item}}" mode="aspectFill"/>
+                                <view class="weui-uploader__image" data-index="{{index}}" catchtap="deleteImage">
+                                    <icon type="cancel" size="16" color="#F43530" class="weui-uploader__icon--cancel"></icon>
+                                </view>
+                            </view>
+                        </block>
+                    </view>
+                    <view class="weui-uploader__input-box">
+                        <view class="weui-uploader__input" bindtap="chooseImage"></view>
+                    </view>
+                </view>
+            </view>
+        </view>
+    </view>
+</view>
+<view class="bottom-btn">
+    <view class='cell'>
+        <button class="weui-btn mini-btn" type="primary" bindtap="submintComplain">提交</button>
+    </view>
+</view>
+<loading wx:if="{{loading}}">加载中</loading>

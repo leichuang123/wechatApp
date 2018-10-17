@@ -1,0 +1,20 @@
+<view class='bg-white'>
+    <view class='account-icon'>
+        <image src="/assets/images/thumb_raw.png" />
+    </view>
+    <view class='text-center'>累计收入</view>
+    <view class='text-center'>￥{{income}}</view>
+</view>
+<view class="weui-cells weui-cells_after-title ">
+    <navigator url="platform/index" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+        <view class="weui-cell__bd">平台返利</view>
+        <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+    </navigator>
+    <navigator url="shareholder/index" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+        <view class="weui-cell__bd">股东分红</view>
+        <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+    </navigator>
+</view>
+<view class='btn-bottom'>
+    <button class="weui-btn" type="primary" plain="true" bindtap="gotoMine">返回</button>
+</view>

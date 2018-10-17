@@ -1,0 +1,145 @@
+{
+    "pages": [
+        "pages/index/index",
+        "pages/paid-service/paid-service",
+        "pages/promotion/index",
+        "pages/store-list/store-list",
+        "pages/store-list/detail",
+        "pages/store-list/profile",
+        "pages/goods-list/goods-list",
+        "pages/queue/queue",
+        "pages/queue/add",
+        "pages/queue/detail",
+        "pages/record/record",
+        "pages/my-coupon/index",
+        "pages/my-coupon/list",
+        "pages/my-coupon/detail",
+        "pages/my-coupon/sharable-list",
+        "pages/my-coupon/sharable-detail",
+        "pages/my-coupon/share-detail",
+        "pages/my-coupon/share-expired",
+        "pages/my-coupon/get-coupon",
+        "pages/payment/payment",
+        "pages/payment/success",
+        "pages/evaluation/evaluation",
+        "pages/my-car/my-car",
+        "pages/my-car/add-car",
+        "pages/my-car/detail",
+        "pages/register/register",
+        "pages/mine/mine",
+        "pages/mine/code",
+        "pages/mine/favorites",
+        "pages/settings/settings",
+        "pages/settings/push-message-settings",
+        "pages/settings/feedback",
+        "pages/settings/contact-us",
+        "pages/order-list/order-list",
+        "pages/order-list/detail",
+        "pages/reservation/reservation",
+        "pages/reservation/add",
+        "pages/reservation/detail",
+        "pages/reservation/pick-time",
+        "pages/points/points",
+        "pages/location/location",
+        "pages/count-record/count-record",
+        "pages/stored-value-record/stored-value-record",
+        "pages/cars/cars",
+        "pages/cars/volume",
+        "pages/cars/category",
+        "pages/cars/year",
+        "pages/recharge/recharge",
+        "pages/withdraw-cash/withdraw-cash",
+        "pages/withdraw-cash/success",
+        "pages/withdraw-cash/record",
+        "pages/income-expenses/income-expenses",
+        "pages/income-expenses/detail",
+        "pages/my-invitation/my-invitation",
+        "pages/my-invitation/invitation",
+        "pages/my-invitation/invitation-rule",
+        "pages/get-card/index",
+        "pages/get-card/get-card",
+        "pages/get-card/expired",
+        "pages/my-card/index",
+        "pages/my-card/own/index",
+        "pages/my-card/own/detail",
+        "pages/my-card/own/get-coupon",
+        "pages/my-card/own/privilege",
+        "pages/my-card/shareable/index",
+        "pages/my-card/shareable/detail",
+        "pages/my-rebate/index",
+        "pages/my-rebate/platform/index",
+        "pages/my-rebate/shareholder/index",
+        "pages/my-rebate/shareholder/customer",
+        "pages/my-rebate/shareholder/income-expenses",
+        "pages/my-rebate/shareholder/withdraw",
+        "pages/my-rebate/shareholder/withdraw-success",
+        "pages/my-rebate/shareholder/withdraw-record",
+        "pages/my-rebate/shareholder/recharge",
+        "pages/my-rebate/shareholder/shareable-card"
+    ],
+    "subPackages": [
+        {
+            "root": "paid-service",
+            "pages": [
+                "pages/business/business",
+                "pages/business/detail",
+                "pages/business/handle",
+                "pages/business/settlement",
+                "pages/enquiry/enquiry",
+                "pages/payment/payment",
+                "pages/payment/pay-success",
+                "pages/service-term/service-term",
+                "pages/complain/complain",
+                "pages/business-progress/business-progress"
+            ]
+        },
+        {
+            "root": "promotion",
+            "pages": [
+                "pages/goods-detail/index",
+                "pages/goods-detail/evaluation-list",
+                "pages/store-goods/index",
+                "pages/payment/payment",
+                "pages/payment/success"
+            ]
+        }
+    ],
+    "window": {
+        "backgroundTextStyle": "light",
+        "navigationBarBackgroundColor": "#61B8A8",
+        "navigationBarTitleText": "伙伴养车",
+        "navigationBarTextStyle": "white"
+    },
+    "tabBar": {
+        "color": "#999",
+        "selectedColor": "#61B8A8",
+        "backgroundColor": "#fff",
+        "position": "bottom",
+        "list": [
+            {
+                "pagePath": "pages/index/index",
+                "text": "首页",
+                "iconPath": "assets/images/home.png",
+                "selectedIconPath": "assets/images/home-active.png"
+            },
+            {
+                "pagePath": "pages/promotion/index",
+                "text": "促销活动",
+                "iconPath": "assets/images/promotion.png",
+                "selectedIconPath": "assets/images/promotion-active.png"
+            },
+            {
+                "pagePath": "pages/paid-service/paid-service",
+                "text": "增值服务",
+                "iconPath": "assets/images/paid-service.png",
+                "selectedIconPath": "assets/images/paid-service-active.png"
+            },
+            {
+                "pagePath": "pages/mine/mine",
+                "text": "我的",
+                "iconPath": "assets/images/mine.png",
+                "selectedIconPath": "assets/images/mine-active.png"
+            }
+        ]
+    }
+}

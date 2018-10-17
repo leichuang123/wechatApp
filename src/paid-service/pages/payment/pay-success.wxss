@@ -1,0 +1,4 @@
+.icon-box { padding-top: 20px;margin-bottom:10px;}
+.icon-box__ctn { margin-top: 20px}
+.icon-box__title { color: #61b8a8; text-align: center;line-height: 30px; font-weight: bold;}
+.mart { margin-top:10px; }

@@ -1,0 +1,59 @@
+.left5 {
+    margin-left: 3px;
+}
+
+.weui-cell {
+    background: #fff;
+}
+
+.station-list {
+    font-size: 12px;
+}
+
+.largess-cont {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    text-align: center;
+}
+
+.head-top {
+    line-height: 2.5em;
+}
+
+.footer-btn {
+    margin: 15px 0 0 0;
+    padding: 0;
+    border-top: 1px solid #eaeaea;
+    text-align: center;
+    line-height: 3.0em;
+}
+
+.bor-r {
+    border-right: 1px solid #eaeaea;
+}
+
+.card-record__table {
+    background-color: #fff;
+    text-align: center;
+    margin-bottom: 10px;
+    font-size: 14px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.card-record__th {
+    margin-bottom: 10px;
+}
+
+.table-header {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.table-row {
+    margin-bottom: 5px;
+}
+
+.text-green {
+    color: #61b8a8;
+}

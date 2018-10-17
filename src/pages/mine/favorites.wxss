@@ -1,0 +1,33 @@
+.weui-cell {
+    background: #fff;
+}
+
+.weui-cell::before {
+    border: none;
+}
+
+.has-menu {
+    display: none;
+}
+
+.has-menu.active {
+    display: block;
+}
+
+.distance-right {
+    margin-right: 20rpx;
+}
+
+.btn-right {
+    position: absolute;
+    right: 15px;
+    top: 8px;
+}
+
+.list-item {
+    margin-bottom: 10px;
+}
+
+button[type="primary"][plain] {
+    border: none;
+}

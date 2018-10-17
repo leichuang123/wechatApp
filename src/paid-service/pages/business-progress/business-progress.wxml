@@ -1,0 +1,60 @@
+<view class="weui-cells weui-cells_after-title">
+    <view class="weui-cell">
+        <view class="weui-cell__bd">业务详情</view>
+        <view class="weui-cell__ft fc-jasper">{{form.type==2?'办理中':'已完成'}}</view>
+    </view>
+    <view class="cell">
+        <view>
+            下单时间：{{progressData.order_create_time}}
+        </view>
+        <view>
+            订单编号：{{form.order_number}}
+        </view>
+    </view>
+    <view>
+        <view class="weui-cell">
+            <view class="weui-cell__bd">
+                <view>{{form.name}}
+                    <text style="margin-left:10px;">x1</text>
+                    <text style="margin-left:50px;">￥{{form.money}}</text>
+                </view>
+            </view>
+        </view>
+        <view class='rank-cell'>共1件 合计：
+            <text class='fc-oranges'>￥{{form.money}}</text>
+        </view>
+    </view>
+</view>
+<view class="weui-cells__title">办理进度</view>
+<view class='small-size progress-title'>
+    <view class="weui-cell bg-blue" wx:if="{{progressData.order_create_time!=='1000-01-01 00:00:00'}}">
+        <view class="weui-cell__hd">下单</view>
+        <view class="weui-cell__bd">{{progressData.order_create_time}} 提交订单</view>
+    </view>
+    <view class="weui-cell bg-blue" wx:if="{{progressData.offer_time!=='1000-01-01 00:00:00'&&progressData.offer_time!==''}}">
+        <view class="weui-cell__hd">报价</view>
+        <view class="weui-cell__bd">{{progressData.offer_time}} 车务顾问进行报价</view>
+    </view>
+    <view class="weui-cell bg-blue" wx:if="{{progressData.order_pay_time!=='1000-01-01 00:00:00'}}">
+        <view class="weui-cell__hd">付款</view>
+        <view class="weui-cell__bd">{{progressData.order_pay_time}} 用户微信付款</view>
+    </view>
+    <view class="weui-cell bg-blue" wx:if="{{progressData.affirm_time!=='1000-01-01 00:00:00'}}">
+        <view class="weui-cell__hd">确认</view>
+        <view class="weui-cell__bd">{{progressData.affirm_time}} 车务顾问与您预约具体的办理时间</view>
+    </view>
+    <view class="weui-cell bg-blue" wx:if="{{progressData.handle_time!=='1000-01-01 00:00:00'}}">
+        <view class="weui-cell__hd">办理中</view>
+        <view class="weui-cell__bd">{{progressData.handle_time}} 车务顾问陪同前往车管所办理</view>
+    </view>
+    <view class="rank-cell bg-blue" wx:if="{{progressData.handle_time!=='1000-01-01 00:00:00'}}">
+        <block wx:for="{{progressData.process}}" wx:key="index">
+            <text class='add-circle'><text class="circle {{item.state==1?success:''}}"></text>{{item.name}}</text>
+        </block>
+    </view>
+    <view class="weui-cell bg-blue" wx:if="{{progressData.finish_time!=='1000-01-01 00:00:00'}}">
+        <view class="weui-cell__hd">验收</view>
+        <view class="weui-cell__bd">{{progressData.finish_time}} 办理完成，验收完毕</view>
+    </view>
+</view>
+<loading wx:if="{{loading}}">加载中</loading>

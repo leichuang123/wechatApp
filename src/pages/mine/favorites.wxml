@@ -1,0 +1,41 @@
+<import src="../../common/templates/loading" />
+<view>
+    <view class="weui-search-bar">
+        <view class="weui-search-bar__form">
+            <view class="weui-search-bar__box">
+                <icon class="weui-icon-search_in-box" type="search" size="14"></icon>
+                <input type="text" class="weui-search-bar__input" placeholder="请输入门店名" value="{{searchForm.store_name}}" focus="{{inputShowed}}" bindinput="inputTyping" bindconfirm="queryFavorites" />
+                <view class="weui-icon-clear" wx:if="{{searchForm.store_name.length > 0}}" bindtap="clearInput">
+                    <icon type="clear" size="14"></icon>
+                </view>
+            </view>
+            <label class="weui-search-bar__label" hidden="{{inputShowed}}" bindtap="showInput">
+                <icon class="weui-icon-search" type="search" size="14"></icon>
+                <view class="weui-search-bar__text">搜索</view>
+            </label>
+        </view>
+        <view class="weui-search-bar__cancel-btn" hidden="{{!inputShowed}}" bindtap="hideInput">取消</view>
+    </view>
+    <template is="loading" data="{{ loadingVisible, hasData }}" />
+    <scroll-view scroll-y style="height:{{scrollHeight}}px;" scroll-top="{{scrollTop}}" bindscrolltolower="loadMore">
+        <block wx:for="{{favorites}}" wx:key="index">
+            <view class="weui-cell list-item" data-item="{{item}}" bindtap="gotoStoreService">
+                <view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
+                    <image class="weui-media-box__thumb" src="{{item.store_img}}" />
+                </view>
+                <view class="weui-cell__bd">
+                    <view>{{item.store_name}}</view>
+                    <view class="btn-right">
+                        <button id="{{item.sid}}" class="mini-btn" type="primary" plain="true" size="mini" bindtap="deleteFavorites">删除</button>
+                    </view>
+                    <view class="l-height">
+                        <text class="direct-sale">{{item.store_sattri}}</text>总销量：{{item.popularity}} 总评价：{{item.evaluate_count}}</view>
+                    <view class="tags">
+                        <text wx:for="{{item.store_tags}}" wx:for-item="tag" wx:key="index">{{tag}}</text>
+                    </view>
+                </view>
+            </view>
+        </block>
+    </scroll-view>
+    <template is="loadMore" data="{{ loadMoreVisible,hasMore,hasData}}" />
+</view>

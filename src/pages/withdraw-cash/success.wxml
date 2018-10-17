@@ -1,0 +1,19 @@
+<view class='whole-scroll bg-white'>
+    <view class='martb'>
+        <view class='text-center'>
+            <icon type="success" size="38" color="#61b8a8"></icon>
+        </view>
+        <view class='text-center'>提现成功</view>
+    </view>
+    <view class="weui-cell">
+        <view class="weui-cell__bd">提现账户</view>
+        <view class="weui-cell__ft">微信 {{account}}</view>
+    </view>
+    <view class="weui-cell">
+        <view class="weui-cell__bd">提现金额</view>
+        <view class="weui-cell__ft">{{money}}</view>
+    </view>
+    <view class='btn-single mart30'>
+        <button class="weui-btn" type="primary" bindtap="gotoMine">完成</button>
+    </view>
+</view>

@@ -1,0 +1,172 @@
+<import src="../../common/templates/loading" />
+<view>
+    <view class="weui-tab">
+        <view class="weui-navbar tab-menu">
+            <view class="weui-navbar__item" id="area" bindtap="dropdown">
+                <view class="weui-navbar__title">
+                    {{selectedArea}}
+                    <text class="icon-active {{areaVisible?'icon-caret-up':'icon-caret-down2'}}"></text>
+                </view>
+            </view>
+            <view class="weui-navbar__item" id="serviceType" bindtap="dropdown">
+                <view class="weui-navbar__title">
+                    {{selectedService}}
+                    <text class="icon-active {{serviceVisible?'icon-caret-up':'icon-caret-down2'}}"></text>
+                </view>
+            </view>
+            <view class="weui-navbar__item" id="sort" bindtap="dropdown">
+                <view class="weui-navbar__title">
+                    {{selectedSort}}
+                    <text class="icon-active {{sortVisible?'icon-caret-up':'icon-caret-down2'}}"></text>
+                </view>
+            </view>
+        </view>
+        <view class="weui-tab__panel">
+            <view class="list-box clearfix" wx:for="{{stores}}" wx:key="index">
+                <view class="weui-media-box weui-media-box_appmsg" data-item="{{item}}" bindtap="gotoDetail">
+                    <view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
+                        <image class="weui-media-box__thumb" src="{{item.store_img}}" />
+                    </view>
+                    <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
+                        <view class="weui-flex">
+                            <view class="bold weui-flex__item">{{item.store_name}}</view>
+                            <view>
+                                <text wx:if="{{item.verify_state==1}}" class="icon-checkmark fc-green text-right">已认证
+                                </text>
+                            </view>
+                        </view>
+                        <view class=" weui-flex">
+                            <view class="pad-right">
+                                <block wx:for="{{5}}" wx:for-item="it" wx:for-index="i" wx:key="i">
+                                    <text wx:if="{{item.rate<it+0.5}}" class="icon-star-full light-grey"></text>
+                                    <text wx:if="{{item.rate>=it+0.5&&item.rate<it+1}}" class="icon-star-half fc-orange"></text>
+                                    <text wx:if="{{item.rate>=it+1}}" class="icon-star-full fc-orange"></text>
+                                </block>
+                            </view>
+                            <view wx:if="{{form.fromPage==='wash'}}" class="weui-flex__item text-right text-gray">
+                                {{item.price}}元/次
+                            </view>
+                        </view>
+                        <view class="weui-flex text-gray">
+                            <view class="weui-flex__item">距离 {{item.distance}}</view>
+                            <view class="weui-flex__item text-right">总订单 {{item.orderNumber}}</view>
+                        </view>
+                    </view>
+                </view>
+                <view class="weui-cell" wx:if="{{form.fromPage==='wash'}}">
+                    <view class="rank-btn" data-item="{{item}}" bindtap="gotoDetail">
+                        <button class="weui-btn mini-btn" type="primary" size="mini">排队</button>
+                    </view>
+                    <view class="weui-cell__bd">{{item.waitMsg}}</view>
+                    <view wx:if="{{item.wait>0}}" class="{{item.wait==1?'text-red':''}}">
+                        {{item.wait}}台
+                    </view>
+                    <view wx:if="{{item.wait===0}}" class="text-red">无需排队</view>
+                </view>
+                <view class="weui-cell" wx:if="{{form.fromPage==='server'}}">
+                    <view class="rank-btn" data-item="{{item}}" bindtap="gotoDetail">
+                        <button class="weui-btn mini-btn" type="primary" size="mini">预约</button>
+                    </view>
+                    <view class="weui-cell__bd">今天可预约</view>
+                    <view>{{item.reserve}}台</view>
+                </view>
+            </view>
+            <template is="loading" data="{{ loadingVisible,hasData}}" />
+            <template is="loadMore" data="{{ loadMoreVisible,hasMore,hasData}}" />
+        </view>
+    </view>
+    <view class="fs14">
+        <view wx:if="{{serviceVisible}}" class="dropdown-menu">
+            <view class="bg-white" wx:if="{{form.fromPage==='wash'}}">
+                <view class="weui-flex">
+                    <view class="weui-flex__item bg-grey">
+                        <radio-group bindchange="changeWashType" class="bg-white">
+                            <label class="weui-cell weui-check__label">
+                                <radio class="weui-check" value="999" checked="{{serviceAllChecked}}" />
+                                <view class="weui-cell__bd">所有服务</view>
+                                <view class="weui-cell__ft weui-cell__ft_in-radio" wx:if="{{serviceAllChecked}}">
+                                    <icon class="weui-icon-radio" type="success_no_circle" size="16"></icon>
+                                </view>
+                            </label>
+                            <label class="weui-cell weui-check__label" wx:for="{{serviceTypes}}" wx:key="index">
+                                <radio class="weui-check" value="{{index}}" checked="{{item.checked}}" />
+                                <view class="weui-cell__bd">{{item.class_name}}</view>
+                                <view class="weui-cell__ft weui-cell__ft_in-radio" wx:if="{{item.checked}}">
+                                    <icon class="weui-icon-radio" type="success_no_circle" size="16"></icon>
+                                </view>
+                            </label>
+                        </radio-group>
+                    </view>
+                </view>
+            </view>
+            <view class="bg-white" wx:if="{{form.fromPage==='server'}}">
+                <view class="weui-flex">
+                    <view class="weui-flex__item flex-grow-4">
+                        <view class="weui-cell weui-cell_access" data-index="999" bindtap="getSubTypes">
+                            <view class="weui-cell__bd">全部类型</view>
+                        </view>
+                        <block wx:for="{{serviceTypes}}" wx:key="index">
+                            <view data-index="{{index}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active" bindtap="getSubTypes">
+                                <view class="weui-cell__bd">{{item.class_name}}</view>
+                                <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+                            </view>
+                        </block>
+                    </view>
+                    <view class="weui-flex__item bg-grey flex-grow-6">
+                        <radio-group bindchange="changeServiceType" class="bg-white">
+                            <label class="weui-cell weui-check__label" wx:if="{{subTypes.length>0}}">
+                                <radio class="weui-check" value="999" checked="{{subServiceAllChecked}}" />
+                                <view class="weui-cell__bd">所有服务</view>
+                                <view class="weui-cell__ft weui-cell__ft_in-radio" wx:if="{{subServiceAllChecked}}">
+                                    <icon class="weui-icon-radio" type="success_no_circle" size="16"></icon>
+                                </view>
+                            </label>
+                            <block wx:for="{{subTypes}}" wx:key="{{index}}">
+                                <label class="weui-cell weui-check__label">
+                                    <radio class="weui-check" value="{{index}}" checked="{{item.checked}}" />
+                                    <view class="weui-cell__bd">{{item.class_name}}</view>
+                                    <view class="weui-cell__ft weui-cell__ft_in-radio" wx:if="{{item.checked}}">
+                                        <icon class="weui-icon-radio" type="success_no_circle" size="16"></icon>
+                                    </view>
+                                </label>
+                            </block>
+                        </radio-group>
+                    </view>
+                </view>
+            </view>
+        </view>
+        <view wx:if="{{areaVisible}}" class="dropdown-menu">
+            <radio-group bindchange="changeArea" class="bg-white">
+                <label class="weui-cell weui-check__label">
+                    <radio class="weui-check" value="999" checked="{{areaAllChecked}}" />
+                    <view class="weui-cell__bd">附近</view>
+                    <view class="weui-cell__ft weui-cell__ft_in-radio" wx:if="{{areaAllChecked}}">
+                        <icon class="weui-icon-radio" type="success_no_circle" size="16"></icon>
+                    </view>
+                </label>
+                <block wx:for="{{areas}}" wx:key="index">
+                    <label class="weui-cell weui-check__label">
+                        <radio class="weui-check" value="{{index}}" checked="{{item.checked}}" />
+                        <view class="weui-cell__bd">{{item.area}}</view>
+                        <view class="weui-cell__ft weui-cell__ft_in-radio" wx:if="{{item.checked}}">
+                            <icon class="weui-icon-radio" type="success_no_circle" size="16"></icon>
+                        </view>
+                    </label>
+                </block>
+            </radio-group>
+        </view>
+        <view wx:if="{{sortVisible}}" class="dropdown-menu">
+            <radio-group bindchange="changeSort" class="bg-white">
+                <block wx:for="{{sortItems}}" wx:key="index">
+                    <label class="weui-cell weui-check__label">
+                        <radio class="weui-check" value="{{index}}" checked="{{item.checked}}" />
+                        <view class="weui-cell__bd">{{item.name}}</view>
+                        <view class="weui-cell__ft weui-cell__ft_in-radio" wx:if="{{item.checked}}">
+                            <icon class="weui-icon-radio" type="success_no_circle" size="16"></icon>
+                        </view>
+                    </label>
+                </block>
+            </radio-group>
+        </view>
+    </view>
+</view>

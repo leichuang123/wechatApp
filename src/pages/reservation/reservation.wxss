@@ -1,0 +1,25 @@
+.icon-phone {
+    padding-left: 15px;
+}
+
+.reservation {
+    text-align: center;
+    background: #fff;
+}
+
+.reservation view {
+    padding: 6px;
+}
+
+.text-color {
+    color: #000;
+}
+
+.state-color {
+    color: #61b8a8;
+}
+.cancel-btn{
+    color: #61b8a8;
+    text-align: center;
+}
+.weui-cells{margin-bottom:10px;font-size: 14px;}

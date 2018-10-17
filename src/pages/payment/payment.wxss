@@ -1,0 +1,11 @@
+.remark {
+    margin-right: 0.8em;
+    width: 60px;
+}
+
+.text-right {
+    display: inline-block;
+    text-align: right;
+    color: red;
+}
+

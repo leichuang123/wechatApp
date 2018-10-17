@@ -1,0 +1,56 @@
+<import src="../../common/templates/loading" />
+<view class="weui-tab">
+    <view class="weui-navbar bg-white">
+        <block wx:for="{{tabs}}" wx:key="index">
+            <view id="{{index}}" class="weui-navbar__item {{item.id===form.promotion_source ? 'weui-bar__item_on' : ''}}" bindtap="tabClick">
+                <view class="weui-navbar__title">{{item.name}}</view>
+            </view>
+        </block>
+        <view class="weui-navbar__slider" style="width:{{sliderWidth}}px;left: {{sliderLeft}}px; transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px);"></view>
+    </view>
+    <view class="weui-tab__panel">
+    <block wx:for="{{goods}}" wx:key="index">
+        <view class="list-box">
+            <view hover-class="weui-cell_active" data-item="{{item}}" bindtap="gotoGoodsDetail">
+                <view class="weui-media-box weui-media-box_appmsg">
+                    <view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
+                        <image class="weui-media-box__thumb" src="{{item.goods_img}}" />
+                    </view>
+                    <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
+                        <view class="weui-media-box__title">{{item.related_name}}</view>
+                        <view class="weui-media-box__desc">已售
+                            <text class="fc-red padr">{{item.sales_volume}}</text>截止日期
+                            <text class="fc-red">{{item.end_time}}</text>
+                        </view>
+                        <view class="weui-media-box__title">
+                            <text class="text-red">￥{{item.promotion_price}}</text>
+                            <text class="original-price">原价：¥{{item.ori_price}}</text>
+                        </view>
+                    </view>
+                </view>
+                <view class="weui-flex cell">
+                    <view class="weui-flex__item fs13 fc-gray">{{item.intro}}</view>
+                    <view class="vertical-center" data-item="{{item}}" catchtap="onGotoPay">
+                        <button class="weui-btn mini-btn" type="primary" plain='true' size="mini">抢购</button>
+                    </view>
+                </view>
+            </view>
+            <view class="weui-panel__ft">
+                <view class="weui-cell weui-cell_access weui-cell_link" data-item="{{item}}" bindtap="gotoStorePromotion">
+                    <view class="weui-cell__bd">
+                        <text class="fc-dark">{{item.store_name}}</text>
+                        <text class="store-desc">提供商品和服务</text>
+                    </view>
+                    <view class="weui-cell__ft">
+                        {{item.distance}}
+                    </view>
+                    <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+                </view>
+            </view>
+        </view>
+    </block>
+    <template is="loading" data="{{ loadingVisible, hasData }}" />
+    <view class="load-more" wx:if="{{hasData&&hasMore&!loadingVisible}}" bindtap='loadMore'>点击加载更多</view>
+    <template is="loadMore" data="{{ loadMoreVisible, hasMore,hasData }}" /> 
+    </view>
+</view>

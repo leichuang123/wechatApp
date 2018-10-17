@@ -1,0 +1,13 @@
+<view class="bg-white">
+    <picker-view indicator-style="height: 50px;" class="picker-view weui-flex" value="{{time}}" bindchange="_timeChange">
+        <picker-view-column wx:if="{{hourVisible}}">
+            <view wx:for="{{hours}}" wx:key="index" class="picker-view__item weui-flex__item">{{item}}</view>
+        </picker-view-column>
+        <picker-view-column wx:if="{{minuteVisible}}">
+            <view wx:for="{{minutes}}" wx:key="index" class="picker-view__item weui-flex__item">{{item}}</view>
+        </picker-view-column>
+        <picker-view-column wx:if="{{secondVisible}}">
+            <view wx:for="{{seconds}}" wx:key="index" class="picker-view__item weui-flex__item">{{item}}</view>
+        </picker-view-column>
+    </picker-view>
+</view>

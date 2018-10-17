@@ -1,0 +1,5 @@
+/* pages/recharge/recharge.wxss */
+.weui-input {
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}

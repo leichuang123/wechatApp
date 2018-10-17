@@ -1,0 +1,10 @@
+.eavluate-content__padding {
+    padding: 0 15px 15px 60px;
+}
+
+.load-more {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    text-align: center;
+    font-size: 14px;
+}

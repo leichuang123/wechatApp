@@ -1,0 +1,20 @@
+<import src="../../common/templates/loading" />
+<view>
+    <view class="bg-white">
+        <view class="weui-cell fc-jasper">积分明细</view>
+        <block wx:for="{{records}}" wx:key="index">
+            <view class="weui-cell">
+                <view class="weui-cell__bd">
+                    <view class='fs14'>{{item.type}}</view>
+                    <view class="small-size grey">{{item.create_time}}</view>
+                </view>
+                <view class="weui-cell__ft">
+                    <text class="fc-orange" wx:if="{{item.operate==='ADD'}}">+{{item.num}}</text>
+                    <text class="fc-orange" wx:else>-{{item.num}}</text>
+                </view>
+            </view>
+        </block>
+    </view>
+    <template is="loading" data="{{ loadingVisible, hasData }}" />
+    <template is="loadMore" data="{{ loadMoreVisible,hasMore,hasData}}" />
+</view>

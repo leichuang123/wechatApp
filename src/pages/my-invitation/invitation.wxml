@@ -1,0 +1,54 @@
+<view wx:if="{{!loading}}">
+    <view>
+        <image class="invitation-bg" src='../../assets/images/invitation-bg.jpg'>
+        </image>
+    </view>
+    <view style='position:absolute;top:20px;'>
+        <view class='text-center'>
+            <image src='../../assets/images/logo.png' style='width:158px;height:41px;'></image>
+        </view>
+        <view class='rank-cell' style="background:rgba(255,255,255,0)">
+            <view class='text-center invitation-title' style='color:#61B8A8;'>您的爱车小伙伴 </view>
+            <view class="list-item">
+                <text class='list-dot'></text>一键注册便捷无忧 </view>
+            <view class="list-item">
+                <text class='list-dot'></text>在线排队和预约，查看排号单预估等待时间，合理安排到店时间，节省时间 </view>
+            <view class="list-item">
+                <text class='list-dot'></text>无纸化会员卡，手机查看会员记录，在线充钱办卡有保障 </view>
+            <view class="list-item">
+                <text class='list-dot'></text>服务各阶段发送提醒消息：预约成功、服务完成、保养、取车，一键送达 </view>
+            <view class="list-item">
+                <text class='list-dot'></text>在线查看各项消费记录、消费情况一目了然 </view>
+            <view class="list-item">
+                <text class='list-dot'></text>为车主提供车辆年审、车牌业务、车辆过户、补换证等便捷、优质的车务服务 </view>
+            <view class='text-center'>
+                <image class="qr-code" src='{{qrCode}}'></image>
+                <view>微信扫码注册</view>
+            </view>
+        </view>
+    </view>
+</view>
+<view wx:if="{{imageVisible}}">
+    <view class="mask" bindtap="hideImage"></view>
+    <view>
+        <image class="share-pic" src="{{sharingImage}}"></image>
+        <view>
+            <button class="save-btn" type='primary' bindtap="saveImage">保存图片</button>
+        </view>
+    </view>
+</view>
+<loading wx:if="{{loading}}">加载中
+</loading>
+<view class='weui-flex share-bar'>
+    <view class='weui-flex__item' bindtap="gotoIndex">
+        <image src='/assets/images/home.png' class='share-icon'></image>
+    </view>
+    <view class='weui-flex__item'>
+        <button class="share-btn" type='default' size='mini' open-type="share">
+            <image src='/assets/images/share.png' class='share-icon'></image>
+        </button>
+    </view>
+    <view class='weui-flex__item' bindtap='generateSharingImage'>
+        <image src='/assets/images/circle-share.png' class='share-icon'></image>
+    </view>
+</view>

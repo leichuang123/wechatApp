@@ -1,0 +1,6 @@
+/* pages/set/contactUs.wxss */
+.time-title {
+    text-align: center;
+    line-height: 2.5em;
+    background: #fff;
+}

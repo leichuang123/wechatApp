@@ -1,0 +1,89 @@
+<import src="../../common/templates/loading" />
+<view>
+    <view class="weui-tab">
+        <view class="weui-navbar bg-white">
+            <block wx:for="{{tabs}}" wx:key="*this">
+                <view id="{{index}}" class="weui-navbar__item {{orderForm.type == index ? 'weui-bar__item_on' : ''}}" bindtap="tabClick">
+                    <view class="weui-navbar__title">{{item}}</view>
+                </view>
+            </block>
+            <view class="weui-navbar__slider" style="width:{{sliderWidth}}px;left: {{sliderLeft}}px; transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px);"></view>
+        </view>
+        <view class="weui-tab__panel">
+            <template is="loading" data="{{ loadingVisible, hasData }}" />
+            <block wx:for="{{orders}}" wx:key="index">
+                <view class="list-box">
+                    <view data-id="{{item.id}}" data-type="{{orderForm.type==0?item.type:orderForm.type}}" bindtap="gotoDetail">
+                        <view class="rank-cell">
+                            <view class="weui-flex">
+                                <view class="weui-flex__item">{{item.category}}</view>
+                                <view class="weui-flex__item text-right">
+                                    <text class="fc-red">{{orderForm.type==0?item.state:tabs[orderForm.type]}}</text>
+                                </view>
+                            </view>
+                            <view>下单时间：{{item.create_time}}</view>
+                            <view>订单编号：{{item.order_number}}</view>
+                            <view wx:if="{{item.category_value==6}}">业务名称：{{item.content}}</view>
+                        </view>
+                        <view class="weui-cell2" wx:for="{{item.goods}}" wx:for-index="idx" wx:key="idx" wx:for-item="goods" wx:if="{{item.category_value!=6}}">
+                            <view class="list-img">
+                                <image src="{{goods.goods_img}}" />
+                            </view>
+                            <view class="weui-cell__bd">
+                                <view>{{goods.goods_name}}</view>
+                                <view>￥{{goods.goods_price}}
+                                    <text class="weui-cell__ft" style="margin-left:15px;">x{{goods.buy_num}}
+                                    </text>
+                                </view>
+                            </view>
+                        </view>
+                    </view>
+                    <view class="bg-white" wx:if="{{item.category_value!=6}}">
+                        <view class="weui-cell">
+                            <view class="weui-cell__bd">
+                                共{{item.goods.length}}件
+                                <text style="margin-left:15px;">合计：￥{{item.actual_price}}</text>
+                            </view>
+                        </view>
+                    </view>
+                    <view class="bg-white" wx:if="{{item.category_value==6}}">
+                        <view class="weui-cell">
+                            <view class="weui-cell__bd">
+                                共1件
+                                <text style="margin-left:15px;">合计：￥{{item.actual_price}}</text>
+                            </view>
+                        </view>
+                    </view>
+                    <view class="text-right">
+                        <view class="order-view" wx:if="{{item.type==1||orderForm.type==1}}">
+                            <button class="weui-btn order-btn" type="primary" plain="true" size="mini" data-order="{{item}}" bindtap="pay">
+                                立即付款
+                            </button>
+                        </view>
+                        <view class="order-view" wx:if="{{(item.type==2||item.type==3||orderForm.type==2||orderForm.type==3)}}">
+                            <button class="weui-btn order-btn" type="primary" plain="true" size="mini" data-item="{{item}}" id="index" bindtap="onApplyForRefund">
+                                申请退款
+                            </button>
+                        </view>
+                        <view class="order-view" wx:if="{{item.type==4||orderForm.type==4}}">
+                            <button class="weui-btn order-btn" type="primary" plain="true" size="mini" data-item="{{item}}" bindtap="gotoEvaluate">
+                                评价
+                            </button>
+                        </view>
+                        <view class="order-view" wx:if="{{item.category_value==6&&(item.type==2||orderForm.type==2||item.type==3||orderForm.type==3)}}">
+                            <button class="weui-btn order-btn" type="primary" plain="true" size="mini" data-item="{{item}}" bindtap="gotoProgress">
+                                查看进度
+                            </button>
+                        </view>
+                        <view class="order-view" wx:if="{{item.category_value==6&&(item.type==2||orderForm.type==2)}}">
+                            <button class="weui-btn order-btn" type="primary" size="mini" data-id="{{item.id}}" bindtap="confirmFinish">
+                                确认完成
+                            </button>
+                        </view>
+                    </view>
+                </view>
+            </block>
+            <template is="loadMore" data="{{ loadMoreVisible, hasMore,hasData }}" />
+        </view>
+    </view>
+</view>

@@ -1,0 +1,5 @@
+.invitation-rule{
+    padding:30px 15px;
+    background-color: #fff;
+    font-size: 14px;
+}

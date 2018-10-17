@@ -1,0 +1,115 @@
+.padl {
+    padding-left: 10px;
+}
+
+.mart {
+    margin-top: 10px;
+}
+
+.face-img-mine {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 5px;
+    overflow: hidden;
+}
+
+.evaluate-time__right {
+    float: right;
+    color: #999;
+    font-size: 13px;
+}
+
+.reply-content {
+    color: #61b8a8;
+}
+
+.eavluate-content__padding {
+    padding: 0 15px 15px 60px;
+}
+
+.has-btm {
+    top: 0;
+    bottom: 40px;
+    padding-bottom: 20px;
+}
+
+.load-more {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    text-align: center;
+    font-size: 14px;
+}
+
+button[type=default] {
+    background-color: #fff;
+    border: none;
+    padding: 0;
+}
+
+button[size=mini] {
+    display: inline-block;
+    line-height: 30px;
+    font-size: 14px;
+    vertical-align: middle;
+}
+
+button[type=default]:after {
+    border: none;
+}
+
+.share-icon {
+    width: 30px;
+    height: 30px;
+    vertical-align: middle;
+}
+
+.button-hover[type="default"] {
+    color: #fff;
+    background-color: #fff;
+    opacity: 1;
+}
+
+.icon-home2 {
+    width: 30px;
+    height: 30px;
+    display: inline-block;
+    line-height: 30px;
+    vertical-align: middle;
+}
+.wx-parse__detail{
+    padding: 10px 15px;
+    background-color: #fff;
+    margin-top:10px; 
+}
+
+.share-pic {
+    width: 240px;
+    height: 360px;
+    border-radius: 5px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-top: -180px;
+    margin-left: -120px;
+    z-index: 999;
+}
+
+.mask {
+    position: fixed;
+    background: rgba(0, 0, 0, 0.5);
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 99;
+}
+
+.save-btn {
+    z-index: 999;
+    position: fixed;
+    bottom: 50px;
+    left: 50%;
+    margin-left: -60px;
+    width: 120px;
+}

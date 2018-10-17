@@ -1,0 +1,38 @@
+<import src="../../common/templates/top-tips.wxml" />
+<view>
+    <template is="top-tips" data="{{showTopTips,errorMsg}}"></template>
+    <form>
+        <view class="bg-white fs14">
+            <view class="weui-cell">
+                <text class="icon-user register-icon"></text>
+                <view class="weui-cell__bd">
+                    <input id="mobile" class="weui-input" name="mobile" type="number" maxlength="11" bindinput="getMobile" placeholder="手机号" />
+                </view>
+            </view>
+            <view class="weui-cell weui-cell_vcode">
+                <view class="weui-cell__hd">
+                    <text class="icon-unlock-alt register-icon"></text>
+                </view>
+                <view class="weui-cell__bd">
+                    <input name="code" class="weui-input" type="number" placeholder="验证码" bindinput="getInputCode" />
+                </view>
+                <view class="weui-cell__ft">
+                    <view class="weui-vcode_btn" bindtap="getCode">{{codeText}}</view>
+                </view>
+            </view>
+            <view class="weui-cell">
+                <view class="regster-title fs13">
+                    <text class="icon-automobile register-icon"></text>
+                    车牌号
+                </view>
+                <view class="weui-cell__bd" bindtap="showKeyboard">
+                    <input type="text" class="weui-input" name="car_number" value="{{carNumber}}" maxlength="8" placeholder="填写车牌号" disabled />
+                </view>
+            </view>
+        </view>
+        <view class="weui-btn-area">
+            <button class="weui-btn" type="primary" open-type="getUserInfo" bindgetuserinfo="onGetUserInfo">立即登录</button>
+        </view>
+    </form>
+    <car-keyboard keyboard-visible="{{keyboardVisible}}" bind:hidekeyboard="hideKeyboard" bind:getcarnumber="getCarNumber"></car-keyboard>
+</view>
