@@ -17,13 +17,14 @@
     </view>
     <view wx:if="{{!loading}}">
         <view hidden="{{tabIndex!=0}}">
+            <view class="no-data" wx:if="{{!hasMemberService}}">您的爱车目前没有会员服务</view>
             <view style="margin-bottom:62px">
                 <view class="bg-white" style="margin-bottom:2px" wx:if="{{cardServices.length}}">
                     <view class="weui-cell" style="margin-bottom:2px">会员卡服务</view>
                     <view class="weui-flex th small-font">
                         <view class="weui-flex__item flex-grow-1"></view>
                         <view class="weui-flex__item flex-grow-5">服务项目</view>
-                        <view class="weui-flex__item flex-grow-2">总次数</view>
+                        <view class="weui-flex__item flex-grow-2">数量</view>
                         <view class="weui-flex__item flex-grow-2">剩余</view>
                     </view>
                     <block wx:for="{{cardServices}}" wx:key="index">
@@ -44,6 +45,12 @@
                 </view>
                 <view class="bg-white" style="margin-bottom:2px" wx:if="{{boughtServices.length}}">
                     <view class="weui-cell">已购商品</view>
+                     <view class="weui-flex th small-font">
+                        <view class="weui-flex__item flex-grow-1"></view>
+                        <view class="weui-flex__item flex-grow-5">商品名称</view>
+                        <view class="weui-flex__item flex-grow-2">价格</view>
+                        <view class="weui-flex__item flex-grow-2">支付状态</view>
+                    </view>
                 </view>
                 <view class="bg-white small-font">
                     <block wx:for="{{boughtServices}}" wx:key="index">
@@ -63,7 +70,7 @@
                     </block>
                 </view>
             </view>
-            <view class="bottom-btn" hidden="{{tabIndex!=0}}">
+            <view class="bottom-btn">
                 <view class="weui-flex">
                     <view class="weui-flex__item pad">
                         <button class="weui-btn" type="default" bindtap="goBack">取消</button>
@@ -75,7 +82,7 @@
             </view>
         </view>
         <view hidden="{{tabIndex!=1}}">
-            <view style="margin-bottom:120rpx">
+            <view style="margin-bottom:160rpx">
                 <view class="kind-list">
                     <view class="kind-list-item">
                         <view class="kind-list-item-hd" bindtap="toggleRecommendedGoods">
@@ -109,7 +116,7 @@
                     </view>
                 </view>
                 <view class="weui-cells__title" wx:if="{{washGoods.goods_class_id!==undefined&&serviceGoods.length===0}}">门店服务</view>
-                <view class="kind-list" style="margin-bottom:120rpx" wx:if="{{washGoods.goods_class_id!==undefined}}">
+                <view class="kind-list" style="margin-bottom:160rpx" wx:if="{{washGoods.goods_class_id!==undefined}}">
                     <view class="kind-list-item">
                         <view id="{{washGoods.goods_class_id}}" class="kind-list-item-hd" bindtap="toggleWashGoods">
                             <view class="kind-list-text">

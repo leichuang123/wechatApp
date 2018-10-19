@@ -95,11 +95,17 @@ Page({
      * 是否立即取号
      */
     confirmQueue: function() {
-        confirmMsg('', '是否立即取号', true, () => {
-            this.addQueue();
-        }, () => {
-            this.gotoStores();
-        });
+        confirmMsg(
+            '',
+            '是否立即取号',
+            true,
+            () => {
+                this.addQueue();
+            },
+            () => {
+                this.gotoStores();
+            }
+        );
     },
     /**
      * 线下支付
@@ -137,26 +143,30 @@ Page({
             this.setData({ loading: false });
             if (res.errcode === 0) {
                 let payArgs = res.data;
-                wxPay(payArgs, () => {
-                    this.setData({
-                        'queueForm.order_id': payArgs.queue_order_id,
-                        'queueForm.arrive_pay': 'N'
-                    });
-                    let storeStatus = wx.getStorageSync('currentStore').status;
-                    if (this.data.form.is_queue && storeStatus) {
-                        this.confirmQueue();
-                    } else {
-                        wx.navigateTo({
-                            url: '/pages/payment/success?id=' + payArgs.queue_order_id
+                wxPay(
+                    payArgs,
+                    () => {
+                        this.setData({
+                            'queueForm.order_id': payArgs.queue_order_id,
+                            'queueForm.arrive_pay': 'N'
+                        });
+                        let storeStatus = wx.getStorageSync('currentStore').status;
+                        if (this.data.form.is_queue && storeStatus) {
+                            this.confirmQueue();
+                        } else {
+                            wx.navigateTo({
+                                url: '/pages/payment/success?id=' + payArgs.queue_order_id
+                            });
+                        }
+                    },
+                    () => {
+                        toastMsg('支付失败', 'error', 1000, () => {
+                            wx.navigateBack({
+                                delta: 2
+                            });
                         });
                     }
-                }, () => {
-                    toastMsg('支付失败', 'error', 1000, () => {
-                        wx.navigateBack({
-                            delta: 2
-                        });
-                    });
-                });
+                );
             } else {
                 confirmMsg('提示', res.errmsg, false, () => {
                     wx.navigateBack({
@@ -172,7 +182,7 @@ Page({
      */
     onLoad: function(options) {
         let params = JSON.parse(options.params);
-        console.log(params)
+        console.log(params);
         this.setData({
             form: params,
             'queueForm.store_id': params.store_id,

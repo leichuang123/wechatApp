@@ -190,3 +190,11 @@ button[open-type="contact"] {
     bottom: 0;
     right: 200rpx;
 }
+
+.no-data {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    text-align: center;
+    color: #999;
+    font-size: 14px;
+}

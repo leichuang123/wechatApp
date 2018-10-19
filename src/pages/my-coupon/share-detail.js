@@ -29,7 +29,7 @@ Page({
             staff_id: 0,
             customer_id: 0,
             share_uuid: '',
-            is_gather: 0,
+            is_gather: 2, //不是
             sender_nick_name: ''
         },
         sendForm: {
@@ -40,7 +40,7 @@ Page({
             send_mode: 0,
             give_num: 0,
             staff_id: 0,
-            is_gather: 0,
+            is_gather: 2, //不是
             customer_id: 0
         },
         coupon: {}
@@ -57,7 +57,6 @@ Page({
             'expireForm.related_type': this.data.shareForm.related_type,
             'expireForm.is_send': this.data.shareForm.is_send
         });
-        console.log('hasExpired form: ', this.data.expireForm);
         api.getRequest('weapp-coupon/has-expired', this.data.expireForm, false).then(res => {
             console.log('hasExpired response: ', res);
             this.setData({
@@ -87,19 +86,21 @@ Page({
         this.setData({
             loading: true
         });
-        api.getRequest('weapp-coupon/get-share-detail', this.data.form, false).then(res => {
-            console.log('getDetail response: ', res);
-            this.setData({
-                loading: false
-            });
-            if (res.errcode === 0) {
+        api.getRequest('weapp-coupon/get-share-detail', this.data.form, false)
+            .then(res => {
+                console.log('getDetail response: ', res);
                 this.setData({
-                    coupon: res.data
+                    loading: false
                 });
-            }
-        }).catch(res => {
-            console.log(res);
-        });
+                if (res.errcode === 0) {
+                    this.setData({
+                        coupon: res.data
+                    });
+                }
+            })
+            .catch(res => {
+                console.log(res);
+            });
     },
     /**
      * 添加发送记录
@@ -149,8 +150,8 @@ Page({
     call: function(e) {
         let tel = e.currentTarget.dataset.tel;
         makePhoneCall({
-                phoneNumber: tel
-            })
+            phoneNumber: tel
+        })
             .then(res => {
                 console.log('拨打成功');
             })

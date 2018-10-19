@@ -63,14 +63,21 @@ Page({
             let time = formatTime(new Date());
             let userData = wx.getStorageSync('userData');
             let userId = !!userData ? userData.user_data.id : 0;
-            console.log(service)
-            let sharedUrl = '/pages/my-card/own/get-coupon?create_time=' + time + '&serviceName=' + service.service_name + '&storeName=' + this.data.cardInfo.store_name + '&recommendType=4' + '&recommendId=' + userId;
+            let sharedUrl =
+                '/pages/my-card/own/get-coupon?create_time=' +
+                time +
+                '&serviceName=' +
+                service.service_name +
+                '&storeName=' +
+                this.data.cardInfo.store_name +
+                '&recommendType=4' +
+                '&recommendId=' +
+                userId;
             let params = {
                 url: sharedUrl,
                 card_number: this.data.cardInfo.card_number,
                 service_id: service.service_id
             };
-            console.log(params)
             this.createShareInfo(params);
             return {
                 title: '伙伴养车优惠券分享',

@@ -1,6 +1,4 @@
-import {
-    getRequest
-} from '../../utils/api';
+import { getRequest } from '../../utils/api';
 const app = getApp();
 const sliderWidth = 72; // 需要设置slider的宽度，用于计算中间位置
 Page({
@@ -14,7 +12,8 @@ Page({
         sliderLeft: 0,
         sliderWidth: sliderWidth,
         goods: [],
-        tabs: [{
+        tabs: [
+            {
                 id: '',
                 name: '全部'
             },
@@ -154,7 +153,7 @@ Page({
             this.gotoRegister();
         }
     },
-    initData: function (){
+    initData: function() {
         let locationInfo = wx.getStorageSync('locationInfo');
         if (!locationInfo) {
             locationInfo = app.globalData.defaultLocation;

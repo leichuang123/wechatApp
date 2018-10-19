@@ -19,7 +19,7 @@ Page({
     /**
      * 注册提醒
      */
-    remindRegister: function (e) {
+    remindRegister: function() {
         confirmMsg('亲', '您还没有注册呢，先注册一下吧', true, () => {
             wx.navigateTo({
                 url: '/pages/register/register'
@@ -29,7 +29,7 @@ Page({
     /**
      * 绑定门店
      */
-    bindStore: function () {
+    bindStore: function() {
         scanCode()
             .then(res => {
                 const storeData = JSON.parse(res.result);
@@ -40,28 +40,30 @@ Page({
                     'bindForm.store_id': storeData.store_id,
                     'bindForm.user_id': userData.user_data.id
                 });
-                api.postRequest('weapp/bind', this.data.bindForm).then(res => {
-                    if (res.errcode === 0) {
-                        const locationInfo = wx.getStorageSync('locationInfo');
-                        const locationData = !locationInfo ? app.globalData.defaultLocation : locationInfo;
-                        const params = JSON.stringify({
-                            storeId: storeData.store_id,
-                            merchantId: storeData.merchant_id,
-                            latitude: locationData.latitude,
-                            longitude: locationData.longitude,
-                            fromPage: 'wash'
-                        });
-                        toastMsg('绑定成功', 'success', 1000, () => {
-                            wx.navigateTo({
-                                url: '/pages/store-list/detail?storeData=' + params
+                api.postRequest('weapp/bind', this.data.bindForm)
+                    .then(res => {
+                        if (res.errcode === 0) {
+                            const locationInfo = wx.getStorageSync('locationInfo');
+                            const locationData = !locationInfo ? app.globalData.defaultLocation : locationInfo;
+                            const params = JSON.stringify({
+                                storeId: storeData.store_id,
+                                merchantId: storeData.merchant_id,
+                                latitude: locationData.latitude,
+                                longitude: locationData.longitude,
+                                fromPage: 'wash'
                             });
-                        });
-                        return;
-                    }
-                    confirmMsg('', res.errmsg, false);
-                }).catch(res => {
-                    console.log(res)
-                });
+                            toastMsg('绑定成功', 'success', 1000, () => {
+                                wx.navigateTo({
+                                    url: '/pages/store-list/detail?storeData=' + params
+                                });
+                            });
+                            return;
+                        }
+                        confirmMsg('', res.errmsg, false);
+                    })
+                    .catch(res => {
+                        console.log(res);
+                    });
             })
             .catch(() => {
                 console.log('扫码失败');
@@ -70,7 +72,7 @@ Page({
     /**
      * 绑定门店时验证是否注册
      */
-    onBindStore: function () {
+    onBindStore: function() {
         let userData = wx.getStorageSync('userData');
         if (!userData || !userData.isRegist) {
             this.remindRegister();
@@ -81,7 +83,7 @@ Page({
     /**
      * 获取首页信息
      */
-    getIndexInfo: function (withSessionKey) {
+    getIndexInfo: function(withSessionKey) {
         api.getRequest('weapp/indexinfo', this.data.form, false, withSessionKey).then(res => {
             if (res.errcode === 0) {
                 this.setData({
@@ -99,41 +101,43 @@ Page({
     /**
      * 定位
      */
-    getLocation: function () {
+    getLocation: function() {
         getLocation({
             type: 'wgs84'
-        }).then(res => {
-            let locationInfo = {
-                latitude: res.latitude,
-                longitude: res.longitude
-            };
-            api.getRequest('weapp/getcityinfo', locationInfo, false).then(res => {
-                if (res.errcode === 0) {
-                    locationInfo.code = res.data.ad_info.adcode;
-                    wx.setStorageSync('locationInfo', locationInfo);
-                    let city = wx.getStorageSync('city');
-                    let locatedCity = res.data.ad_info.city;
-                    if (!city && city !== locatedCity) {
-                        let content = '您当前的位置为' + locatedCity + '，是否切换到当前城市';
-                        confirmMsg('', content, true);
+        })
+            .then(res => {
+                let locationInfo = {
+                    latitude: res.latitude,
+                    longitude: res.longitude
+                };
+                api.getRequest('weapp/getcityinfo', locationInfo, false).then(res => {
+                    if (res.errcode === 0) {
+                        locationInfo.code = res.data.ad_info.adcode;
+                        wx.setStorageSync('locationInfo', locationInfo);
+                        let city = wx.getStorageSync('city');
+                        let locatedCity = res.data.ad_info.city;
+                        if (!city && city !== locatedCity) {
+                            let content = '您当前的位置为' + locatedCity + '，是否切换到当前城市';
+                            confirmMsg('', content, true);
+                        }
+                        this.setData({
+                            city: locatedCity
+                        });
+                        wx.setStorageSync('city', locatedCity);
+                    } else {
+                        this.setData({
+                            city: !city ? city : '请选择'
+                        });
+                        confirmMsg('', res.errmsg, false);
                     }
-                    this.setData({
-                        city: locatedCity
-                    });
-                    wx.setStorageSync('city', locatedCity);
-                } else {
-                    this.setData({
-                        city: !city ? city : '请选择'
-                    });
-                    confirmMsg('', res.errmsg, false);
-                }
+                });
             })
-        }).catch(() => {
-            console.log('cancel');
-            wx.setStorageSync('locationInfo', app.globalData.defaultLocation);
-        });
+            .catch(() => {
+                console.log('cancel');
+                wx.setStorageSync('locationInfo', app.globalData.defaultLocation);
+            });
     },
-    wxLogin: function () {
+    wxLogin: function() {
         login()
             .then(res => {
                 if (res.code) {
@@ -154,10 +158,10 @@ Page({
     /**
      * 生命周期函数--监听页面加载
      */
-    onLoad: function (options) {
+    onLoad: function(options) {
         this.getLocation();
     },
-    onShow: function () {
+    onShow: function() {
         this.wxLogin();
 
         let city = wx.getStorageSync('city');

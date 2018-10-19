@@ -7,6 +7,7 @@ Page({
         open: true,
         washSelected: false,
         queueDisabled: true,
+        hasMemberService: false,
         tabIndex: 0,
         carIndex: 0,
         money: 0,
@@ -189,23 +190,20 @@ Page({
         this.setData({ loading: true });
         api.getRequest('weapp/customerservice', this.data.serviceForm).then(res => {
             if (res.errcode === 0) {
-                let hasMemberData = res.data.card.length > 0 || res.data.buy.length > 0;
+                let hasMemberService = res.data.card.length > 0 || res.data.buy.length > 0;
                 this.setData({
                     loading: false,
                     cardServices: res.data.card,
                     boughtServices: res.data.buy,
-                    tabIndex: hasMemberData ? 0 : 1
+                    hasMemberService: hasMemberService
                 });
             } else {
                 this.setData({
                     loading: false,
                     cardServices: [],
                     boughtServices: [],
-                    tabIndex: 0
+                    hasMemberService: false
                 });
-            }
-            if (this.data.tabIndex == 1) {
-                this.getGoods();
             }
         });
     },
@@ -395,7 +393,9 @@ Page({
      * 计算金额
      */
     sum: function() {
-        let amount = [this.data.recommendedMoney, this.data.washMoney, this.data.serviceMoney].reduce((acc, cur) => add(acc, cur));
+        let amount = [this.data.recommendedMoney, this.data.washMoney, this.data.serviceMoney].reduce((acc, cur) =>
+            add(acc, cur)
+        );
         this.setData({
             money: amount
         });
@@ -647,23 +647,27 @@ Page({
      */
     onAddQueue: function() {
         if (this.data.form.arrive_pay === 'Y') {
-            let order = [{
-                money: this.data.form.money,
-                category: 0,
-                content: '',
-                notice: '',
-                is_queue: true,
-                goods: [{
-                    id: this.data.form.goods_id,
-                    price: this.data.form.money,
-                    num: 1,
-                    type: 0,
-                    service_item: this.data.form.service_item,
-                    station_type: this.data.form.station_type,
-                    name: this.data.form.goods_name,
-                    is_queue: true
-                }]
-            }];
+            let order = [
+                {
+                    money: this.data.form.money,
+                    category: 0,
+                    content: '',
+                    notice: '',
+                    is_queue: true,
+                    goods: [
+                        {
+                            id: this.data.form.goods_id,
+                            price: this.data.form.money,
+                            num: 1,
+                            type: 0,
+                            service_item: this.data.form.service_item,
+                            station_type: this.data.form.station_type,
+                            name: this.data.form.goods_name,
+                            is_queue: true
+                        }
+                    ]
+                }
+            ];
             this.setData({
                 'orderForm.order': order,
                 'orderForm.first_pay': 0
@@ -679,7 +683,11 @@ Page({
     onLoad: function(options) {
         let memberData = JSON.parse(options.memberData);
         let userData = wx.getStorageSync('userData');
-        let carNumber = memberData.car_number ? memberData.car_number : (!!userData ? userData.user_data.default_car : '');
+        let carNumber = memberData.car_number
+            ? memberData.car_number
+            : !!userData
+                ? userData.user_data.default_car
+                : '';
         this.setData({
             'form.store_id': memberData.store_id,
             'form.car_number': carNumber,

@@ -11,9 +11,16 @@
                 <view class="weui-media-box__desc cup-money">￥{{coupon.deduction_money}}</view>
             </view>
         </view>
-        <view class='rank-cell fs13'>
+        <view class='rank-cell grey fs14'>
             <view>活动期限：{{coupon.start_time}}至{{coupon.end_time}}</view>
-            <view>优惠说明：{{coupon.instructions}}</view>
+            <view class="weui-flex">
+                <view>优惠说明：</view>
+                <view class="weui-flex__item3">
+                    <block wx:for="{{coupon.instructions}}" wx:key="index">
+                        <view>{{item}}</view>
+                    </block>
+                </view>
+            </view>
         </view>
         <view class='rank-cell fs13'>
             <view class='fc-red'>可分享次数：{{coupon.share_times}}</view>
@@ -27,18 +34,18 @@
         </view>
     </view>
     <view class='weui-cells'>
-        <view class='rank-cell'>
-            {{coupon.store_name}}
+        <view class="weui-cell">
+            <text class='text-offset'></text>
+            <view class='weui-cell__bd'>{{coupon.store_name}}</view>
         </view>
         <view class="weui-cell" bindtap="openLocation">
-            <text class='icon-map-marker grey'></text>
-            <view class="weui-cell__bd marl8">{{coupon.store_address}}</view>
+            <text class='icon-map-marker grey text-offset'></text>
+            <view class="weui-cell__bd">{{coupon.store_address}}</view>
             <view class="weui-cell__ft weui-cell__ft_in-access"></view>
         </view>
         <view data-tel="{{coupon.tel}}" class="weui-cell weui-cells_after-title" bindtap="call">
-            <text class='icon-phone grey'></text>
-            <view class="weui-cell__bd marl8">
-                {{coupon.tel}}</view>
+            <text class='icon-phone grey text-offset'></text>
+            <view class="weui-cell__bd">{{coupon.tel}}</view>
             <view class="weui-cell__ft weui-cell__ft_in-access"></view>
         </view>
     </view>

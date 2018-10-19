@@ -4,7 +4,7 @@ Page({
         loading: true,
         displacement: [],
         car: {},
-        serieId: 0,
+        serieId: 0
     },
     /**
      * 获取车排量
@@ -14,12 +14,12 @@ Page({
             this.setData({ loading: false });
             if (res.errcode === 0) {
                 this.setData({
-                    displacement: res.data,
+                    displacement: res.data
                 });
                 return;
             }
             this.setData({
-                displacement: [],
+                displacement: []
             });
         });
     },
@@ -29,9 +29,9 @@ Page({
     onLoad: function(options) {
         let car = wx.getStorageSync('car');
         this.setData({
-            'serieId': options.id,
+            serieId: options.id,
             car: car
         });
         this.getDisplacement();
     }
-})
+});

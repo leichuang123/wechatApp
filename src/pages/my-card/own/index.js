@@ -3,7 +3,7 @@ Page({
     data: {
         loadingVisible: true,
         hasData: true,
-        cards: [],
+        cards: []
     },
     /**
      * 获取我的会员卡
@@ -17,7 +17,7 @@ Page({
             }
             this.setData({
                 loadingVisible: false,
-                hasData: this.data.cards.length === 0 ? false : true,
+                hasData: this.data.cards.length === 0 ? false : true
             });
         });
     },
@@ -27,4 +27,4 @@ Page({
     onLoad: function(options) {
         this.getCards();
     }
-})
+});

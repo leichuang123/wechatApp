@@ -57,7 +57,8 @@ Page({
      */
     checkExpire: function() {
         api.getRequest(
-            'weapp/checkgivenurl', {
+            'weapp/checkgivenurl',
+            {
                 url: this.data.form.url
             },
             false
@@ -92,7 +93,7 @@ Page({
             showTopTips(this, msg);
             return;
         }
-        console.log(this.data.form)
+        console.log(this.data.form);
         api.postRequest('weapp/getcoupon', this.data.form).then(res => {
             if (res.errcode === 0) {
                 toastMsg('领取成功', 'success');

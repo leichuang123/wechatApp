@@ -35,3 +35,6 @@ button[type="primary"][plain] {
 .vertical-center {
     vertical-align: middle;
 }
+.bottom-5{
+    margin-bottom: 5px;
+}

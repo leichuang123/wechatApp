@@ -13,28 +13,32 @@
         </view>
         <view class='rank-cell grey fs14'>
             <view>有效期：{{coupon.expire_time_start}}至{{coupon.expire_time_end}}</view>
-            <view>优惠说明：{{coupon.notice}}</view>
+            <view class="weui-flex">
+                <view>优惠说明：</view>
+                <view class="weui-flex__item3">
+                    <block wx:for="{{coupon.notice}}" wx:key="index">
+                        <view>{{item}}</view>
+                    </block>
+                </view>
+            </view>
         </view>
     </view>
     <view class='weui-cells'>
-        <view class='rank-cell'>
-            {{coupon.store_name}}
+        <view class="weui-cell">
+            <text class='text-offset'></text>
+            <view class='weui-cell__bd'>{{coupon.store_name}}</view>
         </view>
         <view class="weui-cell" bindtap="openLocation">
-            <text class='icon-map-marker grey'></text>
-            <view class="weui-cell__bd marl5">{{coupon.store_address}}</view>
+            <text class='icon-map-marker grey text-offset'></text>
+            <view class="weui-cell__bd">{{coupon.store_address}}</view>
             <view class="weui-cell__ft weui-cell__ft_in-access"></view>
         </view>
         <view data-tel="{{coupon.tel}}" class="weui-cell weui-cells_after-title" bindtap="call">
-            <text class='icon-phone grey'></text>
-            <view class="weui-cell__bd marl5">
+            <text class='icon-phone grey text-offset'></text>
+            <view class="weui-cell__bd">
                 {{coupon.tel}}</view>
             <view class="weui-cell__ft weui-cell__ft_in-access"></view>
         </view>
     </view>
-
-    <!-- <view class='btn-single'>
-        <button class="weui-btn" type="primary">放入微信卡包</button>
-    </view> -->
 </view>
 <loading wx:if="{{loading}}">加载中</loading>

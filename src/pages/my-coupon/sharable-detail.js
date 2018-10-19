@@ -43,7 +43,7 @@ Page({
      * 添加分享记录
      */
     addShareRecord: function() {
-        let wxUserInfo = wx.getStorageSync('wxUserInfo');
+        const wxUserInfo = wx.getStorageSync('wxUserInfo');
         this.setData({
             'shareForm.merchant_id': this.data.coupon.merchant_id,
             'shareForm.store_id': this.data.coupon.store_id,
@@ -51,7 +51,7 @@ Page({
             'shareForm.related_type': this.data.coupon.related_type,
             'shareForm.sender_customer_id': this.data.coupon.customer_id,
             'shareForm.sender_id': this.data.coupon.user_id,
-            'shareForm.sender_nick_name': wxUserInfo.nickName,
+            'shareForm.sender_nick_name': !!wxUserInfo ? wxUserInfo.nickName : '',
             'shareForm.give_num': 1,
             'shareForm.share_uuid': this.data.coupon.share_uuid,
             'shareForm.is_gather': this.data.coupon.is_gather,
@@ -79,9 +79,9 @@ Page({
     call: function(e) {
         let tel = e.currentTarget.dataset.tel;
         makePhoneCall({
-                phoneNumber: tel
-            })
-            .then(res => {
+            phoneNumber: tel
+        })
+            .then(() => {
                 console.log('拨打成功');
             })
             .catch(() => {

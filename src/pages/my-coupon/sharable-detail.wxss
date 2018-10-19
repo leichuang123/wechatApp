@@ -2,6 +2,8 @@
     padding-left: 80px;
 }
 
-.marl8 {
-    margin-left: 8px;
+.text-offset {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
 }

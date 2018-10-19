@@ -28,9 +28,9 @@ Page({
     call: function(e) {
         let tel = e.currentTarget.dataset.tel;
         makePhoneCall({
-                phoneNumber: tel
-            })
-            .then(res => {
+            phoneNumber: tel
+        })
+            .then(() => {
                 console.log('拨打成功');
             })
             .catch(() => {
