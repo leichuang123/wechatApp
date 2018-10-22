@@ -128,12 +128,7 @@ Page({
         wx.showLoading({
             title: '提交请求中'
         });
-        api.getRequest(
-            'weapp/phonecode', {
-                mobile: this.data.form.mobile
-            },
-            false
-        ).then(res => {
+        api.getRequest('weapp/phonecode', { mobile: this.data.form.mobile }, false).then(res => {
             wx.hideLoading();
             if (res.errcode === 0) {
                 let interval = setInterval(() => {
@@ -170,7 +165,7 @@ Page({
         this.setData({
             'form.car_number': this.data.carNumber
         });
-        let msg = this.validate(this.data.form);
+        const msg = this.validate();
         if (msg !== '') {
             showTopTips(this, msg);
             return;
@@ -179,8 +174,10 @@ Page({
             title: '提交请求中',
             mask: true
         });
+        console.log(['get-coupon-form:', this.data.form]);
         api.postRequest('weapp-coupon/get-coupon', this.data.form, false).then(res => {
             wx.hideLoading();
+            console.log(['get-coupon-response:', res]);
             if (res.errcode === 0) {
                 wx.setStorageSync('sessionkey', res.data);
                 toastMsg('领取成功', 'success', 1000, () => {
@@ -255,17 +252,17 @@ Page({
         }
         this.setData({
             carIndex: index,
-            'form.car_number': this.data.carNumbers[index],
+            'form.car_number': this.data.carNumbers[index]
         });
     },
     /**
      * 生命周期函数--监听页面加载
      */
     onLoad: function(options) {
-        console.log(options);
-        let params = JSON.parse(options.params);
-        let userData = wx.getStorageSync('userData');
-        let defaultCar = !!userData ? userData.user_data.default_car : '';
+        const params = JSON.parse(options.params);
+        const userData = wx.getStorageSync('userData');
+        const defaultCar = !!userData ? userData.user_data.default_car : '';
+        const carNumbers = !!userData ? userData.user_data.car : [];
         this.setData({
             'form.merchant_id': params.merchant_id,
             'form.store_id': params.store_id,
@@ -275,24 +272,21 @@ Page({
             'form.is_gather': params.is_gather,
             'form.is_send': params.is_send,
             'form.staff_id': params.staff_id,
-            'form.sender_id': !params.sender_id ? 0 : params.sender_id,
+            'form.sender_id': params.sender_id,
             'form.give_num': params.give_num,
             'form.send_record_id': params.send_record_id,
-            'form.is_user_coupon': !params.is_user_coupon ? 2 : params.is_user_coupon,
+            'form.is_user_coupon': params.is_user_coupon,
             'form.is_register': !!userData && userData.isRegist,
-            carNumbers: !!userData ? userData.user_data.car : [],
+            carNumbers: carNumbers,
             carNumber: defaultCar,
-            carIndex: 0,
             coupon: {
                 name: params.coupon_name,
                 storeName: params.store_name
             }
         });
-        if (this.data.carNumbers.length > 0) {
-            let index = this.data.carNumbers.findIndex(value => defaultCar === value);
-            this.setData({
-                carIndex: index
-            });
+        if (carNumbers > 0) {
+            const index = carNumbers.indexOf(value => defaultCar === value);
+            this.setData({ carIndex: index > -1 ? index : 0 });
         }
         this.wxLogin();
     }

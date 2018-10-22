@@ -1,11 +1,5 @@
-import {
-    getRequest
-} from 'utils/api';
-import {
-    login,
-    getSystemInfo,
-    getLocation
-} from 'utils/wx-api';
+import { getRequest } from 'utils/api';
+import { login, getSystemInfo, getLocation } from 'utils/wx-api';
 App({
     globalData: {
         hasAuth: false,
@@ -21,9 +15,7 @@ App({
     },
     //设置用户缓存
     doLogin(jsCode) {
-        getRequest('weapp/login', {
-            js_code: jsCode
-        }, false, false).then(res => {
+        getRequest('weapp/login', { js_code: jsCode }, false, false).then(res => {
             if (res.errcode === 0) {
                 wx.setStorageSync('sessionKey', res.data.sessionKey);
             }
@@ -44,15 +36,14 @@ App({
      */
     getLocation: function(cb) {
         getLocation({
-                type: 'wgs84'
-            })
+            type: 'wgs84'
+        })
             .then(data => {
                 if (typeof cb === 'function') {
                     cb(data);
                 }
             })
-            .catch((data) => {
-                console.log(data);
+            .catch(data => {
                 if (typeof cb === 'function') {
                     cb(this.globalData.defaultLocation);
                 }
