@@ -1,3 +1,58 @@
 .padl {
     padding-left: 80px;
 }
+
+.mask-red {
+    width: 260px;
+    height: 0;
+    border-width: 0 20px 20px 20px;
+    border-style: none solid solid;
+    border-color: transparent transparent #e93a25;
+    margin: 0 auto;
+}
+
+.mask-orange {
+    width: 260px;
+    height: 0;
+    border-top: 20px solid #fabf08;
+    border-right: 20px solid transparent;
+    border-left: 20px solid transparent;
+    margin: 0 auto;
+}
+
+.coupon-body {
+    background: #fff;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    margin-bottom: 1px;
+}
+
+.padding-top {
+    padding-top: 20px;
+}
+
+.marl5 {
+    margin-left: 5px;
+}
+.use-btn-box{
+    text-align: center;
+    padding-top:20px;
+    padding-bottom: 20px;
+}
+.use-btn{
+    border-radius: 20px;
+    width:160px;
+    height:40px;
+    padding:10px auto; 
+    background: #fabf08;
+    text-align: center;
+    color: #fff;
+    vertical-align: middle;
+    display: inline-block;
+    line-height:40px;
+    font-size: 14px;
+}
+.break {
+  word-break: break-all;
+  white-space: normal;
+}

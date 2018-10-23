@@ -38,18 +38,17 @@ Page({
             related_type: this.data.coupon.related_type,
             sender_customer_id: this.data.coupon.customer_id,
             sender_id: this.data.coupon.user_id,
+            sende_record_id: this.data.coupon.sende_record_id,
             sender_nick_name: nickName,
-            give_num: 1,
             share_uuid: this.data.coupon.share_uuid,
-            is_gather: this.data.coupon.is_gather,
-            send_mode: 6
+            is_gather: this.data.coupon.is_gather
         };
         api.postRequest('weapp-coupon/add-share-record', params, false).then(res => {
-            console.log(res.errmsg);
+            console.log(['addShareRecord-response', res.errmsg]);
         });
     },
     call: function(e) {
-        let tel = e.currentTarget.dataset.tel;
+        const tel = e.currentTarget.dataset.tel;
         makePhoneCall({
             phoneNumber: tel
         })

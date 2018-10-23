@@ -1,43 +1,48 @@
 <view wx:if="{{!loading}}">
-    <view class="weui-panel__bd weui-panel_access bg-white mart5">
-        <view class="weui-media-box weui-media-box_appmsg">
-            <view class='marl'>
-                <view class="face-img-mine">
-                    <image src="{{coupon.pic_url}}"></image>
-                </view>
-            </view>
-            <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
-                <view class="weui-media-box__title cup-money">{{coupon.coupon_name}}</view>
-                <view class="weui-media-box__desc cup-money">￥{{coupon.deduction_money}}</view>
+    <view class='whole-scroll bg-white'>
+        <view class='sherable-bg'>
+            <image src="../../assets/images/sharable-topbg.png" mode='aspectFit'></image>
+            <view class='sharable-cont'>
+                <view class='fs18'>{{coupon.coupon_name}}代金券</view>
+                <view class='fs24 fc-orange bold'>￥{{coupon.deduction_money}}</view>
             </view>
         </view>
-        <view class='rank-cell grey fs14'>
-            <view>有效期：{{coupon.expire_time_start}}至{{coupon.expire_time_end}}</view>
-            <view class="weui-flex">
-                <view>优惠说明：</view>
-                <view class="weui-flex__item3">
+        <view class='activity-cont'>
+            <view class="use-btn-box">
+                <view class="use-btn"><text>请到店使用</text></view>
+            </view>
+            <view class='fc-white'>有效期：{{coupon.expire_time_start}}至{{coupon.expire_time_end}}</view>
+             <view class='fc-lightgrey weui-flex'>
+                <view>使用须知： </view>
+                <view class='weui-flex__item break'>
                     <block wx:for="{{coupon.notice}}" wx:key="index">
                         <view>{{item}}</view>
                     </block>
                 </view>
             </view>
-        </view>
-    </view>
-    <view class='weui-cells'>
-        <view class="weui-cell">
-            <text class='text-offset'></text>
-            <view class='weui-cell__bd'>{{coupon.store_name}}</view>
-        </view>
-        <view class="weui-cell" bindtap="openLocation">
-            <text class='icon-map-marker grey text-offset'></text>
-            <view class="weui-cell__bd">{{coupon.store_address}}</view>
-            <view class="weui-cell__ft weui-cell__ft_in-access"></view>
-        </view>
-        <view data-tel="{{coupon.tel}}" class="weui-cell weui-cells_after-title" bindtap="call">
-            <text class='icon-phone grey text-offset'></text>
-            <view class="weui-cell__bd">
-                {{coupon.tel}}</view>
-            <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+            <view class='weui-cells radius5 list-grey'>
+                <view class='weui-cell'>
+                    <view class="weui-cell__hd">
+                        <view class="face-img-mine">
+                            <image src="{{coupon.pic_url}}"></image>
+                        </view>
+                    </view>
+                    <view class="weui-cell__bd fs14">伙伴养车</view>
+                </view>
+                <view class='rank-cell bold'>{{coupon.store_name}}</view>
+                <view>
+                    <view class="weui-cell fs14" bindtap="openLocation">
+                        <text class='icon-map-marker grey'></text>
+                        <view class="weui-cell__bd marl5">{{coupon.store_address}}</view>
+                    </view>
+                </view>
+                <view>
+                    <view data-tel="{{coupon.tel}}" class="weui-cell fs14" bindtap="call">
+                        <text class='icon-phone grey'></text>
+                        <view class="weui-cell__bd marl5">{{coupon.tel}}</view>
+                    </view>
+                </view>
+            </view>
         </view>
     </view>
 </view>

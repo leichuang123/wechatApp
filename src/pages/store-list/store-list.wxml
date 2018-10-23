@@ -43,7 +43,7 @@
                                     <text wx:if="{{item.rate>=it+1}}" class="icon-star-full fc-orange"></text>
                                 </block>
                             </view>
-                            <view wx:if="{{form.fromPage==='wash'}}" class="weui-flex__item text-right text-gray">
+                            <view wx:if="{{form.fromPage==='wash'&&item.price>0}}" class="weui-flex__item text-right text-gray">
                                 {{item.price}}元/次
                             </view>
                         </view>

@@ -1,3 +1,48 @@
 .marl8 {
     margin-left: 8px;
 }
+
+.exlpain-content {
+    width: 300px;
+    margin: 0 auto;
+    font-size: 14px;
+    padding: 0 15px 15px;
+    color: #adadad;
+}
+
+.mask-red {
+    width: 260px;
+    height: 0;
+    border-width: 0 20px 20px 20px;
+    border-style: none solid solid;
+    border-color: transparent transparent #e93a25;
+    margin: 0 auto;
+}
+
+.mask-orange {
+    width: 260px;
+    height: 0;
+    border-top: 20px solid #fabf08;
+    border-right: 20px solid transparent;
+    border-left: 20px solid transparent;
+    margin: 0 auto;
+}
+
+.coupon-body {
+    background: #fff;
+    padding-bottom: 20px;
+    margin-bottom: 1px;
+}
+
+.padding-bottom20 {
+    padding-bottom: 20px;
+}
+
+button[type="primary"].share-btn {
+    color: #fff;
+    background-color: #fabf08;
+}
+.break {
+  word-break: break-all;
+  white-space: normal;
+}

@@ -1,25 +1,27 @@
 <import src="../../common/templates/top-tips.wxml" />
 <view>
     <template is="top-tips" data="{{showTopTips,errorMsg}}"></template>
-    <view class="weui-cells weui-cells_after-title">
-        <view class="weui-cell">
-            <view class="weui-cell__bd">活动名称</view>
-            <view class="weui-cell__ft">{{coupon.name}}</view>
-        </view>
-        <view class="weui-cell">
-            <view class="weui-cell__bd">服务门店</view>
-            <view class="weui-cell__ft">{{coupon.storeName}}</view>
+    <view class='big-img coupon-img'>
+        <image style="height: 150px;" src='{{coupon.share_img_url}}'></image>
+        <view class='denomination'>
+            <view>￥{{coupon.deduction_money}}</view>
+            <view>价值</view>
         </view>
     </view>
+    <view class="bg-white coupon-content">
+        <view class='bold'>{{coupon.name}}</view>
+        <view class='mart20'>服务门店：{{coupon.storeName}}</view>
+    </view>
     <form>
-        <view class="weui-cells">
+        <view class="weui-cells weui-cells_after-title">
             <view wx:if="{{!form.is_register}}">
                 <view class="weui-cell">
                     <view class="weui-cell__hd">
                         <view class="weui-label">车牌号</view>
                     </view>
                     <view class="weui-cell__bd" bindtap="showKeyboard">
-                        <input type="text" name="car_number" value="{{carNumber}}" maxlength="8" placeholder="填写车牌号" disabled />
+                        <input type="text" name="car_number" value="{{carNumber}}" maxlength="8" placeholder="填写车牌号"
+                            disabled />
                     </view>
                 </view>
                 <view class="weui-cell">

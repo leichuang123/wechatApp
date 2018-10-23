@@ -1,48 +1,58 @@
-<view wx:if="{{!loading}}">
-    <view class="weui-panel__bd weui-panel_access bg-white mart5">
-        <view class="weui-media-box weui-media-box_appmsg">
-            <view class='marl'>
-                <view class="face-img-mine">
-                    <image src='{{coupon.share_img_url}}'></image>
+<view class="padding-bottom20" wx:if="{{!loading}}">
+    <view class="coupon-body">
+        <view class='sherable-bg'>
+            <image src="../../assets/images/sharable-topbg.png" mode='aspectFit'></image>
+            <view class='sharable-cont'>
+                <view class='fs18'>{{coupon.name}}</view>
+                <view class='fs24 fc-orange bold'>￥{{coupon.deduction_money}}</view>
+            </view>
+        </view>
+        <view class='activity-cont fc-white'>
+            <view class='text-center'>活动期限：{{coupon.start_time}}至{{coupon.end_time}}</view>
+            <view class='fc-lightgrey weui-flex'>
+                <view>优惠说明： </view>
+                <view class='weui-flex__item break'>
+                    <block wx:for="{{coupon.instructions}}" wx:key="index">
+                        <view>{{item}}</view>
+                    </block>
                 </view>
             </view>
-            <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
-                <view class="weui-media-box__title cup-money">{{coupon.name}}</view>
-                <view class="weui-media-box__desc cup-money">￥{{coupon.deduction_money}}</view>
-            </view>
-        </view>
-        <view class='rank-cell fs13'>
-            <view class='grey'>有效期：{{coupon.start_time}}至{{coupon.end_time}}</view>
-            <view class='grey'>优惠说明：{{coupon.instructions}}</view>
-        </view>
-        <view class='rank-cell fs13'>
             <view wx:if="{{coupon.award_coupon_name!=''}}">
-                <view>可分享次数：{{coupon.share_times}}</view>
-                <view>分享奖励：{{coupon.award_coupon_name}}</view>
+                <view class='fc-lightgrey'>可分享次数：{{coupon.share_times}}次</view>
+                <view class='fc-lightgrey'>分享奖励：{{coupon.award_coupon_name}}</view>
             </view>
         </view>
+        <view class='exlpain-content'>说明：达到分享数量后可进行奖励，同一个活动不会进行重复奖励</view>
         <view class="weui-flex bg-white">
             <view class="weui-flex__item pad">
                 <button class="weui-btn" type="primary" bindtap="hasExpired">领取</button>
             </view>
             <view class="weui-flex__item pad" wx:if="{{hasAuth}}">
-                <button class="weui-btn" type="default" open-type='share'>分享给朋友</button>
+                <button class="weui-btn share-btn" type="primary" open-type='share'>分享给朋友</button>
             </view>
             <view class="weui-flex__item pad" wx:else>
-                <button class="weui-btn" type="default" open-type='getUserInfo' bindgetuserinfo="onGetUserInfo">分享给朋友</button>
+                <button class="weui-btn share-btn" type="primary" open-type='getUserInfo' bindgetuserinfo="onGetUserInfo">分享给朋友</button>
             </view>
         </view>
-        <view class='weui-cells'>
-            <view class='rank-cell'>{{coupon.store_name}}</view>
-            <view class="weui-cell" bindtap="openLocation">
-                <text class='icon-map-marker grey'></text>
-                <view class="weui-cell__bd marl8">{{coupon.store_address}}</view>
-                <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+    </view>
+    <view class='weui-cells fs14'>
+        <view class="weui-cell">
+            <view class="weui-cell__bd marl8"> 服务门店：{{coupon.store_name}} </view>
+            <view class="weui-cell__ft">
+                <text class='icon-home2 grey'></text>
             </view>
-            <view data-tel="{{coupon.tel}}" class="weui-cell weui-cells_after-title" bindtap="call">
+        </view>
+        <view class="weui-cell" bindtap="openLocation">
+            <view class="weui-cell__bd marl8">门店地址：{{coupon.store_address}}</view>
+            <view class="weui-cell__ft">
+                <text class='icon-map-marker grey'></text>
+            </view>
+        </view>
+        <view data-tel="{{coupon.tel}}" class="weui-cell weui-cells_after-title" bindtap="call">
+            <view class="weui-cell__bd marl8">
+                门店电话：{{coupon.tel}}</view>
+            <view class="weui-cell__ft">
                 <text class='icon-phone grey'></text>
-                <view class="weui-cell__bd marl8">{{coupon.tel}}</view>
-                <view class="weui-cell__ft weui-cell__ft_in-access"></view>
             </view>
         </view>
     </view>

@@ -7,3 +7,33 @@
     width: 20px;
     height: 20px;
 }
+
+.button-sp-area {
+    margin: 0 auto;
+    width: 35%;
+}
+.margin-line {
+    margin-bottom: 1px;
+}
+.marb20 {
+    margin-bottom: 20px;
+}
+.exlpain-content {
+    width: 300px;
+    margin: 0 auto;
+    font-size: 14px;
+    padding: 0 15px 15px;
+    color: #adadad;
+}
+
+.coupon-body {
+    background: #fff;
+    padding-bottom: 20px;
+}
+.break {
+  word-break: break-all;
+  white-space: normal;
+}
+.padb20{
+    padding-bottom: 20px;
+}

@@ -34,7 +34,7 @@ Page({
             sender_id: 0,
             give_num: 0,
             send_record_id: 0,
-            is_user_coupon: 0,
+            is_user_coupon: 2,
             recommend_user: 0,
             recommend_type: 0 //0无1提供商2顾问3门店4用户
         },
@@ -71,7 +71,7 @@ Page({
      * 获取手机号
      */
     getMobile: function(e) {
-        let mobile = e.detail.value;
+        const mobile = e.detail.value;
         if (mobile.length === 11) {
             this.setData({
                 flag: false,
@@ -192,9 +192,9 @@ Page({
     },
     //获取微信用户信息
     onGetUserInfo: function(e) {
-        let wxUserInfo = wx.getStorageSync('wxUserInfo');
+        const wxUserInfo = wx.getStorageSync('wxUserInfo');
         if (!wxUserInfo) {
-            let data = e.detail;
+            const data = e.detail;
             if (data.errMsg === 'getUserInfo:ok') {
                 this.setData({
                     'form.encryptedData': data.encryptedData,
@@ -221,8 +221,8 @@ Page({
      * 获取输入的值
      */
     getInputValue: function(e) {
-        let item = e.currentTarget.id;
-        let prop = 'form.' + item;
+        const item = e.currentTarget.id;
+        const prop = 'form.' + item;
         this.setData({
             [prop]: e.detail.value
         });
@@ -246,7 +246,7 @@ Page({
             });
     },
     changeCarNumber(e) {
-        let index = e.detail.value;
+        const index = e.detail.value;
         if (this.data.carIndex == index) {
             return;
         }
@@ -275,13 +275,16 @@ Page({
             'form.sender_id': params.sender_id,
             'form.give_num': params.give_num,
             'form.send_record_id': params.send_record_id,
+            'form.share_uuid': params.share_uuid,
             'form.is_user_coupon': params.is_user_coupon,
             'form.is_register': !!userData && userData.isRegist,
             carNumbers: carNumbers,
             carNumber: defaultCar,
             coupon: {
                 name: params.coupon_name,
-                storeName: params.store_name
+                storeName: params.store_name,
+                deduction_money: params.deduction_money,
+                share_img_url: params.share_img_url
             }
         });
         if (carNumbers > 0) {

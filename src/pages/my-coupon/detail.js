@@ -26,7 +26,7 @@ Page({
         });
     },
     call: function(e) {
-        let tel = e.currentTarget.dataset.tel;
+        const tel = e.currentTarget.dataset.tel;
         makePhoneCall({
             phoneNumber: tel
         })
@@ -41,7 +41,7 @@ Page({
      * 定位
      */
     openLocation: function() {
-        let params = {
+        const params = {
             latitude: parseFloat(this.data.coupon.tencent_latitude),
             longitude: parseFloat(this.data.coupon.tencent_longitude),
             scale: 18,

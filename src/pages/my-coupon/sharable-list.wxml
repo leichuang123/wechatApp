@@ -24,7 +24,7 @@
                         <view class='weui-flex__item'>
                             <view class="cup-money">{{item.name}}</view>
                             <view>{{item.store_name}}</view>
-                            <view class='fs14'>活动期限：{{item.start_time}}至{{item.end_time}}</view>
+                            <view class='fs13 grey'>活动期限：{{item.start_time}}至{{item.end_time}}</view>
                         </view>
                     </view>
                 </view>

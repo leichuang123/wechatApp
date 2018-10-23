@@ -21,7 +21,7 @@
                         <view class='weui-flex__item'>
                             <view class="cup-money">{{item.coupon_name}}</view>
                             <view>{{item.store_name}}</view>
-                            <view class='fs13'>有效期：{{item.expire_time_start}}至{{item.expire_time_end}}</view>
+                            <view class='fs13 grey'>有效期：{{item.expire_time_start}}至{{item.expire_time_end}}</view>
                         </view>
                     </view>
                 </navigator>
