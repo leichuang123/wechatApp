@@ -66,7 +66,7 @@ Page({
             return;
         }
         let time = 60;
-        wx.showLoading({ title: '提交请求中' });
+        wx.showLoading({ title: '提交请求中', mask: true });
         getRequest('weapp/phonecode', { mobile: this.data.form.mobile }, false).then(res => {
             wx.hideLoading();
             if (res.errcode === 0) {
@@ -149,23 +149,25 @@ Page({
      * 注册
      */
     register: function() {
-        wx.showLoading({ title: '提交请求中' });
-        postRequest('weapp/signup', this.data.form, false, false).then(res => {
-            wx.hideLoading();
-            if (res.errcode === 0) {
-                toastMsg('注册成功', 'success', 1000, () => {
-                    wx.setStorageSync('sessionKey', res.data.sessionKey);
-                    this.gotoIndex();
-                });
-            } else {
-                toastMsg(res.errmsg, 'error', 1000, () => {
-                    this.gotoIndex();
-                });
-            }
-        }).catch(res=>{
-            console.log(res);
-            wx.hideLoading();
-        });
+        wx.showLoading({ title: '提交请求中', mask: true });
+        postRequest('weapp/signup', this.data.form, false, false)
+            .then(res => {
+                wx.hideLoading();
+                if (res.errcode === 0) {
+                    toastMsg('注册成功', 'success', 1000, () => {
+                        wx.setStorageSync('sessionKey', res.data.sessionKey);
+                        this.gotoIndex();
+                    });
+                } else {
+                    toastMsg(res.errmsg, 'error', 1000, () => {
+                        this.gotoIndex();
+                    });
+                }
+            })
+            .catch(res => {
+                console.log(res);
+                wx.hideLoading();
+            });
     },
     /**
      * 注册验证
@@ -181,9 +183,9 @@ Page({
     },
     //获取微信用户信息
     onGetUserInfo: function(e) {
-        let wxUserInfo = wx.getStorageSync('wxUserInfo');
+        const wxUserInfo = wx.getStorageSync('wxUserInfo');
         if (!wxUserInfo) {
-            let data = e.detail;
+            const data = e.detail;
             if (data.errMsg === 'getUserInfo:ok') {
                 this.setData({
                     'form.encryptedData': data.encryptedData,

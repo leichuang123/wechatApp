@@ -31,7 +31,8 @@ Page({
      */
     getCategories: function() {
         wx.showLoading({
-            title: '加载中'
+            title: '加载中...',
+            mask: true
         });
         getRequest('weapp/category', this.data.searchForm, false).then(res => {
             wx.hideLoading();
@@ -115,7 +116,8 @@ Page({
             showTopTips(this, errMsg);
         } else {
             wx.showLoading({
-                title: '加载中'
+                title: '提交请求中',
+                mask: true
             });
             postRequest('weapp/addreserve', this.data.form).then(res => {
                 wx.hideLoading();
@@ -175,20 +177,17 @@ Page({
             cateName: index > -1 ? this.data.categories[index].name : ''
         });
     },
-    /**
-     * 生命周期函数--监听页面加载
-     */
-    onLoad: function(options) {
-        let userData = wx.getStorageSync('userData'),
-            linkman = wx.getStorageSync('linkman'),
-            memberData = JSON.parse(options.memberData);
-        let carNumber = !!userData ? userData.user_data.default_car : '';
+    initData(options) {
+        const userData = wx.getStorageSync('userData');
+        const linkman = wx.getStorageSync('linkman');
+        const memberData = JSON.parse(options.memberData);
+        const carNumber = !!userData ? userData.user_data.default_car : '';
         this.setData({
             'form.store_id': memberData.store_id,
             'form.merchant_id': memberData.merchant_id,
             'form.car_number': carNumber,
             'form.mobile': !!userData ? userData.user_data.mobile : '',
-            'form.contact': linkman ? linkman : '',
+            'form.contact': !linkman ? '' : linkman,
             carNumbers: !!userData ? userData.user_data.car : [],
             searchForm: {
                 merchant_id: memberData.merchant_id,
@@ -196,11 +195,15 @@ Page({
             }
         });
         if (this.data.carNumbers.length > 0) {
-            let index = this.data.carNumbers.findIndex(value => {
-                return carNumber === value;
-            });
-            this.setData({ carIndex: index });
+            const index = this.data.carNumbers.indexOf(carNumber);
+            this.setData({ carIndex: index > -1 ? index : 0 });
         }
         this.getCategories();
+    },
+    /**
+     * 生命周期函数--监听页面加载
+     */
+    onLoad: function(options) {
+        this.initData(options);
     }
 });

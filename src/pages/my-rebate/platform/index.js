@@ -8,7 +8,7 @@ Page({
      * 获取用余额和户累计获得佣金
      */
     getBalanceWithAccumulatedBrokerage: function () {
-        wx.showLoading({ title: '加载中' });
+        wx.showLoading({ title: '加载中...' });
         getRequest('weapp/balance-with-brokerage').then(res => {
             wx.hideLoading();
             if (res.errcode === 0) {

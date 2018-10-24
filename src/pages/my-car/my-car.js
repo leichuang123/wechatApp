@@ -18,8 +18,8 @@ Page({
             if (res.errcode === 0) {
                 this.setData({
                     cars: res.data,
-                    hasData:true,
-                    loadingVisible:false
+                    hasData: true,
+                    loadingVisible: false
                 });
                 if (this.data.cars.length == 1 && !this.data.cars[0].car_brand) {
                     this.setData({
@@ -28,14 +28,14 @@ Page({
                     });
                 } else {
                     this.setData({
-                        carVisible: false,
+                        carVisible: false
                     });
                 }
             } else {
                 this.setData({
                     cars: [],
                     carVisible: false,
-                    hasData:false,
+                    hasData: false,
                     loadingVisible: false
                 });
             }
@@ -47,11 +47,11 @@ Page({
     gotoAddCar: function() {
         if (this.data.isRegistered) {
             wx.navigateTo({
-                url: 'add-car',
+                url: 'add-car'
             });
         } else {
             wx.navigateTo({
-                url: '/pages/register/register',
+                url: '/pages/register/register'
             });
         }
     },
@@ -59,7 +59,11 @@ Page({
      * 跳转到车型选择页面
      */
     gotoCars: function() {
-        wx.setStorageSync('car', { car_number: this.data.carNumber, action: 'list', car_id: this.data.carId });
+        wx.setStorageSync('car', {
+            car_number: this.data.carNumber,
+            action: 'list',
+            car_id: this.data.carId
+        });
         wx.navigateTo({
             url: '/pages/cars/cars'
         });
@@ -68,17 +72,22 @@ Page({
      * 删除车辆信息
      */
     deleteCar: function(e) {
-        let item = e.currentTarget.dataset.item;
+        const item = e.currentTarget.dataset.item;
+        const userData = wx.getStorageSync('userData');
+        const params = {
+            car_id: item.id,
+            car_number: item.car_number,
+            user_id: !!userData ? userData.user_data.id : null
+        };
         confirmMsg('提示', '确定要删除该车辆吗', true, () => {
-            api.postRequest('weapp/delcar', { car_id: item.id }).then(res => {
+            api.postRequest('weapp/delcar', params).then(res => {
                 if (res.errcode === 0) {
                     toastMsg('删除成功', 'success', 1000, () => {
                         this.getCars();
-                        if(item.is_default==1){
-                            let userData = wx.getStorageSync('userData');
-                            let index = userData.user_data.car.findIndex(value => { value == item.car_number});
-                            if(index!=-1){
-                                userData.user_data.car.splice(index,1);
+                        if (item.is_default == 1) {
+                            const index = userData.user_data.car.indexOf(item.car_number);
+                            if (index > -1) {
+                                userData.user_data.car.splice(index, 1);
                                 wx.setStorageSync('userData', userData);
                             }
                         }
@@ -86,7 +95,6 @@ Page({
                 } else {
                     toastMsg(res.errmsg, 'error');
                 }
-
             });
         });
     },
@@ -95,7 +103,9 @@ Page({
      */
     setDefault: function(e) {
         let item = e.currentTarget.dataset.item;
-        api.postRequest('weapp/defaultcar', { car_id: item.id }).then(res => {
+        api.postRequest('weapp/defaultcar', {
+            car_id: item.id
+        }).then(res => {
             if (res.errcode === 0) {
                 let userData = wx.getStorageSync('userData');
                 userData.user_data.default_car = item.car_number;
@@ -104,7 +114,6 @@ Page({
             } else {
                 toastMsg(res.errmsg, 'error');
             }
-
         });
     },
     /**
@@ -135,4 +144,4 @@ Page({
         });
         this.getCars();
     }
-})
+});

@@ -25,8 +25,10 @@
             <view class="footer-btn">
                 <view class="weui-flex">
                     <view class="weui-flex__item pad">
-                        <button class="weui-btn" wx:if="{{item.is_default==1}}" size="mini" disabled="true" type="primary" plain="true">已默认</button>
-                        <button data-item="{{item}}" class="weui-btn" size="mini" wx:if="{{item.is_default!=1}}" type="primary" plain="true" bindtap="setDefault">设为默认</button>
+                        <button class="weui-btn" wx:if="{{item.is_default==1}}" size="mini" disabled="true" type="primary"
+                            plain="true">已默认</button>
+                        <button data-item="{{item}}" class="weui-btn" size="mini" wx:if="{{item.is_default!=1}}" type="primary"
+                            plain="true" bindtap="setDefault">设为默认</button>
                     </view>
                     <view class="weui-flex__item pad">
                         <button data-item="{{item}}" class="weui-btn" size="mini" type="primary" plain="true" bindtap="deleteCar">删除</button>
@@ -38,6 +40,6 @@
     <view class="weui-btn-area" wx:if="{{cars.length>0}}">
         <button class="weui-btn" type="primary" bindtap="gotoAddCar">添加车辆</button>
     </view>
-     <template is="loading" data="{{ loadingVisible, hasData }}" />
+    <template is="loading" data="{{ loadingVisible, hasData }}" />
 </view>
 <loading wx:if="{{loading}}">加载中</loading>

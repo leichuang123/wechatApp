@@ -1,5 +1,4 @@
 import api from '../../utils/api';
-import { confirmMsg } from '../../utils/util';
 import { openLocation, makePhoneCall } from '../../utils/wx-api';
 Page({
     data: {
@@ -14,14 +13,14 @@ Page({
             store_id: 0,
             store_name: '',
             merchant_id: 0,
-            isRegistered: false,
+            isRegistered: false
         },
         storeForm: {
             storeId: 0,
             merchantId: 0,
             fromPage: '',
             latitude: 0,
-            longitude: 0,
+            longitude: 0
         }
     },
     /**
@@ -29,11 +28,13 @@ Page({
      */
     call: function(e) {
         let tel = e.currentTarget.dataset.tel;
-        makePhoneCall({ phoneNumber: tel }).then(res => {
-            console.log('拨打成功');
-        }).catch(() => {
-            console.log('拨打失败');
-        });
+        makePhoneCall({ phoneNumber: tel })
+            .then(res => {
+                console.log('拨打成功');
+            })
+            .catch(() => {
+                console.log('拨打失败');
+            });
     },
     /**
      * 获取门店详情
@@ -44,7 +45,7 @@ Page({
             if (res.errcode === 0) {
                 this.setData({
                     storeInfo: res.data,
-                    'memberForm.store_name': res.data.store_name,
+                    'memberForm.store_name': res.data.store_name
                 });
             }
         });
@@ -62,8 +63,8 @@ Page({
             longitude: longitude,
             scale: 18,
             name: store.store_name,
-            address: store.store_address,
-        }
+            address: store.store_address
+        };
         openLocation(params);
     },
     /**
@@ -75,7 +76,7 @@ Page({
         memberData.latitude = this.data.storeForm.latitude;
         memberData = JSON.stringify(memberData);
         wx.navigateTo({
-            url: '/pages/goods-list/goods-list?memberData=' + memberData,
+            url: '/pages/goods-list/goods-list?memberData=' + memberData
         });
     },
     /**
@@ -93,12 +94,11 @@ Page({
         const memberData = JSON.stringify(this.data.memberForm);
         if (this.data.memberForm.isRegistered) {
             wx.navigateTo({
-                url: '/pages/queue/add?memberData=' + memberData,
+                url: '/pages/queue/add?memberData=' + memberData
             });
         } else {
             this.gotoRegister();
         }
-
     },
     /**
      * 跳转到预约页面
@@ -107,7 +107,7 @@ Page({
         const memberData = JSON.stringify(this.data.memberForm);
         if (this.data.memberForm.isRegistered) {
             wx.navigateTo({
-                url: '/pages/reservation/add?memberData=' + memberData,
+                url: '/pages/reservation/add?memberData=' + memberData
             });
         } else {
             this.gotoRegister();
@@ -121,19 +121,19 @@ Page({
         storeData.type = e.currentTarget.dataset.type;
         storeData = JSON.stringify(storeData);
         wx.navigateTo({
-            url: '/pages/store-list/profile?storeData=' + storeData,
-        })
+            url: '/pages/store-list/profile?storeData=' + storeData
+        });
     },
     /**
      * 跳转到店内促销页面
      */
     gotoStorePromotion: function() {
-        let params = JSON.stringify({
+        const params = JSON.stringify({
             merchant_id: this.data.storeInfo.merchant_id,
             store_id: this.data.storeInfo.store_id
         });
         wx.navigateTo({
-            url: '../../promotion/pages/store-goods/index?params=' + params,
+            url: '../../promotion/pages/store-goods/index?params=' + params
         });
     },
     /**
@@ -156,4 +156,4 @@ Page({
     onShow: function() {
         this.getStoreInfo();
     }
-})
+});

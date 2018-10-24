@@ -15,7 +15,7 @@ Page({
             mobile: '',
             notice: '',
             is_promote: 1,
-            order: [],
+            order: []
         }
     },
     /**
@@ -31,7 +31,7 @@ Page({
      */
     gotoStores: function() {
         wx.navigateTo({
-            url: '/pages/store-list/store-list?type=wash',
+            url: '/pages/store-list/store-list?type=wash'
         });
     },
     /**
@@ -45,12 +45,14 @@ Page({
                 money: this.data.form.money,
                 content: '',
                 is_queue: false,
-                goods: [{
-                    id: this.data.form.goods_id,
-                    price: this.data.form.money,
-                    num: 1,
-                    type: this.data.form.category
-                }]
+                goods: [
+                    {
+                        id: this.data.form.goods_id,
+                        price: this.data.form.money,
+                        num: 1,
+                        type: this.data.form.category
+                    }
+                ]
             }
         });
     },
@@ -62,7 +64,7 @@ Page({
         postRequest('weapp/createstoregoodsorder', this.data.form).then(res => {
             if (res.errcode === 0) {
                 wx.navigateTo({
-                    url: '../../../pages/order-list/order-list?type=1',
+                    url: '../../../pages/order-list/order-list?type=1'
                 });
             } else {
                 confirmMsg('提示', res.errmsg, false, () => {
@@ -83,17 +85,21 @@ Page({
             this.setData({ loading: false });
             if (res.errcode === 0) {
                 let payArgs = res.data;
-                wxPay(payArgs, (res) => {
-                    wx.navigateTo({
-                        url: 'success?id=' + payArgs.queue_order_id,
-                    });
-                }, (res) => {
-                    toastMsg('支付失败', 'error', 1000, () => {
-                        wx.navigateBack({
-                            delta: 2
+                wxPay(
+                    payArgs,
+                    res => {
+                        wx.navigateTo({
+                            url: 'success?id=' + payArgs.queue_order_id
                         });
-                    });
-                });
+                    },
+                    res => {
+                        toastMsg('支付失败', 'error', 1000, () => {
+                            wx.navigateBack({
+                                delta: 2
+                            });
+                        });
+                    }
+                );
             } else {
                 confirmMsg('提示', res.errmsg, false, () => {
                     wx.navigateBack({
@@ -101,7 +107,7 @@ Page({
                     });
                 });
             }
-        })
+        });
     },
 
     /**
@@ -117,13 +123,10 @@ Page({
             'form.car_number': this.data.carNumbers[e.detail.value]
         });
     },
-    /**
-     * 生命周期函数--监听页面加载
-     */
-    onLoad: function(options) {
-        let params = JSON.parse(options.params);
-        let userData = wx.getStorageSync('userData');
-        let defaultCar = !!userData ? userData.user_data.default_car : '';
+    initData(options) {
+        const params = JSON.parse(options.params);
+        const userData = wx.getStorageSync('userData');
+        const defaultCar = !!userData ? userData.user_data.default_car : '';
         this.setData({
             'form.goods_id': params.goods_id,
             'form.money': params.money,
@@ -135,12 +138,18 @@ Page({
             'form.car_number': defaultCar,
             'form.mobile': !!userData ? userData.user_data.mobile : '',
             carNumbers: !!userData ? userData.user_data.car : [],
-            carIndex: 0,
+            carIndex: 0
         });
 
         if (this.data.carNumbers.length > 0) {
-            let index = this.data.carNumbers.findIndex(value => defaultCar === value);
-            this.setData({ carIndex: index });
+            const index = this.data.carNumbers.indexOf(defaultCar);
+            this.setData({ carIndex: index > -1 ? index : 0 });
         }
+    },
+    /**
+     * 生命周期函数--监听页面加载
+     */
+    onLoad: function(options) {
+        this.initData(options);
     }
-})
+});

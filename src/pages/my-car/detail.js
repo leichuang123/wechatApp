@@ -6,7 +6,7 @@ Page({
         keyboardVisible: false,
         carInfo: {},
         today: '',
-        carNumber: '',
+        carNumber: ''
     },
     /**
      * 显示键盘
@@ -22,7 +22,7 @@ Page({
     hideKeyboard: function(e) {
         this.setData({
             keyboardVisible: e.detail.keyboardVisible
-        })
+        });
     },
     /**
      * 获取车牌号
@@ -56,12 +56,12 @@ Page({
             case 'buyTime':
                 this.setData({
                     'carInfo.buy_time': e.detail.value
-                })
+                });
                 break;
             case 'traveled':
                 this.setData({
                     'carInfo.traveled': e.detail.value
-                })
+                });
                 break;
             case 'insurance':
                 this.setData({
@@ -83,35 +83,36 @@ Page({
             confirmMsg('提示', '请填写有效的车牌号', false);
             return;
         }
-        let carData = this.data.carInfo;
-        let params = {
-            car_id: carData.id,
+        const params = {
+            car_id: this.data.carInfo.id,
             car_number: this.data.carNumber,
-            traveled: carData.traveled,
-            buy_time: carData.buy_time,
-            last_insure: carData.last_insure,
-            car_verifi: carData.car_verifi,
-            car_brand: carData.car_brand,
-            car_serie: carData.car_serie,
-            engine_power: carData.engine_power,
-            produce_year: carData.produce_year,
-            car_category: carData.car_category
-        }
+            old_car_number: this.data.carInfo.car_number,
+            traveled: this.data.carInfo.traveled,
+            buy_time: this.data.carInfo.buy_time,
+            last_insure: this.data.carInfo.last_insure,
+            car_verifi: this.data.carInfo.car_verifi,
+            car_brand: this.data.carInfo.car_brand,
+            car_serie: this.data.carInfo.car_serie,
+            engine_power: this.data.carInfo.engine_power,
+            produce_year: this.data.carInfo.produce_year,
+            car_category: this.data.carInfo.car_category
+        };
         wx.showLoading({
             title: '提交请求中',
+            mask:true
         });
         api.postRequest('weapp/updatecar', params).then(res => {
             wx.hideLoading();
             if (res.errcode === 0) {
                 wx.removeStorageSync('updateCarData');
-                toastMsg('更新成功', 'success',1000,()=>{
+                toastMsg('更新成功', 'success', 1000, () => {
                     wx.navigateTo({
-                        url: 'my-car',
+                        url: 'my-car'
                     });
                 });
                 return;
             }
-            confirmMsg('',res.errmsg, false);
+            confirmMsg('', res.errmsg, false);
         });
     },
     /**
@@ -156,9 +157,9 @@ Page({
                 'carInfo.produce_year_name': updateCarData.produce_year_name,
                 'carInfo.car_category': updateCarData.car_category,
                 'carInfo.car_category_name': updateCarData.car_category_name,
-                'carInfo.id': updateCarData.car_id,
+                'carInfo.id': updateCarData.car_id
             });
             wx.removeStorageSync('updateCarData');
         }
     }
-})
+});

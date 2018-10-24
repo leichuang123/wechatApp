@@ -7,8 +7,7 @@
             <view class="weui-cell__bd">{{car.manufacturer}}--{{car.car_department}}</view>
         </view>
     </view>
-    <view class="cue">温馨提示："生产年份" 与 "年款"，"上路年份"未必相同（尤其是1、2月份买时）选错生产年份往往会导致配件出错无法安装。
-    </view>
+    <view class="cue">温馨提示："生产年份" 与 "年款"，"上路年份"未必相同（尤其是1、2月份买时）选错生产年份往往会导致配件出错无法安装。</view>
     <view class="weui-cells">
         <block wx:for="{{categories}}" wx:key="id">
             <view data-item="{{item}}" class="weui-cell weui-cell_access" bindtap="addCar">

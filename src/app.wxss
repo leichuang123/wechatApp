@@ -313,7 +313,7 @@ opacity:0.5;
 .bg-green{ background: #52C651 !important;}
 /* 优惠券 */
 .fc-lightgrey { color:#dadada}
-.sherable-bg{text-align: center; background: #fff;position:relative;width:300px;margin:0 auto;height:194px;}
+.sherable-bg{text-align: center; background: #fff;position:relative;width:300px;margin:0 auto;height:200px;}
 .sherable-bg image{width:100%;}
 .sharable-cont {position:absolute;top: 0;width:100%;left:0;margin-top: 70px;}
 .activity-cont {width: 300px;margin: 0 auto;background: #E93A25;font-size: 14px;padding: 0 15px 15px; box-sizing:border-box;}

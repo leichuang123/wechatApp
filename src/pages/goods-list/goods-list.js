@@ -553,7 +553,7 @@ Page({
             'memberForm.car_number': carNumber,
         });
         if (this.data.carNumbers.length > 0) {
-            let index = this.data.carNumbers.findIndex(value => carNumber === value);
+            const index = this.data.carNumbers.indexOf(carNumber);
             this.setData({ carIndex: index > -1 ? index : 0 });
         }
     },

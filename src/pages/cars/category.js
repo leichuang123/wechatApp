@@ -51,7 +51,12 @@ Page({
                     car_serie: car.serie_id
                 }
             });
+            wx.showLoading({
+                title:'提交请求中',
+                mask:true
+            });
             api.postRequest('weapp/addcar', this.data.addForm).then(res => {
+                wx.hideLoading();
                 let msg = res.errcode === 0 ? '添加成功' : res.errmsg,
                     msgType = res.errcode === 0 ? 'success' : 'error';
                 toastMsg(msg, msgType, 1000, () => {

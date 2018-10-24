@@ -1,8 +1,14 @@
 import { getRequest } from '../../../utils/api';
 import WxParse from '../../../assets/plugins/wxParse/wxParse';
 import { confirmMsg } from '../../../utils/util';
-import { getSetting, saveImageToPhotosAlbum, makePhoneCall, downloadFile, openLocation, authorize } from '../../../utils/wx-api';
-const app=getApp();
+import {
+    getSetting,
+    saveImageToPhotosAlbum,
+    makePhoneCall,
+    downloadFile,
+    openLocation,
+    authorize
+} from '../../../utils/wx-api';
 Page({
     data: {
         loading: true,
@@ -13,20 +19,10 @@ Page({
         sharingImage: '',
         form: {
             id: 0,
-            merchant_id:0,
-            store_id: 0,
-            user_id: 0
-        },
-        goodsForm: {
-            goods_id: 0,
-            money: 0,
             merchant_id: 0,
             store_id: 0,
-            store_name: '',
-            category: 0,
-            goods_name: ''
-        },
-
+            user_id: 0
+        }
     },
     /**
      * 获取商品详情
@@ -41,10 +37,9 @@ Page({
                     storeDetail: res.data.storeDetail,
                     evaluations: res.data.storeEvaluationList.data
                 });
-                let detail = res.data.goodsDetail.contents;
-                let that = this;
+                const detail = res.data.goodsDetail.contents;
+                const that = this;
                 WxParse.wxParse('detail', 'html', detail, that, 15);
-
             } else {
                 this.setData({
                     loading: false,
@@ -60,7 +55,7 @@ Page({
      */
     gotoEvaluationList: function() {
         wx.navigateTo({
-            url: 'evaluation-list?storeId=' + this.data.storeDetail.store_id,
+            url: 'evaluation-list?storeId=' + this.data.storeDetail.store_id
         });
     },
     /**
@@ -68,40 +63,35 @@ Page({
      */
     gotoIndex: function() {
         wx.switchTab({
-            url: '/pages/index/index',
+            url: '/pages/index/index'
         });
     },
     /**
      * 跳转到支付页面
      */
     gotoPay: function() {
-        this.setData({
-            'goodsForm.goods_id': this.data.goodsDetail.related_id,
-            'goodsForm.money': this.data.goodsDetail.promotion_price,
-            'goodsForm.merchant_id': this.data.goodsDetail.merchant_id,
-            'goodsForm.store_id': this.data.goodsDetail.store_id,
-            'goodsForm.store_name': this.data.storeDetail.store_name,
-            'goodsForm.goods_name': this.data.goodsDetail.related_name,
-            'goodsForm.category': this.data.goodsDetail.category,
-        });
-        wx.navigateTo({
-            url: '../payment/payment?params=' + JSON.stringify(this.data.goodsForm),
-        });
+        const params = {
+            goods_id: this.data.goodsDetail.related_id,
+            money: this.data.goodsDetail.promotion_price,
+            merchant_id: this.data.goodsDetail.merchant_id,
+            store_id: this.data.goodsDetail.store_id,
+            store_name: this.data.storeDetail.store_name,
+            goods_name: this.data.goodsDetail.related_name,
+            category: this.data.goodsDetail.category
+        };
+        wx.navigateTo({ url: '../payment/payment?params=' + JSON.stringify(params) });
     },
     /**
      * 跳转到注册页面
      */
     gotoRegister: function() {
-        let params = JSON.stringify({
-            userId: this.form.user_id,
-            recommendType: 4 //0无1提供商2顾问3门店4用户
-        });
+        const params = JSON.stringify({ userId: this.form.user_id, recommendType: 4 }); //0无1提供商2顾问3门店4用户
         wx.redirectTo({
             url: '../../../pages/register/register?params=' + params
         });
     },
     onGotoPay: function() {
-        let userData = wx.getStorageSync('userData');
+        const userData = wx.getStorageSync('userData');
         if (!!userData && userData.isRegist) {
             this.gotoPay();
         } else {
@@ -112,28 +102,28 @@ Page({
      * 定位
      */
     openLocation: function() {
-        let store = this.data.storeDetail,
-            latitude = parseFloat(store.store_lati),
-            longitude = parseFloat(store.store_long);
-        let params = {
-            latitude: latitude,
-            longitude: longitude,
+        const store = this.data.storeDetail;
+        const params = {
+            latitude: parseFloat(store.store_lati),
+            longitude: parseFloat(store.store_long),
             scale: 18,
             name: store.store_name,
-            address: store.store_address,
-        }
+            address: store.store_address
+        };
         openLocation(params);
     },
     /**
      * 打电话
      */
     call: function(e) {
-        let tel = e.currentTarget.dataset.tel;
-        makePhoneCall({ phoneNumber: tel }).then(res => {
-            console.log('拨打成功');
-        }).catch(() => {
-            console.log('拨打失败');
-        });
+        const tel = e.currentTarget.dataset.tel;
+        makePhoneCall({ phoneNumber: tel })
+            .then(res => {
+                console.log('拨打成功');
+            })
+            .catch(() => {
+                console.log('拨打失败');
+            });
     },
     /**
      * 生成分享图
@@ -141,6 +131,7 @@ Page({
     generateSharingImage: function() {
         wx.showLoading({
             title: '图片生成中',
+            mask: true
         });
         getRequest('weapp/share-goods-image', this.data.form, false).then(res => {
             wx.hideLoading();
@@ -152,7 +143,7 @@ Page({
                 return;
             }
             this.setData({
-                sharingImage: '',
+                sharingImage: ''
             });
             confirmMsg('', '图片生成失败', false);
         });
@@ -161,53 +152,56 @@ Page({
      * 保存图片到相册
      */
     saveImageToPhotosAlbum: function(tempFilePath) {
-        saveImageToPhotosAlbum({ filePath: tempFilePath }).then(res => {
-            wx.hideLoading();
-            this.setData({ imageVisible: false });
-            wx.showModal({
-                title: '成功保存图片',
-                content: '已成功为您保存图片到手机相册，请自行前往朋友圈分享',
-                showCancel: false,
-                confirmText: '知道了',
-                success: (res) => {
-
-                }
+        saveImageToPhotosAlbum({ filePath: tempFilePath })
+            .then(res => {
+                wx.hideLoading();
+                this.setData({ imageVisible: false });
+                wx.showModal({
+                    title: '成功保存图片',
+                    content: '已成功为您保存图片到手机相册，请自行前往朋友圈分享',
+                    showCancel: false,
+                    confirmText: '知道了',
+                    success: res => {}
+                });
+            })
+            .catch(res => {
+                wx.hideLoading();
+                confirmMsg('保存出错', res.errMsg, false);
             });
-        }).catch(res => {
-            wx.hideLoading();
-            confirmMsg('保存出错', res.errMsg, false);
-        });
     },
 
     /**
      * 下载图片
      */
     downloadImage: function() {
+        wx.showLoading({
+            title: '正在保存图片',
+            mask: true
+        });
         downloadFile({ url: this.data.sharingImage }).then(res => {
             if (res.statusCode === 200) {
-                let tempFilePath = res.tempFilePath;
+                const tempFilePath = res.tempFilePath;
                 getSetting().then(res => {
                     if (!res.authSetting['scope.writePhotosAlbum']) {
-                        authorize({ scope: 'scope.writePhotosAlbum' }).then(res => {
-                            this.saveImageToPhotosAlbum(tempFilePath);
-                        }).catch(res => {
-                            wx.hideLoading();
-                            confirmMsg('授权失败', res.errMsg, false);
-                        });
+                        authorize({ scope: 'scope.writePhotosAlbum' })
+                            .then(res => {
+                                this.saveImageToPhotosAlbum(tempFilePath);
+                            })
+                            .catch(res => {
+                                wx.hideLoading();
+                                confirmMsg('授权失败', res.errMsg, false);
+                            });
                     } else {
                         this.saveImageToPhotosAlbum(tempFilePath);
                     }
                 });
             }
-        })
+        });
     },
     /**
      * 保存图片
      */
     saveImage: function() {
-        wx.showLoading({
-            title: '正在保存图片',
-        });
         this.downloadImage();
     },
     /**
@@ -223,21 +217,26 @@ Page({
      * 跳转到店内促销详情页
      */
     gotoStorePromotion: function() {
-        let params = JSON.stringify({
+        const params = JSON.stringify({
             merchant_id: this.data.storeDetail.merchant_id,
             store_id: this.data.storeDetail.store_id
         });
         wx.navigateTo({
-            url: '../store-goods/index?params=' + params,
+            url: '../store-goods/index?params=' + params
         });
     },
     /**
      * 生命周期函数--监听页面加载
      */
     onLoad: function(options) {
-        let params = JSON.parse(options.params),
-            userData = wx.getStorageSync('userData'),
-            userId = params.user_id !== undefined ? params.user_id : (!!userData ? userData.user_data.id : 0);
+        const params = JSON.parse(options.params);
+        const userData = wx.getStorageSync('userData');
+        const userId =
+            params.user_id !== undefined
+                ? params.user_id
+                : !!userData && !!userData.user_data
+                    ? userData.user_data.id
+                    : 0;
         this.setData({
             'form.id': params.id,
             'form.merchant_id': params.merchant_id,
@@ -250,16 +249,17 @@ Page({
      * 分享
      */
     onShareAppMessage: function() {
-        let userData = wx.getStorageSync('userData'),
-            params = JSON.stringify({
-                id: this.data.form.id,
-                merchant_id: this.data.form.merchant_id,
-                store_id: this.data.form.store_id,
-                user_id: !!userData ? userData.user_data.id : 0
-            });
+        const userData = wx.getStorageSync('userData');
+        const userId = !!userData && !!userData.user_data ? userData.user_data.id : 0;
+        const params = JSON.stringify({
+            id: this.data.form.id,
+            merchant_id: this.data.form.merchant_id,
+            store_id: this.data.form.store_id,
+            user_id: userId
+        });
         return {
             title: '促销活动--' + this.data.goodsDetail.related_name,
             path: '/promotion/pages/goods-detail/index?params=' + params
-        }
+        };
     }
-})
+});

@@ -1,7 +1,7 @@
 import { getRequest, postRequest } from '../../../utils/api';
 import { uploadFileUrl } from '../../../config';
 import { confirmMsg, showTopTips, isMobile, isCarNumber } from '../../../utils/util';
-const app=getApp();
+const app = getApp();
 Page({
     data: {
         loading: true,
@@ -76,7 +76,7 @@ Page({
             });
         }
         this.setData({
-            customerForm: items,
+            customerForm: items
         });
     },
     /**
@@ -123,7 +123,7 @@ Page({
             attribute = attributes[pIndex].children;
         let items = attribute.map((n, i) => {
             return Object.assign({}, n, {
-                checked: i == index,
+                checked: i == index
             });
         });
         attributes[pIndex].children = items;
@@ -191,15 +191,15 @@ Page({
             fail: res => {
                 params.failUp++;
             },
-            complete: (res) => {
+            complete: res => {
                 params.i++;
                 if (params.i === params.length) {
                     console.log('总共' + params.successUp + '张上传成功,' + params.failUp + '张上传失败！');
                 } else {
                     this.uploadImages(params);
                 }
-            },
-        })
+            }
+        });
     },
     /**
      * 选择图片
@@ -222,13 +222,16 @@ Page({
                 let userType = this.data.form.user_type;
                 let imageListType = userType == 1 ? 'personImageList' : 'cropImageList';
                 let imageList = userType == 1 ? this.data.personImageList : this.data.cropImageList;
-                imageList[index] = userType == 1 ? this.data.personImageList[index].concat(res.tempFilePaths) : this.data.cropImageList[index].concat(res.tempFilePaths);
+                imageList[index] =
+                    userType == 1
+                        ? this.data.personImageList[index].concat(res.tempFilePaths)
+                        : this.data.cropImageList[index].concat(res.tempFilePaths);
                 this.setData({
                     [imageListType]: imageList
                 });
                 this.uploadImages(params);
             }
-        })
+        });
     },
     /**
      * 图片预览
@@ -239,7 +242,7 @@ Page({
         wx.previewImage({
             current: e.currentTarget.dataset.src,
             urls: urls
-        })
+        });
     },
     /**
      * 初始化数据
@@ -369,7 +372,7 @@ Page({
                 params.car_number = this.data.businessForm.need_car_number === 'Y' ? this.data.form.car_number : '';
                 params = JSON.stringify(params);
                 wx.navigateTo({
-                    url: 'settlement?params=' + params,
+                    url: 'settlement?params=' + params
                 });
             }
         });
@@ -378,7 +381,7 @@ Page({
      * 检查每个属性是否被选中
      */
     isAttributeChecked: function(element, index, array) {
-        return !element.checked
+        return !element.checked;
     },
     /**
      * 检查客户填写资料是否为空
@@ -421,11 +424,11 @@ Page({
         for (let i = 0, len = attributes.length; i < len; i++) {
             let items = attributes[i].children;
             if (items.every(this.isAttributeChecked)) {
-                return '请选择' + attributes[i].name + '选项'
+                return '请选择' + attributes[i].name + '选项';
             }
         }
         if (uploadData.length === 0 && this.data.hasNeededData) {
-            return '请上传相关资料'
+            return '请上传相关资料';
         } else {
             if (!uploadData.every(this.isFormItemUploaded)) {
                 return '请上传' + uploadData[this.data.uploadItemIndex].name;
@@ -460,9 +463,9 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function(options) {
-        let linkman = wx.getStorageSync('linkman');
-        let userData = wx.getStorageSync('userData');
-        let carNumber = !!userData ? userData.user_data.default_car : '';
+        const linkman = wx.getStorageSync('linkman');
+        const userData = wx.getStorageSync('userData');
+        const carNumber = !!userData ? userData.user_data.default_car : '';
         this.setData({
             carNumbers: !!userData ? userData.user_data.car : [],
             businessId: options.id,
@@ -472,12 +475,12 @@ Page({
             'form.contact': linkman ? linkman : '',
             'form.business_id': options.id,
             'form.latitude': app.globalData.defaultLocation.latitude,
-            'form.longitude': app.globalData.defaultLocation.longitude,
+            'form.longitude': app.globalData.defaultLocation.longitude
         });
         if (this.data.carNumbers.length > 0) {
-            let index = this.data.carNumbers.findIndex(value => carNumber === value);
-            this.setData({ carIndex: index });
+            const index = this.data.carNumbers.indexOf(carNumber);
+            this.setData({ carIndex: index > -1 ? index : 0 });
         }
         this.getBusinessForm(options.id);
     }
-})
+});

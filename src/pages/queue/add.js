@@ -677,17 +677,10 @@ Page({
             this.addQueue();
         }
     },
-    /**
-     * 生命周期函数--监听页面加载
-     */
-    onLoad: function(options) {
-        let memberData = JSON.parse(options.memberData);
-        let userData = wx.getStorageSync('userData');
-        let carNumber = memberData.car_number
-            ? memberData.car_number
-            : !!userData
-                ? userData.user_data.default_car
-                : '';
+    initData(options) {
+        const memberData = JSON.parse(options.memberData);
+        const userData = wx.getStorageSync('userData');
+        const carNumber = !!userData ? userData.user_data.default_car : '';
         this.setData({
             'form.store_id': memberData.store_id,
             'form.car_number': carNumber,
@@ -713,10 +706,20 @@ Page({
         }
     },
     /**
+     * 生命周期函数--监听页面加载
+     */
+    onLoad: function(options) {
+        this.initData(options);
+    },
+    /**
      * 生命周期函数--监听页面显示
      */
     onShow: function() {
-        this.data.tabIndex == 0 ? this.getServices() : this.getGoods();
+        if (this.data.tabIndex == 0) {
+            this.getServices();
+        } else {
+            this.getGoods();
+        }
     },
     onHide: function() {
         this.setData({

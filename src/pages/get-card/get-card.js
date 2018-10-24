@@ -124,9 +124,10 @@ Page({
             return;
         }
         let time = 60;
-        wx.showLoading({ title: '提交请求中' });
+        wx.showLoading({ title: '提交请求中', mask: true });
         api.getRequest(
-            'weapp/phonecode', {
+            'weapp/phonecode',
+            {
                 mobile: this.data.form.mobile
             },
             false
@@ -200,7 +201,7 @@ Page({
             showTopTips(this, msg);
             return;
         }
-        wx.showLoading({ title: '提交请求中',mask:true });
+        wx.showLoading({ title: '提交请求中', mask: true });
         api.postRequest('weapp/get-card', this.data.form).then(res => {
             wx.hideLoading();
             if (res.errcode === 0) {
@@ -280,9 +281,9 @@ Page({
             carIndex: 0
         });
         if (this.data.carNumbers.length > 0) {
-            let index = this.data.carNumbers.findIndex(value => defaultCar === value);
+            const index = this.data.carNumbers.indexOf(defaultCar);
             this.setData({
-                carIndex: index
+                carIndex: index > -1 ? index : 0
             });
         }
         this.getDetail();

@@ -125,11 +125,7 @@ Page({
      * 跳转到评价页面
      */
     gotoEvaluate: function(e) {
-        let item = e.currentTarget.dataset.item,
-            params = JSON.stringify({
-                id: item.id,
-                category: 3 //订单
-            });
+        const params = JSON.stringify({ id: e.currentTarget.dataset.item.id, category: 3 }); //订单
         wx.navigateTo({
             url: '/pages/evaluation/evaluation?params=' + params
         });
@@ -139,12 +135,8 @@ Page({
      *
      */
     gotoDetail: function(e) {
-        let status = e.currentTarget.dataset.type,
-            id = e.currentTarget.dataset.id,
-            params = JSON.stringify({
-                id: id,
-                type: status == 4 ? 3 : status
-            });
+        const status = e.currentTarget.dataset.type;
+        const params = JSON.stringify({ id: e.currentTarget.dataset.id, type: status == 4 ? 3 : status });
         wx.navigateTo({
             url: 'detail?params=' + params
         });
@@ -153,11 +145,8 @@ Page({
      * 跳转到投诉页面
      */
     gotoComplain: function(e) {
-        let item = e.currentTarget.dataset.item,
-            params = JSON.stringify({
-                order_id: item.id,
-                order_number: item.order_number
-            });
+        const item = e.currentTarget.dataset.item;
+        const params = JSON.stringify({ order_id: item.id, order_number: item.order_number });
         wx.navigateTo({
             url: '../../paid-service/pages/complain/complain?params=' + params
         });
@@ -166,7 +155,7 @@ Page({
      * 确认增值服务订单完成
      */
     confirmFinish: function(e) {
-        let id = e.currentTarget.dataset.id;
+        const id = e.currentTarget.dataset.id;
         api.postRequest('weapp/business-finish', { order_id: id }).then(res => {
             if (res.errcode === 0) {
                 toastMsg('确认成功', 'success', 1000, () => {
@@ -189,7 +178,7 @@ Page({
      * 跳转到进度页面
      */
     gotoProgress: function(e) {
-        let item = e.currentTarget.dataset.item,
+        const item = e.currentTarget.dataset.item,
             params = JSON.stringify({
                 order_id: item.id,
                 order_number: item.order_number,

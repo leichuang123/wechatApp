@@ -288,7 +288,7 @@ Page({
             }
         });
         if (carNumbers > 0) {
-            const index = carNumbers.indexOf(value => defaultCar === value);
+            const index = carNumbers.indexOf(defaultCar);
             this.setData({ carIndex: index > -1 ? index : 0 });
         }
         this.wxLogin();

@@ -11,7 +11,7 @@
         <view class="weui-cell">
             <view class="weui-cell__bd">车牌号码：</view>
             <view class="weui-cell__ft text-black" bindtap="showKeyboard">
-                <input type="text" value="{{carNumber}}" maxlength="8" disabled/>
+                <input type="text" value="{{carNumber}}" maxlength="8" disabled />
             </view>
         </view>
     </view>
@@ -40,7 +40,8 @@
                 <view class="weui-label">上路时间</view>
             </view>
             <view class="weui-cell__bd">
-                <picker id="buyTime" mode="date" value="{{carInfo.buy_time}}" start="2000-01-01" end="{{today}}" bindchange="changeItem">
+                <picker id="buyTime" mode="date" value="{{carInfo.buy_time}}" start="2000-01-01" end="{{today}}"
+                    bindchange="changeItem">
                     <view class="weui-select weui-select_in-select-after text-right">{{carInfo.buy_time}}</view>
                 </picker>
             </view>
@@ -62,7 +63,8 @@
                 <view class="weui-label">上次投保时间</view>
             </view>
             <view class="weui-cell__bd">
-                <picker id="insurance" mode="date" value="{{carInfo.last_insure}}" start="2000-01-01" end="{{today}}" bindchange="changeItem">
+                <picker id="insurance" mode="date" value="{{carInfo.last_insure}}" start="2000-01-01" end="{{today}}"
+                    bindchange="changeItem">
                     <view class="weui-select weui-select_in-select-after text-right">{{carInfo.last_insure}}</view>
                 </picker>
             </view>
@@ -75,7 +77,8 @@
                 <view class="weui-label">上次年审时间</view>
             </view>
             <view class="weui-cell__bd">
-                <picker id="verify" mode="date" value="{{carInfo.car_verifi}}" start="2000-01-01" end="{{today}}" bindchange="changeItem">
+                <picker id="verify" mode="date" value="{{carInfo.car_verifi}}" start="2000-01-01" end="{{today}}"
+                    bindchange="changeItem">
                     <view class="weui-select weui-select_in-select-after text-right">{{carInfo.car_verifi}}</view>
                 </picker>
             </view>
@@ -85,5 +88,6 @@
         <button class="weui-btn" type="primary" bindtap="updateCar">保存</button>
     </view>
 </view>
-<car-keyboard keyboard-visible="{{keyboardVisible}}" car-number="{{carNumber}}" bind:hidekeyboard="hideKeyboard" bind:getcarnumber="getCarNumber"></car-keyboard>
+<car-keyboard keyboard-visible="{{keyboardVisible}}" car-number="{{carNumber}}" bind:hidekeyboard="hideKeyboard"
+    bind:getcarnumber="getCarNumber"></car-keyboard>
 <loading wx:if="{{ loading }}">加载中</loading>

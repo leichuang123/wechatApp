@@ -56,7 +56,7 @@ Page({
             return;
         }
         wx.showLoading({
-            title: '请求中',
+            title: '提交请求中',
             mask: true
         });
         postRequest('weapp/evaluate', this.data.form).then(res => {

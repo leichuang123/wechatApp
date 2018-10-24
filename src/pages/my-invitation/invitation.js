@@ -26,7 +26,8 @@ Page({
      */
     generateSharingImage: function() {
         wx.showLoading({
-            title: '图片生成中'
+            title: '图片生成中',
+            mask:true
         });
         getRequest('weapp/share-image').then(res => {
             wx.hideLoading();
@@ -91,7 +92,8 @@ Page({
      */
     saveImage: function() {
         wx.showLoading({
-            title: '正在保存图片'
+            title: '正在保存图片',
+            mask:true
         });
         this.downloadImage();
     },

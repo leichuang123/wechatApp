@@ -22,7 +22,7 @@ Page({
      * 获取股东卡信息
      */
     getCard: function(params) {
-        wx.showLoading({ title: '加载中' });
+        wx.showLoading({ title: '加载中...' });
         getRequest('weapp/get-card-info', params).then(res => {
             wx.hideLoading();
             if (res.errcode === 0) {
@@ -82,7 +82,7 @@ Page({
      * 充值
      */
     recharge: function() {
-        wx.showLoading({ title: '请求中' });
+        wx.showLoading({ title: '提交请求中', mask: true });
         getRequest('weapp/recharge', this.data.form).then(res => {
             wx.hideLoading();
             if (res.errcode === 0) {

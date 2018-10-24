@@ -147,13 +147,10 @@ Page({
      * 定位
      */
     openLocation: function() {
-        let store = this.data.orderInfo,
-            latitude = parseFloat(store.store_lati),
-            longitude = parseFloat(store.store_long);
-        openLocation(latitude, longitude, store.store_name, store.store_address);
-        let params = {
-            latitude: latitude,
-            longitude: longitude,
+        const store = this.data.orderInfo;
+        const params = {
+            latitude: parseFloat(store.store_lati),
+            longitude: parseFloat(store.store_long),
             scale: 18,
             name: store.store_name,
             address: store.store_address
@@ -164,7 +161,7 @@ Page({
      * 跳转到投诉页面
      */
     gotoComplain: function(e) {
-        let params = JSON.stringify({
+        const params = JSON.stringify({
             order_id: this.data.orderInfo.id,
             order_number: this.data.orderInfo.order_number
         });
@@ -192,7 +189,7 @@ Page({
      * 跳转到进度页面
      */
     gotoProgresss: function(e) {
-        let params = JSON.stringify({
+        const params = JSON.stringify({
             order_id: this.data.orderInfo.id,
             order_number: this.data.orderInfo.order_number,
             name: this.data.orderInfo.content,
@@ -207,7 +204,7 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function(options) {
-        let params = JSON.parse(options.params);
+        const params = JSON.parse(options.params);
         this.setData({
             form: {
                 order_id: params.id,
