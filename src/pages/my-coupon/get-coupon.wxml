@@ -20,8 +20,7 @@
                         <view class="weui-label">车牌号</view>
                     </view>
                     <view class="weui-cell__bd" bindtap="showKeyboard">
-                        <input type="text" name="car_number" value="{{carNumber}}" maxlength="8" placeholder="填写车牌号"
-                            disabled />
+                        <input type="text" name="car_number" value="{{carNumber}}" maxlength="8" placeholder="填写车牌号" disabled />
                     </view>
                 </view>
                 <view class="weui-cell">
@@ -61,7 +60,7 @@
                     <view class="weui-label">联系人</view>
                 </view>
                 <view class="weui-cell__bd">
-                    <input type="text" name="name" placeholder="填写联系人" bindinput='getContactName' />
+                    <input class="text-right" type="text" name="name" placeholder="填写联系人" bindinput='getContactName' />
                 </view>
             </view>
         </view>

@@ -1,18 +1,20 @@
-<view wx:if="{{!loading}}">
-    <view class='whole-scroll bg-white'>
-        <view class='sherable-bg'>
-            <image src="../../assets/images/sharable-topbg.png" mode='aspectFit'></image>
+<view wx:if="{{!loading}}" class='bg-white' style="height:{{height}}">
+    <view class='coupon-body'>
+        <view class='sherable-bg' style="width:{{couponWidth}}">
+            <image src="../../assets/images/sharable-topbg.png" mode='scaleToFill'></image>
             <view class='sharable-cont'>
                 <view class='fs18'>{{coupon.coupon_name}}代金券</view>
                 <view class='fs24 fc-orange bold'>￥{{coupon.deduction_money}}</view>
             </view>
         </view>
-        <view class='activity-cont'>
+        <view class='activity-cont' style="width:{{couponWidth}}">
             <view class="use-btn-box">
-                <view class="use-btn"><text>请到店使用</text></view>
+                <view class="use-btn">
+                    <text>请到店使用</text>
+                </view>
             </view>
             <view class='fc-white'>有效期：{{coupon.expire_time_start}}至{{coupon.expire_time_end}}</view>
-             <view class='fc-lightgrey weui-flex'>
+            <view class='fc-lightgrey weui-flex'>
                 <view>使用须知： </view>
                 <view class='weui-flex__item break'>
                     <block wx:for="{{coupon.notice}}" wx:key="index">
@@ -21,14 +23,6 @@
                 </view>
             </view>
             <view class='weui-cells radius5 list-grey'>
-                <view class='weui-cell'>
-                    <view class="weui-cell__hd">
-                        <view class="face-img-mine">
-                            <image src="{{coupon.pic_url}}"></image>
-                        </view>
-                    </view>
-                    <view class="weui-cell__bd fs14">伙伴养车</view>
-                </view>
                 <view class='rank-cell bold'>{{coupon.store_name}}</view>
                 <view>
                     <view class="weui-cell fs14" bindtap="openLocation">

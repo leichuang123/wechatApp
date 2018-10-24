@@ -36,8 +36,7 @@
 }
 .use-btn-box{
     text-align: center;
-    padding-top:20px;
-    padding-bottom: 20px;
+    padding-bottom: 10px;
 }
 .use-btn{
     border-radius: 20px;
@@ -55,4 +54,8 @@
 .break {
   word-break: break-all;
   white-space: normal;
+}
+.coupon-body {
+    padding-bottom: 10px;
+    padding-top:10px; 
 }

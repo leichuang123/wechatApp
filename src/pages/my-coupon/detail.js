@@ -1,5 +1,6 @@
 import { getRequest } from '../../utils/api';
-import { makePhoneCall, openLocation } from '../../utils/wx-api';
+import { makePhoneCall, openLocation,getSystemInfo } from '../../utils/wx-api';
+const app = getApp();
 Page({
     data: {
         loading: false,
@@ -55,6 +56,17 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function(options) {
+        getSystemInfo().then(res=>{
+            this.setData({
+                couponWidth: (res.windowWidth - 30) + 'px',
+                height: res.windowHeight + 'px'
+            });
+        }).catch(()=>{
+            this.setData({
+                couponWidth: (app.globalData.windowWidth - 30) + 'px',
+                height: (app.globalData.windowHeight + 48) + 'px'
+            });
+        })
         this.getCouponInfo(options.id);
     }
 });

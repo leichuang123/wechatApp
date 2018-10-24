@@ -92,7 +92,7 @@ Page({
             related_type: this.data.shareForm.related_type,
             send_mode: this.data.shareForm.send_mode,
             give_num: this.data.shareForm.give_num,
-            staff_id: staffId,
+            staff_id: this.data.shareForm.staff_id,
             is_gather: this.data.shareForm.is_gather,
             customer_id: this.data.shareForm.sender_customer_id
         };
@@ -108,6 +108,7 @@ Page({
      * 添加分享记录
      */
     addShareRecord: function() {
+        const wxUserInfo = wx.getStorageSync('wxUserInfo');
         const params = {
             merchant_id: this.data.shareForm.merchant_id,
             store_id: this.data.shareForm.store_id,
@@ -117,7 +118,7 @@ Page({
             sender_id: this.data.shareForm.sender_id,
             send_record_id: this.data.shareForm.send_record_id,
             sender_customer_id: this.data.shareForm.sender_customer_id,
-            sender_nick_name: this.data.shareForm.sender_nick_name,
+            sender_nick_name: wxUserInfo.nickName,
             share_uuid: this.data.shareForm.share_uuid
         };
         console.log(['addShareRecord-params:', params]);
@@ -173,7 +174,7 @@ Page({
     },
     //获取微信用户信息
     onGetUserInfo: function(e) {
-        let wxUserInfo = wx.getStorageSync('wxUserInfo');
+        const wxUserInfo = wx.getStorageSync('wxUserInfo');
         if (!wxUserInfo) {
             let data = e.detail;
             if (data.errMsg === 'getUserInfo:ok') {
@@ -225,7 +226,8 @@ Page({
             'shareForm.is_send': params.is_send,
             'shareForm.has_send_record': params.has_send_record,
             'shareForm.is_user_coupon': !params.is_user_coupon ? 2 : params.is_user_coupon,
-            'shareForm.share_uuid': !params.share_uuid ? '' : params.share_uuid
+            'shareForm.share_uuid': !params.share_uuid ? '' : params.share_uuid,
+            couponWidth: (app.globalData.windowWidth - 30) + 'px'
         });
         this.getDetail();
         //发送

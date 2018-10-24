@@ -65,7 +65,7 @@ Page({
         this.getCoupons();
         this.setData({
             sliderLeft: (app.globalData.windowWidth / this.data.tabs.length - sliderWidth) / 2,
-            sliderOffset: (app.globalData.windowWidth / this.data.tabs.length) * this.data.activeIndex
+            sliderOffset: (app.globalData.windowWidth / this.data.tabs.length) * this.data.activeIndex,
         });
     },
     /**

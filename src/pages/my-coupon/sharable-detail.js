@@ -1,5 +1,6 @@
 import api from '../../utils/api';
 import { makePhoneCall, openLocation } from '../../utils/wx-api';
+const app=getApp();
 Page({
     data: {
         loading: false,
@@ -81,7 +82,8 @@ Page({
             form: {
                 id: options.id,
                 type: options.type
-            }
+            },
+            couponWidth: (app.globalData.windowWidth - 30) + 'px'
         });
         this.getCouponInfo();
     },

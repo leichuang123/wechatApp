@@ -175,7 +175,7 @@ Page({
             mask: true
         });
         console.log(['get-coupon-form:', this.data.form]);
-        api.postRequest('weapp-coupon/get-coupon', this.data.form, false).then(res => {
+        api.postRequest('weapp-coupon/get-coupon', this.data.form).then(res => {
             wx.hideLoading();
             console.log(['get-coupon-response:', res]);
             if (res.errcode === 0) {

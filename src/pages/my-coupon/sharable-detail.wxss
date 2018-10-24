@@ -10,7 +10,7 @@
 
 .button-sp-area {
     margin: 0 auto;
-    width: 35%;
+    width: 160px;
 }
 .margin-line {
     margin-bottom: 1px;
@@ -19,7 +19,6 @@
     margin-bottom: 20px;
 }
 .exlpain-content {
-    width: 300px;
     margin: 0 auto;
     font-size: 14px;
     padding: 0 15px 15px;
@@ -28,7 +27,8 @@
 
 .coupon-body {
     background: #fff;
-    padding-bottom: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 .break {
   word-break: break-all;
