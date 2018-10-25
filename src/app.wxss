@@ -64,6 +64,7 @@ textarea { font-family: -apple-system-font, Helvetica Neue, sans-serif; }
 .fs14 { font-size: 14px;}
 .fs15{ font-size: 15px;}
 .fs13 { font-size: 13px;}
+.fs12 { font-size: 12px;}
 .light-black { color: #404040;}
 .time-btn { border: 1rpx solid #d9d9d9; display: inline-block;margin-left: 5px; border-radius: 3px;padding: 0 3px;}
 .full-picture image{max-width: 100%;margin-top: 5px;margin-bottom: 5px;}
@@ -213,7 +214,7 @@ opacity:0.5;
 /*门店评价*/
 .ranking-detail { text-align: center; margin-bottom: 4px; background: #fff; }
 .face-img image { width: 100%; height: 100%; }
-.face-box { width: 50px; margin-right: 16px;}
+.face-box { width: 60px; margin-right: 10px;padding-top:10px; }
 .accounts { position: fixed; width: 100%; height: 100rpx;left: 0; right: 0; bottom: 0; background: #fff; border-top:1rpx solid #d9d9d9;
  }
 .accounts-btn { background: #61b8a8; padding: 0 13px; height: 100%;line-height:100rpx; color: #fff; margin-left: 20rpx;}
@@ -258,7 +259,7 @@ opacity:0.5;
 .l-height { line-height: 3em; font-size: 13px; }
 
 /*优惠劵*/
-.coupon-box { width: 95%; border-radius: 5px; padding: 5px 18px; margin: 8px auto; background: #fff; box-sizing: border-box; border: 1px solid #e5e5e5; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05); }
+.coupon-box { width: 95%; border-radius: 5px; padding: 5px 10px; margin: 8px auto; background: #fff; box-sizing: border-box; border: 1px solid #e5e5e5; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05); }
 .cup-money { font-size: 1.5em; line-height: 2.0em; color: #3bbca5; }
 .cup-bg { background: #61B8A8; }
 .cont-detail { background: #fff; padding: 5px 18px; border-radius: 5px; height: 80%; margin-top: 10%; box-sizing: border-box; width: 90%; margin-left: 5%; }

@@ -132,8 +132,8 @@ Page({
                     }
                 });
             })
-            .catch(() => {
-                console.log('cancel');
+            .catch((res) => {
+                console.log(res);
                 wx.setStorageSync('locationInfo', app.globalData.defaultLocation);
             });
     },

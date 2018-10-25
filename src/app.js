@@ -67,8 +67,8 @@ App({
             this.globalData.windowHeight = res.windowHeight + 48;
             this.globalData.windowWidth = res.windowWidth;
         });
-        let wxUserInfo = wx.getStorageSync('wxUserInfo');
-        this.globalData.hasAuth = !wxUserInfo ? false : true;
+        const wxUserInfo = wx.getStorageSync('wxUserInfo');
+        this.globalData.hasAuth = !!wxUserInfo;
         this.onLogin();
     },
     onShow: function() {}

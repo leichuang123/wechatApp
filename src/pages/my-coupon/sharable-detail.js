@@ -4,6 +4,7 @@ const app=getApp();
 Page({
     data: {
         loading: false,
+        hasAuth:false,
         coupon: {},
         form: {
             id: 0,
@@ -39,7 +40,7 @@ Page({
             related_type: this.data.coupon.related_type,
             sender_customer_id: this.data.coupon.customer_id,
             sender_id: this.data.coupon.user_id,
-            sende_record_id: this.data.coupon.sende_record_id,
+            send_record_id: this.data.coupon.send_record_id,
             sender_nick_name: nickName,
             share_uuid: this.data.coupon.share_uuid,
             is_gather: this.data.coupon.is_gather
@@ -73,19 +74,32 @@ Page({
         };
         openLocation(params);
     },
+    //获取微信用户信息
+    onGetUserInfo: function (e) {
+        if (e.detail.errMsg === 'getUserInfo:ok') {
+            this.setData({ hasAuth: true });
+            app.setWxUserCache(e.detail);
+        } else {
+            confirmMsg('', '需要微信授权才能分享哦', false);
+        }
+    },
+    initData(options){
+        this.setData({
+            hasAuth: app.globalData.hasAuth,
+            couponWidth: app.globalData.windowWidth - 30 + 'px',
+            form: {
+                id: options.id,
+                type: options.type
+            }
+        });
+        this.getCouponInfo();
+    },
 
     /**
      * 生命周期函数--监听页面加载
      */
     onLoad: function(options) {
-        this.setData({
-            form: {
-                id: options.id,
-                type: options.type
-            },
-            couponWidth: (app.globalData.windowWidth - 30) + 'px'
-        });
-        this.getCouponInfo();
+        this.initData(options);
     },
     /**
      * 用户点击右上角分享

@@ -1,7 +1,7 @@
 <view wx:if="{{!loading}}">
     <view class="coupon-body">
         <view class='sherable-bg' style="width:{{couponWidth}}">
-            <image src="../../assets/images/sharable-topbg.png"  mode='scaleToFill'></image>
+            <image src="../../assets/images/sharable-topbg.png" mode='scaleToFill'></image>
             <view class='sharable-cont'>
                 <view class='fs18'>{{coupon.name}}</view>
                 <view class='fs24 fc-orange bold'>￥{{coupon.deduction_money}}</view>
@@ -20,10 +20,11 @@
             <view class='fc-lightgrey'>可分享次数：{{coupon.share_times}}次</view>
             <view class='fc-lightgrey' wx:if="{{coupon.award_coupon_name!==''}}">分享奖励：{{coupon.award_coupon_name}}</view>
         </view>
-        <view class='exlpain-content' style="width:{{couponWidth}}">达到分享领取数量后可进行奖励，同一个活动不会进行重复奖励</view>
         <view class='button-sp-area'>
-            <button class="weui-btn" type="primary" wx:if="{{form.type==1}}" open-type='share'>分享给好友</button>
-            <button class="weui-btn" type="default" wx:if="{{form.type==2}}" disabled="true" open-type='share'>已分享</button>
+            <button class="weui-btn" type="primary" wx:if="{{hasAuth&&form.type==1}}" open-type='share'>分享给朋友</button>
+            <button class="weui-btn" type="primary" wx:if="{{!hasAuth&&form.type==1}}" open-type='getUserInfo'
+                bindgetuserinfo="onGetUserInfo">分享给朋友</button>
+            <button class="weui-btn" type="default" wx:if="{{form.type==2}}" disabled="true">已分享</button>
         </view>
     </view>
     <view class='weui-cells fs14'>

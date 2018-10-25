@@ -13,11 +13,11 @@
             <block wx:for="{{coupons}}" wx:key="index">
                 <view id="{{item.id}}" class="coupon-box" bindtap='gotoDetail'>
                     <view class="weui-flex">
-                        <view class="face-box face-pad">
+                        <view class="face-box">
                             <view class="face-img-mine">
                                 <image src='{{item.share_img_url}}'></image>
                             </view>
-                            <view wx:if="{{form.type==1}}" class='fc-red fs13'>
+                            <view wx:if="{{form.type==1}}" class='share-times fc-red fs12'>
                                 可分享{{item.share_times}}次
                             </view>
                         </view>

@@ -1,1 +1,6 @@
-.face-pad { margin-top: 5px; padding-right: 10px;}
+.share-times {
+    color: #e51c23;
+    font-size: 12px;
+    width: 100px;
+    margin-top:5px;
+}

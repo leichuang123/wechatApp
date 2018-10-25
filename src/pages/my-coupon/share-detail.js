@@ -7,6 +7,7 @@ Page({
         loading: false,
         hasExpired: false,
         hasAuth: false,
+        shareUuid: '',
         coupon: {},
         shareForm: {
             merchant_id: 0,
@@ -108,7 +109,6 @@ Page({
      * 添加分享记录
      */
     addShareRecord: function() {
-        const wxUserInfo = wx.getStorageSync('wxUserInfo');
         const params = {
             merchant_id: this.data.shareForm.merchant_id,
             store_id: this.data.shareForm.store_id,
@@ -118,7 +118,7 @@ Page({
             sender_id: this.data.shareForm.sender_id,
             send_record_id: this.data.shareForm.send_record_id,
             sender_customer_id: this.data.shareForm.sender_customer_id,
-            sender_nick_name: wxUserInfo.nickName,
+            sender_nick_name: nickName,
             share_uuid: this.data.shareForm.share_uuid
         };
         console.log(['addShareRecord-params:', params]);
@@ -135,7 +135,7 @@ Page({
         api.postRequest('weapp-coupon/get-share-record-uuid', params, false).then(res => {
             console.log(['getShareRecordUuid response: ', res]);
             if (res.errcode) {
-                this.setData({ 'shareForm.share_uuid': res.data });
+                this.setData({ shareUuid: res.data });
             }
         });
     },
@@ -174,22 +174,11 @@ Page({
     },
     //获取微信用户信息
     onGetUserInfo: function(e) {
-        const wxUserInfo = wx.getStorageSync('wxUserInfo');
-        if (!wxUserInfo) {
-            let data = e.detail;
-            if (data.errMsg === 'getUserInfo:ok') {
-                this.setData({
-                    'shareForm.sender_nick_name': data.userInfo.nickName,
-                    hasAuth: true
-                });
-                app.setWxUserCache(data);
-            } else {
-                confirmMsg('', '需要微信授权才能分享哦', false);
-            }
+        if (e.detail.errMsg === 'getUserInfo:ok') {
+            this.setData({ hasAuth: true });
+            app.setWxUserCache(e.detail);
         } else {
-            this.setData({
-                hasAuth: true
-            });
+            confirmMsg('', '需要微信授权才能分享哦', false);
         }
     },
     /**
@@ -210,7 +199,6 @@ Page({
     },
     initData(params) {
         this.setData({
-            hasAuth: app.globalData.hasAuth,
             'shareForm.merchant_id': params.merchant_id,
             'shareForm.store_id': params.store_id,
             'shareForm.related_id': params.related_id,
@@ -227,7 +215,8 @@ Page({
             'shareForm.has_send_record': params.has_send_record,
             'shareForm.is_user_coupon': !params.is_user_coupon ? 2 : params.is_user_coupon,
             'shareForm.share_uuid': !params.share_uuid ? '' : params.share_uuid,
-            couponWidth: (app.globalData.windowWidth - 30) + 'px'
+            couponWidth: app.globalData.windowWidth - 30 + 'px',
+            hasAuth: this.globalData.hasAuth
         });
         this.getDetail();
         //发送
@@ -261,6 +250,8 @@ Page({
      */
     onShareAppMessage: function(res) {
         if (res.from === 'button') {
+            const wxUserInfo = wx.getStorageSync('wxUserInfo');
+            const nickName = !wxUserInfo ? '' : wxUserInfo.nickName;
             const sharedUrl =
                 '/pages/my-coupon/share-detail?merchant_id=' +
                 this.data.shareForm.merchant_id +
@@ -277,19 +268,19 @@ Page({
                 '&send_record_id=' +
                 this.data.shareForm.send_record_id +
                 '&sender_nick_name=' +
-                this.data.shareForm.sender_nick_name +
+                nickName +
                 '&give_num=' +
                 this.data.shareForm.give_num +
                 '&is_gather=' +
                 this.data.shareForm.is_gather +
                 '&share_uuid=' +
-                this.data.shareForm.share_uuid +
+                shareUuid +
                 '&is_send=2' +
                 '&send_mode=6' +
                 '&is_user_coupon=2' +
                 '&has_send_record=1';
 
-            this.addShareRecord();
+            this.addShareRecord(nickName);
             return {
                 title: this.data.coupon.share_title,
                 path: sharedUrl,
