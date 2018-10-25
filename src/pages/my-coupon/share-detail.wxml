@@ -1,7 +1,7 @@
 <view class="padding-bottom20" wx:if="{{!loading}}">
     <view class="coupon-body">
         <view class='sherable-bg' style="width:{{couponWidth}}">
-            <image src="../../assets/images/sharable-topbg.png" mode='scaleToFill'></image>
+            <image src="../../assets/images/sharable-top.png" mode='widthFix'></image>
             <view class='sharable-cont'>
                 <view class='fs18'>{{coupon.name}}</view>
                 <view class='fs24 fc-orange bold'>￥{{coupon.deduction_money}}</view>

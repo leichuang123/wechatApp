@@ -31,8 +31,11 @@
     padding-top: 20px;
 }
 
-.marl5 {
-    margin-left: 5px;
+.marl8 {
+    margin-left: 8px;
+}
+.marl15{ 
+  margin-left:15px;
 }
 .use-btn-box{
     text-align: center;

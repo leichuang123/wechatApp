@@ -1,8 +1,8 @@
 <import src="../../common/templates/top-tips.wxml" />
 <view>
     <template is="top-tips" data="{{showTopTips,errorMsg}}"></template>
-    <view class='big-img coupon-img'>
-        <image style="height: 150px;" src='{{coupon.share_img_url}}'></image>
+    <view class='big-img'>
+        <image mode='widthFix' src='{{coupon.share_img_url}}'></image>
         <view class='denomination'>
             <view>￥{{coupon.deduction_money}}</view>
             <view>价值</view>
@@ -71,7 +71,7 @@
                 </button>
             </view>
             <view class="weui-flex__item pad">
-                <button class="weui-btn" type="default" bindtap="gotoIndex">取消</button>
+                <button class="weui-btn" type="yellow" bindtap="gotoIndex">取消</button>
             </view>
         </view>
     </form>

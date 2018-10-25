@@ -17,8 +17,7 @@
                             <view class="face-img-mine">
                                 <image src='{{item.share_img_url}}'></image>
                             </view>
-                            <view wx:if="{{form.type==1}}" class='share-times fc-red fs12'>
-                                可分享{{item.share_times}}次
+                            <view wx:if="{{form.type==1}}" class='share-times fc-red fs12'>可分享{{item.share_times}}次
                             </view>
                         </view>
                         <view class='weui-flex__item'>

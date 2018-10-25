@@ -1,7 +1,7 @@
 <view wx:if="{{!loading}}" class='bg-white' style="height:{{height}}">
     <view class='coupon-body'>
         <view class='sherable-bg' style="width:{{couponWidth}}">
-            <image src="../../assets/images/sharable-topbg.png" mode='scaleToFill'></image>
+            <image src="../../assets/images/sharable-top.png" mode='widthFix'></image>
             <view class='sharable-cont'>
                 <view class='fs18'>{{coupon.coupon_name}}代金券</view>
                 <view class='fs24 fc-orange bold'>￥{{coupon.deduction_money}}</view>
@@ -23,17 +23,17 @@
                 </view>
             </view>
             <view class='weui-cells radius5 list-grey'>
-                <view class='rank-cell bold'>{{coupon.store_name}}</view>
+                <view class='rank-cell bold marl15'>{{coupon.store_name}}</view>
                 <view>
                     <view class="weui-cell fs14" bindtap="openLocation">
                         <text class='icon-map-marker grey'></text>
-                        <view class="weui-cell__bd marl5">{{coupon.store_address}}</view>
+                        <view class="weui-cell__bd marl8">{{coupon.store_address}}</view>
                     </view>
                 </view>
                 <view>
                     <view data-tel="{{coupon.tel}}" class="weui-cell fs14" bindtap="call">
                         <text class='icon-phone grey'></text>
-                        <view class="weui-cell__bd marl5">{{coupon.tel}}</view>
+                        <view class="weui-cell__bd marl8">{{coupon.tel}}</view>
                     </view>
                 </view>
             </view>

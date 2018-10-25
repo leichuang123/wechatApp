@@ -104,7 +104,24 @@ color:#FFFFFF;
 background-color:#61b8a8;
 opacity:0.5;
 }
+.button-hover[type="yellow"] {
+color:#FFFFFF;
+background-color:#FABF0B;
+opacity:0.8; }
+button[type="yellow"] {
+color:#FFFFFF;
+background-color:#FABF0B;
+}
 
+button[loading][type="yellow"] {
+    color: rgba(255, 255, 255, 0.6);
+    background-color: #FABF0B;
+}
+button[disabled][type="yellow"][plain=flase] {
+color:#FFFFFF;
+background-color:#FABF0B;
+opacity:0.5;
+}
 /*滚动*/
 .whole-scroll, .has-menu, .scroll-hasbtn, .reserv-box, .has-btm { width: 100%; overflow: auto;position: absolute; left: 0; }
 .whole-scroll { top: 0; bottom: 0; }
@@ -314,10 +331,10 @@ opacity:0.5;
 .bg-green{ background: #52C651 !important;}
 /* 优惠券 */
 .fc-lightgrey { color:#dadada}
-.sherable-bg{text-align: center; background: #fff;position:relative;width:300px;margin:0 auto;height:240px;}
+.sherable-bg{display: block;text-align: center;position:relative;margin:0 auto}
 .sherable-bg image{width:100%;}
-.sharable-cont {position:absolute;top: 0;width:100%;left:0;margin-top: 70px;}
-.activity-cont {width: 300px;margin: 0 auto;background: #E93A25;font-size: 14px;padding: 0 15px 15px; box-sizing:border-box;}
+.sharable-cont {position:absolute;top: 0;width:100%;left:0;margin-top: 30px;}
+.activity-cont {margin: 0 auto;background: #E93A25;font-size: 14px;padding: 6px 15px 25px; box-sizing:border-box; margin-top: -8px;}
 .big-img {width:100%;position:relative;}
-.big-img image { width:100%;} 
+.big-img image { width:100%; height:auto;} 
 .denomination { position:absolute;bottom: 6px;right: 0;display: inline-block; background: #353535; color: #fff;padding:5px 10px;text-align: center; font-size:14px;}
