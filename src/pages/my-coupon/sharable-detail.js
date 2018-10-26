@@ -5,6 +5,7 @@ Page({
     data: {
         loading: false,
         hasAuth:false,
+        couponWidth:'',
         coupon: {},
         form: {
             id: 0,
@@ -86,7 +87,7 @@ Page({
     initData(options){
         this.setData({
             hasAuth: app.globalData.hasAuth,
-            couponWidth: app.globalData.windowWidth - 30 + 'px',
+            couponWidth: (app.globalData.windowWidth - 30) + 'px',
             form: {
                 id: options.id,
                 type: options.type

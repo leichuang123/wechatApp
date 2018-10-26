@@ -4,6 +4,7 @@ const app = getApp();
 Page({
     data: {
         loading: false,
+        couponWidth:'',
         coupon: {}
     },
     /**

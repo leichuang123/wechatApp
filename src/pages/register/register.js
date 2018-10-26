@@ -4,9 +4,8 @@ import { login } from '../../utils/wx-api';
 const app = getApp();
 Page({
     data: {
-        flag: true, //标记是否已获取验证码
+        flag: false, //标记是否已获取验证码
         showTopTips: false,
-        getCodeDisabled: true,
         keyboardVisible: false,
         carNumber: '',
         errorMsg: '',
@@ -55,10 +54,6 @@ Page({
      */
     getCode: function(e) {
         if (this.data.flag) {
-            return;
-        }
-        if (this.data.form.mobile === '') {
-            showTopTips(this, '手机号不能为空');
             return;
         }
         if (!isMobile(this.data.form.mobile)) {

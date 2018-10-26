@@ -1,5 +1,5 @@
 import { getRequest } from 'utils/api';
-import { login, getSystemInfo, getLocation } from 'utils/wx-api';
+import { login, getSystemInfo, getLocation} from 'utils/wx-api';
 App({
     globalData: {
         hasAuth: false,

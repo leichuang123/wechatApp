@@ -1,12 +1,13 @@
 import api from '../../utils/api';
 import { confirmMsg, getUrlArgs } from '../../utils/util';
-import { makePhoneCall, openLocation, login } from '../../utils/wx-api';
+import { makePhoneCall, openLocation, login, getSystemInfo} from '../../utils/wx-api';
 const app = getApp();
 Page({
     data: {
         loading: false,
         hasExpired: false,
         hasAuth: false,
+        couponWidth:'',
         shareUuid: '',
         coupon: {},
         shareForm: {
@@ -198,6 +199,7 @@ Page({
             });
     },
     initData(params) {
+        const wxUserInfo = wx.getStorageSync('wxUserInfo');
         this.setData({
             'shareForm.merchant_id': params.merchant_id,
             'shareForm.store_id': params.store_id,
@@ -215,9 +217,17 @@ Page({
             'shareForm.has_send_record': params.has_send_record,
             'shareForm.is_user_coupon': !params.is_user_coupon ? 2 : params.is_user_coupon,
             'shareForm.share_uuid': !params.share_uuid ? '' : params.share_uuid,
-            couponWidth: app.globalData.windowWidth - 30 + 'px',
-            hasAuth: this.globalData.hasAuth
+            hasAuth: !!wxUserInfo
         });
+        getSystemInfo().then(res => {
+            this.setData({
+                couponWidth: (res.windowWidth - 30) + 'px',
+            });
+        }).catch(() => {
+            this.setData({
+                couponWidth: (app.globalData.windowWidth - 30) + 'px',
+            });
+        })
         this.getDetail();
         //发送
         if (params.is_send == 1 && params.has_send_record == 2) {

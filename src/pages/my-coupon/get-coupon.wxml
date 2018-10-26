@@ -64,7 +64,7 @@
                 </view>
             </view>
         </view>
-        <view class="weui-flex">
+        <view class="weui-flex mart20">
             <view class="weui-flex__item pad">
                 <button class="weui-btn" type="primary" open-type="getUserInfo" bindgetuserinfo="onGetUserInfo">
                     确认领取

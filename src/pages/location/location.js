@@ -139,9 +139,7 @@ Page({
      */
     queryCity: function(e) {
         let value = e.detail.value;
-        this.setData({
-            inputVal: e.detail.value
-        });
+        this.setData({ inputVal: value });
         if (value !== '') {
             let result = [];
             for (let i = 0, len = cities.length; i < len; i++) {
@@ -174,7 +172,7 @@ Page({
     /**
      * 生命周期函数--监听页面加载
      */
-    onLoad: function(options) {
+    onLoad: function() {
         const winHeight = app.globalData.windowHeight;
         const lineHeight = winHeight / 26;
         this.setData({
