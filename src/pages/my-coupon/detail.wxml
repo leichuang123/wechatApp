@@ -3,7 +3,7 @@
         <view class='sherable-bg' style="width:{{couponWidth}}">
             <image src="../../assets/images/sharable-top.png" mode='widthFix'></image>
             <view class='sharable-cont'>
-                <view class='fs18'>{{coupon.coupon_name}}代金券</view>
+                <view class='fs18'>{{coupon.coupon_name}}</view>
                 <view class='fs24 fc-orange bold'>￥{{coupon.deduction_money}}</view>
             </view>
         </view>

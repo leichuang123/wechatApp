@@ -37,7 +37,7 @@
             </view>
         </view>
     </block>
-    <view class="weui-btn-area" wx:if="{{cars.length>0}}">
+    <view class="weui-btn-area">
         <button class="weui-btn" type="primary" bindtap="gotoAddCar">添加车辆</button>
     </view>
     <template is="loading" data="{{ loadingVisible, hasData }}" />
