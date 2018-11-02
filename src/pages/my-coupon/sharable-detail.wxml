@@ -17,7 +17,7 @@
                     </block>
                 </view>
             </view>
-            <view class='fc-lightgrey'>可分享次数：{{coupon.share_times}}次</view>
+            <view class='fc-lightgrey'>可分享领取次数：{{coupon.share_times}}次</view>
             <view class='fc-lightgrey' wx:if="{{coupon.award_coupon_name!==''}}">分享奖励：{{coupon.award_coupon_name}}</view>
         </view>
         <view class='button-sp-area'>
