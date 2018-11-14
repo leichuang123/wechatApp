@@ -1,4 +1,4 @@
-import { getRequest } from '../../../utils/api';
+import { get } from '../../../utils/api';
 Page({
     data: {
         loadingVisible: true,
@@ -9,7 +9,7 @@ Page({
      * 获取会员卡列表
      */
     getCards: function() {
-        getRequest('/weapp/get-card-list').then(res => {
+        get('/weapp/get-card-list').then(res => {
             if (res.errcode === 0) {
                 this.setData({
                     cards: res.data

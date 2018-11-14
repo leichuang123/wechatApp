@@ -21,6 +21,7 @@
     font-size: 14px;
 }
 .icon-active {color: #61b8a8}
+.serivce-active{border-left: solid #61b8a8 5px;color: #61b8a8}
 
 
 

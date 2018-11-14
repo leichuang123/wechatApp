@@ -1,4 +1,4 @@
-import { getRequest } from '../../../utils/api';
+import { get } from '../../../utils/api';
 const app = getApp();
 Page({
     data: {
@@ -70,7 +70,7 @@ Page({
      * 获取收支明细列表
      */
     getRecords: function() {
-        getRequest('weapp/get-account-flow-record', this.data.form).then(res => {
+        get('weapp/get-account-flow-record', this.data.form).then(res => {
             if (res.errcode === 0) {
                 this.setData({
                     records: this.data.records.concat(res.data.data)

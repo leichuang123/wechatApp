@@ -1,4 +1,4 @@
-import { getRequest } from '../../../utils/api';
+import { get } from '../../../utils/api';
 const app = getApp();
 Page({
     data: {
@@ -15,7 +15,7 @@ Page({
      * 获取业务分类列表
      */
     getBusinessList: function() {
-        getRequest('weapp/business-list', this.data.form, false).then(res => {
+        get('weapp/business-list', this.data.form, false).then(res => {
             if (res.errcode === 0) {
                 this.setData({
                     loadingVisible: false,

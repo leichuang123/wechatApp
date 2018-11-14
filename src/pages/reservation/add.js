@@ -1,4 +1,4 @@
-import { getRequest, postRequest } from '../../utils/api';
+import { get, post } from '../../utils/api';
 import { confirmMsg, showTopTips, isMobile } from '../../utils/util';
 Page({
     data: {
@@ -34,7 +34,7 @@ Page({
             title: '加载中...',
             mask: true
         });
-        getRequest('weapp/category', this.data.searchForm, false).then(res => {
+        get('weapp/category', this.data.searchForm, false).then(res => {
             wx.hideLoading();
             if (res.errcode === 0) {
                 let cates = res.data.data;
@@ -51,7 +51,7 @@ Page({
      * 获取预约政策
      */
     getPolicy: function() {
-        getRequest('weapp/reserverule', this.data.searchForm, false).then(res => {
+        get('weapp/reserverule', this.data.searchForm, false).then(res => {
             if (res.errcode === 0) {
                 this.setData({
                     policy: res.data
@@ -119,7 +119,7 @@ Page({
                 title: '提交请求中',
                 mask: true
             });
-            postRequest('weapp/addreserve', this.data.form).then(res => {
+            post('weapp/addreserve', this.data.form).then(res => {
                 wx.hideLoading();
                 if (res.errcode === 0) {
                     let reservationData = JSON.stringify(res.data);
@@ -181,14 +181,14 @@ Page({
         const userData = wx.getStorageSync('userData');
         const linkman = wx.getStorageSync('linkman');
         const memberData = JSON.parse(options.memberData);
-        const carNumber = !!userData ? userData.user_data.default_car : '';
+        const carNumber = !!userData ? userData.default_car : '';
         this.setData({
             'form.store_id': memberData.store_id,
             'form.merchant_id': memberData.merchant_id,
             'form.car_number': carNumber,
-            'form.mobile': !!userData ? userData.user_data.mobile : '',
+            'form.mobile': !!userData ? userData.mobile : '',
             'form.contact': !linkman ? '' : linkman,
-            carNumbers: !!userData ? userData.user_data.car : [],
+            carNumbers: !!userData ? userData.car : [],
             searchForm: {
                 merchant_id: memberData.merchant_id,
                 store_id: memberData.store_id

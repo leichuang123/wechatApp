@@ -1,4 +1,4 @@
-import { postRequest } from '../../utils/api';
+import { post } from '../../utils/api';
 import { toastMsg, confirmMsg } from '../../utils/util';
 import wxPay from '../../utils/requestPayment';
 Page({
@@ -75,7 +75,7 @@ Page({
     addQueue: function() {
         this.generateQueueForm();
         setTimeout(() => {
-            postRequest('weapp/addqueue', this.data.queueForm).then(res => {
+            post('weapp/addqueue', this.data.queueForm).then(res => {
                 if (res.errcode === 0) {
                     toastMsg('取号成功！', 'success', 1000, () => {
                         let queueData = JSON.stringify(res.data);
@@ -111,7 +111,7 @@ Page({
      * 线下支付
      */
     payOffline: function() {
-        postRequest('weapp/createstoregoodsorder', this.data.form).then(res => {
+        post('weapp/createstoregoodsorder', this.data.form).then(res => {
             if (res.errcode === 0) {
                 this.setData({
                     'queueForm.order_id': res.data.queue_order_id,
@@ -139,7 +139,7 @@ Page({
      */
     payOnline: function(e) {
         this.setData({ loading: true });
-        postRequest('weapp/createstoregoodsorder', this.data.form).then(res => {
+        post('weapp/createstoregoodsorder', this.data.form).then(res => {
             this.setData({ loading: false });
             if (res.errcode === 0) {
                 let payArgs = res.data;

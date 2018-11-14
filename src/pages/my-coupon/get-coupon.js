@@ -128,7 +128,7 @@ Page({
         wx.showLoading({
             title: '提交请求中'
         });
-        api.getRequest('weapp/phonecode', { mobile: this.data.form.mobile }, false).then(res => {
+        api.get('weapp/phonecode', { mobile: this.data.form.mobile }, false).then(res => {
             wx.hideLoading();
             if (res.errcode === 0) {
                 let interval = setInterval(() => {
@@ -175,7 +175,7 @@ Page({
             mask: true
         });
         console.log(['get-coupon-form:', this.data.form]);
-        api.postRequest('weapp-coupon/get-coupon', this.data.form).then(res => {
+        api.post('weapp-coupon/get-coupon', this.data.form).then(res => {
             wx.hideLoading();
             console.log(['get-coupon-response:', res]);
             if (res.errcode === 0) {
@@ -261,8 +261,8 @@ Page({
     onLoad: function(options) {
         const params = JSON.parse(options.params);
         const userData = wx.getStorageSync('userData');
-        const defaultCar = !!userData ? userData.user_data.default_car : '';
-        const carNumbers = !!userData ? userData.user_data.car : [];
+        const defaultCar = !!userData ? userData.default_car : '';
+        const carNumbers = !!userData ? userData.car : [];
         this.setData({
             'form.merchant_id': params.merchant_id,
             'form.store_id': params.store_id,
@@ -277,7 +277,7 @@ Page({
             'form.send_record_id': params.send_record_id,
             'form.share_uuid': params.share_uuid,
             'form.is_user_coupon': params.is_user_coupon,
-            'form.is_register': !!userData && userData.isRegist,
+            'form.is_register': !!userData && userData.registered,
             carNumbers: carNumbers,
             carNumber: defaultCar,
             coupon: {

@@ -1,4 +1,4 @@
-import { getRequest } from '../../utils/api';
+import { get } from '../../utils/api';
 Page({
     data: {
         loadingVisible: true,
@@ -14,7 +14,7 @@ Page({
      * 获取用户积分
      */
     getRecords: function() {
-        getRequest('weapp/integral', this.data.form).then(res => {
+        get('weapp/integral', this.data.form).then(res => {
             if (res.errcode === 0) {
                 this.setData({
                     records: this.data.records.concat(res.data.items)

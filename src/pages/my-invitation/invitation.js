@@ -1,4 +1,4 @@
-import { getRequest } from '../../utils/api';
+import { get } from '../../utils/api';
 import { confirmMsg } from '../../utils/util';
 import { downloadFile, saveImageToPhotosAlbum, getSetting, authorize } from '../../utils/wx-api';
 
@@ -14,7 +14,7 @@ Page({
      * 获取邀请二维码
      */
     getInviteQrCode: function() {
-        getRequest('weapp/invite-qrcode', { userId: this.data.userId }).then(res => {
+        get('weapp/invite-qrcode', { userId: this.data.userId }).then(res => {
             this.setData({ loading: false });
             if (res.errcode === 0) {
                 this.setData({ qrCode: res.data });
@@ -27,9 +27,9 @@ Page({
     generateSharingImage: function() {
         wx.showLoading({
             title: '图片生成中',
-            mask:true
+            mask: true
         });
-        getRequest('weapp/share-image').then(res => {
+        get('weapp/share-image').then(res => {
             wx.hideLoading();
             if (res.errcode === 0) {
                 this.setData({
@@ -93,7 +93,7 @@ Page({
     saveImage: function() {
         wx.showLoading({
             title: '正在保存图片',
-            mask:true
+            mask: true
         });
         this.downloadImage();
     },
@@ -131,7 +131,7 @@ Page({
      */
     onLoad: function(options) {
         let userData = wx.getStorageSync('userData'),
-            userId = options.userId !== undefined ? options.userId : !!userData ? userData.user_data.id : 0;
+            userId = options.userId !== undefined ? options.userId : !!userData ? userData.id : 0;
         this.setData({ userId: userId });
         this.getInviteQrCode();
     },
@@ -140,7 +140,7 @@ Page({
      */
     onShareAppMessage: function() {
         let userData = wx.getStorageSync('userData');
-        let userId = !!userData ? userData.user_data.id : 0;
+        let userId = !!userData ? userData.id : 0;
         return {
             title: '伙伴养车',
             path: '/pages/my-invitation/invitation?userId=' + userId

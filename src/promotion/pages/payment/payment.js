@@ -1,4 +1,4 @@
-import { postRequest } from '../../../utils/api';
+import { post } from '../../../utils/api';
 import { toastMsg, confirmMsg } from '../../../utils/util';
 import wxPay from '../../../utils/requestPayment';
 Page({
@@ -61,7 +61,7 @@ Page({
      */
     payOffline: function() {
         this.generateForm();
-        postRequest('weapp/createstoregoodsorder', this.data.form).then(res => {
+        post('weapp/createstoregoodsorder', this.data.form).then(res => {
             if (res.errcode === 0) {
                 wx.navigateTo({
                     url: '../../../pages/order-list/order-list?type=1'
@@ -81,7 +81,7 @@ Page({
     payOnline: function(e) {
         this.setData({ loading: true });
         this.generateForm();
-        postRequest('weapp/createstoregoodsorder', this.data.form).then(res => {
+        post('weapp/createstoregoodsorder', this.data.form).then(res => {
             this.setData({ loading: false });
             if (res.errcode === 0) {
                 let payArgs = res.data;
@@ -126,7 +126,7 @@ Page({
     initData(options) {
         const params = JSON.parse(options.params);
         const userData = wx.getStorageSync('userData');
-        const defaultCar = !!userData ? userData.user_data.default_car : '';
+        const defaultCar = !!userData ? userData.default_car : '';
         this.setData({
             'form.goods_id': params.goods_id,
             'form.money': params.money,
@@ -136,8 +136,8 @@ Page({
             'form.goods_name': params.goods_name,
             'form.category': params.category,
             'form.car_number': defaultCar,
-            'form.mobile': !!userData ? userData.user_data.mobile : '',
-            carNumbers: !!userData ? userData.user_data.car : [],
+            'form.mobile': !!userData ? userData.mobile : '',
+            carNumbers: !!userData ? userData.car : [],
             carIndex: 0
         });
 

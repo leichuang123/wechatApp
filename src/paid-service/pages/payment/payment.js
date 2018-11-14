@@ -1,4 +1,4 @@
-import { getRequest } from '../../../utils/api';
+import { get } from '../../../utils/api';
 import { confirmMsg } from '../../../utils/util';
 import wxPay from '../../../utils/requestPayment';
 Page({
@@ -16,7 +16,7 @@ Page({
      */
     generatePayParams: function() {
         wx.showLoading();
-        getRequest('weapp/paysignpackage', { order_id: this.data.form.order_id }).then(res => {
+        get('weapp/paysignpackage', { order_id: this.data.form.order_id }).then(res => {
             wx.hideLoading();
             if (res.errcode === 0) {
                 this.pay(res.data);

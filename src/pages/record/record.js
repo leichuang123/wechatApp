@@ -44,7 +44,7 @@ Page({
      * 获取消费记录或开单记录
      */
     getRecords: function() {
-        api.getRequest('weapp/' + this.data.recordType, this.data.form).then(res => {
+        api.get('weapp/' + this.data.recordType, this.data.form).then(res => {
             let lastPage = 0;
             if (res.errcode === 0) {
                 lastPage = this.data.recordType === 'bill' ? res.data.last_page : res.data.last;

@@ -1,4 +1,4 @@
-import { postRequest } from '../../../utils/api';
+import { post } from '../../../utils/api';
 import { toastMsg, confirmMsg } from '../../../utils/util';
 Page({
     data: {
@@ -52,7 +52,7 @@ Page({
      */
     withdraw: function() {
         wx.showLoading({ title: '提交申请中' });
-        postRequest('weapp/withdraw-apply', this.data.form).then(res => {
+        post('weapp/withdraw-apply', this.data.form).then(res => {
             wx.hideLoading();
             if (res.errcode === 0) {
                 let params = JSON.stringify({

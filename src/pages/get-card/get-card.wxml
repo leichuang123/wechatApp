@@ -2,10 +2,12 @@
 <view>
     <template is="top-tips" data="{{showTopTips,errorMsg}}"></template>
     <view class="weui-cells weui-cells_after-title">
-        <view class="weui-cell">
-            <view class="weui-cell__bd">赠送内容</view>
-            <view class="weui-cell__ft">
-                <text wx:for="{{card.services}}" wx:key="index">{{item.service_name}}{{item.service_num}}<text style='margin-left:5px;'></text></text>
+        <view class="weui-flex">
+            <view>赠送内容</view>
+            <view class="weui-flex__item">
+                <block wx:for="{{card.services}}" wx:key="index">
+                    <view>{{item.service_name}}<text style='margin-left:5px;'>{{item.service_num}}</text></view>
+                </block>
             </view>
         </view>
         <view class="weui-cell">
@@ -15,7 +17,7 @@
     </view>
     <form>
         <view class="weui-cells">
-            <view class="weui-cell" wx:if="{{!isRegistered}}">
+            <view class="weui-cell" wx:if="{{!registered}}">
                 <view class="weui-cell__hd">
                     <view class="weui-label">车牌号</view>
                 </view>
@@ -23,7 +25,7 @@
                     <input type="text" name="car_number" value="{{carNumber}}" maxlength="8" placeholder="填写车牌号" disabled />
                 </view>
             </view>
-            <view class="weui-cell" wx:if="{{!isRegistered}}">
+            <view class="weui-cell" wx:if="{{!registered}}">
                 <view class="weui-cell__hd">
                     <view class="weui-label">手机号</view>
                 </view>
@@ -31,7 +33,7 @@
                     <input type="number" name="mobile" type="number" maxlength="11" placeholder="填写手机号" bindinput="getMobile" />
                 </view>
             </view>
-            <view class="weui-cell weui-cell_vcode" wx:if="{{!isRegistered}}">
+            <view class="weui-cell weui-cell_vcode" wx:if="{{!registered}}">
                 <view class="weui-cell__hd">
                     <view class="weui-label">验证码</view>
                 </view>
@@ -42,7 +44,7 @@
                     <view class="weui-vcode_btn" bindtap="getCode">{{codeText}}</view>
                 </view>
             </view>
-            <view class="weui-cell weui-cell_select" wx:if="{{isRegistered&&carNumbers.length}}">
+            <view class="weui-cell weui-cell_select" wx:if="{{registered&&carNumbers.length}}">
                 <view class="weui-cell__hd weui-cell__hd_in-select-after">
                     <view class="weui-label">车牌号</view>
                 </view>

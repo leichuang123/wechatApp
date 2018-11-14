@@ -13,7 +13,7 @@ Page({
      * 获取会员卡详情
      */
     getCardInfo: function() {
-        api.getRequest('weapp/membercarddetail', this.data.form).then(res => {
+        api.get('weapp/membercarddetail', this.data.form).then(res => {
             this.setData({
                 loading: false
             });
@@ -28,7 +28,7 @@ Page({
      * 创建分享信息
      */
     createShareInfo: function(params) {
-        api.postRequest('weapp/createshareinfo', params).then(res => {
+        api.post('weapp/createshareinfo', params).then(res => {
             console.log(res.errmsg);
         });
     },
@@ -62,7 +62,7 @@ Page({
             let service = res.target.dataset.item;
             let time = formatTime(new Date());
             let userData = wx.getStorageSync('userData');
-            let userId = !!userData ? userData.user_data.id : 0;
+            let userId = !!userData ? userData.id : 0;
             let sharedUrl =
                 '/pages/my-card/own/get-coupon?create_time=' +
                 time +

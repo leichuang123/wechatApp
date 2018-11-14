@@ -3,7 +3,7 @@ import { toastMsg, confirmMsg } from '../../utils/util';
 Page({
     data: {
         carVisible: false,
-        isRegistered: false,
+        registered: false,
         loadingVisible: true,
         hasData: true,
         carNumber: '',
@@ -14,7 +14,7 @@ Page({
      * 获取用户名下所有的车
      */
     getCars: function() {
-        api.getRequest('weapp/car').then(res => {
+        api.get('weapp/car').then(res => {
             if (res.errcode === 0) {
                 this.setData({
                     cars: res.data,
@@ -45,7 +45,7 @@ Page({
      * 跳转到添加车牌号页面
      */
     gotoAddCar: function() {
-        if (this.data.isRegistered) {
+        if (this.data.registered) {
             wx.navigateTo({
                 url: 'add-car'
             });
@@ -77,17 +77,17 @@ Page({
         const params = {
             car_id: item.id,
             car_number: item.car_number,
-            user_id: !!userData ? userData.user_data.id : null
+            user_id: !!userData ? userData.id : null
         };
         confirmMsg('提示', '确定要删除该车辆吗', true, () => {
-            api.postRequest('weapp/delcar', params).then(res => {
+            api.post('weapp/delcar', params).then(res => {
                 if (res.errcode === 0) {
                     toastMsg('删除成功', 'success', 1000, () => {
                         this.getCars();
                         if (item.is_default == 1) {
-                            const index = userData.user_data.car.indexOf(item.car_number);
+                            const index = userData.car.indexOf(item.car_number);
                             if (index > -1) {
-                                userData.user_data.car.splice(index, 1);
+                                userData.car.splice(index, 1);
                                 wx.setStorageSync('userData', userData);
                             }
                         }
@@ -103,12 +103,12 @@ Page({
      */
     setDefault: function(e) {
         let item = e.currentTarget.dataset.item;
-        api.postRequest('weapp/defaultcar', {
+        api.post('weapp/defaultcar', {
             car_id: item.id
         }).then(res => {
             if (res.errcode === 0) {
                 let userData = wx.getStorageSync('userData');
-                userData.user_data.default_car = item.car_number;
+                userData.default_car = item.car_number;
                 wx.setStorageSync('userData', userData);
                 this.getCars();
             } else {
@@ -121,10 +121,10 @@ Page({
      */
     onLoad: function(options) {
         let userData = wx.getStorageSync('userData'),
-            defaultCar = !!userData ? userData.user_data.default_car : '';
+            defaultCar = !!userData ? userData.default_car : '';
         this.setData({
             carNumber: defaultCar,
-            isRegistered: !!userData ? userData.isRegist : false
+            registered: !!userData ? userData.registered : false
         });
     },
     /**

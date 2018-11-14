@@ -1,4 +1,4 @@
-import { getRequest } from '../../utils/api';
+import { get } from '../../utils/api';
 const app = getApp();
 Page({
     data: {
@@ -13,7 +13,7 @@ Page({
      * 获取提现记录
      */
     getRecords: function() {
-        getRequest('weapp/withdraw-record-list', { page: this.data.page }).then(res => {
+        get('weapp/withdraw-record-list', { page: this.data.page }).then(res => {
             if (res.errcode === 0) {
                 this.setData({
                     records: this.data.records.concat(res.data.data)

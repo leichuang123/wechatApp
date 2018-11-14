@@ -24,7 +24,7 @@ const checkLogin = res => {
 /**
  * get请求
  */
-const getRequest = (url, params = {}, check = true, withSessionKey = true) => {
+const get = (url, params = {}, check = true, withSessionKey = true) => {
     let data = params;
     if (withSessionKey) {
         data.sessionKey = wx.getStorageSync('sessionKey') ? wx.getStorageSync('sessionKey') : '';
@@ -55,7 +55,7 @@ const getRequest = (url, params = {}, check = true, withSessionKey = true) => {
 /**
  * post请求
  */
-const postRequest = (url, data = {}) => {
+const post = (url, data = {}) => {
     let formData = data;
     formData.sessionKey = wx.getStorageSync('sessionKey') ? wx.getStorageSync('sessionKey') : '';
     return new Promise((resolve, reject) => {
@@ -77,6 +77,6 @@ const postRequest = (url, data = {}) => {
 };
 
 module.exports = {
-    getRequest: getRequest,
-    postRequest: postRequest
+    get: get,
+    post: post
 };

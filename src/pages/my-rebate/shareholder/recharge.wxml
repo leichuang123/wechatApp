@@ -28,7 +28,7 @@
         </view>
     </view>
     <view class="weui-cell fs14">
-        <view class="weui-cell__bd grey">分红账户余额 1000.00元</view>
+        <view class="weui-cell__bd grey">分红账户余额 {{card.balance}}</view>
         <view class="weui-cell__ft fc-primary">全部充值</view>
     </view>
 </view>

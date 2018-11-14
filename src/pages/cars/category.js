@@ -21,7 +21,7 @@ Page({
      * 获取车型版本
      */
     getCategories: function() {
-        api.getRequest('weapp/getcarcategory', this.data.cateForm, false).then(res => {
+        api.get('weapp/getcarcategory', this.data.cateForm, false).then(res => {
             this.setData({ loading: false });
             if (res.errcode === 0) {
                 this.setData({
@@ -52,10 +52,10 @@ Page({
                 }
             });
             wx.showLoading({
-                title:'提交请求中',
-                mask:true
+                title: '提交请求中',
+                mask: true
             });
-            api.postRequest('weapp/addcar', this.data.addForm).then(res => {
+            api.post('weapp/addcar', this.data.addForm).then(res => {
                 wx.hideLoading();
                 let msg = res.errcode === 0 ? '添加成功' : res.errmsg,
                     msgType = res.errcode === 0 ? 'success' : 'error';
@@ -65,7 +65,7 @@ Page({
                     });
                 });
                 let userData = wx.getStorageSync('userData');
-                userData.user_data.car.push[car.car_number];
+                userData.car.push[car.car_number];
                 wx.setStorageSync('userData', userData);
                 wx.removeStorageSync('car');
             });

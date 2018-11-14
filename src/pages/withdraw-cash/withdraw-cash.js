@@ -1,4 +1,4 @@
-import { postRequest } from '../../utils/api';
+import { post } from '../../utils/api';
 import { toastMsg, confirmMsg } from '../../utils/util';
 Page({
     data: {
@@ -51,14 +51,14 @@ Page({
      * 提现
      */
     withdraw: function() {
-        postRequest('weapp/withdraw', this.data.form).then(res => {
+        post('weapp/withdraw', this.data.form).then(res => {
             if (res.errcode === 0) {
                 let params = JSON.stringify({
                     money: parseFloat(this.data.form.money).toFixed(2),
                     account: this.data.account
                 });
                 wx.navigateTo({
-                    url: 'success?params=' + params,
+                    url: 'success?params=' + params
                 });
             } else {
                 confirmMsg('', res.errmsg, false, () => {
@@ -85,7 +85,7 @@ Page({
      */
     getName: function(e) {
         this.setData({
-            'form.real_name': e.detail.value,
+            'form.real_name': e.detail.value
         });
     },
     /**
@@ -93,7 +93,7 @@ Page({
      */
     gotoMine: function() {
         wx.switchTab({
-            url: '/pages/mine/mine',
+            url: '/pages/mine/mine'
         });
     },
     /**
@@ -104,7 +104,7 @@ Page({
             money = options.balance;
         this.setData({
             balance: money,
-            account: !!userData ? userData.user_data.mobile : '',
+            account: !!userData ? userData.mobile : ''
         });
     }
-})
+});

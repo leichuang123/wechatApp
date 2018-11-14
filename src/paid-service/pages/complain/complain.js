@@ -1,5 +1,5 @@
 import { uploadFileUrl } from '../../../config';
-import { postRequest } from '../../../utils/api';
+import { post } from '../../../utils/api';
 import { toastMsg, confirmMsg } from '../../../utils/util';
 Page({
     data: {
@@ -120,7 +120,7 @@ Page({
             confirmMsg('提示', '请填写投诉原因', false);
             return;
         }
-        postRequest('weapp/business-complain', this.data.form).then(res => {
+        post('weapp/business-complain', this.data.form).then(res => {
             if (res.errcode === 0) {
                 toastMsg('投诉成功', 'success', 1000, () => {
                     this.goBack();

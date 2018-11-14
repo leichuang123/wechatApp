@@ -1,4 +1,4 @@
-import { getRequest } from '../../utils/api';
+import { get } from '../../utils/api';
 const app = getApp();
 const sliderWidth = 72; // 需要设置slider的宽度，用于计算中间位置
 Page({
@@ -54,7 +54,7 @@ Page({
         this.setData({
             loadingVisible: true
         });
-        getRequest('weapp/promotion-list', this.data.form, false).then(res => {
+        get('weapp/promotion-list', this.data.form, false).then(res => {
             if (res.errcode === 0) {
                 this.setData({
                     goods: this.data.goods.concat(res.data.data)
@@ -147,7 +147,7 @@ Page({
     onGotoPay: function(e) {
         let item = e.currentTarget.dataset.item;
         let userData = wx.getStorageSync('userData');
-        if (!!userData && userData.isRegist) {
+        if (!!userData && userData.registered) {
             this.gotoPay(item);
         } else {
             this.gotoRegister();

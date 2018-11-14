@@ -1,4 +1,4 @@
-import { getRequest, postRequest } from '../../utils/api';
+import api from '../../utils/api';
 import { toastMsg, confirmMsg, showTopTips, isMobile, isCarNumber } from '../../utils/util';
 import { login } from '../../utils/wx-api';
 const app = getApp();
@@ -62,7 +62,7 @@ Page({
         }
         let time = 60;
         wx.showLoading({ title: '提交请求中', mask: true });
-        getRequest('weapp/phonecode', { mobile: this.data.form.mobile }, false).then(res => {
+        api.get('weapp/phonecode', { mobile: this.data.form.mobile }, false).then(res => {
             wx.hideLoading();
             if (res.errcode === 0) {
                 let interval = setInterval(() => {
@@ -145,7 +145,7 @@ Page({
      */
     register: function() {
         wx.showLoading({ title: '提交请求中', mask: true });
-        postRequest('weapp/signup', this.data.form, false, false)
+        api.post('weapp/signup', this.data.form, false, false)
             .then(res => {
                 wx.hideLoading();
                 if (res.errcode === 0) {

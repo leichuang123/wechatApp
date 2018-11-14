@@ -8,12 +8,12 @@ Page({
         interval: 5000,
         duration: 1000,
         storeInfo: {},
-        serviceType: 'wash',
+        serviceType: 'queue',
         memberForm: {
             store_id: 0,
             store_name: '',
             merchant_id: 0,
-            isRegistered: false
+            registered: false
         },
         storeForm: {
             storeId: 0,
@@ -40,7 +40,7 @@ Page({
      * 获取门店详情
      */
     getStoreInfo: function() {
-        api.getRequest('weapp/storedetail', this.data.storeForm, false).then(res => {
+        api.get('weapp/storedetail', this.data.storeForm, false).then(res => {
             this.setData({ loading: false });
             if (res.errcode === 0) {
                 this.setData({
@@ -92,7 +92,7 @@ Page({
      */
     gotoQueue: function() {
         const memberData = JSON.stringify(this.data.memberForm);
-        if (this.data.memberForm.isRegistered) {
+        if (this.data.memberForm.registered) {
             wx.navigateTo({
                 url: '/pages/queue/add?memberData=' + memberData
             });
@@ -105,7 +105,7 @@ Page({
      */
     gotoReservation: function() {
         const memberData = JSON.stringify(this.data.memberForm);
-        if (this.data.memberForm.isRegistered) {
+        if (this.data.memberForm.registered) {
             wx.navigateTo({
                 url: '/pages/reservation/add?memberData=' + memberData
             });
@@ -146,7 +146,7 @@ Page({
             serviceType: storeData.fromPage,
             storeForm: storeData,
             'memberForm.store_id': storeData.storeId,
-            'memberForm.isRegistered': !!userData ? userData.isRegist : false,
+            'memberForm.registered': !!userData ? userData.registered : false,
             'memberForm.merchant_id': storeData.merchantId
         });
     },

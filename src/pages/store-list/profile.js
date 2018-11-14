@@ -49,7 +49,7 @@ Page({
      */
     getStoreInfo: function() {
         this.setData({ loading: true });
-        api.getRequest('weapp/storedetail', this.data.form, false).then(res => {
+        api.get('weapp/storedetail', this.data.form, false).then(res => {
             this.setData({ loading: false });
             if (res.errcode === 0) {
                 this.setData({
@@ -64,7 +64,7 @@ Page({
      */
     getEvaluations: function() {
         this.setData({ loadingVisible: true });
-        api.getRequest('weapp/evaluatelist', this.data.evaluationForm, false).then(res => {
+        api.get('weapp/evaluatelist', this.data.evaluationForm, false).then(res => {
             if (res.errcode === 0) {
                 this.setData({
                     evaluations: this.data.evaluations.concat(res.data.data),
@@ -99,7 +99,7 @@ Page({
      */
     switchCollection: function() {
         let operation = !this.data.collected ? 'addfavor' : 'delfavor';
-        api.postRequest('weapp/' + operation, { store_id: this.data.storeId }).then(res => {
+        api.post('weapp/' + operation, { store_id: this.data.storeId }).then(res => {
             if (res.errcode === 0) {
                 this.setData({
                     collected: !this.data.collected,

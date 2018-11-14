@@ -1,4 +1,4 @@
-import { getRequest } from '../../utils/api';
+import api from '../../utils/api';
 const app = getApp();
 const sliderWidth = 96; // 需要设置slider的宽度，用于计算中间位置
 Page({
@@ -24,11 +24,9 @@ Page({
      * 获取优惠券列表
      */
     getCoupons: function() {
-        getRequest('weapp-coupon/get-sharable-list', this.data.form).then(res => {
+        api.get('weapp-coupon/get-sharable-list', this.data.form).then(res => {
             if (res.errcode === 0) {
-                this.setData({
-                    coupons: this.data.coupons.concat(res.data.data)
-                });
+                this.setData({ coupons: this.data.coupons.concat(res.data.data) });
             }
             let hasMore = res.errcode !== 0 || this.data.form.page >= res.data.last_page ? false : true;
             this.setData({
@@ -78,7 +76,7 @@ Page({
     onLoad: function(options) {
         let userData = wx.getStorageSync('userData');
         this.setData({
-            'form.user_id': !!userData ? userData.user_data.id : 0,
+            'form.user_id': !!userData ? userData.id : 0,
             sliderLeft: (app.globalData.windowWidth / this.data.tabs.length - sliderWidth) / 2,
             sliderOffset: (app.globalData.windowWidth / this.data.tabs.length) * this.data.activeIndex
         });

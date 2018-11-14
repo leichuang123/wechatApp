@@ -188,7 +188,7 @@ Page({
      */
     getServices: function() {
         this.setData({ loading: true });
-        api.getRequest('weapp/customerservice', this.data.serviceForm).then(res => {
+        api.get('weapp/customerservice', this.data.serviceForm).then(res => {
             if (res.errcode === 0) {
                 let hasMemberService = res.data.card.length > 0 || res.data.buy.length > 0;
                 this.setData({
@@ -211,7 +211,7 @@ Page({
      * 排队取号
      */
     addQueue: function() {
-        api.postRequest('weapp/addqueue', this.data.form).then(res => {
+        api.post('weapp/addqueue', this.data.form).then(res => {
             if (res.errcode === 0) {
                 toastMsg('取号成功', 'success', 1000, () => {
                     let queueData = JSON.stringify(res.data);
@@ -285,7 +285,7 @@ Page({
      */
     getGoods: function() {
         this.setData({ loading: true });
-        api.getRequest('weapp/storegoodsitem', this.data.goodsForm, false).then(res => {
+        api.get('weapp/storegoodsitem', this.data.goodsForm, false).then(res => {
             if (res.errcode === 0) {
                 let hasWashGoods = res.data.store_wash_goods.length > 0;
                 this.setData({
@@ -680,7 +680,7 @@ Page({
     initData(options) {
         const memberData = JSON.parse(options.memberData);
         const userData = wx.getStorageSync('userData');
-        const carNumber = !!userData ? userData.user_data.default_car : '';
+        const carNumber = !!userData ? userData.default_car : '';
         this.setData({
             'form.store_id': memberData.store_id,
             'form.car_number': carNumber,
@@ -689,7 +689,7 @@ Page({
             'orderForm.store_id': memberData.store_id,
             'orderForm.car_number': carNumber,
             'orderForm.store_name': memberData.store_name,
-            'orderForm.mobile': userData.user_data.mobile,
+            'orderForm.mobile': userData.mobile,
 
             'serviceForm.merchant_id': memberData.merchant_id,
             'serviceForm.store_id': memberData.store_id,
@@ -698,7 +698,7 @@ Page({
             'goodsForm.storeId': memberData.store_id,
             'goodsForm.merchantId': memberData.merchant_id,
             'goodsForm.car_number': carNumber,
-            carNumbers: !!userData ? userData.user_data.car : []
+            carNumbers: !!userData ? userData.car : []
         });
         if (this.data.carNumbers.length > 0) {
             let index = this.data.carNumbers.findIndex(value => carNumber === value);

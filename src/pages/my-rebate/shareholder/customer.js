@@ -1,4 +1,4 @@
-import { getRequest } from '../../../utils/api';
+import { get } from '../../../utils/api';
 Page({
     data: {
         loadingVisible: false,
@@ -16,7 +16,7 @@ Page({
      */
     getCustomers: function() {
         this.setData({ loadingVisible: true });
-        getRequest('weapp/get-my-customer', this.data.form).then(res => {
+        get('weapp/get-my-customer', this.data.form).then(res => {
             if (res.errcode === 0) {
                 this.setData({ customers: this.data.customers.concat(res.data.data) });
             }

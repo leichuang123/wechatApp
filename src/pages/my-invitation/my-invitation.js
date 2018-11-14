@@ -1,4 +1,4 @@
-import { getRequest } from '../../utils/api';
+import { get } from '../../utils/api';
 Page({
     data: {
         loadingVisible: true,
@@ -14,7 +14,7 @@ Page({
      * 获取佣金明细
      */
     getList: function() {
-        getRequest('weapp/brokerage-detail', { page: this.data.page }).then(res => {
+        get('weapp/brokerage-detail', { page: this.data.page }).then(res => {
             if (res.errcode === 0) {
                 this.setData({
                     invitedNumber: res.data.my_invite_num,

@@ -1,4 +1,4 @@
-<view>
+<view wx:if="{{ !loading }}">
     <view class="weui-cells weui-cells_after-title">
         <view class="weui-cell" bindtap="gotoCars">
             <view class="weui-cell__hd">
@@ -9,7 +9,7 @@
             <view class="weui-cell__ft weui-cell__ft_in-access"></view>
         </view>
         <view class="weui-cell">
-            <view class="weui-cell__bd">车牌号码：</view>
+            <view class="weui-cell__bd wid95">车牌号码：</view>
             <view class="weui-cell__ft text-black" bindtap="showKeyboard">
                 <input type="text" value="{{carNumber}}" maxlength="8" disabled />
             </view>
@@ -47,7 +47,7 @@
             </view>
         </view>
         <view class="weui-cell">
-            <view class="weui-cell__bd">行驶里程</view>
+            <view class="weui-cell__bd wid95">行驶里程</view>
             <view class="weui-cell__ft text-black">
                 <input id="traveled" type="digit" placeholder="" value="{{carInfo.traveled}}" bindblur="changeItem" />
             </view>

@@ -1,4 +1,4 @@
-import { getRequest } from '../../utils/api';
+import { get } from '../../utils/api';
 Page({
     data: {
         loadingVisible: true,
@@ -9,7 +9,7 @@ Page({
      * 获取业务分类列表
      */
     getBusinessClassList: function() {
-        getRequest('weapp/business-class-list', {}, false).then(res => {
+        get('weapp/business-class-list', {}, false).then(res => {
             if (res.errcode === 0) {
                 this.setData({
                     businessClassList: res.data,

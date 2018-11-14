@@ -21,7 +21,7 @@ Page({
             store_id: 0,
             store_name: '',
             merchant_id: 0,
-            isRegistered: false
+            registered: false
         }
     },
     showInput: function() {
@@ -49,7 +49,7 @@ Page({
      * 获取收藏夹
      */
     getFavorites: function() {
-        api.getRequest('weapp/favorlist', this.data.searchForm).then(res => {
+        api.get('weapp/favorlist', this.data.searchForm).then(res => {
             if (res.errcode === 0) {
                 this.setData({
                     favorites: this.data.favorites.concat(res.data.data)
@@ -68,7 +68,7 @@ Page({
      * 取消门店收藏
      */
     deleteFavorites: function(e) {
-        api.postRequest('weapp/delfavor', { store_id: e.target.id }).then(res => {
+        api.post('weapp/delfavor', { store_id: e.target.id }).then(res => {
             if (res.errcode === 0) {
                 toastMsg('删除成功', 'success', 1000, () => {
                     this.resetData();
@@ -117,7 +117,7 @@ Page({
                 store_id: item.sid,
                 store_name: item.store_name,
                 merchant_id: item.merchans_id,
-                isRegistered: userData.isRegist,
+                registered: userData.registered,
                 longitude: this.data.searchForm.longitude,
                 latitude: this.data.searchForm.latitude
             });

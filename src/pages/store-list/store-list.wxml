@@ -4,19 +4,19 @@
         <view class="weui-navbar tab-menu">
             <view class="weui-navbar__item" id="area" bindtap="dropdown">
                 <view class="weui-navbar__title">
-                    {{selectedArea}}
+                    {{selectedArea.area}}
                     <text class="icon-active {{areaVisible?'icon-caret-up':'icon-caret-down2'}}"></text>
                 </view>
             </view>
             <view class="weui-navbar__item" id="serviceType" bindtap="dropdown">
                 <view class="weui-navbar__title">
-                    {{selectedService}}
+                    {{selectedServiceClass.class_name}}
                     <text class="icon-active {{serviceVisible?'icon-caret-up':'icon-caret-down2'}}"></text>
                 </view>
             </view>
             <view class="weui-navbar__item" id="sort" bindtap="dropdown">
                 <view class="weui-navbar__title">
-                    {{selectedSort}}
+                    {{selectedSort.name}}
                     <text class="icon-active {{sortVisible?'icon-caret-up':'icon-caret-down2'}}"></text>
                 </view>
             </view>
@@ -77,36 +77,11 @@
     </view>
     <view class="fs14">
         <view wx:if="{{serviceVisible}}" class="dropdown-menu">
-            <view class="bg-white" wx:if="{{form.fromPage==='wash'}}">
-                <view class="weui-flex">
-                    <view class="weui-flex__item bg-grey">
-                        <radio-group bindchange="changeWashType" class="bg-white">
-                            <label class="weui-cell weui-check__label">
-                                <radio class="weui-check" value="999" checked="{{serviceAllChecked}}" />
-                                <view class="weui-cell__bd">所有服务</view>
-                                <view class="weui-cell__ft weui-cell__ft_in-radio" wx:if="{{serviceAllChecked}}">
-                                    <icon class="weui-icon-radio" type="success_no_circle" size="16"></icon>
-                                </view>
-                            </label>
-                            <label class="weui-cell weui-check__label" wx:for="{{serviceTypes}}" wx:key="index">
-                                <radio class="weui-check" value="{{index}}" checked="{{item.checked}}" />
-                                <view class="weui-cell__bd">{{item.class_name}}</view>
-                                <view class="weui-cell__ft weui-cell__ft_in-radio" wx:if="{{item.checked}}">
-                                    <icon class="weui-icon-radio" type="success_no_circle" size="16"></icon>
-                                </view>
-                            </label>
-                        </radio-group>
-                    </view>
-                </view>
-            </view>
-            <view class="bg-white" wx:if="{{form.fromPage==='server'}}">
+            <view class="bg-white">
                 <view class="weui-flex">
                     <view class="weui-flex__item flex-grow-4">
-                        <view class="weui-cell weui-cell_access" data-index="999" bindtap="getSubTypes">
-                            <view class="weui-cell__bd">全部类型</view>
-                        </view>
-                        <block wx:for="{{serviceTypes}}" wx:key="index">
-                            <view data-index="{{index}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active" bindtap="getSubTypes">
+                        <block wx:for="{{serviceClasses}}" wx:key="index">
+                            <view data-index="{{index}}" class="weui-cell weui-cell_access {{item.checked?'serivce-active':''}}" hover-class="weui-cell_active" bindtap="getSubTypes">
                                 <view class="weui-cell__bd">{{item.class_name}}</view>
                                 <view class="weui-cell__ft weui-cell__ft_in-access"></view>
                             </view>
@@ -114,13 +89,6 @@
                     </view>
                     <view class="weui-flex__item bg-grey flex-grow-6">
                         <radio-group bindchange="changeServiceType" class="bg-white">
-                            <label class="weui-cell weui-check__label" wx:if="{{subTypes.length>0}}">
-                                <radio class="weui-check" value="999" checked="{{subServiceAllChecked}}" />
-                                <view class="weui-cell__bd">所有服务</view>
-                                <view class="weui-cell__ft weui-cell__ft_in-radio" wx:if="{{subServiceAllChecked}}">
-                                    <icon class="weui-icon-radio" type="success_no_circle" size="16"></icon>
-                                </view>
-                            </label>
                             <block wx:for="{{subTypes}}" wx:key="{{index}}">
                                 <label class="weui-cell weui-check__label">
                                     <radio class="weui-check" value="{{index}}" checked="{{item.checked}}" />
@@ -137,13 +105,6 @@
         </view>
         <view wx:if="{{areaVisible}}" class="dropdown-menu">
             <radio-group bindchange="changeArea" class="bg-white">
-                <label class="weui-cell weui-check__label">
-                    <radio class="weui-check" value="999" checked="{{areaAllChecked}}" />
-                    <view class="weui-cell__bd">附近</view>
-                    <view class="weui-cell__ft weui-cell__ft_in-radio" wx:if="{{areaAllChecked}}">
-                        <icon class="weui-icon-radio" type="success_no_circle" size="16"></icon>
-                    </view>
-                </label>
                 <block wx:for="{{areas}}" wx:key="index">
                     <label class="weui-cell weui-check__label">
                         <radio class="weui-check" value="{{index}}" checked="{{item.checked}}" />

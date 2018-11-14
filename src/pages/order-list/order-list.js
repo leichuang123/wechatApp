@@ -34,7 +34,7 @@ Page({
      * 获取订单列表
      */
     getOrders: function() {
-        api.getRequest('weapp/order', this.data.orderForm).then(res => {
+        api.get('weapp/order', this.data.orderForm).then(res => {
             if (res.errcode === 0) {
                 this.setData({
                     orders: this.data.orders.concat(res.data.items)
@@ -55,7 +55,7 @@ Page({
     pay: function(e) {
         wx.showLoading();
         let order = e.target.dataset.order;
-        api.getRequest('/weapp/paysignpackage', { order_id: order.id }).then(res => {
+        api.get('/weapp/paysignpackage', { order_id: order.id }).then(res => {
             wx.hideLoading();
             if (res.errcode === 0) {
                 wxPay(
@@ -79,7 +79,7 @@ Page({
      * 申请退款
      */
     applyForRefund: function() {
-        api.postRequest('weapp/refund', this.data.refundForm).then(res => {
+        api.post('weapp/refund', this.data.refundForm).then(res => {
             if (res.errcode === 0) {
                 toastMsg('申请成功', 'success', 1000, () => {
                     this.setData({
@@ -156,7 +156,7 @@ Page({
      */
     confirmFinish: function(e) {
         const id = e.currentTarget.dataset.id;
-        api.postRequest('weapp/business-finish', { order_id: id }).then(res => {
+        api.post('weapp/business-finish', { order_id: id }).then(res => {
             if (res.errcode === 0) {
                 toastMsg('确认成功', 'success', 1000, () => {
                     this.setData({

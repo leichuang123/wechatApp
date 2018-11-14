@@ -1,5 +1,4 @@
 import api from '../../utils/api';
-let serviceIndex = 999;
 const app = getApp();
 Page({
     data: {
@@ -13,47 +12,22 @@ Page({
         serviceAllChecked: true,
         subServiceAllChecked: true,
         areaAllChecked: true,
-        selectedArea: '附近',
-        selectedService: '洗车美容',
-        selectedSort: '默认排序',
+        selectedArea: null,
+        selectedServiceClass: null,
+        currentServiceClassIndex: 0,
+        selectedSort: null,
         cityId: 0,
         totalPage: 0,
 
         areas: [],
-        serviceTypes: [],
+        serviceClasses: [],
         subTypes: [],
         stores: [],
-        sortItems: [{
-                name: '默认排序',
-                id: 0,
-                value: 'distance',
-                checked: true
-            },
-            {
-                name: '距离最近',
-                id: 1,
-                value: 'distance',
-                checked: false
-            },
-            {
-                name: '人气最高',
-                id: 2,
-                value: 'popularity',
-                checked: false
-            },
-            {
-                name: '口碑最高',
-                id: 3,
-                value: 'rate',
-                checked: false
-            }
-        ],
         form: {
             latitude: 0,
             longitude: 0,
             fromPage: '',
-            addressId: '',
-            addressType: 'city',
+            cityId: '',
             classId: 1,
             classType: 'first',
             sortType: '',
@@ -64,20 +38,17 @@ Page({
      * 切换地区
      */
     changeArea: function(e) {
-        let areas = this.data.areas,
-            index = e.detail.value,
-            items = areas.map((n, i) => {
-                return Object.assign({}, n, {
-                    checked: i == index
-                });
+        const index = e.detail.value;
+        const items = this.data.areas.map((n, i) => {
+            return Object.assign({}, n, {
+                checked: i == index
             });
+        });
         this.setData({
             areas: items,
-            areaAllChecked: index != 999 ? false : true,
-            'form.addressId': index != 999 ? items[index].areaId : this.data.cityId,
-            'form.addressType': index != 999 ? 'area' : 'city',
+            'form.cityId': items[index].areaId,
             'form.page': 1,
-            selectedArea: index != 999 ? items[index].area : '附近',
+            selectedArea: items[index],
             areaVisible: false,
             stores: [],
             loadingVisible: true,
@@ -87,48 +58,35 @@ Page({
         this.getStores();
     },
     /**
-     * 切换清洗服务类型
-     */
-    changeWashType: function(e) {
-        let index = e.detail.value,
-            serviceTypes = this.data.serviceTypes;
-        let items = serviceTypes.map((n, i) => {
-            return Object.assign({}, n, {
-                checked: i == index
-            });
-        });
-        this.setData({
-            serviceTypes: items,
-            serviceAllChecked: index != 999 ? false : true,
-            'form.classId': index != 999 ? items[index].class_id : items[0].pid,
-            'form.classType': index != 999 ? 'second' : 'first',
-            'form.page': 1,
-            selectedService: index != 999 ? items[index].class_name : '洗车美容',
-            serviceVisible: false,
-            stores: [],
-            loadingVisible: true,
-            hasData: true
-        });
-        this.getStores();
-    },
-    /**
      * 切换服务类型
      */
     changeServiceType: function(e) {
-        let index = e.detail.value,
-            subTypes = this.data.subTypes;
-        let items = subTypes.map((n, i) => {
+        const index = e.detail.value;
+        let items = this.data.subTypes.map((n, i) => {
             return Object.assign({}, n, {
                 checked: i == index
             });
         });
+
+        let serviceClasses = this.data.serviceClasses;
+        serviceClasses.forEach(val => {
+            val.checked = false;
+            if (!!val.children) {
+                val.children.forEach(v => {
+                    v.checked = false;
+                });
+            }
+        });
+        serviceClasses[this.data.currentServiceClassIndex].checked = true;
+        serviceClasses[this.data.currentServiceClassIndex].children = items;
+
         this.setData({
-            subTypes: items,
-            subServiceAllChecked: index != 999 ? false : true,
-            'form.classId': index != 999 ? items[index].class_id : items[0].pid,
-            'form.classType': index != 999 ? 'second' : 'first',
+            'form.classId': items[index].class_id,
+            'form.classType': 'second',
             'form.page': 1,
-            selectedService: index != 999 ? items[index].class_name : this.data.serviceTypes[serviceIndex].class_name,
+            subTypes: items,
+            selectedServiceClass: items[index],
+            serviceClasses: serviceClasses,
             serviceVisible: false,
             stores: [],
             loadingVisible: true,
@@ -152,7 +110,7 @@ Page({
             sortItems: items,
             'form.sortType': items[index].value,
             'form.page': 1,
-            selectedSort: items[index].name,
+            selectedSort: items[index],
             sortVisible: false,
             loadingVisible: true,
             hasData: true,
@@ -180,6 +138,7 @@ Page({
                     sortVisible: false,
                     serviceVisible: !this.data.serviceVisible
                 });
+                this.getDefaultServiceSubClasses();
                 break;
             case 'sort':
                 this.setData({
@@ -194,7 +153,7 @@ Page({
      * 获取门店列表
      */
     getStores: function() {
-        api.getRequest('weapp/getstorelist', this.data.form, false).then(res => {
+        api.get('weapp/get-stores', this.data.form, false).then(res => {
             if (res.errcode === 0) {
                 this.setData({
                     stores: this.data.stores.concat(res.data.data),
@@ -210,23 +169,31 @@ Page({
             });
         });
     },
+
+    getCurrentServiceClassIndex: function(serviceClass) {
+        return serviceClass.findIndex(val => val.checked);
+    },
     /**
      * 获取门店列表和分类
      *
      */
     getStoresWithClass: function() {
-        api.getRequest('weapp/get-stores-with-class', this.data.form, false).then(res => {
+        api.get('weapp/get-stores-with-class', this.data.form, false).then(res => {
             if (res.errcode === 0) {
+                const index = this.getCurrentServiceClassIndex(res.data.classes.serviceClass.classes);
                 this.setData({
-                    stores: res.data.store.data,
-                    totalPage: res.data.store.last_page,
-                    areas: res.data.class.cityData.areaData,
-                    serviceTypes: res.data.class.classData,
-                    'form.addressId': res.data.class.cityData.cityId,
-                    cityId: res.data.class.cityData.cityId
+                    stores: res.data.stores.data,
+                    totalPage: res.data.stores.last_page,
+                    areas: res.data.classes.areas.areas,
+                    serviceClasses: res.data.classes.serviceClass.classes,
+                    sortItems: res.data.classes.sortItems.sortItems,
+                    selectedArea: res.data.classes.areas.default,
+                    selectedServiceClass: res.data.classes.serviceClass.default,
+                    selectedSort: res.data.classes.sortItems.default,
+                    currentServiceClassIndex: index > -1 ? index : 0
                 });
             }
-            let hasMore = res.errcode !== 0 || res.data.store.last_page <= 1 ? false : true;
+            let hasMore = res.errcode !== 0 || res.data.stores.last_page <= 1 ? false : true;
             this.setData({
                 loadMoreVisible: false,
                 loadingVisible: false,
@@ -239,15 +206,20 @@ Page({
      * 获取服务子分类
      */
     getSubTypes: function(e) {
-        let index = e.currentTarget.dataset.index,
-            items = this.data.serviceTypes[index];
-        if (index == 999 || items.children === undefined || items.children.length === 0) {
+        const index = e.currentTarget.dataset.index;
+        const items = this.data.serviceClasses.map((n, i) => {
+            return Object.assign({}, n, {
+                checked: i == index
+            });
+        });
+        console.log(items);
+        if (items[index].children === undefined || items[index].children.length === 0) {
             this.setData({
                 subTypes: [],
-                'form.classId': index != 999 ? items.class_id : 0,
+                'form.classId': items[index].class_id,
                 'form.classType': 'first',
                 'form.page': 1,
-                selectedService: index != 999 ? items.class_name : '全部类型',
+                selectedServiceClass: items[index],
                 serviceVisible: false,
                 stores: [],
                 loadingVisible: true,
@@ -257,11 +229,19 @@ Page({
             this.getStores();
             return;
         }
-        serviceIndex = index;
         this.setData({
-            subTypes: items.children,
+            subTypes: items[index].children,
+            serviceClasses: items,
+            currentServiceClassIndex: index,
             'form.page': 1,
             stores: []
+        });
+    },
+    getDefaultServiceSubClasses() {
+        let subClasses = [];
+        const index = this.data.serviceClasses.findIndex(val => val.checked);
+        this.setData({
+            subTypes: index > -1 ? this.data.serviceClasses[index].children : []
         });
     },
     /**
@@ -298,13 +278,18 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function(options) {
+        const locationInfo = wx.getStorageSync('locationInfo');
+        const selectedCity = wx.getStorageSync('selectedCity');
         this.setData({
-            'form.fromPage': options.type
+            'form.fromPage': options.fromPage,
+            'form.latitude': locationInfo.latitude,
+            'form.longitude': locationInfo.longitude,
+            'form.cityId': selectedCity.code
         });
         wx.setNavigationBarTitle({
-            title: options.type === 'wash' ? '排队取号' : '预约保养'
+            title: options.fromPage === 'queue' ? '排队取号' : '预约保养'
         });
-        this.getLocation();
+        this.getStoresWithClass();
     },
     /**
      * 下拉刷新
@@ -316,7 +301,7 @@ Page({
             hasData: true,
             hasMore: true,
             'form.page': 1,
-            stores: [],
+            stores: []
         });
         this.getStores();
     },

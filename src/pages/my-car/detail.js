@@ -37,7 +37,7 @@ Page({
      */
     getCarInfo: function(id) {
         this.setData({ loading: true });
-        api.getRequest('weapp/findcar', { car_id: id }).then(res => {
+        api.get('weapp/findcar', { car_id: id }).then(res => {
             this.setData({ loading: false });
             if (res.errcode === 0) {
                 this.setData({
@@ -101,7 +101,7 @@ Page({
             title: '提交请求中',
             mask:true
         });
-        api.postRequest('weapp/updatecar', params).then(res => {
+        api.post('weapp/updatecar', params).then(res => {
             wx.hideLoading();
             if (res.errcode === 0) {
                 wx.removeStorageSync('updateCarData');

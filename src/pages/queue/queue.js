@@ -10,7 +10,7 @@ Page({
      * 获取排队单号详情
      */
     getQueueInfo: function(carNumbers) {
-        api.getRequest('weapp/queue', { car_numbers: carNumbers }).then(res => {
+        api.get('weapp/queue', { car_numbers: carNumbers }).then(res => {
             if (res.errcode === 0) {
                 this.setData({
                     queueInfo: res.data,
@@ -29,7 +29,7 @@ Page({
      * 取消排队
      */
     cancelQueue: function(id) {
-        api.postRequest('weapp/queuecancel', { id: id }).then(res => {
+        api.post('weapp/queuecancel', { id: id }).then(res => {
             if (res.errcode === 0) {
                 toastMsg('取消成功', 'success', 1000, () => {
                     this.getQueueInfo();
@@ -52,7 +52,7 @@ Page({
      */
     onLoad: function(options) {
         let userData = wx.getStorageSync('userData'),
-            carNumbers = !!userData ? userData.user_data.car : [];
+            carNumbers = !!userData ? userData.car : [];
         this.getQueueInfo(carNumbers);
     },
     /**

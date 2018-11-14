@@ -1,4 +1,4 @@
-import { getRequest } from '../../../utils/api';
+import { get } from '../../../utils/api';
 Page({
     data: {
         loadingVisible: true,
@@ -16,7 +16,7 @@ Page({
      */
     getEvaluations: function(storeId) {
         this.setData({ loadingVisible: true });
-        getRequest('weapp/store-evaluation-list', this.data.form, false).then(res => {
+        get('weapp/store-evaluation-list', this.data.form, false).then(res => {
             if (res.errcode === 0) {
                 this.setData({
                     evaluations: this.data.evaluations.concat(res.data.data),

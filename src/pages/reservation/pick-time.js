@@ -43,7 +43,7 @@ Page({
         this.setData({
             loading: true
         });
-        api.getRequest('weapp/reservedata', this.data.timetableForm).then(res => {
+        api.get('weapp/reservedata', this.data.timetableForm).then(res => {
             if (res.errcode === 0) {
                 this.setData({
                     timetable: res.data,

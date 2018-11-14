@@ -11,7 +11,7 @@
         </view>
         <view class="weui-tab__panel">
             <block wx:for="{{coupons}}" wx:key="index">
-                <navigator url="detail?id={{item.id}}" class="coupon-box">
+                <view class="coupon-box" data-item="{{item}}" bindtap="gotoDetail">
                     <view class="weui-flex">
                         <view class="face-box face-pad">
                             <view class="face-img-mine">
@@ -21,10 +21,10 @@
                         <view class='weui-flex__item'>
                             <view class="cup-money">{{item.coupon_name}}</view>
                             <view>{{item.store_name}}</view>
-                            <view class='fs13 grey'>有效期：{{item.expire_time_start}}至{{item.expire_time_end}}</view>
+                            <view class='fs13 grey'>有效期：{{item.start_time}}至{{item.end_time}}</view>
                         </view>
                     </view>
-                </navigator>
+                </view>
             </block>
             <template is="loading" data="{{ loadingVisible, hasData }}" />
             <template is="loadMore" data="{{ loadMoreVisible, hasMore,hasData }}" />

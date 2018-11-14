@@ -1,4 +1,4 @@
-import { getRequest } from '../../utils/api';
+import { get } from '../../utils/api';
 Page({
     data: {
         loanding: true,
@@ -8,7 +8,7 @@ Page({
      * 获取收支详情
      */
     getDetail: function(id) {
-        getRequest('weapp/flow-record-detail', { id: id }).then(res => {
+        get('weapp/flow-record-detail', { id: id }).then(res => {
             this.setData({ loanding: false });
             if (res.errcode === 0) {
                 this.setData({ detail: res.data });

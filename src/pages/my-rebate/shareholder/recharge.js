@@ -1,4 +1,4 @@
-import { getRequest } from '../../../utils/api';
+import { get } from '../../../utils/api';
 import { toastMsg, confirmMsg, isCarNumber } from '../../../utils/util';
 Page({
     data: {
@@ -23,7 +23,7 @@ Page({
      */
     getCard: function(params) {
         wx.showLoading({ title: '加载中...' });
-        getRequest('weapp/get-card-info', params).then(res => {
+        get('weapp/get-card-info', params).then(res => {
             wx.hideLoading();
             if (res.errcode === 0) {
                 this.setData({
@@ -83,7 +83,7 @@ Page({
      */
     recharge: function() {
         wx.showLoading({ title: '提交请求中', mask: true });
-        getRequest('weapp/recharge', this.data.form).then(res => {
+        get('weapp/recharge', this.data.form).then(res => {
             wx.hideLoading();
             if (res.errcode === 0) {
                 toastMsg('充值成功', 'success', 1000, () => {

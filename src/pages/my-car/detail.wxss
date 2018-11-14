@@ -11,3 +11,4 @@
     border: none;
 }
 .wid { width: 52px}
+.wid95 { width:95px;}

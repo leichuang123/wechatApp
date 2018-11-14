@@ -7,7 +7,7 @@ Page({
         flag: false,
         showTopTips: false,
         keyboardVisible: false,
-        isRegistered: false,
+        registered: false,
         errorMsg: '',
         carNumber: '',
         carNumbers: [],
@@ -98,9 +98,9 @@ Page({
      * 表单验证
      */
     validate: function() {
-        if (!(this.data.isRegistered || isMobile(this.data.form.mobile))) {
+        if (!(this.data.registered || isMobile(this.data.form.mobile))) {
             return '手机号格式不正确';
-        } else if (!this.data.isRegistered && this.data.form.code.length !== 4) {
+        } else if (!this.data.registered && this.data.form.code.length !== 4) {
             return '验证码必须为4位';
         } else if (!isCarNumber(this.data.form.car_number)) {
             return '请填写有效的车牌号';
@@ -125,7 +125,7 @@ Page({
         }
         let time = 60;
         wx.showLoading({ title: '提交请求中', mask: true });
-        api.getRequest(
+        api.get(
             'weapp/phonecode',
             {
                 mobile: this.data.form.mobile
@@ -194,7 +194,7 @@ Page({
     getCard: function() {
         this.setData({
             'form.car_number': this.data.carNumber,
-            'form.is_new_user': this.data.isRegistered ? false : true
+            'form.is_new_user': this.data.registered ? false : true
         });
         let msg = this.validate(this.data.form);
         if (msg !== '') {
@@ -202,7 +202,7 @@ Page({
             return;
         }
         wx.showLoading({ title: '提交请求中', mask: true });
-        api.postRequest('weapp/get-card', this.data.form).then(res => {
+        api.post('weapp/get-card', this.data.form).then(res => {
             wx.hideLoading();
             if (res.errcode === 0) {
                 toastMsg('领取成功', 'success', 1000, () => {
@@ -232,7 +232,7 @@ Page({
      */
     getDetail: function() {
         this.setData({ loading: true });
-        api.postRequest('weapp/get-share-card-info', this.data.form).then(res => {
+        api.post('weapp/get-share-card-info', this.data.form).then(res => {
             this.setData({ loading: false });
             if (res.errcode === 0) {
                 this.setData({ card: res.data });
@@ -262,7 +262,7 @@ Page({
     onLoad: function(options) {
         let params = JSON.parse(options.params);
         let userData = wx.getStorageSync('userData');
-        let defaultCar = !!userData ? userData.user_data.default_car : '';
+        let defaultCar = !!userData ? userData.default_car : '';
         this.setData({
             'form.url': params.url + '?uuid=' + params.urlUuid,
             'form.merchant_id': params.merchant_id,
@@ -275,8 +275,8 @@ Page({
                 store_id: params.store_id,
                 customer_card_id: params.customer_card_id
             },
-            isRegistered: !!userData && userData.isRegist,
-            carNumbers: !!userData ? userData.user_data.car : [],
+            registered: !!userData && userData.registered,
+            carNumbers: !!userData ? userData.car : [],
             carNumber: defaultCar,
             carIndex: 0
         });
@@ -287,7 +287,7 @@ Page({
             });
         }
         this.getDetail();
-        if (!this.data.isRegistered) {
+        if (!this.data.registered) {
             this.wxLogin();
         }
     }

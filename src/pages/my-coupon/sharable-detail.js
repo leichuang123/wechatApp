@@ -1,11 +1,11 @@
 import api from '../../utils/api';
 import { makePhoneCall, openLocation } from '../../utils/wx-api';
-const app=getApp();
+const app = getApp();
 Page({
     data: {
         loading: false,
-        hasAuth:false,
-        couponWidth:'',
+        hasAuth: false,
+        couponWidth: '',
         coupon: {},
         form: {
             id: 0,
@@ -19,7 +19,7 @@ Page({
         this.setData({
             loading: true
         });
-        api.getRequest('weapp-coupon/get-sharable-detail', this.data.form).then(res => {
+        api.get('weapp-coupon/get-sharable-detail', this.data.form).then(res => {
             this.setData({
                 loading: false
             });
@@ -46,7 +46,7 @@ Page({
             share_uuid: this.data.coupon.share_uuid,
             is_gather: this.data.coupon.is_gather
         };
-        api.postRequest('weapp-coupon/add-share-record', params, false).then(res => {
+        api.post('weapp-coupon/add-share-record', params, false).then(res => {
             console.log(['addShareRecord-response', res.errmsg]);
         });
     },
@@ -76,7 +76,7 @@ Page({
         openLocation(params);
     },
     //获取微信用户信息
-    onGetUserInfo: function (e) {
+    onGetUserInfo: function(e) {
         if (e.detail.errMsg === 'getUserInfo:ok') {
             this.setData({ hasAuth: true });
             app.setWxUserCache(e.detail);
@@ -84,10 +84,10 @@ Page({
             confirmMsg('', '需要微信授权才能分享哦', false);
         }
     },
-    initData(options){
+    initData(options) {
         this.setData({
             hasAuth: app.globalData.hasAuth,
-            couponWidth: (app.globalData.windowWidth - 30) + 'px',
+            couponWidth: app.globalData.windowWidth - 30 + 'px',
             form: {
                 id: options.id,
                 type: options.type
@@ -134,7 +134,8 @@ Page({
                 '&is_send=2' +
                 '&is_user_coupon=1' +
                 '&has_send_record=1' +
-                '&send_mode=6';
+                '&send_mode=6' +
+                '&sharable=1';
             this.addShareRecord(nickName);
             return {
                 title: this.data.coupon.share_title,

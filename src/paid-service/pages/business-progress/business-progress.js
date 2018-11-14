@@ -1,4 +1,4 @@
-import { getRequest } from '../../../utils/api';
+import { get } from '../../../utils/api';
 import { confirmMsg } from '../../../utils/util';
 Page({
     data: {
@@ -20,7 +20,7 @@ Page({
      * 查看进度
      */
     viewProgress: function () {
-        getRequest('weapp/business-view-progress', this.data.searchForm, false).then(res => {
+        get('weapp/business-view-progress', this.data.searchForm, false).then(res => {
             this.setData({ loading: false, });
             if (res.errcode === 0) {
                 this.setData({

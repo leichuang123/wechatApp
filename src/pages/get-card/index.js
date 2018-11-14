@@ -23,7 +23,7 @@ Page({
      */
     getDetail: function() {
         this.setData({ loading: true });
-        api.postRequest('weapp/get-share-card-info', this.data.form).then(res => {
+        api.post('weapp/get-share-card-info', this.data.form).then(res => {
             this.setData({ loading: false });
             if (res.errcode === 0) {
                 this.setData({ card: res.data });
@@ -43,7 +43,7 @@ Page({
             level: this.data.card.level,
             shareholder_id: this.data.card.shareholder_id
         };
-        api.postRequest('weapp/add-record', shareForm).then(res => {
+        api.post('weapp/add-record', shareForm).then(res => {
             console.log(res.errmsg);
         });
     },
@@ -51,7 +51,7 @@ Page({
      * 检查分享是否过期
      */
     isExpired: function() {
-        api.getRequest('/weapp/check-url', this.data.checkForm).then(res => {
+        api.get('/weapp/check-url', this.data.checkForm).then(res => {
             this.setData({ loading: false, isExpired: res.errcode === 0 ? false : true });
             if (!this.data.isExpired) {
                 let params = JSON.stringify({

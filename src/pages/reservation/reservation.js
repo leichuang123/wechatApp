@@ -40,7 +40,7 @@ Page({
      * 获取我的预约列表
      */
     getReservations: function() {
-        api.getRequest('weapp/myreserve', this.data.form).then(res => {
+        api.get('weapp/myreserve', this.data.form).then(res => {
             if (res.errcode === 0) {
                 this.setData({
                     reservations: res.data,
@@ -74,7 +74,7 @@ Page({
      * 取消预约
      */
     cancelReservation: function(id) {
-        api.postRequest('weapp/cancelreserve', { id: id }).then(res => {
+        api.post('weapp/cancelreserve', { id: id }).then(res => {
             if (res.errcode === 0) {
                 toastMsg('取消成功!', 'success', 1000, () => {
                     this.getReservations();

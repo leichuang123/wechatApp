@@ -1,4 +1,4 @@
-import { getRequest } from '../../utils/api';
+import { get } from '../../utils/api';
 const app = getApp();
 Page({
     data: {
@@ -14,12 +14,12 @@ Page({
      * 获取平台用户信息
      */
     getPlatformUserInfo: function() {
-        getRequest('weapp/indexinfo', {}, false, true).then(res => {
+        get('weapp/indexinfo', {}, false, true).then(res => {
             if (res.errcode === 0) {
                 this.setData({
                     'userInfo.mobile': res.data.user_data.mobile,
                     'userInfo.integral': res.data.user_data.integral,
-                    hasUserInfo: res.data.isRegist
+                    hasUserInfo: res.data.registered
                 });
                 wx.setStorageSync('sessionKey', res.data.sessionKey);
                 wx.setStorageSync('userData', res.data);
@@ -46,9 +46,9 @@ Page({
             this.getPlatformUserInfo();
         } else {
             this.setData({
-                'userInfo.mobile': userData.user_data.mobile,
-                'userInfo.integral': userData.user_data.integral,
-                hasUserInfo: userData.isRegist
+                'userInfo.mobile': userData.mobile,
+                'userInfo.integral': userData.integral,
+                hasUserInfo: userData.registered
             });
         }
     },

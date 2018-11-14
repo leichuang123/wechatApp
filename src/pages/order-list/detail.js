@@ -1,4 +1,4 @@
-import { getRequest, postRequest } from '../../utils/api';
+import { get, post } from '../../utils/api';
 import { toastMsg, confirmMsg } from '../../utils/util';
 import { openLocation } from '../../utils/wx-api';
 import wxPay from '../../utils/requestPayment';
@@ -26,7 +26,7 @@ Page({
      * 获取订单详情
      */
     getOrderInfo: function() {
-        getRequest('weapp/orderdetail', this.data.form).then(res => {
+        get('weapp/orderdetail', this.data.form).then(res => {
             this.setData({ loading: false });
             if (res.errcode === 0) {
                 this.setData({
@@ -49,7 +49,7 @@ Page({
      * 取消订单
      */
     cancelOrder: function() {
-        postRequest('weapp/ordercancel', { order_id: this.data.form.order_id }).then(res => {
+        post('weapp/ordercancel', { order_id: this.data.form.order_id }).then(res => {
             if (res.errcode === 0) {
                 toastMsg('取消成功', 'success', 1000, () => {
                     this.gotoOrders(1);
@@ -74,7 +74,7 @@ Page({
      */
     pay: function() {
         wx.showLoading();
-        getRequest('/weapp/paysignpackage', { order_id: this.data.form.order_id }).then(res => {
+        get('/weapp/paysignpackage', { order_id: this.data.form.order_id }).then(res => {
             wx.hideLoading();
             if (res.errcode === 0) {
                 wxPay(
@@ -102,7 +102,7 @@ Page({
      * 申请退款
      */
     applyForRefund: function() {
-        postRequest('weapp/refund', this.data.refundForm).then(res => {
+        post('weapp/refund', this.data.refundForm).then(res => {
             if (res.errcode === 0) {
                 toastMsg('申请成功', 'success', 1000, () => {
                     this.gotoOrders(2);
@@ -173,7 +173,7 @@ Page({
      * 确认增值服务订单完成
      */
     confirmFinish: function(e) {
-        postRequest('weapp/business-finish', { order_id: this.data.orderInfo.id }).then(res => {
+        post('weapp/business-finish', { order_id: this.data.orderInfo.id }).then(res => {
             if (res.errcode === 0) {
                 toastMsg('确认成功', 'success', 1000, () => {
                     wx.navigateTo({

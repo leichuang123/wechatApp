@@ -18,7 +18,7 @@
         </view>
     </view>
     <scroll-view scroll-y class="weui-cells searchbar-result" wx:if="{{searchResult.length>0}}">
-        <view class="weui-cell" wx:for="{{searchResult}}" wx:key="index" hover-class="weui-cell_active" data-name="{{item.name}}" bindtap="gotoIndex">
+        <view class="weui-cell" wx:for="{{searchResult}}" wx:key="index" hover-class="weui-cell_active" data-item="{{item}}" bindtap="gotoIndex">
             <view class="weui-cell__bd">
                 <view>{{item.name}}</view>
             </view>
@@ -29,26 +29,26 @@
             <span>定位城市</span>
         </view>
         <view class="rank-cell">
-            <button wx:if="{{isLocated}}" class="weui-btn" type="primary" plain="true" size="mini" style="height:80rpx;line-height:80rpx" data-name="{{city}}" bindtap="gotoIndex">
+            <button wx:if="{{isLocated}}" class="weui-btn" type="primary" plain="true" size="mini" style="height:80rpx;line-height:80rpx" data-item="{{locatedCity}}" bindtap="gotoIndex">
                 <text class="icon-map-marker mine-icon"></text>
-                {{city}}
+                {{locatedCity.name}}
             </button>
             <button wx:else class="weui-btn" type="primary" plain="true" size="mini" style="height:80rpx;line-height:80rpx" open-type="openSetting">
                 <text class="icon-map-marker mine-icon"></text>
-                {{city}}
+                {{locatedCity.name}}
             </button>
         </view>
         <view id="hot" class="weui-cells__title letter-margin">热门城市</view>
         <view class="hot-city">
-            <view class="hot-city__item" wx:for="{{hotCities}}" wx:key="index" data-name="{{item}}" bindtap="gotoIndex">
+            <view class="hot-city__item" wx:for="{{hotCities}}" wx:key="index" data-item="{{item}}" bindtap="gotoIndex">
                 <view>
-                    <view hover-class="weui-cell_active">{{item}}</view>
+                    <view hover-class="weui-cell_active">{{item.name}}</view>
                 </view>
             </view>
         </view>
         <block wx:for="{{cities}}" wx:key="index">
             <view id="{{item.first}}" class="weui-cells__title city-margin">{{item.first}}</view>
-            <view class="weui-cell bg-white" hover-class="weui-cell_active" wx:for="{{item.city}}" wx:for-item="city" wx:key="idx" data-name="{{city.name}}" bindtap="gotoIndex">
+            <view class="weui-cell bg-white" hover-class="weui-cell_active" wx:for="{{item.city}}" wx:for-item="city" wx:key="idx" data-item="{{city}}" bindtap="gotoIndex">
                 <view class="weui-cell__bd">{{city.name}}</view>
             </view>
         </block>

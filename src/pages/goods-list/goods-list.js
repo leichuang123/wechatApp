@@ -75,20 +75,20 @@ Page({
             store_id: 0,
             car_number: '',
             merchant_id: 0,
-            isRegistered: false,
+            registered: false
         },
         storeForm: {
             storeId: 0,
             merchantId: 0,
             latitude: 0,
-            longitude: 0,
+            longitude: 0
         }
     },
     /**
      * 获取门店详情
      */
     getStoreInfo: function() {
-        api.getRequest('weapp/storedetail', this.data.storeForm, false).then(res => {
+        api.get('weapp/storedetail', this.data.storeForm, false).then(res => {
             this.setData({ loading: false });
             if (res.errcode === 0) {
                 this.setData({
@@ -103,7 +103,7 @@ Page({
      */
     getGoods: function() {
         this.setData({ loading: true });
-        api.getRequest('weapp/storegoodsitem', this.data.goodsForm, false).then(res => {
+        api.get('weapp/storegoodsitem', this.data.goodsForm, false).then(res => {
             if (res.errcode === 0) {
                 let hasWashGoods = res.data.store_wash_goods.length > 0;
                 this.setData({
@@ -111,14 +111,14 @@ Page({
                     recommendedGoods: res.data.store_recommend,
                     washGoods: hasWashGoods ? res.data.store_wash_goods[0] : {},
                     serviceGoods: res.data.store_goods,
-                    'washGoods.open': hasWashGoods,
+                    'washGoods.open': hasWashGoods
                 });
             } else {
                 this.setData({
                     loading: false,
                     recommendedGoods: [],
                     washGoods: {},
-                    serviceGoods: [],
+                    serviceGoods: []
                 });
             }
         });
@@ -128,10 +128,10 @@ Page({
      */
     switchCollection: function() {
         let operation = !this.data.collected ? 'addfavor' : 'delfavor';
-        api.postRequest('weapp/' + operation, { store_id: this.data.goodsForm.storeId }).then(res => {
+        api.post('weapp/' + operation, { store_id: this.data.goodsForm.storeId }).then(res => {
             if (res.errcode === 0) {
                 this.setData({
-                    collected: !this.data.collected,
+                    collected: !this.data.collected
                 });
                 return;
             }
@@ -164,8 +164,8 @@ Page({
             this.setData({
                 'washGoodsOrder.is_queue': items[index].checked,
                 'orderForm.first_pay': items[index].checked ? 1 : 0,
-                washSelected: items[index].checked,
-            })
+                washSelected: items[index].checked
+            });
         }
         this.sum();
     },
@@ -186,7 +186,7 @@ Page({
                 'washGoodsOrder.is_queue': true,
                 'orderForm.first_pay': 1,
                 'washGoods.goods': items,
-                washMoney: items[index].sale_price,
+                washMoney: items[index].sale_price
             });
             this.sum();
         } else {
@@ -196,7 +196,7 @@ Page({
                 'washGoodsOrder.is_queue': false,
                 'orderForm.first_pay': 0,
                 'washGoods.goods': items,
-                washMoney: 0,
+                washMoney: 0
             });
             this.sum();
         }
@@ -225,7 +225,9 @@ Page({
      * 计算金额
      */
     sum: function() {
-        let amount = [this.data.recommendedMoney, this.data.washMoney, this.data.serviceMoney].reduce((acc, cur) => add(acc, cur));
+        let amount = [this.data.recommendedMoney, this.data.washMoney, this.data.serviceMoney].reduce((acc, cur) =>
+            add(acc, cur)
+        );
         this.setData({
             money: amount
         });
@@ -266,7 +268,7 @@ Page({
     gotoPay: function() {
         let params = JSON.stringify(this.data.orderForm);
         wx.navigateTo({
-            url: '/pages/payment/payment?params=' + params,
+            url: '/pages/payment/payment?params=' + params
         });
     },
     /**
@@ -283,11 +285,11 @@ Page({
             goodsOfValueCard = this.data.valueCardOrder.goods;
         if (len > 0) {
             for (let i = 0; i < len; i++) {
-                item = recommendedGoods[i]
+                item = recommendedGoods[i];
                 if (item.checked) {
                     this.setData({
-                        'orderForm.num': this.data.orderForm.num + 1,
-                    })
+                        'orderForm.num': this.data.orderForm.num + 1
+                    });
                     if (item.category == 0) {
                         let service = !!item.recommend ? item.recommend.service : [];
                         goods = {
@@ -300,7 +302,7 @@ Page({
                             service_name: service.length > 0 ? service[0].name : '',
                             station_type: service.length > 0 ? service[0].station_type : 0,
                             is_queue: item.is_queue == 1
-                        }
+                        };
                         if (goods.is_queue && service.length > 0) {
                             goodsOfWash.push(goods);
                             this.setData({
@@ -314,7 +316,7 @@ Page({
                             this.setData({
                                 'serviceGoodsOrder.money': add(this.data.serviceGoodsOrder.money, item.sale_price),
                                 'serviceGoodsOrder.goods': goodsOfService
-                            })
+                            });
                         }
                     }
                     if (item.category == 1) {
@@ -323,14 +325,14 @@ Page({
                             price: item.sale_price,
                             num: 1,
                             type: 1,
-                            name: item.featured_name,
-                        }
+                            name: item.featured_name
+                        };
                         goodsOfPackage.push(goods);
                         this.setData({
                             'packageOrder.money': add(this.data.packageOrder.money, item.sale_price),
                             'packageOrder.is_queue': false,
                             'packageOrder.goods': goodsOfPackage
-                        })
+                        });
                     }
                     if (item.category == 2) {
                         goods = {
@@ -338,8 +340,8 @@ Page({
                             price: item.sale_price,
                             num: 1,
                             type: 2,
-                            name: item.featured_name,
-                        }
+                            name: item.featured_name
+                        };
                         goodsOfValueCard.push(goods);
                         this.setData({
                             'valueCardOrder.money': add(this.data.valueCardOrder.money, item.sale_price),
@@ -375,15 +377,15 @@ Page({
                         service_name: service.length > 0 ? service[0].service_name : '',
                         station_type: service.length > 0 ? service[0].station_type : 0,
                         is_queue: !!service && washGoods.is_queue == 1
-                    }
+                    };
                     goodsOfWash.push(goods);
                     this.setData({
                         'orderForm.num': this.data.orderForm.num + 1,
                         'washGoodsOrder.money': add(this.data.washGoodsOrder.money, item.sale_price),
                         'washGoodsOrder.goods': goodsOfWash,
                         'orderForm.is_queue': goods.is_queue,
-                        'washGoodsOrder.is_queue': goods.is_queue,
-                    })
+                        'washGoodsOrder.is_queue': goods.is_queue
+                    });
                 }
             }
         }
@@ -412,7 +414,7 @@ Page({
                             service_name: service.length > 0 ? service[0].service_name : '',
                             station_type: service.length > 0 ? service[0].station_type : 0,
                             is_queue: this.data.serviceGoods[i].is_queue == 1
-                        }
+                        };
                         if (goods.is_queue && service.length > 0) {
                             goodsOfWash.push(goods);
                             this.setData({
@@ -456,10 +458,10 @@ Page({
                     order.push(this.data.valueCardOrder);
                 }
                 if (this.data.washGoodsOrder.goods.length > 0) {
-                    order.push(this.data.washGoodsOrder)
+                    order.push(this.data.washGoodsOrder);
                 }
                 if (this.data.serviceGoodsOrder.goods.length > 0) {
-                    order.push(this.data.serviceGoodsOrder)
+                    order.push(this.data.serviceGoodsOrder);
                 }
                 if (this.data.packageOrder.goods.length > 0) {
                     order.push(this.data.packageOrder);
@@ -470,7 +472,7 @@ Page({
                 });
                 console.log(order);
                 this.gotoPay();
-            }, 500)
+            }, 500);
         }
     },
     /**
@@ -478,11 +480,11 @@ Page({
      */
     onSettleAccounts: function() {
         if (this.data.money > 0) {
-            if (this.data.memberForm.isRegistered) {
+            if (this.data.memberForm.registered) {
                 this.settleAccounts();
             } else {
                 wx.navigateTo({
-                    url: '/pages/register/register',
+                    url: '/pages/register/register'
                 });
             }
         }
@@ -514,8 +516,8 @@ Page({
             longitude: longitude,
             scale: 18,
             name: store.store_name,
-            address: store.store_address,
-        }
+            address: store.store_address
+        };
         openLocation(params);
     },
     /**
@@ -524,33 +526,33 @@ Page({
     onLoad: function(options) {
         let memberData = JSON.parse(options.memberData);
         let userData = wx.getStorageSync('userData');
-        let defaultCar = !!userData ? userData.user_data.default_car : '';
+        let defaultCar = !!userData ? userData.default_car : '';
         let carNumber = memberData.car_number ? memberData.car_number : defaultCar;
         this.setData({
             goodsForm: {
                 storeId: memberData.store_id,
                 merchantId: memberData.merchant_id,
-                car_number: carNumber,
+                car_number: carNumber
             },
             storeForm: {
                 storeId: memberData.store_id,
                 merchantId: memberData.merchant_id,
                 latitude: memberData.latitude,
-                longitude: memberData.longitude,
+                longitude: memberData.longitude
             },
-            carNumbers: !!userData ? userData.user_data.car : [],
+            carNumbers: !!userData ? userData.car : [],
             carIndex: 0,
 
             'orderForm.merchant_id': memberData.merchant_id,
             'orderForm.store_id': memberData.store_id,
             'orderForm.store_name': memberData.store_name,
             'orderForm.car_number': carNumber,
-            'orderForm.mobile': !!userData ? userData.user_data.mobile : '',
+            'orderForm.mobile': !!userData ? userData.mobile : '',
 
             'memberForm.merchant_id': memberData.merchant_id,
             'memberForm.store_id': memberData.store_id,
-            'memberForm.isRegistered': !!userData ? userData.isRegist : false,
-            'memberForm.car_number': carNumber,
+            'memberForm.registered': !!userData ? userData.registered : false,
+            'memberForm.car_number': carNumber
         });
         if (this.data.carNumbers.length > 0) {
             const index = this.data.carNumbers.indexOf(carNumber);
@@ -591,4 +593,4 @@ Page({
             open: true
         });
     }
-})
+});

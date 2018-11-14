@@ -1,4 +1,4 @@
-import { getRequest } from '../../utils/api';
+import { get } from '../../utils/api';
 Page({
     data: {
         loadingVisible: true,
@@ -18,7 +18,7 @@ Page({
      * 获取储值记录
      */
     getRecords: function() {
-        getRequest('weapp/membercardtimescount', this.data.form).then(res => {
+        get('weapp/membercardtimescount', this.data.form).then(res => {
             if (res.errcode === 0) {
                 this.setData({
                     balance: res.data.balance,

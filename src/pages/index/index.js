@@ -1,11 +1,15 @@
 import api from '../../utils/api';
 import { toastMsg, confirmMsg } from '../../utils/util';
-import { login, scanCode, getLocation } from '../../utils/wx-api';
+import { scanCode, getLocation } from '../../utils/wx-api';
 const app = getApp();
 Page({
     data: {
+        couponDialogVisible: false,
         city: '',
-        indexInfo: {},
+        userData: null,
+        queues: [],
+        reservations: [],
+        unreceivedCoupons: [],
         form: {
             js_code: ''
         }
@@ -29,11 +33,11 @@ Page({
                 const storeData = JSON.parse(res.result);
                 const bindParams = {
                     store_id: storeData.store_id,
-                    car_number: this.data.IndexInfo.user_data.car,
-                    mobile: this.data.IndexInfo.user_data.mobile,
-                    user_id: this.data.IndexInfo.user_data.id
+                    car_number: this.data.userData.car,
+                    mobile: this.data.userData.mobile,
+                    user_id: this.data.userData.id
                 };
-                api.postRequest('weapp/bind', bindParams)
+                api.post('weapp/bind', bindParams)
                     .then(res => {
                         if (res.errcode === 0) {
                             const locationInfo = wx.getStorageSync('locationInfo');
@@ -65,7 +69,7 @@ Page({
      */
     onBindStore: function() {
         const userData = wx.getStorageSync('userData');
-        if (!userData || !userData.isRegist) {
+        if (!userData || !userData.registered) {
             this.remindRegister();
         } else {
             this.bindStore();
@@ -74,14 +78,18 @@ Page({
     /**
      * 获取首页信息
      */
-    getIndexInfo: function(withSessionKey) {
-        api.getRequest('weapp/indexinfo', this.data.form, false, withSessionKey).then(res => {
+    getIndexInfo: function() {
+        api.get('weapp/indexinfo', this.data.form, false).then(res => {
             if (res.errcode === 0) {
                 this.setData({
-                    IndexInfo: res.data
+                    userData: res.data.userData,
+                    queues: !res.data.queues ? [] : res.data.queues,
+                    reservations: !res.data.reservations ? [] : res.data.reservations,
+                    unreceivedCoupons: !res.data.unreceivedCoupons ? [] : res.data.unreceivedCoupons.data,
+                    couponDialogVisible: !!res.data.unreceivedCoupons && res.data.unreceivedCoupons.data.length > 0
                 });
                 wx.setStorageSync('sessionKey', res.data.sessionKey);
-                wx.setStorageSync('userData', res.data);
+                wx.setStorageSync('userData', res.data.userData);
             } else if (res.errcode === 999) {
                 console.log(res.errmsg);
             } else {
@@ -101,55 +109,102 @@ Page({
                     latitude: res.latitude,
                     longitude: res.longitude
                 };
-                api.getRequest('weapp/getcityinfo', locationInfo, false).then(res => {
-                    const city = wx.getStorageSync('city');
+                api.get('weapp/getcityinfo', locationInfo, false).then(res => {
+                    console.log(res);
+                    const selectedCity = wx.getStorageSync('selectedCity');
                     if (res.errcode === 0) {
                         locationInfo.code = res.data.ad_info.adcode;
                         wx.setStorageSync('locationInfo', locationInfo);
                         const locatedCity = res.data.ad_info.city;
-                        if (locatedCity !== city) {
+                        if (locatedCity !== selectedCity.name) {
                             const content = '您当前的位置为' + locatedCity + '，是否切换到当前城市';
-                            confirmMsg('', content, true, () => {
-                                this.setData({
-                                    city: locatedCity
-                                });
-                                wx.setStorageSync('city', locatedCity);
-                            },()=>{
-                                this.setData({
-                                    city: !city ? '请选择' : city
-                                });
-                            });
+                            confirmMsg(
+                                '',
+                                content,
+                                true,
+                                () => {
+                                    this.setData({
+                                        city: locatedCity
+                                    });
+                                    wx.setStorageSync('selectedCity', {
+                                        name: locatedCity,
+                                        code: res.data.ad_info.adcode
+                                    });
+                                },
+                                () => {
+                                    this.setData({
+                                        city: !selectedCity ? '请选择' : selectedCity.name
+                                    });
+                                }
+                            );
                         }
                     } else {
                         this.setData({
-                            city: !city ? '请选择' : city
+                            city: !selectedCity ? '请选择' : selectedCity.name
                         });
                         confirmMsg('', res.errmsg, false);
                     }
                 });
             })
             .catch(res => {
-                console.log(res);
                 wx.setStorageSync('locationInfo', app.globalData.defaultLocation);
             });
     },
-    wxLogin: function() {
-        login()
-            .then(res => {
-                if (res.code) {
-                    this.setData({
-                        'form.js_code': res.code
-                    });
-                    this.getIndexInfo(false);
-                } else {
-                    this.getIndexInfo(true);
-                    console.log('获取用户登录态失败：' + res.errMsg);
-                }
-            })
-            .catch(() => {
-                this.getIndexInfo(true);
-                console.log('获取用户登录态失败：' + res.errMsg);
+    onGetCoupon: function(e) {
+        const params = JSON.stringify(e.currentTarget.dataset.item);
+        this.updateRemindCount();
+        wx.navigateTo({
+            url: '/pages/my-coupon/share-detail?params=' + params
+        });
+    },
+    updateRemindCount: function() {
+        const ids = this.getUnreceivedCouponSendDetailIds();
+        api.post('/weapp-coupon/update-remind-count', { id: ids }).then(res => {
+            if (res.errcode !== 0) {
+                console.log(res.errmsg);
+            }
+        });
+    },
+    getUnreceivedCouponSendDetailIds: function() {
+        return this.data.unreceivedCoupons.map(val => val.id);
+    },
+    /**
+     * 关闭优惠券领取提醒框
+     *
+     * @param {event} e
+     */
+    closeCouponDialog: function(e) {
+        this.setData({
+            couponDialogVisible: false
+        });
+        this.updateRemindCount();
+    },
+    initData: function() {
+        this.setData({
+            couponDialogVisible: false,
+            userData: null,
+            queues: [],
+            reservations: [],
+            unreceivedCoupons: []
+        });
+        if (!app.globalData.sessionKey) {
+            app.doLoginCallBack = res => {
+                wx.setStorageSync('sessionKey', res.sessionKey);
+                this.getIndexInfo();
+            };
+        } else {
+            this.getIndexInfo();
+        }
+
+        const selectedCity = wx.getStorageSync('selectedCity');
+        this.setData({
+            city: !selectedCity ? '请选择' : selectedCity.name
+        });
+        if (this.data.city.length > 4) {
+            this.setData({
+                city: this.data.city.substring(0, 3) + '...'
             });
+        }
     },
     /**
      * 生命周期函数--监听页面加载
@@ -158,16 +213,6 @@ Page({
         this.getLocation();
     },
     onShow: function() {
-        this.wxLogin();
-
-        const city = wx.getStorageSync('city');
-        this.setData({
-            city: !city ? '请选择' : city
-        });
-        if (this.data.city.length > 4) {
-            this.setData({
-                city: this.data.city.substring(0, 3) + '...'
-            });
-        }
+        this.initData();
     }
 });

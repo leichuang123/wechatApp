@@ -1,4 +1,4 @@
-import { getRequest } from '../../utils/api';
+import { get } from '../../utils/api';
 Page({
     data: {
         income: '0.00'
@@ -8,7 +8,7 @@ Page({
      */
     getAccumulatedIncome: function() {
         wx.showLoading({ title: '加载中...' });
-        getRequest('weapp/accumulated-income').then(res => {
+        get('weapp/accumulated-income').then(res => {
             wx.hideLoading();
             if (res.errcode === 0) {
                 this.setData({ income: res.data });

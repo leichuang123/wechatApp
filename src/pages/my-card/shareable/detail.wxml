@@ -20,7 +20,7 @@
                 </view>
             </view>
             <view class="weui-flex fs15">
-                有效期：{{card.expiry_date}}个月
+                有效期：{{card.expiry_date}}
             </view>
         </view>
         <view class='cell bg-blue space6 fs14'>会员卡服务内容</view>

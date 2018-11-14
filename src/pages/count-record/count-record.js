@@ -1,4 +1,4 @@
-import { getRequest } from '../../utils/api';
+import { get } from '../../utils/api';
 const app = getApp();
 const sliderWidth = 96; // 需要设置slider的宽度，用于计算中间位置
 Page({
@@ -45,7 +45,7 @@ Page({
      * 获取计次记录
      */
     getRecords: function() {
-        getRequest('weapp/membercardtimescount', this.data.form).then(res => {
+        get('weapp/membercardtimescount', this.data.form).then(res => {
             if (res.errcode === 0) {
                 this.setData({
                     records: this.data.records.concat(res.data.data)

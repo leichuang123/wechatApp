@@ -1,5 +1,5 @@
 import cities from '../../utils/city';
-import { getRequest } from '../../utils/api';
+import api from '../../utils/api';
 import { confirmMsg } from '../../utils/util';
 import { getSetting } from '../../utils/wx-api';
 const app = getApp();
@@ -39,7 +39,20 @@ Page({
         inputVal: '',
         hidden: true,
         city: '定位中...',
-        hotCities: ['北京市', '上海市', '广州市', '深圳市', '南京市', '杭州市', '武汉市', '成都市'],
+        locatedCity: {
+            name: '定位中...',
+            code: ''
+        },
+        hotCities: [
+            { name: '北京市', code: '110000' },
+            { name: '上海市', code: '310000' },
+            { name: '广州市', code: '440100' },
+            { name: '深圳市', code: '440300' },
+            { name: '南京市', code: '320100' },
+            { name: '杭州市', code: '330100' },
+            { name: '武汉市', code: '420100' },
+            { name: '成都市', code: '510100' }
+        ],
         cities: [],
         searchResult: []
     },
@@ -98,11 +111,12 @@ Page({
      * 获取定位城市信息
      */
     getCityInfo: function(params) {
-        getRequest('weapp/getcityinfo', params, false).then(res => {
+        api.get('weapp/getcityinfo', params, false).then(res => {
             this.setData({ loading: false });
             if (res.errcode === 0) {
                 this.setData({
-                    city: res.data.ad_info.city,
+                    'locatedCity.name': res.data.ad_info.city,
+                    'locatedCity.code': res.data.ad_info.adcode,
                     isLocated: true
                 });
                 return;
@@ -118,7 +132,7 @@ Page({
             .then(res => {
                 if (!res.authSetting['scope.userLocation']) {
                     this.setData({
-                        city: '定位失败，开启定位',
+                        'locatedCity.name': '定位失败，开启定位',
                         isLocated: false
                     });
                     return;
@@ -129,7 +143,7 @@ Page({
             })
             .catch(res => {
                 this.setData({
-                    city: '定位失败，开启定位',
+                    'locatedCity.name': '定位失败，开启定位',
                     isLocated: false
                 });
             });
@@ -164,7 +178,12 @@ Page({
      *
      */
     gotoIndex: function(e) {
-        wx.setStorageSync('city', e.currentTarget.dataset.name);
+        const item = e.currentTarget.dataset.item;
+        wx.setStorageSync('selectedCity', {
+            name: item.name,
+            code: item.code
+        });
+
         wx.switchTab({
             url: '/pages/index/index'
         });

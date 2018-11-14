@@ -1,5 +1,5 @@
-import { getRequest } from 'utils/api';
-import { login, getSystemInfo, getLocation} from 'utils/wx-api';
+import api from 'utils/api';
+import { login, getSystemInfo, getLocation } from 'utils/wx-api';
 App({
     globalData: {
         hasAuth: false,
@@ -10,14 +10,21 @@ App({
         defaultLocation: {
             latitude: 30.5287,
             longitude: 114.371399,
-            code: '420102'
-        }
+            code: '420102',
+            name: '武汉市'
+        },
+        sessionKey: ''
     },
     //设置用户缓存
     doLogin(jsCode) {
-        getRequest('weapp/login', { js_code: jsCode }, false, false).then(res => {
+        api.get('weapp/login', { js_code: jsCode }, false, false).then(res => {
             if (res.errcode === 0) {
-                wx.setStorageSync('sessionKey', res.data.sessionKey);
+                const sessionKey = res.data.sessionKey;
+                wx.setStorageSync('sessionKey', sessionKey);
+                this.globalData.sessionKey = sessionKey;
+                if (this.doLoginCallBack) {
+                    this.doLoginCallBack(res.data);
+                }
             }
         });
     },

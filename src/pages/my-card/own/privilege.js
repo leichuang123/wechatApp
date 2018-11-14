@@ -1,4 +1,4 @@
-import { getRequest } from '../../../utils/api';
+import { get } from '../../../utils/api';
 Page({
     data: {
         loadingVisible: true,
@@ -9,7 +9,7 @@ Page({
      * 获取会员卡特权说明
      */
     getCardDescription: function(cardNumber) {
-        getRequest('weapp/getcarddescription', { card_number: cardNumber }).then(res => {
+        get('weapp/getcarddescription', { card_number: cardNumber }).then(res => {
             if (res.errcode === 0) {
                 this.setData({
                     description: res.data.description,

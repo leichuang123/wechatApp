@@ -15,7 +15,7 @@ Page({
      */
     getDetail: function() {
         this.setData({ loading: true });
-        api.postRequest('weapp/get-share-card-info', this.data.form).then(res => {
+        api.post('weapp/get-share-card-info', this.data.form).then(res => {
             this.setData({ loading: false });
             if (res.errcode === 0) {
                 this.setData({ card: res.data });
@@ -35,7 +35,7 @@ Page({
             level: this.data.card.level,
             shareholder_id: this.data.card.shareholder_id
         };
-        api.postRequest('weapp/add-record', shareForm).then(res => {
+        api.post('weapp/add-record', shareForm).then(res => {
             if (res.errcode === 0) {
                 toastMsg('赠送成功', 'success');
             } else {

@@ -1,4 +1,4 @@
-import { getRequest } from '../../../utils/api';
+import { get } from '../../../utils/api';
 Page({
     data: {
         loadingVisible: true,
@@ -9,7 +9,7 @@ Page({
      * 获取股东账户列表
      */
     getAccounts: function() {
-        getRequest('weapp/get-shareholder').then(res => {
+        get('weapp/get-shareholder').then(res => {
             if (res.errcode === 0) {
                 this.setData({
                     accounts: res.data

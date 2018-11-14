@@ -1,4 +1,4 @@
-import { postRequest } from '../../utils/api';
+import { post } from '../../utils/api';
 import { uploadFileUrl } from '../../config';
 import { toastMsg, confirmMsg } from '../../utils/util';
 Page({
@@ -59,7 +59,7 @@ Page({
             title: '提交请求中',
             mask: true
         });
-        postRequest('weapp/evaluate', this.data.form).then(res => {
+        post('weapp/evaluate', this.data.form).then(res => {
             wx.hideLoading();
             if (res.errcode === 0) {
                 toastMsg('评价成功', 'success', 1000, () => {

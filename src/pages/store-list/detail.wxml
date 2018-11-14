@@ -10,7 +10,7 @@
         </swiper>
     </view>
     <view>
-        <view wx:if="{{serviceType==='wash'}}">
+        <view wx:if="{{serviceType==='queue'}}">
             <view class='station-list' wx:if="{{storeInfo.waitMsg===''}}">
                 <view class="weui-flex bg-grey">
                     <view class="weui-flex__item">工位名称</view>
@@ -35,7 +35,7 @@
                 {{storeInfo.waitMsg===''?'请您提前将爱车开到门店，过号作废，需重新排号':''}}
             </view>
         </view>
-        <view wx:if="{{serviceType==='server'}}">
+        <view wx:if="{{serviceType==='reserve'}}">
             <view class='station-list'>
                 <view class="weui-flex bg-grey">
                     <view class="weui-flex__item">预约时间</view>

@@ -1,4 +1,4 @@
-import { getRequest } from '../../utils/api';
+import { get } from '../../utils/api';
 Page({
     data: {
         loading: true,
@@ -10,7 +10,7 @@ Page({
      * 获取车生产年份
      */
     getYears: function() {
-        getRequest('weapp/getcarproductiveyear', { displacement_id: this.data.displacementId }, false).then(res => {
+        get('weapp/getcarproductiveyear', { displacement_id: this.data.displacementId }, false).then(res => {
             this.setData({ loading: false });
             if (res.errcode === 0) {
                 this.setData({

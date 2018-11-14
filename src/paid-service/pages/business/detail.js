@@ -1,11 +1,11 @@
-import { getRequest } from '../../../utils/api';
+import { get } from '../../../utils/api';
 Page({
     data: {
         loadingVisible: true,
         hasData: true,
         tabIndex: 0,
         business: {},
-        evaluations:[],
+        evaluations: [],
         tabList: ['业务描述', '办理流程', '办理条件', '所需资料', '客户评价']
     },
     /**
@@ -20,7 +20,7 @@ Page({
      * 获取业务详情
      */
     getBusinessDetail: function(id) {
-        getRequest('weapp/business-detail', { business_id: id }, false).then(res => {
+        get('weapp/business-detail', { business_id: id }, false).then(res => {
             if (res.errcode === 0) {
                 for (let i = 0, len = res.data.process.length; i < len; i++) {
                     res.data.process[i].open = false;
@@ -35,7 +35,7 @@ Page({
             }
             this.setData({
                 loadingVisible: false,
-                hasData: false,
+                hasData: false
             });
         });
     },
@@ -44,14 +44,14 @@ Page({
      */
     gotoBusinessHandle: function() {
         let userData = wx.getStorageSync('userData');
-        if (!!userData && userData.isRegist) {
+        if (!!userData && userData.registered) {
             wx.navigateTo({
-                url: 'handle?id=' + this.data.business.id,
+                url: 'handle?id=' + this.data.business.id
             });
             return;
         }
         wx.navigateTo({
-            url: '../../../pages/register/register',
+            url: '../../../pages/register/register'
         });
     },
     /**
@@ -71,4 +71,4 @@ Page({
     onLoad: function(options) {
         this.getBusinessDetail(options.id);
     }
-})
+});

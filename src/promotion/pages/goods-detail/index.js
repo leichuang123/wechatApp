@@ -1,4 +1,4 @@
-import { getRequest } from '../../../utils/api';
+import { get } from '../../../utils/api';
 import WxParse from '../../../assets/plugins/wxParse/wxParse';
 import { confirmMsg } from '../../../utils/util';
 import {
@@ -29,7 +29,7 @@ Page({
      */
     getDetail: function() {
         this.setData({ loading: true });
-        getRequest('weapp/promotion-detail', this.data.form, false).then(res => {
+        get('weapp/promotion-detail', this.data.form, false).then(res => {
             if (res.errcode === 0) {
                 this.setData({
                     loading: false,
@@ -92,7 +92,7 @@ Page({
     },
     onGotoPay: function() {
         const userData = wx.getStorageSync('userData');
-        if (!!userData && userData.isRegist) {
+        if (!!userData && userData.registered) {
             this.gotoPay();
         } else {
             this.gotoRegister();
@@ -133,7 +133,7 @@ Page({
             title: '图片生成中',
             mask: true
         });
-        getRequest('weapp/share-goods-image', this.data.form, false).then(res => {
+        get('weapp/share-goods-image', this.data.form, false).then(res => {
             wx.hideLoading();
             if (res.errcode === 0) {
                 this.setData({
@@ -231,12 +231,7 @@ Page({
     onLoad: function(options) {
         const params = JSON.parse(options.params);
         const userData = wx.getStorageSync('userData');
-        const userId =
-            params.user_id !== undefined
-                ? params.user_id
-                : !!userData && !!userData.user_data
-                    ? userData.user_data.id
-                    : 0;
+        const userId = params.user_id !== undefined ? params.user_id : !!userData && !!userData ? userData.id : 0;
         this.setData({
             'form.id': params.id,
             'form.merchant_id': params.merchant_id,
@@ -250,7 +245,7 @@ Page({
      */
     onShareAppMessage: function() {
         const userData = wx.getStorageSync('userData');
-        const userId = !!userData && !!userData.user_data ? userData.user_data.id : 0;
+        const userId = !!userData && !!userData ? userData.id : 0;
         const params = JSON.stringify({
             id: this.data.form.id,
             merchant_id: this.data.form.merchant_id,

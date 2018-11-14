@@ -1,4 +1,4 @@
-import { getRequest } from '../../utils/api';
+import { get } from '../../utils/api';
 const app = getApp();
 Page({
     data: {
@@ -121,7 +121,7 @@ Page({
      */
     getBrands: function() {
         this.setData({ loading: true });
-        getRequest('weapp/getcarbrand', this.data.brandForm, false).then(res => {
+        get('weapp/getcarbrand', this.data.brandForm, false).then(res => {
             if (res.errcode === 0) {
                 this.setData({
                     brands: res.data,
@@ -138,7 +138,7 @@ Page({
     //获取所有车品牌和热门品牌
     getBrandsWithHot: function() {
         this.setData({ loading: true });
-        getRequest('weapp/get-car-brands-with-hot', this.data.brandForm, false).then(res => {
+        get('weapp/get-car-brands-with-hot', this.data.brandForm, false).then(res => {
             this.setData({ loading: false });
             if (res.errcode === 0) {
                 this.setData({
@@ -158,7 +158,7 @@ Page({
      */
     getCarSeries: function(id) {
         this.setData({ loading: true });
-        getRequest('weapp/getcarserie', { brand_id: id }, false).then(res => {
+        get('weapp/getcarserie', { brand_id: id }, false).then(res => {
             if (res.errcode === 0) {
                 this.setData({
                     series: res.data,

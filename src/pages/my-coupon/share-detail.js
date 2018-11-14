@@ -1,13 +1,13 @@
 import api from '../../utils/api';
 import { confirmMsg, getUrlArgs } from '../../utils/util';
-import { makePhoneCall, openLocation, login, getSystemInfo} from '../../utils/wx-api';
+import { makePhoneCall, openLocation, login, getSystemInfo } from '../../utils/wx-api';
 const app = getApp();
 Page({
     data: {
         loading: false,
         hasExpired: false,
         hasAuth: false,
-        couponWidth:'',
+        couponWidth: '',
         shareUuid: '',
         coupon: {},
         shareForm: {
@@ -43,7 +43,7 @@ Page({
             is_send: this.data.shareForm.is_send
         };
         console.log(['hasExpired:', params]);
-        api.getRequest('weapp-coupon/has-expired', params, false).then(res => {
+        api.get('weapp-coupon/has-expired', params, false).then(res => {
             console.log(['hasExpired response: ', res]);
             this.setData({ hasExpired: res.errcode === 0 ? res.data : true });
             if (!this.data.hasExpired) {
@@ -69,7 +69,7 @@ Page({
             related_type: this.data.shareForm.related_type
         };
         this.setData({ loading: true });
-        api.getRequest('weapp-coupon/get-share-detail', params, false)
+        api.get('weapp-coupon/get-share-detail', params, false)
             .then(res => {
                 console.log(['getDetail response: ', res]);
                 this.setData({ loading: false });
@@ -99,7 +99,7 @@ Page({
             customer_id: this.data.shareForm.sender_customer_id
         };
         console.log(['addSendRecord-params:', params]);
-        api.postRequest('weapp-coupon/add-send-record', params, false).then(res => {
+        api.post('weapp-coupon/add-send-record', params, false).then(res => {
             console.log(['addSendRecord response: ', res]);
             if (res.errcode === 0) {
                 this.setData({ 'shareForm.send_record_id': res.data });
@@ -123,7 +123,7 @@ Page({
             share_uuid: this.data.shareForm.share_uuid
         };
         console.log(['addShareRecord-params:', params]);
-        api.postRequest('weapp-coupon/add-share-record', params, false).then(res => {
+        api.post('weapp-coupon/add-share-record', params, false).then(res => {
             console.log(['addShareRecord response: ', res.errmsg]);
         });
     },
@@ -133,7 +133,7 @@ Page({
     getShareRecordUuid: function(jsCode) {
         const params = { send_record_id: this.data.shareForm.send_record_id, js_code: jsCode };
         console.log(['getShareRecordUuid form: ', params]);
-        api.postRequest('weapp-coupon/get-share-record-uuid', params, false).then(res => {
+        api.post('weapp-coupon/get-share-record-uuid', params, false).then(res => {
             console.log(['getShareRecordUuid response: ', res]);
             if (res.errcode) {
                 this.setData({ shareUuid: res.data });
@@ -217,17 +217,20 @@ Page({
             'shareForm.has_send_record': params.has_send_record,
             'shareForm.is_user_coupon': !params.is_user_coupon ? 2 : params.is_user_coupon,
             'shareForm.share_uuid': !params.share_uuid ? '' : params.share_uuid,
-            hasAuth: !!wxUserInfo
+            hasAuth: !!wxUserInfo,
+            sharable: params.sharable == 1 ? true : false
         });
-        getSystemInfo().then(res => {
-            this.setData({
-                couponWidth: (res.windowWidth - 30) + 'px',
+        getSystemInfo()
+            .then(res => {
+                this.setData({
+                    couponWidth: res.windowWidth - 30 + 'px'
+                });
+            })
+            .catch(() => {
+                this.setData({
+                    couponWidth: app.globalData.windowWidth - 30 + 'px'
+                });
             });
-        }).catch(() => {
-            this.setData({
-                couponWidth: (app.globalData.windowWidth - 30) + 'px',
-            });
-        })
         this.getDetail();
         //发送
         if (params.is_send == 1 && params.has_send_record == 2) {
@@ -248,6 +251,8 @@ Page({
         if (options.q) {
             let url = decodeURIComponent(options.q);
             params = getUrlArgs(url);
+        } else if (options.params) {
+            params = JSON.parse(options.params);
         } else {
             params = options;
         }
@@ -288,7 +293,8 @@ Page({
                 '&is_send=2' +
                 '&send_mode=6' +
                 '&is_user_coupon=2' +
-                '&has_send_record=1';
+                '&has_send_record=1' +
+                '&sharable=1';
 
             this.addShareRecord(nickName);
             return {

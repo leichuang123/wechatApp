@@ -1,4 +1,4 @@
-import { getRequest } from '../../../utils/api';
+import { get } from '../../../utils/api';
 import { openLocation } from '../../../utils/wx-api';
 const app = getApp();
 Page({
@@ -43,8 +43,8 @@ Page({
     /**
      * 获取门店详情
      */
-    getStoreDetail: function () {
-        getRequest('weapp/promotion-store-detail', this.data.storeForm, false).then(res => {
+    getStoreDetail: function() {
+        get('weapp/promotion-store-detail', this.data.storeForm, false).then(res => {
             if (res.errcode === 0) {
                 this.setData({
                     storeDetail: res.data
@@ -59,15 +59,15 @@ Page({
     /**
      * 获取商品列表
      */
-    getPromotionList: function () {
+    getPromotionList: function() {
         this.setData({ loadingVisible: true });
-        getRequest('weapp/store-promotion-list', this.data.form, false).then(res => {
+        get('weapp/store-promotion-list', this.data.form, false).then(res => {
             if (res.errcode === 0) {
                 this.setData({
                     goods: this.data.goods.concat(res.data.data)
                 });
             }
-            let hasMore = (res.errcode !== 0 || this.data.form.page >= res.data.last_page) ? false : true;
+            let hasMore = res.errcode !== 0 || this.data.form.page >= res.data.last_page ? false : true;
             this.setData({
                 loadingVisible: false,
                 hasData: this.data.goods.length > 0 ? true : false,
@@ -79,7 +79,7 @@ Page({
     /**
      * 跳转到商品详情页
      */
-    gotoGoodsDetail: function (e) {
+    gotoGoodsDetail: function(e) {
         let goods = e.currentTarget.dataset.item;
         let params = JSON.stringify({
             id: goods.id,
@@ -93,7 +93,7 @@ Page({
     /**
      * 获取位置信息
      */
-    getLocation: function () {
+    getLocation: function() {
         app.getLocation(res => {
             this.setData({
                 'storeForm.latitude': res.latitude,
@@ -106,7 +106,7 @@ Page({
     /**
      * 加载更多
      */
-    loadMore: function () {
+    loadMore: function() {
         if (!this.data.hasMore) {
             return;
         }
@@ -119,7 +119,7 @@ Page({
     /**
      * 切换tab
      */
-    switchTab: function (e) {
+    switchTab: function(e) {
         if (e.currentTarget.id === this.data.form.promotion_source) {
             return;
         }
@@ -136,7 +136,7 @@ Page({
     /**
      * 定位
      */
-    openLocation: function () {
+    openLocation: function() {
         let store = this.data.storeDetail,
             latitude = parseFloat(store.store_lati),
             longitude = parseFloat(store.store_long);
@@ -153,7 +153,7 @@ Page({
     /**
      * 跳转到支付页面
      */
-    gotoPay: function (e) {
+    gotoPay: function(e) {
         let item = e.currentTarget.dataset.item;
         this.setData({
             'goodsForm.goods_id': item.related_id,
@@ -171,15 +171,15 @@ Page({
     /**
      * 跳转到注册页面
      */
-    gotoRegister: function () {
+    gotoRegister: function() {
         wx.navigateTo({
             url: '../../../pages/register/register'
         });
     },
-    onGotoPay: function (e) {
+    onGotoPay: function(e) {
         let item = e.currentTarget.dataset.item;
         let userData = wx.getStorageSync('userData');
-        if (!!userData && userData.isRegist) {
+        if (!!userData && userData.registered) {
             this.gotoPay(item);
         } else {
             this.gotoRegister();
@@ -188,7 +188,7 @@ Page({
     /**
      * 生命周期函数--监听页面加载
      */
-    onLoad: function (options) {
+    onLoad: function(options) {
         let params = JSON.parse(options.params);
         this.setData({
             'form.merchant_id': params.merchant_id,

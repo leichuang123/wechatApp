@@ -1,4 +1,4 @@
-import { getRequest, postRequest } from '../../../utils/api';
+import { get, post } from '../../../utils/api';
 import { uploadFileUrl } from '../../../config';
 import { confirmMsg, showTopTips, isMobile, isCarNumber } from '../../../utils/util';
 const app = getApp();
@@ -310,7 +310,7 @@ Page({
      * 获取业务办理需要填写的表单
      */
     getBusinessForm: function(id) {
-        getRequest('weapp/business-form', { business_id: id }, false).then(res => {
+        get('weapp/business-form', { business_id: id }, false).then(res => {
             this.setData({ loading: false });
             if (res.errcode === 0) {
                 this.setData({
@@ -359,7 +359,7 @@ Page({
     submitForm: function() {
         this.setData({ loading: true });
         wx.setStorageSync('linkman', this.data.form.contact);
-        postRequest('weapp/business-save-form', this.data.form, false).then(res => {
+        post('weapp/business-save-form', this.data.form, false).then(res => {
             this.setData({ loading: false });
             if (res.errcode === 0) {
                 let params = res.data.at_once;
@@ -465,12 +465,12 @@ Page({
     onLoad: function(options) {
         const linkman = wx.getStorageSync('linkman');
         const userData = wx.getStorageSync('userData');
-        const carNumber = !!userData ? userData.user_data.default_car : '';
+        const carNumber = !!userData ? userData.default_car : '';
         this.setData({
-            carNumbers: !!userData ? userData.user_data.car : [],
+            carNumbers: !!userData ? userData.car : [],
             businessId: options.id,
-            'form.user_id': !!userData ? userData.user_data.id : '',
-            'form.mobile': !!userData ? userData.user_data.mobile : '',
+            'form.user_id': !!userData ? userData.id : '',
+            'form.mobile': !!userData ? userData.mobile : '',
             'form.car_number': carNumber,
             'form.contact': linkman ? linkman : '',
             'form.business_id': options.id,

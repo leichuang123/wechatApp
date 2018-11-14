@@ -16,7 +16,7 @@ Page({
      */
     getDetail: function() {
         this.setData({ loading: true });
-        api.getRequest('weapp/get-shareholder-card', this.data.form).then(res => {
+        api.get('weapp/get-shareholder-card', this.data.form).then(res => {
             this.setData({ loading: false });
             if (res.errcode === 0) {
                 this.setData({ card: res.data });
@@ -36,7 +36,7 @@ Page({
             level: 1,
             shareholder_id: this.data.form.shareholder_id
         };
-        api.postRequest('weapp/add-record', shareForm).then(res => {
+        api.post('weapp/add-record', shareForm).then(res => {
             console.log(res.errmsg);
         });
     },

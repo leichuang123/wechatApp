@@ -1,10 +1,10 @@
-import { getRequest } from '../../utils/api';
-import { makePhoneCall, openLocation,getSystemInfo } from '../../utils/wx-api';
+import api from '../../utils/api';
+import { makePhoneCall, openLocation, getSystemInfo } from '../../utils/wx-api';
 const app = getApp();
 Page({
     data: {
         loading: false,
-        couponWidth:'',
+        couponWidth: '',
         coupon: {}
     },
     /**
@@ -14,7 +14,7 @@ Page({
         this.setData({
             loading: true
         });
-        getRequest('weapp-coupon/get-detail', {
+        api.get('weapp-coupon/get-detail', {
             id: id
         }).then(res => {
             this.setData({
@@ -57,17 +57,19 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function(options) {
-        getSystemInfo().then(res=>{
-            this.setData({
-                couponWidth: (res.windowWidth - 30) + 'px',
-                height: res.windowHeight + 'px'
+        getSystemInfo()
+            .then(res => {
+                this.setData({
+                    couponWidth: res.windowWidth - 30 + 'px',
+                    height: res.windowHeight + 'px'
+                });
+            })
+            .catch(() => {
+                this.setData({
+                    couponWidth: app.globalData.windowWidth - 30 + 'px',
+                    height: app.globalData.windowHeight + 48 + 'px'
+                });
             });
-        }).catch(()=>{
-            this.setData({
-                couponWidth: (app.globalData.windowWidth - 30) + 'px',
-                height: (app.globalData.windowHeight + 48) + 'px'
-            });
-        })
         this.getCouponInfo(options.id);
     }
 });

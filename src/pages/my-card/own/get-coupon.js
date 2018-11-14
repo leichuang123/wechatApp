@@ -56,7 +56,7 @@ Page({
      * 检查页面是否过期
      */
     checkExpire: function() {
-        api.getRequest(
+        api.get(
             'weapp/checkgivenurl',
             {
                 url: this.data.form.url
@@ -94,7 +94,7 @@ Page({
             return;
         }
         console.log(this.data.form);
-        api.postRequest('weapp/getcoupon', this.data.form).then(res => {
+        api.post('weapp/getcoupon', this.data.form).then(res => {
             if (res.errcode === 0) {
                 toastMsg('领取成功', 'success');
             } else {

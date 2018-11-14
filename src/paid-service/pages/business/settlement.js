@@ -1,4 +1,4 @@
-import { postRequest } from '../../../utils/api';
+import { post } from '../../../utils/api';
 import { toastMsg, confirmMsg } from '../../../utils/util';
 Page({
     data: {
@@ -53,7 +53,7 @@ Page({
      */
     createOrder: function() {
         wx.showLoading();
-        postRequest('weapp/business-create-order', this.data.orderForm, false).then(res => {
+        post('weapp/business-create-order', this.data.orderForm, false).then(res => {
             wx.hideLoading();
             if (res.errcode === 0) {
                 let orderData = {
