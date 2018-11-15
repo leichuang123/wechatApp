@@ -1,5 +1,5 @@
 <import src="../../../assets/plugins/wxParse/wxParse.wxml" />
-<view wx:if="{{!loading}}" class="has-btm">
+<view class="has-btm">
     <view class="bg-white">
         <view class="weui-cell">
             <view class="weui-cell__bd fs18">
@@ -138,4 +138,3 @@
         </view>
     </view>
 </view>
-<loading wx:if="{{loading}}">加载中</loading>

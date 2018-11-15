@@ -1,4 +1,4 @@
-<view wx:if="{{!loading}}">
+<view>
     <view class='whole-scroll'>
         <view class="weui-panel__bd bg-white">
             <navigator url="" class="weui-media-box weui-media-box_appmsg" hover-class="weui-cell_active">
@@ -55,4 +55,3 @@
         </view>
     </view>
 </view>
-<loading wx:if="{{loading}}">加载中</loading>

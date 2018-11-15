@@ -1,5 +1,5 @@
 import api from '../../utils/api';
-import { toastMsg, confirmMsg } from '../../utils/util';
+import { toastMsg, confirmMsg, makePhoneCall, showLoading } from '../../utils/util';
 const app = getApp();
 const sliderWidth = 96; // 需要设置slider的宽度，用于计算中间位置
 Page({
@@ -59,22 +59,21 @@ Page({
      * 打电话
      */
     call: function(e) {
-        let tel = e.currentTarget.dataset.tel;
-        wx.makePhoneCall({
-            phoneNumber: tel,
-            success: function() {
+        makePhoneCall({ phoneNumber: e.currentTarget.dataset.tel })
+            .then(() => {
                 console.log('拨打成功');
-            },
-            fail: function() {
+            })
+            .catch(() => {
                 console.log('拨打失败');
-            }
-        });
+            });
     },
     /**
      * 取消预约
      */
     cancelReservation: function(id) {
+        showLoading('提交请求中');
         api.post('weapp/cancelreserve', { id: id }).then(res => {
+            wx.hideLoading();
             if (res.errcode === 0) {
                 toastMsg('取消成功!', 'success', 1000, () => {
                     this.getReservations();

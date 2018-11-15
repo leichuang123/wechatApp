@@ -1,6 +1,6 @@
 Page({
     data: {
-        reservationInfo: {},
+        reservationInfo: {}
     },
     /**
      * 返回到门店详情页
@@ -14,9 +14,6 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function(options) {
-        let reservationData = JSON.parse(options.reservationData);
-        this.setData({
-            reservationInfo: reservationData
-        });
+        this.setData({ reservationInfo: JSON.parse(options.reservationData) });
     }
-})
+});

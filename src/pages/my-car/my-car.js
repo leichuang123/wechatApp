@@ -103,9 +103,7 @@ Page({
      */
     setDefault: function(e) {
         let item = e.currentTarget.dataset.item;
-        api.post('weapp/defaultcar', {
-            car_id: item.id
-        }).then(res => {
+        api.post('weapp/defaultcar', { car_id: item.id }).then(res => {
             if (res.errcode === 0) {
                 let userData = wx.getStorageSync('userData');
                 userData.default_car = item.car_number;
@@ -120,10 +118,9 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function(options) {
-        let userData = wx.getStorageSync('userData'),
-            defaultCar = !!userData ? userData.default_car : '';
+        const userData = wx.getStorageSync('userData');
         this.setData({
-            carNumber: defaultCar,
+            carNumber: !!userData ? userData.default_car : '',
             registered: !!userData ? userData.registered : false
         });
     },

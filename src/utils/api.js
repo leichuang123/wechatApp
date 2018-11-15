@@ -1,5 +1,5 @@
-const host = require('../config.js').host;
-const Promise = require('../assets/plugins/es6-promise.min.js');
+import { host } from '../config';
+import Promise from '../assets/plugins/es6-promise.min';
 import { confirmMsg } from 'util';
 const checkStatus = res => {
     if (res.statusCode !== 200) {
@@ -24,13 +24,11 @@ const checkLogin = res => {
 /**
  * get请求
  */
-const get = (url, params = {}, check = true, withSessionKey = true) => {
+const get = (url, params = {}, check = true) => {
     let data = params;
-    if (withSessionKey) {
-        data.sessionKey = wx.getStorageSync('sessionKey') ? wx.getStorageSync('sessionKey') : '';
-    }
+    data.sessionKey = wx.getStorageSync('sessionKey') || null;
 
-    let promise = new Promise((resolve, reject) => {
+    const promise = new Promise((resolve, reject) => {
         wx.request({
             url: host + url,
             data: data,

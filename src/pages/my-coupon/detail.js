@@ -1,5 +1,6 @@
 import api from '../../utils/api';
 import { makePhoneCall, openLocation, getSystemInfo } from '../../utils/wx-api';
+import { showLoading } from '../../utils/util';
 const app = getApp();
 Page({
     data: {
@@ -11,15 +12,9 @@ Page({
      * 获取优惠券详情
      */
     getCouponInfo: function(id) {
-        this.setData({
-            loading: true
-        });
-        api.get('weapp-coupon/get-detail', {
-            id: id
-        }).then(res => {
-            this.setData({
-                loading: false
-            });
+        showLoading();
+        api.get('weapp-coupon/get-detail', { id: id }).then(res => {
+            wx.hideLoading();
             if (res.errcode === 0) {
                 this.setData({
                     coupon: res.data
@@ -28,10 +23,7 @@ Page({
         });
     },
     call: function(e) {
-        const tel = e.currentTarget.dataset.tel;
-        makePhoneCall({
-            phoneNumber: tel
-        })
+        makePhoneCall({ phoneNumber: e.currentTarget.dataset.tel })
             .then(() => {
                 console.log('拨打成功');
             })
@@ -43,14 +35,13 @@ Page({
      * 定位
      */
     openLocation: function() {
-        const params = {
+        openLocation({
             latitude: parseFloat(this.data.coupon.tencent_latitude),
             longitude: parseFloat(this.data.coupon.tencent_longitude),
             scale: 18,
             name: this.data.coupon.store_name,
             address: this.data.coupon.store_address
-        };
-        openLocation(params);
+        });
     },
 
     /**

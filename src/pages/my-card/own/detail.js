@@ -1,8 +1,7 @@
 import api from '../../../utils/api';
-import { formatTime } from '../../../utils/util';
+import { formatTime, showLoading } from '../../../utils/util';
 Page({
     data: {
-        loading: true,
         cardInfo: {},
         form: {
             cardNumber: '',
@@ -13,10 +12,9 @@ Page({
      * 获取会员卡详情
      */
     getCardInfo: function() {
+        showLoading();
         api.get('weapp/membercarddetail', this.data.form).then(res => {
-            this.setData({
-                loading: false
-            });
+            wx.hideLoading();
             if (res.errcode === 0) {
                 this.setData({
                     cardInfo: res.data

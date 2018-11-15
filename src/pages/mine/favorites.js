@@ -1,5 +1,5 @@
 import api from '../../utils/api';
-import { openLocation, toastMsg } from '../../utils/util';
+import { toastMsg } from '../../utils/util';
 const app = getApp();
 Page({
     data: {
@@ -98,29 +98,19 @@ Page({
         this.getFavorites();
     },
     /**
-     * 导航
-     */
-    openLocation: function(e) {
-        let index = e.currentTarget.dataset.id,
-            store = this.data.favorites[index],
-            latitude = parseFloat(store.store_lati),
-            longitude = parseFloat(store.store_long);
-        openLocation(latitude, longitude, store.store_name, store.store_address);
-    },
-    /**
      * 跳转到门店简介或评价页面
      */
     gotoStoreService: function(e) {
-        let item = e.currentTarget.dataset.item,
-            userData = wx.getStorageSync('userData'),
-            memberData = JSON.stringify({
-                store_id: item.sid,
-                store_name: item.store_name,
-                merchant_id: item.merchans_id,
-                registered: userData.registered,
-                longitude: this.data.searchForm.longitude,
-                latitude: this.data.searchForm.latitude
-            });
+        const item = e.currentTarget.dataset.item;
+        const userData = wx.getStorageSync('userData');
+        const memberData = JSON.stringify({
+            store_id: item.sid,
+            store_name: item.store_name,
+            merchant_id: item.merchans_id,
+            registered: userData.registered,
+            longitude: this.data.searchForm.longitude,
+            latitude: this.data.searchForm.latitude
+        });
         wx.setStorageSync('currentStore', item);
         wx.navigateTo({
             url: '/pages/goods-list/goods-list?memberData=' + memberData

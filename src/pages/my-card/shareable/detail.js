@@ -1,8 +1,7 @@
 import api from '../../../utils/api';
-import { uuid } from '../../../utils/util';
+import { uuid, showLoading } from '../../../utils/util';
 Page({
     data: {
-        loading: false,
         card: {},
         form: {
             merchant_id: 0,
@@ -14,12 +13,11 @@ Page({
      * 获取会员卡详情
      */
     getDetail: function() {
-        this.setData({ loading: true });
+        showLoading();
         api.post('weapp/get-share-card-info', this.data.form).then(res => {
-            this.setData({ loading: false });
+            wx.hideLoading();
             if (res.errcode === 0) {
                 this.setData({ card: res.data });
-                return;
             }
         });
     },

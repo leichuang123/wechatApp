@@ -17,7 +17,7 @@ App({
     },
     //设置用户缓存
     doLogin(jsCode) {
-        api.get('weapp/login', { js_code: jsCode }, false, false).then(res => {
+        api.get('weapp/login', { js_code: jsCode }, false).then(res => {
             if (res.errcode === 0) {
                 const sessionKey = res.data.sessionKey;
                 wx.setStorageSync('sessionKey', sessionKey);

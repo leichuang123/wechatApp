@@ -1,4 +1,4 @@
-<view wx:if="{{!loading}}">
+<view>
     <view class="weui-media-box weui-media-box_appmsg bg-white">
         <view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
             <image class="weui-media-box__thumb" src="{{cardInfo.store_pic}}" />
@@ -27,7 +27,6 @@
             <view class="weui-flex__item">总数量</view>
             <view class="weui-flex__item">剩余</view>
             <view class="weui-flex__item">到期时间</view>
-            <!-- <view wx:if="{{cardInfo.allow_give===1}}" class="weui-flex__item">赠送</view> -->
         </view>
         <block wx:for="{{cardInfo.package_items}}" wx:key="service_name">
             <view class="weui-flex table-row">
@@ -43,9 +42,6 @@
                 <view class="weui-flex__item">
                     {{item.end_time}}
                 </view>
-                <!-- <view class="weui-flex__item text-green" wx:if="{{cardInfo.allow_give===1}}">
-                    <button data-item="{{item}}" class="weui-btn mini-btn" type="primary" plain="true" open-type="share" size="mini">赠送</button>
-                </view> -->
             </view>
         </block>
     </view>
@@ -92,4 +88,3 @@
         <view class="weui-cell__ft weui-cell__ft_in-access"></view>
     </navigator>
 </view>
-<loading wx:if="{{loading}}">加载中</loading>

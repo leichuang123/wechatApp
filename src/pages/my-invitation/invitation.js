@@ -1,10 +1,9 @@
 import { get } from '../../utils/api';
-import { confirmMsg } from '../../utils/util';
+import { confirmMsg, showLoading } from '../../utils/util';
 import { downloadFile, saveImageToPhotosAlbum, getSetting, authorize } from '../../utils/wx-api';
 
 Page({
     data: {
-        loading: true,
         qrCode: '',
         sharingImage: '',
         imageVisible: false,
@@ -14,21 +13,17 @@ Page({
      * 获取邀请二维码
      */
     getInviteQrCode: function() {
+        showLoading();
         get('weapp/invite-qrcode', { userId: this.data.userId }).then(res => {
-            this.setData({ loading: false });
-            if (res.errcode === 0) {
-                this.setData({ qrCode: res.data });
-            }
+            wx.hideLoading();
+            this.setData({ qrCode: res.errcode === 0 ? res.data : '' });
         });
     },
     /**
      * 生成分享图
      */
     generateSharingImage: function() {
-        wx.showLoading({
-            title: '图片生成中',
-            mask: true
-        });
+        showLoading('图片生成中');
         get('weapp/share-image').then(res => {
             wx.hideLoading();
             if (res.errcode === 0) {
@@ -69,7 +64,7 @@ Page({
     downloadImage: function() {
         downloadFile({ url: this.data.sharingImage }).then(res => {
             if (res.statusCode === 200) {
-                let tempFilePath = res.tempFilePath;
+                const tempFilePath = res.tempFilePath;
                 getSetting().then(res => {
                     if (!res.authSetting['scope.writePhotosAlbum']) {
                         authorize({ scope: 'scope.writePhotosAlbum' })
@@ -91,10 +86,7 @@ Page({
      * 保存图片
      */
     saveImage: function() {
-        wx.showLoading({
-            title: '正在保存图片',
-            mask: true
-        });
+        showLoading('正在保存图片');
         this.downloadImage();
     },
     /**
@@ -118,7 +110,7 @@ Page({
      * 跳转到注册页面
      */
     gotoRegister: function() {
-        let params = JSON.stringify({
+        const params = JSON.stringify({
             userId: this.data.userId,
             recommendType: 4 //0无1提供商2顾问3门店4用户
         });
@@ -130,8 +122,8 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function(options) {
-        let userData = wx.getStorageSync('userData'),
-            userId = options.userId !== undefined ? options.userId : !!userData ? userData.id : 0;
+        const userData = wx.getStorageSync('userData');
+        const userId = !!options.userId ? options.userId : !!userData ? userData.id : 0;
         this.setData({ userId: userId });
         this.getInviteQrCode();
     },
@@ -139,8 +131,8 @@ Page({
      * 用户点击右上角分享
      */
     onShareAppMessage: function() {
-        let userData = wx.getStorageSync('userData');
-        let userId = !!userData ? userData.id : 0;
+        const userData = wx.getStorageSync('userData');
+        const userId = !!userData ? userData.id : 0;
         return {
             title: '伙伴养车',
             path: '/pages/my-invitation/invitation?userId=' + userId

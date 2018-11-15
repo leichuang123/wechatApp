@@ -1,5 +1,5 @@
 import api from '../../utils/api';
-import { confirmMsg, getUrlArgs } from '../../utils/util';
+import { confirmMsg, getUrlArgs, showLoading } from '../../utils/util';
 import { makePhoneCall, openLocation, login, getSystemInfo } from '../../utils/wx-api';
 const app = getApp();
 Page({
@@ -68,11 +68,10 @@ Page({
             related_id: this.data.shareForm.related_id,
             related_type: this.data.shareForm.related_type
         };
-        this.setData({ loading: true });
+        showLoading();
         api.get('weapp-coupon/get-share-detail', params, false)
             .then(res => {
                 console.log(['getDetail response: ', res]);
-                this.setData({ loading: false });
                 if (res.errcode === 0) {
                     this.setData({
                         coupon: res.data

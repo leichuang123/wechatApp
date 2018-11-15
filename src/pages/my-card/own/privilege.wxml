@@ -1,5 +1,4 @@
-<import src="../../../common/templates/loading" />
-<view class="whole-scroll bg-white" wx:if="{{!loadingVisible}}">
+<view class="whole-scroll bg-white">
     <view class="privilege">
         <view class="weui-flex">
             <view class="weui-flex__item pad-lr"></view>
@@ -14,4 +13,3 @@
         </view>
     </view>
 </view>
-<template is="loading" data="{{ loadingVisible,hasData}}" />

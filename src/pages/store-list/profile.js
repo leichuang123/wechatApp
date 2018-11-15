@@ -1,10 +1,9 @@
 import api from '../../utils/api';
-import { toastMsg } from '../../utils/util';
+import { toastMsg, showLoading } from '../../utils/util';
 import { openLocation, makePhoneCall } from '../../utils/wx-api';
 const app = getApp();
 Page({
     data: {
-        loading: false,
         loadingVisible: false,
         hasData: true,
         hasMore: true,
@@ -21,7 +20,7 @@ Page({
             merchantId: 0,
             fromPage: '',
             latitude: 0,
-            longitude: 0,
+            longitude: 0
         },
         evaluationForm: {
             store_id: 0,
@@ -32,25 +31,21 @@ Page({
      * 定位
      */
     openLocation: function() {
-        let store = this.data.storeInfo,
-            latitude = parseFloat(store.store_lati),
-            longitude = parseFloat(store.store_long);
-        let params = {
-            latitude: latitude,
-            longitude: longitude,
+        openLocation({
+            latitude: parseFloat(this.data.storeInfo.store_lati),
+            longitude: parseFloat(this.data.storeInfo.store_long),
             scale: 18,
-            name: store.store_name,
-            address: store.store_address,
-        }
-        openLocation(params);
+            name: this.data.storeInfo.store_name,
+            address: this.data.storeInfo.store_address
+        });
     },
     /**
      * 获取门店简介
      */
     getStoreInfo: function() {
-        this.setData({ loading: true });
+        showLoading();
         api.get('weapp/storedetail', this.data.form, false).then(res => {
-            this.setData({ loading: false });
+            wx.hideLoading();
             if (res.errcode === 0) {
                 this.setData({
                     storeInfo: res.data,
@@ -67,10 +62,10 @@ Page({
         api.get('weapp/evaluatelist', this.data.evaluationForm, false).then(res => {
             if (res.errcode === 0) {
                 this.setData({
-                    evaluations: this.data.evaluations.concat(res.data.data),
-                })
+                    evaluations: this.data.evaluations.concat(res.data.data)
+                });
             }
-            let hasMore = (res.errcode !== 0 || this.data.evaluationForm.page >= res.data.last_page) ? false : true;
+            let hasMore = res.errcode !== 0 || this.data.evaluationForm.page >= res.data.last_page ? false : true;
             this.setData({
                 loadMoreVisible: false,
                 loadingVisible: false,
@@ -90,7 +85,7 @@ Page({
         this.setData({
             activeIndex: index,
             storeInfo: {},
-            evaluations: [],
+            evaluations: []
         });
         index == 0 ? this.getStoreInfo() : this.getEvaluations();
     },
@@ -102,12 +97,11 @@ Page({
         api.post('weapp/' + operation, { store_id: this.data.storeId }).then(res => {
             if (res.errcode === 0) {
                 this.setData({
-                    collected: !this.data.collected,
+                    collected: !this.data.collected
                 });
             } else {
                 toastMsg(res.errmsg, 'error');
             }
-
         });
     },
     /**
@@ -115,11 +109,13 @@ Page({
      */
     call: function(e) {
         let tel = e.currentTarget.dataset.tel;
-        makePhoneCall({ phoneNumber: tel }).then(res => {
-            console.log('拨打成功');
-        }).catch(() => {
-            console.log('拨打失败');
-        });
+        makePhoneCall({ phoneNumber: tel })
+            .then(res => {
+                console.log('拨打成功');
+            })
+            .catch(() => {
+                console.log('拨打失败');
+            });
     },
     /**
      * 下拉加载更多
@@ -130,7 +126,7 @@ Page({
         }
         this.setData({
             loadMoreVisible: true,
-            'evaluationForm.page': this.data.evaluationForm.page + 1,
+            'evaluationForm.page': this.data.evaluationForm.page + 1
         });
         this.getEvaluations();
     },
@@ -148,7 +144,7 @@ Page({
     onLoad: function(options) {
         let storeData = JSON.parse(options.storeData);
         this.setData({
-            'storeId': storeData.storeId,
+            storeId: storeData.storeId,
             activeIndex: storeData.type,
             form: storeData,
             'evaluationForm.store_id': storeData.storeId
@@ -167,4 +163,4 @@ Page({
         });
         this.getEvaluations();
     }
-})
+});

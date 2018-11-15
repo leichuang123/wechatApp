@@ -42,4 +42,3 @@
     </view>
     <template is="loading" data="{{ loadingVisible, hasData }}" />
 </view>
-<loading wx:if="{{loading}}">加载中</loading>

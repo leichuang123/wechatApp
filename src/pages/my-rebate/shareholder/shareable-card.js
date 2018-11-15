@@ -1,8 +1,7 @@
 import api from '../../../utils/api';
-import { uuid } from '../../../utils/util';
+import { uuid, showLoading } from '../../../utils/util';
 Page({
     data: {
-        loading: false,
         card: {},
         form: {
             merchant_id: 0,
@@ -15,12 +14,11 @@ Page({
      * 获取会员卡详情
      */
     getDetail: function() {
-        this.setData({ loading: true });
+        showLoading();
         api.get('weapp/get-shareholder-card', this.data.form).then(res => {
-            this.setData({ loading: false });
+            wx.hideLoading();
             if (res.errcode === 0) {
                 this.setData({ card: res.data });
-                return;
             }
         });
     },
@@ -28,7 +26,7 @@ Page({
      * 创建分享记录
      */
     createShareRecord: function(urlUuid) {
-        let shareForm = {
+        const shareForm = {
             url: 'pages/get-card/index?uuid=' + urlUuid,
             merchant_id: this.data.form.merchant_id,
             store_id: this.data.form.store_id,
@@ -44,8 +42,7 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function(options) {
-        let params = JSON.parse(options.params);
-        this.setData({ form: params });
+        this.setData({ form: JSON.parse(options.params) });
         this.getDetail();
     },
 

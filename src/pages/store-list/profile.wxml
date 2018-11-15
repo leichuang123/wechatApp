@@ -7,8 +7,7 @@
         <view data-index="1" class="weui-cell__bd {{activeIndex==1?'cur':''}}">门店评价
         </view>
     </view>
-    <loading wx:if="{{loading}}">加载中</loading>
-    <scroll-view class="has-menu {{activeIndex==0?'active':''}}" scroll-y wx:if="{{!loading}}">
+    <scroll-view class="has-menu {{activeIndex==0?'active':''}}" scroll-y>
          <view class="weui-cell">
             <view class="weui-cell__bd">
                 <view>{{storeInfo.store_name}}</view>

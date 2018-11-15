@@ -1,10 +1,9 @@
-import { get, post } from '../../utils/api';
-import { toastMsg, confirmMsg } from '../../utils/util';
+import api from '../../utils/api';
+import { toastMsg, confirmMsg, showLoading } from '../../utils/util';
 import { openLocation } from '../../utils/wx-api';
 import wxPay from '../../utils/requestPayment';
 Page({
     data: {
-        loading: true,
         orderInfo: {},
         reasons: ['没有时间去，不想要了', '买错了', '其它原因', '门店服务态度不好'],
         form: {
@@ -26,15 +25,14 @@ Page({
      * 获取订单详情
      */
     getOrderInfo: function() {
-        get('weapp/orderdetail', this.data.form).then(res => {
-            this.setData({ loading: false });
+        showLoading();
+        api.get('weapp/orderdetail', this.data.form).then(res => {
+            wx.hideLoading();
             if (res.errcode === 0) {
-                this.setData({
-                    orderInfo: res.data
-                });
-            } else {
-                confirmMsg('', res.errmsg, false);
+                this.setData({ orderInfo: res.data });
+                return;
             }
+            confirmMsg('', res.errmsg, false);
         });
     },
     /**
@@ -49,7 +47,7 @@ Page({
      * 取消订单
      */
     cancelOrder: function() {
-        post('weapp/ordercancel', { order_id: this.data.form.order_id }).then(res => {
+        api.post('weapp/ordercancel', { order_id: this.data.form.order_id }).then(res => {
             if (res.errcode === 0) {
                 toastMsg('取消成功', 'success', 1000, () => {
                     this.gotoOrders(1);
@@ -74,7 +72,7 @@ Page({
      */
     pay: function() {
         wx.showLoading();
-        get('/weapp/paysignpackage', { order_id: this.data.form.order_id }).then(res => {
+        api.get('/weapp/paysignpackage', { order_id: this.data.form.order_id }).then(res => {
             wx.hideLoading();
             if (res.errcode === 0) {
                 wxPay(
@@ -102,7 +100,7 @@ Page({
      * 申请退款
      */
     applyForRefund: function() {
-        post('weapp/refund', this.data.refundForm).then(res => {
+        api.post('weapp/refund', this.data.refundForm).then(res => {
             if (res.errcode === 0) {
                 toastMsg('申请成功', 'success', 1000, () => {
                     this.gotoOrders(2);
@@ -135,7 +133,7 @@ Page({
      * 跳转到评价页面
      */
     gotoEvaluate: function(e) {
-        let params = JSON.stringify({
+        const params = JSON.stringify({
             id: this.data.orderInfo.id,
             category: 3 //订单
         });
@@ -147,15 +145,13 @@ Page({
      * 定位
      */
     openLocation: function() {
-        const store = this.data.orderInfo;
-        const params = {
-            latitude: parseFloat(store.store_lati),
-            longitude: parseFloat(store.store_long),
+        openLocation({
+            latitude: parseFloat(this.data.orderInfo.store_lati),
+            longitude: parseFloat(this.data.orderInfo.store_long),
             scale: 18,
-            name: store.store_name,
-            address: store.store_address
-        };
-        openLocation(params);
+            name: this.data.orderInfo.store_name,
+            address: this.data.orderInfo.store_address
+        });
     },
     /**
      * 跳转到投诉页面
@@ -173,12 +169,10 @@ Page({
      * 确认增值服务订单完成
      */
     confirmFinish: function(e) {
-        post('weapp/business-finish', { order_id: this.data.orderInfo.id }).then(res => {
+        api.post('weapp/business-finish', { order_id: this.data.orderInfo.id }).then(res => {
             if (res.errcode === 0) {
                 toastMsg('确认成功', 'success', 1000, () => {
-                    wx.navigateTo({
-                        url: 'order-list?type=3'
-                    });
+                    wx.navigateTo({ url: 'order-list?type=3' });
                 });
             } else {
                 toastMsg(res.errmsg, 'error');

@@ -4,13 +4,14 @@ Page({
     data: {
         loadingVisible: true,
         hasData: true,
-        queueInfo: []
+        queueInfo: [],
+        carNumbers: []
     },
     /**
      * 获取排队单号详情
      */
-    getQueueInfo: function(carNumbers) {
-        api.get('weapp/queue', { car_numbers: carNumbers }).then(res => {
+    getQueueInfo: function() {
+        api.get('weapp/queue', { car_numbers: this.data.carNumbers }).then(res => {
             if (res.errcode === 0) {
                 this.setData({
                     queueInfo: res.data,
@@ -51,9 +52,9 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function(options) {
-        let userData = wx.getStorageSync('userData'),
-            carNumbers = !!userData ? userData.car : [];
-        this.getQueueInfo(carNumbers);
+        const userData = wx.getStorageSync('userData');
+        this.setData({ carNumbers: !!userData ? userData.car : [] });
+        this.getQueueInfo();
     },
     /**
      * 页面相关事件处理函数--监听用户下拉动作

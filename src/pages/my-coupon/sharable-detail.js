@@ -1,5 +1,6 @@
 import api from '../../utils/api';
 import { makePhoneCall, openLocation } from '../../utils/wx-api';
+import { showLoading } from '../../utils/util';
 const app = getApp();
 Page({
     data: {
@@ -16,13 +17,9 @@ Page({
      * 获取优惠券详情
      */
     getCouponInfo: function() {
-        this.setData({
-            loading: true
-        });
+        showLoading();
         api.get('weapp-coupon/get-sharable-detail', this.data.form).then(res => {
-            this.setData({
-                loading: false
-            });
+            wx.hideLoading();
             if (res.errcode === 0) {
                 this.setData({
                     coupon: res.data

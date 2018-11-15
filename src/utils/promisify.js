@@ -1,4 +1,4 @@
-import Promise from '../assets/plugins/es6-promise.min'
+import Promise from '../assets/plugins/es6-promise.min';
 // module.exports = ((fn) => {
 //     return (obj = {}) => {
 //         return new Promise((resolve, reject) => {
@@ -12,10 +12,10 @@ import Promise from '../assets/plugins/es6-promise.min'
 //         })
 //     }
 // })
-module.exports = (api) => {
+module.exports = api => {
     return (options, ...params) => {
         return new Promise((resolve, reject) => {
             api(Object.assign({}, options, { success: resolve, fail: reject }), ...params);
         });
-    }
-}
+    };
+};

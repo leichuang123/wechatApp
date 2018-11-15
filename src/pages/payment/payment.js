@@ -181,8 +181,7 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function(options) {
-        let params = JSON.parse(options.params);
-        console.log(params);
+        const params = JSON.parse(options.params);
         this.setData({
             form: params,
             'queueForm.store_id': params.store_id,

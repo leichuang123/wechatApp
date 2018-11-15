@@ -14,11 +14,11 @@ Page({
      * 获取平台用户信息
      */
     getPlatformUserInfo: function() {
-        get('weapp/indexinfo', {}, false, true).then(res => {
+        get('weapp/indexinfo', {}, false).then(res => {
             if (res.errcode === 0) {
                 this.setData({
-                    'userInfo.mobile': res.data.user_data.mobile,
-                    'userInfo.integral': res.data.user_data.integral,
+                    'userInfo.mobile': res.data.userData.mobile,
+                    'userInfo.integral': res.data.userData.integral,
                     hasUserInfo: res.data.registered
                 });
                 wx.setStorageSync('sessionKey', res.data.sessionKey);
@@ -32,16 +32,14 @@ Page({
     },
     //获取用户信息
     onGetUserInfo: function(e) {
-        let data = e.detail;
-        if (data.errMsg === 'getUserInfo:ok') {
-            app.setWxUserCache(data);
-            wx.redirectTo({
-                url: '/pages/register/register'
-            });
+        if (e.detail.errMsg !== 'getUserInfo:ok') {
+            return;
         }
+        app.setWxUserCache(e.detail);
+        wx.redirectTo({ url: '/pages/register/register' });
     },
     initData: function() {
-        let userData = wx.getStorageSync('userData');
+        const userData = wx.getStorageSync('userData');
         if (!userData) {
             this.getPlatformUserInfo();
         } else {

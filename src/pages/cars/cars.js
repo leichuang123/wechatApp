@@ -1,8 +1,8 @@
 import { get } from '../../utils/api';
+import { showLoading } from '../../utils/util';
 const app = getApp();
 Page({
     data: {
-        loading: true,
         hidden: true,
         open: false,
         inputShowed: false,
@@ -79,8 +79,8 @@ Page({
      * 选择品牌
      */
     chooseBrand: function(e) {
-        let item = e.currentTarget.dataset.item,
-            car = wx.getStorageSync('car');
+        const item = e.currentTarget.dataset.item;
+        let car = wx.getStorageSync('car');
         car.brand_id = item.id;
         car.car_brand_name = item.car_brand_name;
         car.letter = item.letter;
@@ -120,55 +120,34 @@ Page({
      * 获取车品牌
      */
     getBrands: function() {
-        this.setData({ loading: true });
+        showLoading();
         get('weapp/getcarbrand', this.data.brandForm, false).then(res => {
-            if (res.errcode === 0) {
-                this.setData({
-                    brands: res.data,
-                    loading: false
-                });
-                return;
-            }
-            this.setData({
-                brands: {},
-                loading: false
-            });
+            wx.hideLoading();
+            this.setData({ brands: res.errcode === 0 ? res.data : [] });
         });
     },
     //获取所有车品牌和热门品牌
     getBrandsWithHot: function() {
-        this.setData({ loading: true });
+        showLoading();
         get('weapp/get-car-brands-with-hot', this.data.brandForm, false).then(res => {
-            this.setData({ loading: false });
+            wx.hideLoading();
             if (res.errcode === 0) {
                 this.setData({
                     brands: res.data.brands,
                     hotBrands: res.data.hotBrands
                 });
-                return;
             }
-            this.setData({
-                brands: {},
-                hotBrands: []
-            });
         });
     },
     /**
      * 获取车系
      */
     getCarSeries: function(id) {
-        this.setData({ loading: true });
+        showLoading();
         get('weapp/getcarserie', { brand_id: id }, false).then(res => {
-            if (res.errcode === 0) {
-                this.setData({
-                    series: res.data,
-                    loading: false
-                });
-                return;
-            }
+            wx.hideLoading();
             this.setData({
-                series: [],
-                loading: false
+                series: res.errcode === 0 ? res.data : []
             });
         });
     },
@@ -185,8 +164,8 @@ Page({
      */
     toVolume: function(e) {
         this.hideSeries();
-        let item = e.currentTarget.dataset.item,
-            car = wx.getStorageSync('car');
+        const item = e.currentTarget.dataset.item;
+        let car = wx.getStorageSync('car');
         car.serie_id = item.id;
         car.car_department = item.car_department;
         car.manufacturer_id = item.manufacturer_id;
@@ -208,17 +187,20 @@ Page({
         });
         this.getBrands();
     },
-    /**
-     * 生命周期函数--监听页面加载
-     */
-    onLoad: function(options) {
-        let winHeight = app.globalData.windowHeight - 56,
-            lineHeight = winHeight / 27;
+    initData: function() {
+        const winHeight = app.globalData.windowHeight - 56;
+        const lineHeight = winHeight / 27;
         this.setData({
             winHeight: winHeight + 'px',
             lineHeight: lineHeight + 'px',
             seriesHeight: winHeight + 'px'
         });
         this.getBrandsWithHot();
+    },
+    /**
+     * 生命周期函数--监听页面加载
+     */
+    onLoad: function(options) {
+        this.initData();
     }
 });

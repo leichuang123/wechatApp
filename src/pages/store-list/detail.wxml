@@ -1,4 +1,4 @@
-<view wx:if="{{!loading}}">
+<view>
     <view class="banner-tag">{{storeInfo.store_pic.length}}</view>
     <view class="detail-benner">
         <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
@@ -108,4 +108,3 @@
         </view>
     </view>
 </view>
-<loading wx:if="{{loading}}">加载中</loading>

@@ -1,8 +1,7 @@
 import api from '../../utils/api';
-import { getDate, toastMsg, confirmMsg, isCarNumber } from '../../utils/util';
+import { getDate, toastMsg, confirmMsg, isCarNumber, showLoading } from '../../utils/util';
 Page({
     data: {
-        loading: false,
         keyboardVisible: false,
         carInfo: {},
         today: '',
@@ -36,9 +35,9 @@ Page({
      * 获取车详情
      */
     getCarInfo: function(id) {
-        this.setData({ loading: true });
+        showLoading();
         api.get('weapp/findcar', { car_id: id }).then(res => {
-            this.setData({ loading: false });
+            wx.hideLoading();
             if (res.errcode === 0) {
                 this.setData({
                     carInfo: res.data,
@@ -51,29 +50,10 @@ Page({
      * 监听表单值的改变
      */
     changeItem: function(e) {
-        let id = e.target.id;
-        switch (id) {
-            case 'buyTime':
-                this.setData({
-                    'carInfo.buy_time': e.detail.value
-                });
-                break;
-            case 'traveled':
-                this.setData({
-                    'carInfo.traveled': e.detail.value
-                });
-                break;
-            case 'insurance':
-                this.setData({
-                    'carInfo.last_insure': e.detail.value
-                });
-                break;
-            case 'verify':
-                this.setData({
-                    'carInfo.car_verifi': e.detail.value
-                });
-                break;
-        }
+        const prop = 'carInfo.' + e.target.id;
+        this.setData({
+            [prop]: e.detail.value
+        });
     },
     /**
      * 更新车辆信息
@@ -97,10 +77,7 @@ Page({
             produce_year: this.data.carInfo.produce_year,
             car_category: this.data.carInfo.car_category
         };
-        wx.showLoading({
-            title: '提交请求中',
-            mask:true
-        });
+        showLoading('提交请求中');
         api.post('weapp/updatecar', params).then(res => {
             wx.hideLoading();
             if (res.errcode === 0) {
@@ -141,7 +118,7 @@ Page({
      */
     onShow: function() {
         let updateCarData = wx.getStorageSync('updateCarData');
-        if (updateCarData !== undefined && updateCarData.action == 'edit') {
+        if (!!updateCarData && updateCarData.action == 'edit') {
             this.setData({
                 carNumber: updateCarData.car_number,
                 'carInfo.car_number': updateCarData.car_number,

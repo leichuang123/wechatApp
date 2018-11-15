@@ -1,4 +1,4 @@
-<view wx:if="{{!loading}}">
+<view>
     <view class="weui-cells weui-cells_after-title">
         <view class="weui-cell bg-white">
             <view class="weui-cell__bd">订单状态</view>
@@ -103,4 +103,3 @@
         </view>
     </view>
 </view>
-<loading wx:if="{{loading}}">加载中</loading>

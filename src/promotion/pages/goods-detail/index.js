@@ -1,6 +1,6 @@
 import { get } from '../../../utils/api';
 import WxParse from '../../../assets/plugins/wxParse/wxParse';
-import { confirmMsg } from '../../../utils/util';
+import { confirmMsg, showLoading } from '../../../utils/util';
 import {
     getSetting,
     saveImageToPhotosAlbum,
@@ -11,7 +11,6 @@ import {
 } from '../../../utils/wx-api';
 Page({
     data: {
-        loading: true,
         imgVisible: false,
         goodsDetail: {},
         storeDetail: {},
@@ -28,11 +27,11 @@ Page({
      * 获取商品详情
      */
     getDetail: function() {
-        this.setData({ loading: true });
+        showLoading();
         get('weapp/promotion-detail', this.data.form, false).then(res => {
+            wx.hideLoading();
             if (res.errcode === 0) {
                 this.setData({
-                    loading: false,
                     goodsDetail: res.data.goodsDetail,
                     storeDetail: res.data.storeDetail,
                     evaluations: res.data.storeEvaluationList.data
@@ -42,7 +41,6 @@ Page({
                 WxParse.wxParse('detail', 'html', detail, that, 15);
             } else {
                 this.setData({
-                    loading: false,
                     goodsDetail: {},
                     storeDetail: {},
                     evaluations: []
@@ -70,7 +68,7 @@ Page({
      * 跳转到支付页面
      */
     gotoPay: function() {
-        const params = {
+        const params = JSON.stringify({
             goods_id: this.data.goodsDetail.related_id,
             money: this.data.goodsDetail.promotion_price,
             merchant_id: this.data.goodsDetail.merchant_id,
@@ -78,8 +76,8 @@ Page({
             store_name: this.data.storeDetail.store_name,
             goods_name: this.data.goodsDetail.related_name,
             category: this.data.goodsDetail.category
-        };
-        wx.navigateTo({ url: '../payment/payment?params=' + JSON.stringify(params) });
+        });
+        wx.navigateTo({ url: '../payment/payment?params=' + params });
     },
     /**
      * 跳转到注册页面
@@ -102,22 +100,19 @@ Page({
      * 定位
      */
     openLocation: function() {
-        const store = this.data.storeDetail;
-        const params = {
-            latitude: parseFloat(store.store_lati),
-            longitude: parseFloat(store.store_long),
+        openLocation({
+            latitude: parseFloat(this.data.storeDetail.store_lati),
+            longitude: parseFloat(this.data.storeDetail.store_long),
             scale: 18,
-            name: store.store_name,
-            address: store.store_address
-        };
-        openLocation(params);
+            name: this.data.storeDetail.store_name,
+            address: this.data.storeDetail.store_address
+        });
     },
     /**
      * 打电话
      */
     call: function(e) {
-        const tel = e.currentTarget.dataset.tel;
-        makePhoneCall({ phoneNumber: tel })
+        makePhoneCall({ phoneNumber: e.currentTarget.dataset.tel })
             .then(res => {
                 console.log('拨打成功');
             })
@@ -129,10 +124,7 @@ Page({
      * 生成分享图
      */
     generateSharingImage: function() {
-        wx.showLoading({
-            title: '图片生成中',
-            mask: true
-        });
+        showLoading('图片生成中');
         get('weapp/share-goods-image', this.data.form, false).then(res => {
             wx.hideLoading();
             if (res.errcode === 0) {
@@ -174,10 +166,7 @@ Page({
      * 下载图片
      */
     downloadImage: function() {
-        wx.showLoading({
-            title: '正在保存图片',
-            mask: true
-        });
+        showLoading('正在保存图片');
         downloadFile({ url: this.data.sharingImage }).then(res => {
             if (res.statusCode === 200) {
                 const tempFilePath = res.tempFilePath;
@@ -231,7 +220,7 @@ Page({
     onLoad: function(options) {
         const params = JSON.parse(options.params);
         const userData = wx.getStorageSync('userData');
-        const userId = params.user_id !== undefined ? params.user_id : !!userData && !!userData ? userData.id : 0;
+        const userId = !params.user_id ? params.user_id : !!userData && !!userData ? userData.id : 0;
         this.setData({
             'form.id': params.id,
             'form.merchant_id': params.merchant_id,

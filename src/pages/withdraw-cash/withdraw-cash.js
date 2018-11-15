@@ -1,5 +1,5 @@
 import { post } from '../../utils/api';
-import { toastMsg, confirmMsg } from '../../utils/util';
+import { confirmMsg, showLoading } from '../../utils/util';
 Page({
     data: {
         disabled: true,
@@ -40,7 +40,7 @@ Page({
      * 提现确认
      */
     onWithdraw: function() {
-        let errMsg = this.validateForm();
+        const errMsg = this.validateForm();
         if (errMsg !== '') {
             confirmMsg('', msg, false);
         } else {
@@ -51,9 +51,11 @@ Page({
      * 提现
      */
     withdraw: function() {
+        showLoading();
         post('weapp/withdraw', this.data.form).then(res => {
+            wx.hideLoading();
             if (res.errcode === 0) {
-                let params = JSON.stringify({
+                const params = JSON.stringify({
                     money: parseFloat(this.data.form.money).toFixed(2),
                     account: this.data.account
                 });
@@ -71,7 +73,7 @@ Page({
      * 获取提现金额
      */
     getMoney: function(e) {
-        let money = parseFloat(e.detail.value);
+        const money = parseFloat(e.detail.value);
         if (money < 30 || money > parseFloat(this.data.balance)) {
             return;
         }
@@ -100,10 +102,9 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function(options) {
-        let userData = wx.getStorageSync('userData'),
-            money = options.balance;
+        const userData = wx.getStorageSync('userData');
         this.setData({
-            balance: money,
+            balance: options.balance,
             account: !!userData ? userData.mobile : ''
         });
     }

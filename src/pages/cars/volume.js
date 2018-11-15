@@ -1,37 +1,25 @@
 import { get } from '../../utils/api';
+import { showLoading } from '../../utils/util';
 Page({
     data: {
-        loading: true,
         displacement: [],
-        car: {},
-        serieId: 0
+        car: {}
     },
     /**
      * 获取车排量
      */
-    getDisplacement: function() {
-        get('weapp/getcardisplacement', { serie_id: this.data.serieId }, false).then(res => {
-            this.setData({ loading: false });
-            if (res.errcode === 0) {
-                this.setData({
-                    displacement: res.data
-                });
-                return;
-            }
-            this.setData({
-                displacement: []
-            });
+    getDisplacement: function(id) {
+        showLoading();
+        get('weapp/getcardisplacement', { serie_id: id }, false).then(res => {
+            wx.hideLoading();
+            this.setData({ displacement: res.errcode === 0 ? res.data : [] });
         });
     },
     /**
      * 生命周期函数--监听页面加载
      */
     onLoad: function(options) {
-        let car = wx.getStorageSync('car');
-        this.setData({
-            serieId: options.id,
-            car: car
-        });
-        this.getDisplacement();
+        this.setData({ car: wx.getStorageSync('car') });
+        this.getDisplacement(options.id);
     }
 });

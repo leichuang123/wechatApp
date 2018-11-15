@@ -1,8 +1,8 @@
 import api from '../../utils/api';
 import { openLocation, makePhoneCall } from '../../utils/wx-api';
+import { showLoading } from '../../utils/util';
 Page({
     data: {
-        loading: true,
         indicatorDots: true,
         autoplay: true,
         interval: 5000,
@@ -40,8 +40,9 @@ Page({
      * 获取门店详情
      */
     getStoreInfo: function() {
+        showLoading();
         api.get('weapp/storedetail', this.data.storeForm, false).then(res => {
-            this.setData({ loading: false });
+            wx.hideLoading();
             if (res.errcode === 0) {
                 this.setData({
                     storeInfo: res.data,

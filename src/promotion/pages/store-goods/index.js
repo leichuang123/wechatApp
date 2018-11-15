@@ -24,36 +24,19 @@ Page({
             store_id: 0,
             page: 1
         },
-        storeForm: {
-            store_id: 0,
-            longitude: '',
-            latitude: ''
-        },
-        goodsForm: {
-            goods_id: 0,
-            money: 0,
-            merchant_id: 0,
-            store_id: 0,
-            store_name: '',
-            category: 0,
-            goods_name: ''
-        },
         storeDetail: {}
     },
     /**
      * 获取门店详情
      */
-    getStoreDetail: function() {
-        get('weapp/promotion-store-detail', this.data.storeForm, false).then(res => {
+    getStoreDetail: function(data) {
+        const params = { store_id: this.data.form.store_id, longitude: data.longitude, latitude: data.latitude };
+        get('weapp/promotion-store-detail', params, false).then(res => {
             if (res.errcode === 0) {
-                this.setData({
-                    storeDetail: res.data
-                });
+                this.setData({ storeDetail: res.data });
                 return;
             }
-            this.setData({
-                storeDetail: {}
-            });
+            this.setData({ storeDetail: {} });
         });
     },
     /**
@@ -67,7 +50,7 @@ Page({
                     goods: this.data.goods.concat(res.data.data)
                 });
             }
-            let hasMore = res.errcode !== 0 || this.data.form.page >= res.data.last_page ? false : true;
+            const hasMore = res.errcode !== 0 || this.data.form.page >= res.data.last_page ? false : true;
             this.setData({
                 loadingVisible: false,
                 hasData: this.data.goods.length > 0 ? true : false,
@@ -80,8 +63,8 @@ Page({
      * 跳转到商品详情页
      */
     gotoGoodsDetail: function(e) {
-        let goods = e.currentTarget.dataset.item;
-        let params = JSON.stringify({
+        const goods = e.currentTarget.dataset.item;
+        const params = JSON.stringify({
             id: goods.id,
             store_id: goods.store_id,
             merchant_id: goods.merchant_id
@@ -95,11 +78,7 @@ Page({
      */
     getLocation: function() {
         app.getLocation(res => {
-            this.setData({
-                'storeForm.latitude': res.latitude,
-                'storeForm.longitude': res.longitude
-            });
-            this.getStoreDetail();
+            this.getStoreDetail(res);
             this.getPromotionList();
         });
     },
@@ -137,36 +116,29 @@ Page({
      * 定位
      */
     openLocation: function() {
-        let store = this.data.storeDetail,
-            latitude = parseFloat(store.store_lati),
-            longitude = parseFloat(store.store_long);
-
-        let params = {
-            latitude: latitude,
-            longitude: longitude,
+        openLocation({
+            latitude: parseFloat(this.data.storeDetail.store_lati),
+            longitude: parseFloat(this.data.storeDetail.store_long),
             scale: 18,
-            name: store.store_name,
-            address: store.store_address
-        };
-        openLocation(params);
+            name: this.data.storeDetail.store_name,
+            address: this.data.storeDetail.store_address
+        });
     },
     /**
      * 跳转到支付页面
      */
     gotoPay: function(e) {
-        let item = e.currentTarget.dataset.item;
-        this.setData({
-            'goodsForm.goods_id': item.related_id,
-            'goodsForm.money': item.promotion_price,
-            'goodsForm.merchant_id': item.merchant_id,
-            'goodsForm.store_id': item.store_id,
-            'goodsForm.store_name': this.data.storeDetail.store_name,
-            'goodsForm.goods_name': item.related_name,
-            'goodsForm.category': item.category
+        const item = e.currentTarget.dataset.item;
+        const params = JSON.stringify({
+            goods_id: item.related_id,
+            money: item.promotion_price,
+            merchant_id: item.merchant_id,
+            store_id: item.store_id,
+            store_name: this.data.storeDetail.store_name,
+            goods_name: item.related_name,
+            category: item.category
         });
-        wx.navigateTo({
-            url: '../payment/payment?params=' + JSON.stringify(this.data.goodsForm)
-        });
+        wx.navigateTo({ url: '../payment/payment?params=' + params });
     },
     /**
      * 跳转到注册页面
@@ -192,8 +164,7 @@ Page({
         let params = JSON.parse(options.params);
         this.setData({
             'form.merchant_id': params.merchant_id,
-            'form.store_id': params.store_id,
-            'storeForm.store_id': params.store_id
+            'form.store_id': params.store_id
         });
         this.getLocation();
     }

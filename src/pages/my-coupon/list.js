@@ -43,13 +43,12 @@ Page({
      */
     tabClick: function(e) {
         const index = e.currentTarget.id;
-        console.log(e);
         if (index == this.data.activeIndex) {
             return;
         }
         this.setData({
-            activeIndex: index,
             'form.type': index,
+            activeIndex: index,
             loadingVisible: true,
             hasData: true,
             hasMore: true,
@@ -59,7 +58,6 @@ Page({
         this.getCoupons();
     },
     gotoDetail: function(e) {
-        console.log(e);
         const item = e.currentTarget.dataset.item;
         if (this.data.form.type != 0) {
             wx.navigateTo({ url: 'detail?id=' + item.id });
@@ -70,15 +68,18 @@ Page({
             });
         }
     },
-    /**
-     * 生命周期函数--监听页面加载
-     */
-    onLoad: function(options) {
+    initData: function() {
         this.getCoupons();
         this.setData({
             sliderLeft: (app.globalData.windowWidth / this.data.tabs.length - sliderWidth) / 2,
             sliderOffset: (app.globalData.windowWidth / this.data.tabs.length) * this.data.activeIndex
         });
+    },
+    /**
+     * 生命周期函数--监听页面加载
+     */
+    onLoad: function(options) {
+        this.initData();
     },
     /**
      * 加载更多

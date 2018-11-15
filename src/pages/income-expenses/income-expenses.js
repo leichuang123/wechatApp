@@ -76,7 +76,7 @@ Page({
             });
         });
     },
-   
+
     /**
      * 页面滚动
      */
@@ -105,9 +105,9 @@ Page({
         this.getRecords();
     },
     /**
-    * 加载更多
-    */
-    onReachBottom: function () {
+     * 加载更多
+     */
+    onReachBottom: function() {
         if (!this.data.hasMore) {
             return;
         }
@@ -116,5 +116,5 @@ Page({
             'form.page': this.data.form.page + 1
         });
         this.getRecords();
-    },
+    }
 });

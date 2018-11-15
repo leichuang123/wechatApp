@@ -1,5 +1,5 @@
 import { post } from '../../../utils/api';
-import { toastMsg, confirmMsg } from '../../../utils/util';
+import { toastMsg, confirmMsg, showLoading } from '../../../utils/util';
 Page({
     data: {
         disabled: true,
@@ -51,11 +51,11 @@ Page({
      * 提现
      */
     withdraw: function() {
-        wx.showLoading({ title: '提交申请中' });
+        showLoading('提交申请中');
         post('weapp/withdraw-apply', this.data.form).then(res => {
             wx.hideLoading();
             if (res.errcode === 0) {
-                let params = JSON.stringify({
+                const params = JSON.stringify({
                     money: parseFloat(this.data.form.money).toFixed(2),
                     account: this.data.account
                 });
@@ -104,7 +104,7 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function(options) {
-        let params = JSON.parse(options.params);
+        const params = JSON.parse(options.params);
         this.setData({
             balance: params.balance,
             name: params.name,

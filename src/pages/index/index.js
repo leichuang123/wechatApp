@@ -9,10 +9,7 @@ Page({
         userData: null,
         queues: [],
         reservations: [],
-        unreceivedCoupons: [],
-        form: {
-            js_code: ''
-        }
+        unreceivedCoupons: []
     },
     /**
      * 注册提醒
@@ -79,7 +76,7 @@ Page({
      * 获取首页信息
      */
     getIndexInfo: function() {
-        api.get('weapp/indexinfo', this.data.form, false).then(res => {
+        api.get('weapp/indexinfo', {}, false).then(res => {
             if (res.errcode === 0) {
                 this.setData({
                     userData: res.data.userData,

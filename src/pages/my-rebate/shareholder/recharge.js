@@ -1,16 +1,11 @@
 import { get } from '../../../utils/api';
-import { toastMsg, confirmMsg, isCarNumber } from '../../../utils/util';
+import { toastMsg, confirmMsg, isCarNumber, showLoading } from '../../../utils/util';
 Page({
     data: {
         keyboardVisible: false,
         rechargeable: false,
         carNumber: '',
         card: {},
-        cardForm: {
-            shareholder_id: 0,
-            merchant_id: 0,
-            customer_id: 0
-        },
         form: {
             shareholder_id: 0,
             customer_id: 0,
@@ -22,7 +17,7 @@ Page({
      * 获取股东卡信息
      */
     getCard: function(params) {
-        wx.showLoading({ title: '加载中...' });
+        showLoading();
         get('weapp/get-card-info', params).then(res => {
             wx.hideLoading();
             if (res.errcode === 0) {
@@ -52,9 +47,7 @@ Page({
      * 获取车牌号
      */
     getCarNumber: function(e) {
-        this.setData({
-            carNumber: e.detail.carNumber
-        });
+        this.setData({ carNumber: e.detail.carNumber, 'form.car_number': carNumber });
     },
     /**
      * 获取充值金额
@@ -69,7 +62,6 @@ Page({
      * 验证表单
      */
     validateForm: function() {
-        this.setData({ 'form.car_number': this.data.carNumber });
         if (!isCarNumber(this.data.form.car_number)) {
             return '请填写有效的车牌号';
         } else if (this.data.form.money > this.data.card.balance) {
@@ -82,7 +74,7 @@ Page({
      * 充值
      */
     recharge: function() {
-        wx.showLoading({ title: '提交请求中', mask: true });
+        showLoading('提交请求中');
         get('weapp/recharge', this.data.form).then(res => {
             wx.hideLoading();
             if (res.errcode === 0) {
@@ -101,7 +93,7 @@ Page({
         });
     },
     onRecharge: function() {
-        let msg = this.validateForm();
+        const msg = this.validateForm();
         if (msg !== '') {
             confirmMsg('', msg, false);
         } else {
@@ -120,7 +112,7 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function(options) {
-        let params = JSON.parse(options.params);
+        const params = JSON.parse(options.params);
         this.setData({
             'form.shareholder_id': params.shareholder_id,
             'form.customer_id': params.customer_id

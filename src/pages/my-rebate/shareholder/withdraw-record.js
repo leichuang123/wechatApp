@@ -1,5 +1,4 @@
 import { get } from '../../../utils/api';
-const app = getApp();
 Page({
     data: {
         loadingVisible: true,
@@ -22,7 +21,7 @@ Page({
                     records: this.data.records.concat(res.data.data)
                 });
             }
-            let hasMore = (res.errcode !== 0 || this.data.form.page >= res.data.last_page) ? false : true;
+            let hasMore = res.errcode !== 0 || this.data.form.page >= res.data.last_page ? false : true;
             this.setData({
                 loadMoreVisible: false,
                 loadingVisible: false,
@@ -57,14 +56,14 @@ Page({
     /**
      * 加载更多
      */
-    onReachBottom: function () {
+    onReachBottom: function() {
         if (!this.data.hasMore) {
             return;
         }
         this.setData({
             loadMoreVisible: true,
-            page: this.data.form.page + 1,
+            page: this.data.form.page + 1
         });
         this.getRecords();
     }
-})
+});

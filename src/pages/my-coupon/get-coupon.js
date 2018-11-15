@@ -1,5 +1,5 @@
 import api from '../../utils/api';
-import { toastMsg, confirmMsg, showTopTips, isMobile, isCarNumber } from '../../utils/util';
+import { toastMsg, confirmMsg, showTopTips, isMobile, isCarNumber, showLoading } from '../../utils/util';
 import { login } from '../../utils/wx-api';
 const app = getApp();
 Page({
@@ -125,9 +125,7 @@ Page({
             return;
         }
         let time = 60;
-        wx.showLoading({
-            title: '提交请求中'
-        });
+        showLoading('提交请求中');
         api.get('weapp/phonecode', { mobile: this.data.form.mobile }, false).then(res => {
             wx.hideLoading();
             if (res.errcode === 0) {

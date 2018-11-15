@@ -1,5 +1,5 @@
-import { get, post } from '../../utils/api';
-import { confirmMsg, showTopTips, isMobile } from '../../utils/util';
+import api from '../../utils/api';
+import { confirmMsg, showTopTips, isMobile, showLoading } from '../../utils/util';
 Page({
     data: {
         loading: false,
@@ -30,14 +30,11 @@ Page({
      * 获取服务分类
      */
     getCategories: function() {
-        wx.showLoading({
-            title: '加载中...',
-            mask: true
-        });
-        get('weapp/category', this.data.searchForm, false).then(res => {
+        showLoading();
+        api.get('weapp/category', this.data.searchForm, false).then(res => {
             wx.hideLoading();
             if (res.errcode === 0) {
-                let cates = res.data.data;
+                const cates = res.data.data;
                 this.setData({
                     categories: cates,
                     cateId: res.data.default.id,
@@ -51,15 +48,11 @@ Page({
      * 获取预约政策
      */
     getPolicy: function() {
-        get('weapp/reserverule', this.data.searchForm, false).then(res => {
+        api.get('weapp/reserverule', this.data.searchForm, false).then(res => {
             if (res.errcode === 0) {
-                this.setData({
-                    policy: res.data
-                });
+                this.setData({ policy: res.data });
             } else {
-                this.setData({
-                    policy: {}
-                });
+                this.setData({ policy: {} });
             }
         });
     },
@@ -111,26 +104,18 @@ Page({
      */
     addReservation: function(e) {
         wx.setStorageSync('linkman', this.data.form.contact);
-        let errMsg = this.validate();
+        const errMsg = this.validate();
         if (errMsg !== '') {
             showTopTips(this, errMsg);
         } else {
-            wx.showLoading({
-                title: '提交请求中',
-                mask: true
-            });
-            post('weapp/addreserve', this.data.form).then(res => {
+            showLoading('提交请求中');
+            api.post('weapp/addreserve', this.data.form).then(res => {
                 wx.hideLoading();
                 if (res.errcode === 0) {
-                    let reservationData = JSON.stringify(res.data);
-                    wx.navigateTo({
-                        url: 'detail?reservationData=' + reservationData
-                    });
+                    wx.navigateTo({ url: 'detail?reservationData=' + JSON.stringify(res.data) });
                 } else {
                     confirmMsg('提示', res.errmsg, false, () => {
-                        wx.navigateBack({
-                            delta: 2
-                        });
+                        wx.navigateBack({ delta: 2 });
                     });
                 }
             });
@@ -140,11 +125,9 @@ Page({
      * 获取输入框的值
      */
     getInputValue: function(e) {
-        let field = e.currentTarget.dataset.name,
-            value = e.detail.value,
-            prop = 'form.' + field;
+        const prop = 'form.' + e.currentTarget.dataset.name;
         this.setData({
-            [prop]: value
+            [prop]: e.detail.value
         });
     },
     /**
@@ -160,16 +143,14 @@ Page({
      * 查找所选服务类型的名称
      */
     findCateIndex: function(id) {
-        return this.data.categories.findIndex(item => {
-            return id == item.id;
-        });
+        return this.data.categories.findIndex(item => id == item.id);
     },
     /**
      * 选择服务分类
      */
     chooseCategory: function() {
-        let id = this.data.tempCateId == 0 ? this.data.cateId : this.data.tempCateId;
-        let index = this.findCateIndex(id);
+        const id = this.data.tempCateId == 0 ? this.data.cateId : this.data.tempCateId;
+        const index = this.findCateIndex(id);
         this.setData({
             dialogVisible: false,
             cateId: id,

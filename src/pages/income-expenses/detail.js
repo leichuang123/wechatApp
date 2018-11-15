@@ -1,4 +1,5 @@
 import { get } from '../../utils/api';
+import { showLoading } from '../../utils/util';
 Page({
     data: {
         loanding: true,
@@ -8,8 +9,9 @@ Page({
      * 获取收支详情
      */
     getDetail: function(id) {
+        showLoading();
         get('weapp/flow-record-detail', { id: id }).then(res => {
-            this.setData({ loanding: false });
+            wx.hideLoading();
             if (res.errcode === 0) {
                 this.setData({ detail: res.data });
             }
@@ -29,4 +31,4 @@ Page({
     onLoad: function(options) {
         this.getDetail(options.id);
     }
-})
+});

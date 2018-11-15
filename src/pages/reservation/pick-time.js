@@ -1,30 +1,16 @@
 import api from '../../utils/api';
-import { getDate, formatNumber, getDayOfWeek, confirmMsg } from '../../utils/util';
-let days = [];
-let weeks = ['日', '一', '二', '三', '四', '五', '六'];
-let dayAndWeek = {};
-let day = '';
-for (let i = 0; i < 15; i++) {
-    day = getDate(i);
-    dayAndWeek = {
-        week: getDayOfWeek(day),
-        date: day,
-        day: day.slice(5)
-    };
-    days.push(dayAndWeek);
-}
+import { getDate, formatNumber, getDayOfWeek, confirmMsg, showLoading } from '../../utils/util';
 const currentHour = new Date().getHours();
 Page({
     data: {
-        loading: false,
         secondVisible: false,
         dayIndex: 0,
-        datetime: getDate() + ' ' + '08:00',
-        days: days,
+        datetime: '',
+        days: [],
         timetable: [],
-        initialTime: [currentHour, 0],
+        initialTime: [],
         timetableForm: {
-            date: getDate(),
+            date: '',
             store_id: 0
         }
     },
@@ -40,21 +26,12 @@ Page({
      * 获取每天可预约情况
      */
     getTimetable: function() {
-        this.setData({
-            loading: true
-        });
+        showLoading();
         api.get('weapp/reservedata', this.data.timetableForm).then(res => {
-            if (res.errcode === 0) {
-                this.setData({
-                    timetable: res.data,
-                    loading: false
-                });
-            } else {
-                this.setData({
-                    timetable: [],
-                    loading: false
-                });
-            }
+            wx.hideLoading();
+            this.setData({
+                timetable: res.errcode === 0 ? res.data : []
+            });
         });
     },
     /**
@@ -69,8 +46,8 @@ Page({
      * 监听日期改变
      */
     dayChange: function(e) {
-        let index = e.currentTarget.dataset.index,
-            date = e.currentTarget.dataset.date;
+        const index = e.currentTarget.dataset.index;
+        const date = e.currentTarget.dataset.date;
         if (index === this.data.dayIndex) {
             return;
         }
@@ -87,7 +64,7 @@ Page({
      * 判断所选时间是否在预约时间范围内
      */
     isTimeInRange: function(element, index, array) {
-        let isInRange = this.data.datetime.substr(11, 2) == element.hour.substr(0, 2);
+        const isInRange = this.data.datetime.substr(11, 2) == element.hour.substr(0, 2);
         this.setData({
             timeIndex: isInRange ? index : 999
         });
@@ -97,11 +74,10 @@ Page({
      * 保存选择的预约时间
      */
     saveTime: function() {
-        let pages = getCurrentPages(),
-            prevPage = pages[pages.length - 2],
-            item = this.data.timetable,
-            len = item.length,
-            hour = [];
+        const pages = getCurrentPages();
+        const prevPage = pages[pages.length - 2];
+        const item = this.data.timetable;
+        const len = item.length;
         if (getDate() == this.data.timetableForm.date && this.data.datetime.substr(11, 2) < formatNumber(currentHour)) {
             confirmMsg('提示', '所选时间小于当前时间', false);
         } else if (
@@ -126,12 +102,33 @@ Page({
             }
         }
     },
+    get15DaysAndWeeks: function() {
+        let days = [];
+        let dayAndWeek = {};
+        let day = '';
+        for (let i = 0; i < 15; i++) {
+            day = getDate(i);
+            dayAndWeek = {
+                week: getDayOfWeek(day),
+                date: day,
+                day: day.slice(5)
+            };
+            days.push(dayAndWeek);
+        }
+        return days;
+    },
     /**
      * 生命周期函数--监听页面加载
      */
     onLoad: function(options) {
         this.setData({
-            'timetableForm.store_id': options.storeId
+            days: this.get15DaysAndWeeks(),
+            datetime: getDate() + ' ' + '08:00',
+            initialTime: [currentHour, 0],
+            timetableForm: {
+                date: getDate(),
+                store_id: options.storeId
+            }
         });
         this.getTimetable();
     }

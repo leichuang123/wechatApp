@@ -1,4 +1,5 @@
 import { get } from '../../utils/api';
+import { showLoading } from '../../utils/util';
 Page({
     data: {
         income: '0.00'
@@ -7,7 +8,7 @@ Page({
      * 获取用户累计获得佣金
      */
     getAccumulatedIncome: function() {
-        wx.showLoading({ title: '加载中...' });
+        showLoading();
         get('weapp/accumulated-income').then(res => {
             wx.hideLoading();
             if (res.errcode === 0) {

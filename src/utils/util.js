@@ -4,20 +4,20 @@ const successImagePath = '/assets/images/success.png';
  * 时间格式化
  */
 const formatTime = date => {
-    const year = date.getFullYear()
-    const month = date.getMonth() + 1
-    const day = date.getDate()
-    const hour = date.getHours()
-    const minute = date.getMinutes()
-    const second = date.getSeconds()
+    const year = date.getFullYear();
+    const month = date.getMonth() + 1;
+    const day = date.getDate();
+    const hour = date.getHours();
+    const minute = date.getMinutes();
+    const second = date.getSeconds();
 
-    return [year, month, day].map(formatNumber).join('-') + ' ' + [hour, minute, second].map(formatNumber).join(':')
-}
+    return [year, month, day].map(formatNumber).join('-') + ' ' + [hour, minute, second].map(formatNumber).join(':');
+};
 
 const formatNumber = n => {
-    n = n.toString()
-    return n[1] ? n : '0' + n
-}
+    n = n.toString();
+    return n[1] ? n : '0' + n;
+};
 /**
  * 获取日期
  */
@@ -30,7 +30,7 @@ const getDate = count => {
     const month = dd.getMonth() + 1;
     const day = dd.getDate();
     return [year, month, day].map(formatNumber).join('-');
-}
+};
 /**
  * 根据日起获取是星期几
  */
@@ -38,7 +38,7 @@ const getDayOfWeek = date => {
     const weeks = ['日', '一', '二', '三', '四', '五', '六'];
     const day = new Date(Date.parse(date.replace(/-/g, '/')));
     return weeks[day.getDay()];
-}
+};
 /**
  * 验证某个时间是否在一段时间范围内
  */
@@ -69,7 +69,7 @@ const withinTimeRange = (startTime, endTime, currentTime) => {
     } else {
         return false;
     }
-}
+};
 /**
  * 页面返回跳转
  */
@@ -77,7 +77,7 @@ const goBack = deep => {
     wx.navigateBack({
         delta: deep
     });
-}
+};
 /**
  * 信息提示
  */
@@ -95,8 +95,8 @@ const toastMsg = (msg, msgType, time, callback) => {
                 }
             }, time);
         }
-    })
-}
+    });
+};
 /**
  * 确认对话框
  */
@@ -122,22 +122,22 @@ const confirmMsg = (title, msg, showCancel, confirm, cancel) => {
                 cancel();
             }
         }
-    })
-}
+    });
+};
 /**
  * 显示错误信息
  */
 const showTopTips = (that, msg) => {
     that.setData({
         showTopTips: true,
-        errorMsg: msg,
+        errorMsg: msg
     });
     setTimeout(() => {
         that.setData({
             showTopTips: false
         });
     }, 1000);
-}
+};
 /**
  * 获取页面路径
  */
@@ -146,7 +146,7 @@ const getPageUrl = (delta = 0) => {
     const currentPage = pages[pages.length - 1 - delta];
     const url = currentPage.route;
     return url;
-}
+};
 /**
  * 获取带参数的页面路径
  */
@@ -156,27 +156,27 @@ const getCurrentPageUrlWithArgs = () => {
     const url = currentPage.route;
     const options = currentPage.options;
 
-    let urlWithArgs = url + '?'
+    let urlWithArgs = url + '?';
     for (let key in options) {
         let value = options[key];
-        urlWithArgs += key + '=' + value + '&'
+        urlWithArgs += key + '=' + value + '&';
     }
-    urlWithArgs = urlWithArgs.substring(0, urlWithArgs.length - 1)
+    urlWithArgs = urlWithArgs.substring(0, urlWithArgs.length - 1);
 
     return urlWithArgs;
-}
+};
 /**
  * JSON数据类型判断
  */
-const isJSON = (str) => {
+const isJSON = str => {
     if (typeof str !== 'string') {
         return false;
     }
     str = str.replace(/\s/g, '').replace(/\n|\r/, '');
-    if (/^\{(.*?)\}$/.test(str))
-        return /"(.*?)":(.*?)/g.test(str);
+    if (/^\{(.*?)\}$/.test(str)) return /"(.*?)":(.*?)/g.test(str);
     if (/^\[(.*?)\]$/.test(str)) {
-        return str.replace(/^\[/, '')
+        return str
+            .replace(/^\[/, '')
             .replace(/\]$/, '')
             .replace(/},{/g, '}\n{')
             .split(/\n/)
@@ -188,52 +188,52 @@ const isJSON = (str) => {
             });
     }
     return false;
-}
+};
 /**
  * 判断数据类型
  */
 const checkDataType = (type, obj) => {
     let dataType = Object.prototype.toString.call(obj).slice(8, -1);
     return obj !== undefined && obj !== null && dataType === type;
-}
+};
 /**
  * 手机号验证
  */
-const isMobile = (mobile) => {
+const isMobile = mobile => {
     let reg = /^1[345678]\d{9}$/;
     return reg.test(mobile);
-}
+};
 /**
  * 车牌号验证
  */
-const isCarNumber = (carNumber) => {
-    let reg = /^[京津冀晋蒙辽吉黑沪苏浙皖闽赣鲁豫鄂湘粤桂琼川贵云渝藏陕甘青宁新使领]{1}[A-Z]{1}[A-Z0-9]{4,5}[A-Z0-9挂学警港澳]{1}$/
+const isCarNumber = carNumber => {
+    let reg = /^[京津冀晋蒙辽吉黑沪苏浙皖闽赣鲁豫鄂湘粤桂琼川贵云渝藏陕甘青宁新使领]{1}[A-Z]{1}[A-Z0-9]{4,5}[A-Z0-9挂学警港澳]{1}$/;
     return reg.test(carNumber);
-}
+};
 
 /**
  * 生成36位唯一标识符
  */
 const uuid = () => {
-    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
-        let r = Math.random() * 16 | 0,
-            v = c == 'x' ? r : (r & 0x3 | 0x8);
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
+        let r = (Math.random() * 16) | 0,
+            v = c == 'x' ? r : (r & 0x3) | 0x8;
         return v.toString(16);
     });
-}
+};
 /**
  * 获取url查询参数并拼接成对象
  */
-const getUrlArgs = (url) => {
+const getUrlArgs = url => {
     let name, value;
     let str = url;
-    let num = str.indexOf("?");
+    let num = str.indexOf('?');
     str = str.substr(num + 1);
 
-    let arr = str.split("&");
+    let arr = str.split('&');
     let argObj = {};
     for (let i = 0; i < arr.length; i++) {
-        num = arr[i].indexOf("=");
+        num = arr[i].indexOf('=');
         if (num > 0) {
             name = arr[i].substring(0, num);
             value = arr[i].substr(num + 1);
@@ -241,7 +241,20 @@ const getUrlArgs = (url) => {
         }
     }
     return argObj;
-}
+};
+
+const showLoading = (title = '加载中...', showMask = true, succeed, fail) => {
+    wx.showLoading({
+        title: title,
+        mask: showMask,
+        success: () => {
+            typeof succeed === 'function' && succeed();
+        },
+        fail: () => {
+            typeof fail === 'function' && fail();
+        }
+    });
+};
 module.exports = {
     formatTime: formatTime,
     goBack: goBack,
@@ -259,5 +272,6 @@ module.exports = {
     isCarNumber: isCarNumber,
     formatNumber: formatNumber,
     uuid: uuid,
-    getUrlArgs: getUrlArgs
-}
+    getUrlArgs: getUrlArgs,
+    showLoading: showLoading
+};

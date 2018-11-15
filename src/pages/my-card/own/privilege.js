@@ -1,27 +1,21 @@
 import { get } from '../../../utils/api';
+import { showLoading } from '../../../utils/util';
 Page({
     data: {
-        loadingVisible: true,
-        hasData: true,
         description: ''
     },
     /**
      * 获取会员卡特权说明
      */
     getCardDescription: function(cardNumber) {
+        showLoading();
         get('weapp/getcarddescription', { card_number: cardNumber }).then(res => {
+            wx.hideLoading();
             if (res.errcode === 0) {
                 this.setData({
-                    description: res.data.description,
-                    loadingVisible: false,
-                    hasData: true
+                    description: res.data.description
                 });
-                return;
             }
-            this.setData({
-                loadingVisible: false,
-                hasData: false
-            });
         });
     },
     /**

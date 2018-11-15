@@ -1,5 +1,5 @@
 import api from '../../utils/api';
-import { toastMsg, confirmMsg, showTopTips, isMobile, isCarNumber } from '../../utils/util';
+import { toastMsg, confirmMsg, showTopTips, isMobile, isCarNumber, showLoading } from '../../utils/util';
 import { login } from '../../utils/wx-api';
 const app = getApp();
 Page({
@@ -61,7 +61,7 @@ Page({
             return;
         }
         let time = 60;
-        wx.showLoading({ title: '提交请求中', mask: true });
+        showLoading('提交请求中');
         api.get('weapp/phonecode', { mobile: this.data.form.mobile }, false).then(res => {
             wx.hideLoading();
             if (res.errcode === 0) {
@@ -144,7 +144,7 @@ Page({
      * 注册
      */
     register: function() {
-        wx.showLoading({ title: '提交请求中', mask: true });
+        showLoading('提交请求中');
         api.post('weapp/signup', this.data.form, false, false)
             .then(res => {
                 wx.hideLoading();
@@ -160,7 +160,6 @@ Page({
                 }
             })
             .catch(res => {
-                console.log(res);
                 wx.hideLoading();
             });
     },
@@ -169,7 +168,7 @@ Page({
      */
     onRegister: function(e) {
         this.setData({ 'form.car_number': this.data.carNumber });
-        let errMsg = this.validate();
+        const errMsg = this.validate();
         if (errMsg !== '') {
             showTopTips(this, errMsg);
             return;
