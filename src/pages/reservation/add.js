@@ -2,7 +2,6 @@ import api from '../../utils/api';
 import { confirmMsg, showTopTips, isMobile, showLoading } from '../../utils/util';
 Page({
     data: {
-        loading: false,
         dialogVisible: false,
         carIndex: 0,
         cateId: 0,
@@ -11,6 +10,7 @@ Page({
         categories: [],
         carNumbers: [],
         form: {
+            merchant_id: 0,
             store_id: 0,
             car_number: '',
             category: '',
@@ -20,18 +20,15 @@ Page({
             reserve_time: ''
         },
         errorMsg: '',
-        policy: {},
-        searchForm: {
-            merchant_id: 0,
-            store_id: 0
-        }
+        policy: {}
     },
     /**
      * 获取服务分类
      */
     getCategories: function() {
         showLoading();
-        api.get('weapp/category', this.data.searchForm, false).then(res => {
+        const params = { merchant_id: this.data.form.merchant_id, store_id: this.data.form.store_id };
+        api.get('weapp/category', params, false).then(res => {
             wx.hideLoading();
             if (res.errcode === 0) {
                 const cates = res.data.data;
@@ -48,7 +45,8 @@ Page({
      * 获取预约政策
      */
     getPolicy: function() {
-        api.get('weapp/reserverule', this.data.searchForm, false).then(res => {
+        const params = { merchant_id: this.data.form.merchant_id, store_id: this.data.form.store_id };
+        api.get('weapp/reserverule', params, false).then(res => {
             if (res.errcode === 0) {
                 this.setData({ policy: res.data });
             } else {
@@ -161,19 +159,15 @@ Page({
     initData(options) {
         const userData = wx.getStorageSync('userData');
         const linkman = wx.getStorageSync('linkman');
-        const memberData = JSON.parse(options.memberData);
+        const params = JSON.parse(options.params);
         const carNumber = !!userData ? userData.default_car : '';
         this.setData({
-            'form.store_id': memberData.store_id,
-            'form.merchant_id': memberData.merchant_id,
+            'form.store_id': params.store_id,
+            'form.merchant_id': params.merchant_id,
             'form.car_number': carNumber,
             'form.mobile': !!userData ? userData.mobile : '',
             'form.contact': !linkman ? '' : linkman,
-            carNumbers: !!userData ? userData.car : [],
-            searchForm: {
-                merchant_id: memberData.merchant_id,
-                store_id: memberData.store_id
-            }
+            carNumbers: !!userData ? userData.car : []
         });
         if (this.data.carNumbers.length > 0) {
             const index = this.data.carNumbers.indexOf(carNumber);

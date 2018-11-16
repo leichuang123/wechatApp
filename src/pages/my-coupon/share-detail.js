@@ -248,8 +248,7 @@ Page({
         console.log(['share-detail.options', options]);
         let params = null;
         if (options.q) {
-            let url = decodeURIComponent(options.q);
-            params = getUrlArgs(url);
+            params = getUrlArgs(decodeURIComponent(options.q));
         } else if (options.params) {
             params = JSON.parse(options.params);
         } else {

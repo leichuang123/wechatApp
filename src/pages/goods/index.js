@@ -1,11 +1,10 @@
 import api from '../../utils/api';
-import { toastMsg, confirmMsg } from '../../utils/util';
+import { toastMsg, confirmMsg, showLoading } from '../../utils/util';
 import { add, subtract } from '../../utils/calculate';
 import { openLocation } from '../../utils/wx-api';
 Page({
     data: {
         washSelected: false,
-        loading: false,
         open: true,
         collected: false,
         indicatorDots: true,
@@ -54,11 +53,6 @@ Page({
         },
         carNumbers: [],
         carIndex: 0,
-        goodsForm: {
-            storeId: 0,
-            merchantId: 0,
-            car_number: ''
-        },
         orderForm: {
             store_id: 0,
             store_name: '',
@@ -71,25 +65,21 @@ Page({
             first_pay: 0,
             order: []
         },
-        memberForm: {
-            store_id: 0,
-            car_number: '',
-            merchant_id: 0,
-            registered: false
-        },
         storeForm: {
             storeId: 0,
             merchantId: 0,
             latitude: 0,
             longitude: 0
-        }
+        },
+        TYPE_GOODS: 0,
+        TYPE_PACKAGE: 1,
+        TYPE_VALUE_CARD: 2
     },
     /**
      * 获取门店详情
      */
     getStoreInfo: function() {
         api.get('weapp/storedetail', this.data.storeForm, false).then(res => {
-            this.setData({ loading: false });
             if (res.errcode === 0) {
                 this.setData({
                     storeInfo: res.data,
@@ -102,24 +92,24 @@ Page({
      * 获取商品列表
      */
     getGoods: function() {
-        this.setData({ loading: true });
-        api.get('weapp/storegoodsitem', this.data.goodsForm, false).then(res => {
+        showLoading();
+        const params = {
+            storeId: this.data.orderForm.store_id,
+            merchantId: this.data.orderForm.merchant_id,
+            car_number: this.data.orderForm.car_number
+        };
+        api.get('weapp/storegoodsitem', params, false).then(res => {
+            wx.hideLoading();
             if (res.errcode === 0) {
                 let hasWashGoods = res.data.store_wash_goods.length > 0;
                 this.setData({
-                    loading: false,
                     recommendedGoods: res.data.store_recommend,
                     washGoods: hasWashGoods ? res.data.store_wash_goods[0] : {},
                     serviceGoods: res.data.store_goods,
                     'washGoods.open': hasWashGoods
                 });
             } else {
-                this.setData({
-                    loading: false,
-                    recommendedGoods: [],
-                    washGoods: {},
-                    serviceGoods: []
-                });
+                this.setData({ recommendedGoods: [], washGoods: {}, serviceGoods: [] });
             }
         });
     },
@@ -128,7 +118,7 @@ Page({
      */
     switchCollection: function() {
         let operation = !this.data.collected ? 'addfavor' : 'delfavor';
-        api.post('weapp/' + operation, { store_id: this.data.goodsForm.storeId }).then(res => {
+        api.post('weapp/' + operation, { store_id: this.data.orderForm.store_id }).then(res => {
             if (res.errcode === 0) {
                 this.setData({
                     collected: !this.data.collected
@@ -290,7 +280,7 @@ Page({
                     this.setData({
                         'orderForm.num': this.data.orderForm.num + 1
                     });
-                    if (item.category == 0) {
+                    if (item.category == this.data.TYPE_GOODS) {
                         let service = !!item.recommend ? item.recommend.service : [];
                         goods = {
                             id: item.relate_id,
@@ -319,7 +309,7 @@ Page({
                             });
                         }
                     }
-                    if (item.category == 1) {
+                    if (item.category == this.data.TYPE_PACKAGE) {
                         goods = {
                             id: item.relate_id,
                             price: item.sale_price,
@@ -334,7 +324,7 @@ Page({
                             'packageOrder.goods': goodsOfPackage
                         });
                     }
-                    if (item.category == 2) {
+                    if (item.category == this.data.TYPE_VALUE_CARD) {
                         goods = {
                             id: item.relate_id,
                             price: item.sale_price,
@@ -470,7 +460,6 @@ Page({
                     'orderForm.order': order,
                     'orderForm.money': this.data.money
                 });
-                console.log(order);
                 this.gotoPay();
             }, 500);
         }
@@ -480,12 +469,11 @@ Page({
      */
     onSettleAccounts: function() {
         if (this.data.money > 0) {
-            if (this.data.memberForm.registered) {
+            const userData = wx.getStorageSync('userData');
+            if (!!userData && userData.registered) {
                 this.settleAccounts();
             } else {
-                wx.navigateTo({
-                    url: '/pages/register/register'
-                });
+                wx.navigateTo({ url: '/pages/register/register' });
             }
         }
     },
@@ -497,10 +485,8 @@ Page({
             return;
         }
         this.setData({
-            loading: true,
             carIndex: e.detail.value,
-            'orderForm.car_number': this.data.carNumbers[e.detail.value],
-            'goodsForm.car_number': this.data.carNumbers[e.detail.value]
+            'orderForm.car_number': this.data.carNumbers[e.detail.value]
         });
         this.getGoods();
     },
@@ -508,51 +494,37 @@ Page({
      * 定位
      */
     openLocation: function() {
-        let store = this.data.storeInfo;
-        let latitude = parseFloat(store.store_lati);
-        let longitude = parseFloat(store.store_long);
-        let params = {
-            latitude: latitude,
-            longitude: longitude,
+        openLocation({
+            latitude: parseFloat(this.data.storeInfo.store_lati),
+            longitude: parseFloat(this.data.storeInfo.store_long),
             scale: 18,
-            name: store.store_name,
-            address: store.store_address
-        };
-        openLocation(params);
+            name: this.data.storeInfo.store_name,
+            address: this.data.storeInfo.store_address
+        });
     },
     /**
      * 生命周期函数--监听页面加载
      */
     onLoad: function(options) {
-        let memberData = JSON.parse(options.memberData);
+        let params = JSON.parse(options.params);
         let userData = wx.getStorageSync('userData');
         let defaultCar = !!userData ? userData.default_car : '';
-        let carNumber = memberData.car_number ? memberData.car_number : defaultCar;
+        let carNumber = !!params.car_number ? params.car_number : defaultCar;
         this.setData({
-            goodsForm: {
-                storeId: memberData.store_id,
-                merchantId: memberData.merchant_id,
-                car_number: carNumber
-            },
             storeForm: {
-                storeId: memberData.store_id,
-                merchantId: memberData.merchant_id,
-                latitude: memberData.latitude,
-                longitude: memberData.longitude
+                storeId: params.store_id,
+                merchantId: params.merchant_id,
+                latitude: params.latitude,
+                longitude: params.longitude
             },
             carNumbers: !!userData ? userData.car : [],
             carIndex: 0,
 
-            'orderForm.merchant_id': memberData.merchant_id,
-            'orderForm.store_id': memberData.store_id,
-            'orderForm.store_name': memberData.store_name,
+            'orderForm.merchant_id': params.merchant_id,
+            'orderForm.store_id': params.store_id,
+            'orderForm.store_name': params.store_name,
             'orderForm.car_number': carNumber,
-            'orderForm.mobile': !!userData ? userData.mobile : '',
-
-            'memberForm.merchant_id': memberData.merchant_id,
-            'memberForm.store_id': memberData.store_id,
-            'memberForm.registered': !!userData ? userData.registered : false,
-            'memberForm.car_number': carNumber
+            'orderForm.mobile': !!userData ? userData.mobile : ''
         });
         if (this.data.carNumbers.length > 0) {
             const index = this.data.carNumbers.indexOf(carNumber);

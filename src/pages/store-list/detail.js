@@ -9,7 +9,7 @@ Page({
         duration: 1000,
         storeInfo: {},
         serviceType: 'queue',
-        memberForm: {
+        form: {
             store_id: 0,
             store_name: '',
             merchant_id: 0,
@@ -46,7 +46,7 @@ Page({
             if (res.errcode === 0) {
                 this.setData({
                     storeInfo: res.data,
-                    'memberForm.store_name': res.data.store_name
+                    'form.store_name': res.data.store_name
                 });
             }
         });
@@ -55,30 +55,27 @@ Page({
      * 定位
      */
     openLocation: function() {
-        let store = this.data.storeInfo,
-            latitude = parseFloat(store.store_lati),
-            longitude = parseFloat(store.store_long);
-
-        let params = {
-            latitude: latitude,
-            longitude: longitude,
+        openLocation({
+            latitude: parseFloat(this.data.storeInfo.store_lati),
+            longitude: parseFloat(this.data.storeInfo.store_long),
             scale: 18,
-            name: store.store_name,
-            address: store.store_address
-        };
-        openLocation(params);
+            name: this.data.storeInfo.store_name,
+            address: this.data.storeInfo.store_address
+        });
     },
     /**
      * 跳转到服务购买页面
      */
     gotoGoodsList: function() {
-        let memberData = this.data.memberForm;
-        memberData.longitude = this.data.storeForm.longitude;
-        memberData.latitude = this.data.storeForm.latitude;
-        memberData = JSON.stringify(memberData);
-        wx.navigateTo({
-            url: '/pages/goods-list/goods-list?memberData=' + memberData
+        const params = JSON.stringify({
+            store_id: this.data.form.store_id,
+            store_name: this.data.form.store_name,
+            merchant_id: this.data.form.merchant_id,
+            registered: this.data.form.registered,
+            longitude: this.data.storeForm.longitude,
+            latitude: this.data.storeForm.latitude
         });
+        wx.navigateTo({ url: '/pages/goods/index?params=' + params });
     },
     /**
      * 跳转到注册页面
@@ -92,11 +89,8 @@ Page({
      * 跳转到排队页面
      */
     gotoQueue: function() {
-        const memberData = JSON.stringify(this.data.memberForm);
-        if (this.data.memberForm.registered) {
-            wx.navigateTo({
-                url: '/pages/queue/add?memberData=' + memberData
-            });
+        if (this.data.form.registered) {
+            wx.navigateTo({ url: '/pages/queue/add?params=' + JSON.stringify(this.data.form) });
         } else {
             this.gotoRegister();
         }
@@ -105,11 +99,8 @@ Page({
      * 跳转到预约页面
      */
     gotoReservation: function() {
-        const memberData = JSON.stringify(this.data.memberForm);
-        if (this.data.memberForm.registered) {
-            wx.navigateTo({
-                url: '/pages/reservation/add?memberData=' + memberData
-            });
+        if (this.data.form.registered) {
+            wx.navigateTo({ url: '/pages/reservation/add?params=' + JSON.stringify(this.data.form) });
         } else {
             this.gotoRegister();
         }
@@ -146,9 +137,9 @@ Page({
         this.setData({
             serviceType: storeData.fromPage,
             storeForm: storeData,
-            'memberForm.store_id': storeData.storeId,
-            'memberForm.registered': !!userData ? userData.registered : false,
-            'memberForm.merchant_id': storeData.merchantId
+            'form.store_id': storeData.storeId,
+            'form.registered': !!userData && userData.registered,
+            'form.merchant_id': storeData.merchantId
         });
     },
     /**

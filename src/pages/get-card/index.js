@@ -1,9 +1,8 @@
 import api from '../../utils/api';
-import { getPageUrl, uuid } from '../../utils/util';
+import { getPageUrl, uuid, showLoading } from '../../utils/util';
 Page({
     data: {
         isExpired: false,
-        loading: false,
         card: {},
         urlUuid: '',
         form: {
@@ -11,23 +10,17 @@ Page({
             store_id: 0,
             customer_card_id: 0,
             shareholder_id: 0
-        },
-        checkForm: {
-            merchant_id: 0,
-            store_id: 0,
-            url: ''
         }
     },
     /**
      * 获取会员卡详情
      */
     getDetail: function() {
-        this.setData({ loading: true });
+        showLoading();
         api.post('weapp/get-share-card-info', this.data.form).then(res => {
-            this.setData({ loading: false });
+            wx.hideLoading();
             if (res.errcode === 0) {
                 this.setData({ card: res.data });
-                return;
             }
         });
     },
@@ -35,7 +28,7 @@ Page({
      * 创建分享信息
      */
     createShareRecord: function(urlUuid) {
-        let shareForm = {
+        const shareForm = {
             url: 'pages/get-card/index?uuid=' + urlUuid,
             merchant_id: this.data.form.merchant_id,
             store_id: this.data.form.store_id,
@@ -51,8 +44,13 @@ Page({
      * 检查分享是否过期
      */
     isExpired: function() {
-        api.get('/weapp/check-url', this.data.checkForm).then(res => {
-            this.setData({ loading: false, isExpired: res.errcode === 0 ? false : true });
+        const params = {
+            merchant_id: this.data.form.merchant_id,
+            store_id: this.data.form.store_id,
+            url: getPageUrl() + '?uuid=' + this.data.urlUuid
+        };
+        api.get('/weapp/check-url', params).then(res => {
+            this.setData({ isExpired: res.errcode !== 0 });
             if (!this.data.isExpired) {
                 let params = JSON.stringify({
                     merchant_id: this.data.form.merchant_id,
@@ -81,7 +79,6 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function(options) {
-        let url = getPageUrl() + '?uuid=' + options.uuid;
         this.setData({
             urlUuid: options.uuid,
             form: {
@@ -89,11 +86,6 @@ Page({
                 store_id: options.store_id,
                 customer_card_id: options.customer_card_id,
                 shareholder_id: options.shareholder_id
-            },
-            checkForm: {
-                merchant_id: options.merchant_id,
-                store_id: options.store_id,
-                url: url
             }
         });
         this.getDetail();

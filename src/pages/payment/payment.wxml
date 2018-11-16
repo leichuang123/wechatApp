@@ -49,17 +49,14 @@
             <view class="text-red"
                 >储值卡用户可选择到店支付，到店后用储值卡余额支付，若选择在线支付则表示不使用储值卡余额支付。</view
             >
-            <view>选择到店支付无积分，可到店享受服务时再行付款。</view>
-            <view>只有在线支付才能获得积分，积分可以参加优惠活动。</view>
         </view>
     </view>
-
     <view class="weui-flex">
         <view class="weui-flex__item pad">
             <button class="weui-btn" type="default" bindtap="payOffline">到店支付</button>
         </view>
         <view class="weui-flex__item pad">
-            <button class="weui-btn" type="primary" bindtap="payOnline" loading="{{loading}}">在线支付</button>
+            <button class="weui-btn" type="primary" bindtap="payOnline">在线支付</button>
         </view>
     </view>
 </view>

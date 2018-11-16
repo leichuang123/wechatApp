@@ -1,14 +1,14 @@
 import { post } from '../../utils/api';
-import { toastMsg, confirmMsg } from '../../utils/util';
+import { toastMsg, confirmMsg, showLoading } from '../../utils/util';
 import wxPay from '../../utils/requestPayment';
 Page({
     data: {
-        loading: false,
         form: {
             money: 0,
             stored_value_card: null,
             store_id: 0,
             store_name: '',
+            goods_name: '',
             num: 0,
             car_number: '',
             merchant_id: 0,
@@ -55,12 +55,11 @@ Page({
      */
     generateQueueForm: function() {
         let order = this.data.form.order;
-        let index = order.findIndex(item => item.is_queue === true);
-        if (index !== -1) {
+        let index = order.findIndex(item => item.is_queue);
+        if (index > -1) {
             let item = order[index];
-            let serviceItem = [];
-            item.goods[0].service_item.forEach(item => {
-                serviceItem.push({ id: item.service_id });
+            const serviceItem = item.goods[0].service_item.map(item => {
+                return { id: item.service_id };
             });
             this.setData({
                 'queueForm.service_item': serviceItem,
@@ -78,9 +77,8 @@ Page({
             post('weapp/addqueue', this.data.queueForm).then(res => {
                 if (res.errcode === 0) {
                     toastMsg('取号成功！', 'success', 1000, () => {
-                        let queueData = JSON.stringify(res.data);
                         wx.navigateTo({
-                            url: '/pages/queue/detail?queueData=' + queueData
+                            url: '/pages/queue/detail?queueData=' + JSON.stringify(res.data)
                         });
                     });
                 } else {
@@ -111,7 +109,9 @@ Page({
      * 线下支付
      */
     payOffline: function() {
+        showLoading('提交请求中');
         post('weapp/createstoregoodsorder', this.data.form).then(res => {
+            wx.hideLoading();
             if (res.errcode === 0) {
                 this.setData({
                     'queueForm.order_id': res.data.queue_order_id,
@@ -138,9 +138,9 @@ Page({
      * 在线支付
      */
     payOnline: function(e) {
-        this.setData({ loading: true });
+        showLoading('提交请求中');
         post('weapp/createstoregoodsorder', this.data.form).then(res => {
-            this.setData({ loading: false });
+            wx.hideLoading();
             if (res.errcode === 0) {
                 let payArgs = res.data;
                 wxPay(
@@ -182,10 +182,13 @@ Page({
      */
     onLoad: function(options) {
         const params = JSON.parse(options.params);
+        const userData = wx.getStorageSync('userData');
+        const carNumber = !params.car_number ? (!!userData ? userData.default_car : '') : params.car_number;
         this.setData({
             form: params,
+            'form.car_number': carNumber,
             'queueForm.store_id': params.store_id,
-            'queueForm.car_number': params.car_number
+            'queueForm.car_number': carNumber
         });
     }
 });

@@ -238,7 +238,6 @@ Page({
         });
     },
     getDefaultServiceSubClasses() {
-        let subClasses = [];
         const index = this.data.serviceClasses.findIndex(val => val.checked);
         this.setData({
             subTypes: index > -1 ? this.data.serviceClasses[index].children : []

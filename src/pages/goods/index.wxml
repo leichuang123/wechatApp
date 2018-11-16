@@ -168,4 +168,3 @@
         <view class="accounts-btn" bindtap="onSettleAccounts">去结算</view>
     </view>
 </view>
-<loading wx:if="{{loading}}">加载中</loading>

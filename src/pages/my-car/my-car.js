@@ -121,7 +121,7 @@ Page({
         const userData = wx.getStorageSync('userData');
         this.setData({
             carNumber: !!userData ? userData.default_car : '',
-            registered: !!userData ? userData.registered : false
+            registered: !!userData && userData.registered
         });
     },
     /**

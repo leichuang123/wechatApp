@@ -16,12 +16,6 @@ Page({
             longitude: '',
             latitude: '',
             page: 1
-        },
-        memberForm: {
-            store_id: 0,
-            store_name: '',
-            merchant_id: 0,
-            registered: false
         }
     },
     showInput: function() {
@@ -103,17 +97,17 @@ Page({
     gotoStoreService: function(e) {
         const item = e.currentTarget.dataset.item;
         const userData = wx.getStorageSync('userData');
-        const memberData = JSON.stringify({
+        const params = JSON.stringify({
             store_id: item.sid,
             store_name: item.store_name,
             merchant_id: item.merchans_id,
-            registered: userData.registered,
+            registered: !!userData && userData.registered,
             longitude: this.data.searchForm.longitude,
             latitude: this.data.searchForm.latitude
         });
         wx.setStorageSync('currentStore', item);
         wx.navigateTo({
-            url: '/pages/goods-list/goods-list?memberData=' + memberData
+            url: '/pages/goods/index?params=' + params
         });
     },
     /**

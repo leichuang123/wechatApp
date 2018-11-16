@@ -36,15 +36,6 @@ Page({
             latitude: '',
             area_code: '',
             page: 1
-        },
-        goodsForm: {
-            goods_id: 0,
-            money: 0,
-            merchant_id: 0,
-            store_id: 0,
-            store_name: '',
-            category: 0,
-            goods_name: ''
         }
     },
     /**
@@ -73,8 +64,8 @@ Page({
      * 跳转到店内促销详情页
      */
     gotoStorePromotion: function(e) {
-        let item = e.currentTarget.dataset.item;
-        let params = JSON.stringify({
+        const item = e.currentTarget.dataset.item;
+        const params = JSON.stringify({
             merchant_id: item.merchant_id,
             store_id: item.store_id,
             latitude: this.data.form.latitude,
@@ -88,8 +79,8 @@ Page({
      * 跳转到商品详情页
      */
     gotoGoodsDetail: function(e) {
-        let goods = e.currentTarget.dataset.item;
-        let params = JSON.stringify({
+        const goods = e.currentTarget.dataset.item;
+        const params = JSON.stringify({
             id: goods.id,
             store_id: goods.store_id,
             merchant_id: goods.merchant_id
@@ -102,8 +93,8 @@ Page({
      * 切换tab
      */
     tabClick: function(e) {
-        let index = e.currentTarget.id;
-        let currentCate = this.data.tabs[index].id;
+        const index = e.currentTarget.id;
+        const currentCate = this.data.tabs[index].id;
         if (currentCate == this.data.form.promotion_source) {
             return;
         }
@@ -123,18 +114,16 @@ Page({
      * 跳转到支付页面
      */
     gotoPay: function(goods) {
-        this.setData({
-            'goodsForm.goods_id': goods.related_id,
-            'goodsForm.money': goods.promotion_price,
-            'goodsForm.merchant_id': goods.merchant_id,
-            'goodsForm.store_id': goods.store_id,
-            'goodsForm.store_name': goods.store_name,
-            'goodsForm.goods_name': goods.related_name,
-            'goodsForm.category': goods.category
+        const params = JSON.stringify({
+            goods_id: goods.related_id,
+            money: goods.promotion_price,
+            merchant_id: goods.merchant_id,
+            store_id: goods.store_id,
+            store_name: goods.store_name,
+            goods_name: goods.related_name,
+            category: goods.category
         });
-        wx.navigateTo({
-            url: '../../promotion/pages/payment/payment?params=' + JSON.stringify(this.data.goodsForm)
-        });
+        wx.navigateTo({ url: '../../promotion/pages/payment/payment?params=' + params });
     },
     /**
      * 跳转到注册页面
@@ -145,10 +134,9 @@ Page({
         });
     },
     onGotoPay: function(e) {
-        let item = e.currentTarget.dataset.item;
-        let userData = wx.getStorageSync('userData');
+        const userData = wx.getStorageSync('userData');
         if (!!userData && userData.registered) {
-            this.gotoPay(item);
+            this.gotoPay(e.currentTarget.dataset.item);
         } else {
             this.gotoRegister();
         }

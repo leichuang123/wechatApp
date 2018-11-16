@@ -49,4 +49,3 @@
         </view>
     </view>
 </view>
-<loading wx:if="{{loading}}">加载中</loading>
