@@ -7,6 +7,12 @@ Page({
         loading: false,
         hasExpired: false,
         hasAuth: false,
+        sharable: false,
+        SEND_MODE_SHARE: 6,
+        NOT_SEND: 2,
+        NOT_USER_COUPON: 2,
+        HAS_SEND_RECORD: 1,
+        SHARABLE: 2,
         couponWidth: '',
         shareUuid: '',
         coupon: {},
@@ -28,7 +34,8 @@ Page({
             is_user_coupon: 2,
             coupon_name: '',
             store_name: '',
-            send_mode: 6
+            send_mode: 6,
+            sharable: true
         }
     },
     /**
@@ -51,7 +58,8 @@ Page({
                     'shareForm.coupon_name': this.data.coupon.name,
                     'shareForm.store_name': this.data.coupon.store_name,
                     'shareForm.deduction_money': this.data.coupon.deduction_money,
-                    'shareForm.share_img_url': this.data.coupon.share_img_url
+                    'shareForm.share_img_url': this.data.coupon.share_img_url,
+                    'shareForm.sharable': this.data.sharable && this.data.coupon.sharable
                 });
                 const params = JSON.stringify(this.data.shareForm);
                 wx.navigateTo({ url: 'get-coupon?params=' + params });
@@ -265,41 +273,43 @@ Page({
         if (res.from === 'button') {
             const wxUserInfo = wx.getStorageSync('wxUserInfo');
             const nickName = !wxUserInfo ? '' : wxUserInfo.nickName;
+            const params = this.data.shareForm;
             const sharedUrl =
                 '/pages/my-coupon/share-detail?merchant_id=' +
-                this.data.shareForm.merchant_id +
+                params.merchant_id +
                 '&store_id=' +
-                this.data.shareForm.store_id +
+                params.store_id +
                 '&related_id=' +
-                this.data.shareForm.related_id +
+                params.related_id +
                 '&related_type=' +
-                this.data.shareForm.related_type +
+                params.related_type +
                 '&staff_id=' +
-                this.data.shareForm.staff_id +
+                params.staff_id +
                 '&sender_id=' +
-                this.data.shareForm.sender_id +
+                params.sender_id +
                 '&send_record_id=' +
-                this.data.shareForm.send_record_id +
+                params.send_record_id +
                 '&sender_nick_name=' +
                 nickName +
                 '&give_num=' +
-                this.data.shareForm.give_num +
+                params.give_num +
                 '&is_gather=' +
-                this.data.shareForm.is_gather +
+                params.is_gather +
                 '&share_uuid=' +
                 shareUuid +
-                '&is_send=2' +
-                '&send_mode=6' +
-                '&is_user_coupon=2' +
-                '&has_send_record=1' +
-                '&sharable=1';
+                '&is_send=' +
+                this.data.NOT_SEND +
+                '&send_mode=' +
+                this.data.SEND_MODE_SHARE +
+                '&is_user_coupon=' +
+                this.data.NOT_USER_COUPON +
+                '&has_send_record=' +
+                this.data.HAS_SEND_RECORD +
+                '&sharable=' +
+                this.data.SHARABLE;
 
             this.addShareRecord(nickName);
-            return {
-                title: this.data.coupon.share_title,
-                path: sharedUrl,
-                imageUrl: this.data.coupon.share_img_url
-            };
+            return { title: params.share_title, path: sharedUrl, imageUrl: params.share_img_url };
         }
     }
 });

@@ -7,6 +7,11 @@ Page({
         loading: false,
         hasAuth: false,
         couponWidth: '',
+        SEND_MODE_SHARE: 6,
+        NOT_SEND: 2,
+        IS_USER_COUPON: 1,
+        HAS_SEND_RECORD: 1,
+        SHARABLE: 2,
         coupon: {},
         form: {
             id: 0,
@@ -106,39 +111,41 @@ Page({
         if (res.from === 'button') {
             const wxUserInfo = wx.getStorageSync('wxUserInfo');
             const nickName = !wxUserInfo ? '' : wxUserInfo.nickName;
+            const params = this.data.coupon;
             const sharedUrl =
                 '/pages/my-coupon/share-detail?merchant_id=' +
-                this.data.coupon.merchant_id +
+                params.merchant_id +
                 '&store_id=' +
-                this.data.coupon.store_id +
+                params.store_id +
                 '&related_id=' +
-                this.data.coupon.related_id +
+                params.related_id +
                 '&related_type=' +
-                this.data.coupon.related_type +
+                params.related_type +
                 '&sender_id=' +
-                this.data.coupon.user_id +
+                params.user_id +
                 '&send_record_id=' +
-                this.data.coupon.send_record_id +
+                params.send_record_id +
                 '&sender_customer_id=' +
-                this.data.coupon.customer_id +
+                params.customer_id +
                 '&sender_nick_name=' +
                 nickName +
                 '&give_num=1' +
                 '&is_gather=' +
-                this.data.coupon.is_gather +
+                params.is_gather +
                 '&share_uuid=' +
-                this.data.coupon.share_uuid +
-                '&is_send=2' +
-                '&is_user_coupon=1' +
-                '&has_send_record=1' +
-                '&send_mode=6' +
-                '&sharable=1';
+                params.share_uuid +
+                '&is_send=' +
+                this.data.NOT_SEND +
+                '&is_user_coupon=' +
+                this.data.IS_USER_COUPON +
+                '&has_send_record=' +
+                this.data.HAS_SEND_RECORD +
+                '&send_mode=' +
+                this.datra.SEND_MODE_SHARE +
+                '&sharable=' +
+                this.data.SHARABLE;
             this.addShareRecord(nickName);
-            return {
-                title: this.data.coupon.share_title,
-                path: sharedUrl,
-                imageUrl: this.data.coupon.share_img_url
-            };
+            return { title: params.share_title, path: sharedUrl, imageUrl: params.share_img_url };
         }
     }
 });

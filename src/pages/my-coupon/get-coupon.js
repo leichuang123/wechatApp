@@ -275,6 +275,7 @@ Page({
             'form.send_record_id': params.send_record_id,
             'form.share_uuid': params.share_uuid,
             'form.is_user_coupon': params.is_user_coupon,
+            'form.sharable': params.sharable,
             'form.is_register': !!userData && userData.registered,
             carNumbers: carNumbers,
             carNumber: defaultCar,

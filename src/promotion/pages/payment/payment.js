@@ -1,9 +1,8 @@
 import { post } from '../../../utils/api';
-import { toastMsg, confirmMsg } from '../../../utils/util';
+import { toastMsg, confirmMsg, showLoading } from '../../../utils/util';
 import wxPay from '../../../utils/requestPayment';
 Page({
     data: {
-        loading: false,
         form: {
             money: 0,
             stored_value_card: null,
@@ -60,8 +59,10 @@ Page({
      * 线下支付
      */
     payOffline: function() {
+        showLoading('请求中...');
         this.generateForm();
         post('weapp/createstoregoodsorder', this.data.form).then(res => {
+            wx.hideLoading();
             if (res.errcode === 0) {
                 wx.navigateTo({
                     url: '../../../pages/order-list/order-list?type=1'
@@ -79,10 +80,10 @@ Page({
      * 在线支付
      */
     payOnline: function(e) {
-        this.setData({ loading: true });
+        showLoading('请求中...');
         this.generateForm();
         post('weapp/createstoregoodsorder', this.data.form).then(res => {
-            this.setData({ loading: false });
+            wx.hideLoading();
             if (res.errcode === 0) {
                 let payArgs = res.data;
                 wxPay(
@@ -115,10 +116,9 @@ Page({
      */
     changeCarNumber: function(e) {
         if (this.data.carIndex == e.detail.value) {
-            return false;
+            return;
         }
         this.setData({
-            loading: true,
             carIndex: e.detail.value,
             'form.car_number': this.data.carNumbers[e.detail.value]
         });

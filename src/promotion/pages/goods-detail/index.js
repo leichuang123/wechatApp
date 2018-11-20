@@ -1,6 +1,6 @@
 import { get } from '../../../utils/api';
 import WxParse from '../../../assets/plugins/wxParse/wxParse';
-import { confirmMsg, showLoading } from '../../../utils/util';
+import { confirmMsg, getUrlArgs, showLoading } from '../../../utils/util';
 import {
     getSetting,
     saveImageToPhotosAlbum,
@@ -218,9 +218,16 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function(options) {
-        const params = JSON.parse(options.params);
+        let params = null;
+        if (options.q) {
+            params = getUrlArgs(decodeURIComponent(options.q));
+        } else if (options.params) {
+            params = JSON.parse(options.params);
+        } else {
+            params = options;
+        }
         const userData = wx.getStorageSync('userData');
-        const userId = !params.user_id ? params.user_id : !!userData && !!userData ? userData.id : 0;
+        const userId = !!params.user_id ? params.user_id : !!userData && !!userData ? userData.id : 0;
         this.setData({
             'form.related_id': params.related_id,
             'form.related_type': params.related_type,
