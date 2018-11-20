@@ -3,35 +3,35 @@
     <view class="bg-white">
         <view class="weui-cell">
             <view class="weui-cell__bd fs18">
-                {{goodsDetail.related_name}}
+                {{goods.goods_name}}
             </view>
-            <view class="weui-cell__ft weui-media-box__desc padl">截止日期
-                <text class="fc-red">{{goodsDetail.end_time}}</text>
+            <view wx:if="{{form.is_promotion==1}}" class="weui-cell__ft weui-media-box__desc padl">截止日期
+                <text class="fc-red">{{goods.end_time}}</text>
             </view>
         </view>
-        <view class="cell fs13 fc-gray">{{goodsDetail.intro}} </view>
+        <view class="cell fs13 fc-gray">{{goods.intro}} </view>
         <view class="cell">
-            <text class="fc-red">￥{{goodsDetail.promotion_price}}</text>
-            <text class="strike fs13 padl">原价：¥{{goodsDetail.ori_price}}</text>
+            <text class="fc-red">￥{{goods.price}}</text>
+            <text class="strike fs13 padl">原价：¥{{goods.original_price}}</text>
         </view>
     </view>
     <view class="bg-white mart">
         <view bindtap="gotoStorePromotion">
             <view class="weui-cell">
-                <view class="weui-cell__bd">{{storeDetail.store_name}}</view>
+                <view class="weui-cell__bd">{{store.store_name}}</view>
                 <view class="weui-cell__ft">
                     <text wx:if="{{item.verify_state==1}}" class="icon-checkmark fc-green text-right">已认证</text>
                 </view>
             </view>
             <view class="weui-flex cell fs13">
                 <view class="weui-flex__item">
-                    <text class="direct-sale">{{storeDetail.store_sattri}}</text>总销量：{{storeDetail.orderNumber}} 总评价：{{storeDetail.evaluate_count}}</view>
+                    <text class="direct-sale">{{store.store_sattri}}</text>总销量：{{store.orderNumber}} 总评价：{{store.evaluate_count}}</view>
             </view>
             <view>
                 <view class="weui-cell">
                     <view class="weui-cell__bd">
                         <view class="tags">
-                            <text wx:for="{{storeDetail.store_tags}}" wx:key="index">{{item}}</text>
+                            <text wx:for="{{store.store_tags}}" wx:key="index">{{item}}</text>
                         </view>
                     </view>
                 </view>
@@ -39,17 +39,17 @@
         </view>
         <view class="weui-cell weui-cell_access fs15" hover-class="weui-cell_active" bindtap="openLocation">
             <view class="weui-cell__bd">
-                <text class="icon-map-marker mine-icon"></text> {{storeDetail.store_address}}</view>
+                <text class="icon-map-marker mine-icon"></text> {{store.store_address}}</view>
             <view class="weui-cell__ft weui-cell__ft_in-access"></view>
         </view>
-        <view data-tel="{{storeDetail.contact}}" class="weui-cell weui-cell_access fs15" hover-class="weui-cell_active" bindtap="call">
+        <view data-tel="{{store.contact}}" class="weui-cell weui-cell_access fs15" hover-class="weui-cell_active" bindtap="call">
             <view class="weui-cell__bd">
-                <text class="icon-phone mine-icon"></text>{{storeDetail.contact}}</view>
+                <text class="icon-phone mine-icon"></text>{{store.contact}}</view>
             <view class="weui-cell__ft weui-cell__ft_in-access"></view>
         </view>
 
         <view class="weui-cell fs15">
-            <text class="icon-alarm mine-icon"></text> 营业时间：{{storeDetail.opening_hours}}
+            <text class="icon-alarm mine-icon"></text> 营业时间：{{store.opening_hours}}
         </view>
     </view>
     <view class="wx-parse__detail fs15 light-black">

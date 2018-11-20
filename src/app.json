@@ -7,7 +7,6 @@
         "pages/store-list/detail",
         "pages/store-list/profile",
         "pages/goods/index",
-        "pages/goods/detail",
         "pages/queue/queue",
         "pages/queue/add",
         "pages/queue/detail",
@@ -76,7 +75,8 @@
         "pages/my-rebate/shareholder/withdraw-success",
         "pages/my-rebate/shareholder/withdraw-record",
         "pages/my-rebate/shareholder/recharge",
-        "pages/my-rebate/shareholder/shareable-card"
+        "pages/my-rebate/shareholder/shareable-card",
+        "pages/wifi/index"
     ],
     "subPackages": [
         {

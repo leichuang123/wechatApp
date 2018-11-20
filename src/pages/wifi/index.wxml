@@ -1,0 +1,14 @@
+<view class="wifi-bg">
+    <image src="../../assets/images/wifi.png" class="wifi-image" style="width:182px;height:128px"></image>
+</view>
+<view class="padlr15">
+    <view class="weui-cell weui-cell_input mart20">
+        <view class="weui-cell__hd"> <view class="weui-label grey">WIFI名称</view> </view>
+        <view class="weui-cell__bd"> <input class="weui-input" disabled value="{{account.wifi_account}}" /> </view>
+    </view>
+    <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd"> <view class="weui-label grey">WIFI密码</view> </view>
+        <view class="weui-cell__bd"> <input class="weui-input" value="{{account.wifi_pwd}}" disabled /> </view>
+    </view>
+</view>
+<view class="mart30 padlr15"> <button class="weui-btn" type="primary" bindtap="copyPassword">复制密码</button> </view>

@@ -1,40 +1,71 @@
 .take-number {
-  padding-top: 10px;
-  padding-bottom: 8px;
-  background: #fff;
+    padding-top: 10px;
+    padding-bottom: 8px;
+    background: #fff;
 }
 
 .text-gray {
-  color: gray;
+    color: gray;
 }
 
 .l-height {
-  line-height: 3em;
-  min-height: 10px;
-  font-size: 13px;
+    line-height: 3em;
+    min-height: 10px;
+    font-size: 13px;
 }
 
 .reserve-dotted {
-  border-bottom: 1px dotted #d9d9d9;
+    border-bottom: 1px dotted #d9d9d9;
 }
 
 .reserve-btn {
-  min-width: 86px;
+    min-width: 86px;
 }
 
 .promotion-icon {
-  width: 20px;
-  height: 20px;
-  display: inline-block;
-  margin-right: 5px;
-  vertical-align: middle;
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    margin-right: 5px;
+    vertical-align: middle;
 }
 
 .promotion-icon2 {
-  width: 22px;
-  height: 22px;
-  display: inline-block;
-  vertical-align: middle;
-  margin-left: -5px;
-  padding-left: 3px;
+    width: 22px;
+    height: 22px;
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: -5px;
+    padding-left: 3px;
+}
+.icon-border image {
+    font-size: 26px;
+    border: 2px solid #61b8a8;
+    color: #61b8a8;
+    border-radius: 100%;
+    padding: 10px;
+}
+.icon-width {
+    width: 30px;
+    height: 30px;
+}
+.icon-width2 {
+    width: 25px;
+    height: 25px;
+}
+.btn-list {
+    text-align: center;
+    padding: 10px 0 10px;
+}
+.pad-top {
+    font-size: 17px;
+    margin-top: 10px;
+    color: #4d4d4d;
+}
+.weui-cells:after {
+    bottom: 0;
+    border-bottom: 1rpx solid #d9d9d9;
+}
+.station-list {
+    font-size: 17px;
 }

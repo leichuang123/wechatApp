@@ -1,0 +1,17 @@
+.wifi-bg {
+    width: 100%;
+    background: #61b8a8;
+    padding-top: 70px;
+    padding-bottom: 70px;
+    text-align: center;
+}
+.mart20 {
+    margin-top: 20px;
+}
+.mart30 {
+    margin-top: 30px;
+}
+.wifi-image {
+    width: 182px;
+    height: 128px;
+}

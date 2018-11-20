@@ -67,7 +67,8 @@ Page({
         const params = JSON.stringify({
             id: goods.id,
             store_id: goods.store_id,
-            merchant_id: goods.merchant_id
+            merchant_id: goods.merchant_id,
+            is_promotion: goods.is_promotion
         });
         wx.navigateTo({
             url: '../goods-detail/index?params=' + params
@@ -131,11 +132,11 @@ Page({
         const item = e.currentTarget.dataset.item;
         const params = JSON.stringify({
             goods_id: item.related_id,
-            money: item.promotion_price,
+            money: item.price,
             merchant_id: item.merchant_id,
             store_id: item.store_id,
             store_name: this.data.storeDetail.store_name,
-            goods_name: item.related_name,
+            goods_name: item.goods_name,
             category: item.category
         });
         wx.navigateTo({ url: '../payment/payment?params=' + params });
@@ -149,8 +150,8 @@ Page({
         });
     },
     onGotoPay: function(e) {
-        let item = e.currentTarget.dataset.item;
-        let userData = wx.getStorageSync('userData');
+        const item = e.currentTarget.dataset.item;
+        const userData = wx.getStorageSync('userData');
         if (!!userData && userData.registered) {
             this.gotoPay(item);
         } else {
@@ -161,7 +162,7 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function(options) {
-        let params = JSON.parse(options.params);
+        const params = JSON.parse(options.params);
         this.setData({
             'form.merchant_id': params.merchant_id,
             'form.store_id': params.store_id

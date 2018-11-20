@@ -83,7 +83,8 @@ Page({
         const params = JSON.stringify({
             id: goods.id,
             store_id: goods.store_id,
-            merchant_id: goods.merchant_id
+            merchant_id: goods.merchant_id,
+            is_promotion: goods.is_promotion
         });
         wx.navigateTo({
             url: '../../promotion/pages/goods-detail/index?params=' + params

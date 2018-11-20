@@ -12,6 +12,7 @@ const makePhoneCall = promisify(wx.makePhoneCall);
 const saveImageToPhotosAlbum = promisify(wx.saveImageToPhotosAlbum);
 const downloadFile = promisify(wx.downloadFile);
 const checkSession = promisify(wx.checkSession);
+const setClipboardData = promisify(wx.setClipboardData);
 module.exports = {
     login: login,
     getUserInfo: getUserInfo,
@@ -25,5 +26,6 @@ module.exports = {
     makePhoneCall: makePhoneCall,
     saveImageToPhotosAlbum: saveImageToPhotosAlbum,
     downloadFile: downloadFile,
-    checkSession: checkSession
+    checkSession: checkSession,
+    setClipboardData: setClipboardData
 };

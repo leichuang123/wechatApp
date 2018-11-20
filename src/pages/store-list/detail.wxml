@@ -59,7 +59,7 @@
             </view>
         </view>
     </view>
-    <view class="list-box">
+    <view class="weui-cells weui-cells_after-title">
         <view class="weui-cell" data-type="0" bindtap="gotoStoreEvaluation">
             <view class="weui-cell__bd">
                 <text>{{storeInfo.store_name}}</text>
@@ -85,26 +85,55 @@
                 <text class="icon-phone mine-icon"></text>{{storeInfo.contact}}</view>
             <view class="weui-cell__ft weui-cell__ft_in-access"></view>
         </view>
-        <view class="weui-cell">
+        <view class="weui-cell  weui-cell_access">
             <view class="weui-cell__bd">
                 <text class="icon-alarm mine-icon"></text>营业时间：{{storeInfo.opening_hours}}</view>
         </view>
-        <view class="weui-cell weui-cell_access" hover-class="weui-cell_active" bindtap="gotoStorePromotion">
-            <view class="weui-cell__bd">
-                <image src="../../assets/images/promotion-active.png" class="promotion-icon2"></image>
-                促销活动
+    </view>
+    <view class="bg-white">
+        <view class="btn-list">
+            <view class="weui-flex">
+                <view url="" hover-class="none" class="weui-flex__item" bindtap="gotoStorePromotion">
+                    <view class="icon-border automobile-border">
+                        <image src='../../assets/images/sales-promotion.png' class='icon-width'></image>
+                    </view>
+                    <view class="pad-top">促销活动</view>
+                </view>
+                <view url="" hover-class="none" class="weui-flex__item" bindtap="gotoGoodsList">
+                    <view class="icon-border calendar2-border">
+                        <image src='../../assets/images/service-item.png' class='icon-width'></image>
+                    </view>
+                    <view class="pad-top">服务项目</view>
+                </view>
+                <view class="weui-flex__item" data-type="1" bindtap="gotoStoreEvaluation">
+                    <view class="icon-border maximize-border">
+                        <image src='../../assets/images/store-evaluation.png' class='icon-width'></image>
+                    </view>
+                    <view class="pad-top">门店评价</view>
+                </view>
             </view>
-            <view class="weui-cell__ft weui-cell__ft_in-access"></view>
         </view>
-        <view class="weui-cell weui-cell_access" hover-class="weui-cell_active" bindtap="gotoGoodsList">
-            <view class="weui-cell__bd">
-                <span class="icon-stack mine-icon"></span>服务项目</view>
-            <view class="weui-cell__ft weui-cell__ft_in-access"></view>
-        </view>
-        <view class="weui-cell weui-cell_access" hover-class="weui-cell_active" data-type="1" bindtap="gotoStoreEvaluation">
-            <view class="weui-cell__bd">
-                <span class="icon-message mine-icon"></span>门店评价</view>
-            <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+        <view class="btn-list">
+            <view class="weui-flex">
+                <view url="" hover-class="none" class="weui-flex__item">
+                    <view class="icon-border automobile-border">
+                        <image src='../../assets/images/construction-case.png' class='icon-width2'></image>
+                    </view>
+                    <view class="pad-top">施工案例</view>
+                </view>
+                <view url="" hover-class="none" class="weui-flex__item">
+                    <view class="icon-border calendar2-border">
+                        <image src='../../assets/images/recommendations.png' class='icon-width2'></image>
+                    </view>
+                    <view class="pad-top">投诉建议</view>
+                </view>
+                <navigator url="/pages/wifi/index?storeId={{storeInfo.store_id}}" class="weui-flex__item" hover-class="none">
+                    <view class="icon-border maximize-border">
+                        <image src='../../assets/images/free-wifi.png' class='icon-width2'></image>
+                    </view>
+                    <view class="pad-top">免费WIFI</view>
+                </navigator>
+            </view>
         </view>
     </view>
 </view>

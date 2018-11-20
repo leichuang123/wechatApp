@@ -12,8 +12,8 @@ import {
 Page({
     data: {
         imgVisible: false,
-        goodsDetail: {},
-        storeDetail: {},
+        goods: {},
+        store: {},
         evaluations: [],
         sharingImage: '',
         form: {
@@ -32,17 +32,17 @@ Page({
             wx.hideLoading();
             if (res.errcode === 0) {
                 this.setData({
-                    goodsDetail: res.data.goodsDetail,
-                    storeDetail: res.data.storeDetail,
-                    evaluations: res.data.storeEvaluationList.data
+                    goods: res.data.goods,
+                    store: res.data.store,
+                    evaluations: res.data.evaluations.data
                 });
-                const detail = res.data.goodsDetail.contents;
+                const detail = res.data.goods.content;
                 const that = this;
                 WxParse.wxParse('detail', 'html', detail, that, 15);
             } else {
                 this.setData({
-                    goodsDetail: {},
-                    storeDetail: {},
+                    goods: {},
+                    store: {},
                     evaluations: []
                 });
             }
@@ -53,7 +53,7 @@ Page({
      */
     gotoEvaluationList: function() {
         wx.navigateTo({
-            url: 'evaluation-list?storeId=' + this.data.storeDetail.store_id
+            url: 'evaluation-list?storeId=' + this.data.store.store_id
         });
     },
     /**
@@ -69,13 +69,13 @@ Page({
      */
     gotoPay: function() {
         const params = JSON.stringify({
-            goods_id: this.data.goodsDetail.related_id,
-            money: this.data.goodsDetail.promotion_price,
-            merchant_id: this.data.goodsDetail.merchant_id,
-            store_id: this.data.goodsDetail.store_id,
-            store_name: this.data.storeDetail.store_name,
-            goods_name: this.data.goodsDetail.related_name,
-            category: this.data.goodsDetail.category
+            goods_id: this.data.goods.related_id,
+            money: this.data.goods.price,
+            merchant_id: this.data.goods.merchant_id,
+            store_id: this.data.goods.store_id,
+            store_name: this.data.store.store_name,
+            goods_name: this.data.goods.goods_name,
+            category: this.data.goods.category
         });
         wx.navigateTo({ url: '../payment/payment?params=' + params });
     },
@@ -101,11 +101,11 @@ Page({
      */
     openLocation: function() {
         openLocation({
-            latitude: parseFloat(this.data.storeDetail.store_lati),
-            longitude: parseFloat(this.data.storeDetail.store_long),
+            latitude: parseFloat(this.data.store.store_lati),
+            longitude: parseFloat(this.data.store.store_long),
             scale: 18,
-            name: this.data.storeDetail.store_name,
-            address: this.data.storeDetail.store_address
+            name: this.data.store.store_name,
+            address: this.data.store.store_address
         });
     },
     /**
@@ -207,8 +207,8 @@ Page({
      */
     gotoStorePromotion: function() {
         const params = JSON.stringify({
-            merchant_id: this.data.storeDetail.merchant_id,
-            store_id: this.data.storeDetail.store_id
+            merchant_id: this.data.store.merchant_id,
+            store_id: this.data.store.store_id
         });
         wx.navigateTo({
             url: '../store-goods/index?params=' + params
@@ -222,9 +222,11 @@ Page({
         const userData = wx.getStorageSync('userData');
         const userId = !params.user_id ? params.user_id : !!userData && !!userData ? userData.id : 0;
         this.setData({
-            'form.id': params.id,
+            'form.related_id': params.related_id,
+            'form.related_type': params.related_type,
             'form.merchant_id': params.merchant_id,
             'form.store_id': params.store_id,
+            'form.is_promotion': params.is_promotion,
             'form.user_id': userId
         });
         this.getDetail();
@@ -236,13 +238,16 @@ Page({
         const userData = wx.getStorageSync('userData');
         const userId = !!userData && !!userData ? userData.id : 0;
         const params = JSON.stringify({
-            id: this.data.form.id,
+            related_id: this.data.form.related_id,
+            related_type: this.data.form.related_type,
             merchant_id: this.data.form.merchant_id,
             store_id: this.data.form.store_id,
+            is_promotion: this.data.form.is_promotion,
             user_id: userId
         });
+        let prefixTitle = this.data.form.is_promotion == 1 ? '促销活动--' : `${this.data.goods.store_name}--`;
         return {
-            title: '促销活动--' + this.data.goodsDetail.related_name,
+            title: prefixTitle + this.data.goods.related_name,
             path: '/promotion/pages/goods-detail/index?params=' + params
         };
     }

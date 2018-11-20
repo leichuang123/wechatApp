@@ -18,14 +18,14 @@
                             <image class="weui-media-box__thumb" src="{{item.goods_img}}" />
                         </view>
                         <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
-                            <view class="weui-media-box__title">{{item.related_name}}</view>
+                            <view class="weui-media-box__title">{{item.goods_name}}</view>
                             <view class="weui-media-box__desc">已售
                                 <text class="fc-red padr">{{item.sales_volume}}</text>截止日期
                                 <text class="fc-red">{{item.end_time}}</text>
                             </view>
                             <view class="weui-media-box__title">
-                                <text class="text-red">￥{{item.promotion_price}}</text>
-                                <text class="original-price">原价：¥{{item.ori_price}}</text>
+                                <text class="text-red">￥{{item.price}}</text>
+                                <text class="original-price">原价：¥{{item.original_price}}</text>
                             </view>
                         </view>
                     </view>
