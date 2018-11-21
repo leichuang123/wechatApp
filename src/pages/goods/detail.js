@@ -1,6 +1,6 @@
 import { get } from '../../utils/api';
 import WxParse from '../../assets/plugins/wxParse/wxParse';
-import { confirmMsg, getUrlArgs, showLoading } from '../../utils/util';
+import { confirmMsg, showLoading } from '../../utils/util';
 import {
     getSetting,
     saveImageToPhotosAlbum,
@@ -12,13 +12,12 @@ import {
 Page({
     data: {
         imgVisible: false,
-        goods: {},
-        store: {},
+        goodsDetail: {},
+        storeDetail: {},
         evaluations: [],
         sharingImage: '',
         form: {
-            related_id: 0,
-            related_type: 0,
+            id: 0,
             merchant_id: 0,
             store_id: 0,
             user_id: 0
@@ -29,30 +28,28 @@ Page({
      */
     getDetail: function() {
         showLoading();
-        get('weapp/store-goods-detail', this.data.form, false)
-            .then(res => {
-                wx.hideLoading();
-                if (res.errcode === 0) {
-                    this.setData({
-                        goods: res.data.goods,
-                        store: res.data.store,
-                        evaluations: res.data.evaluations.data
-                    });
-                    const detail = res.data.goods.contents;
-                    const that = this;
-                    WxParse.wxParse('detail', 'html', detail, that, 15);
-                }
-            })
-            .catch(() => {
-                wx.hideLoading();
-            });
+        get('weapp/store-goods-detail', this.data.form, false).then(res => {
+            wx.hideLoading();
+            if (res.errcode === 0) {
+                this.setData({
+                    goodsDetail: res.data.goodsDetail,
+                    storeDetail: res.data.storeDetail,
+                    evaluations: res.data.storeEvaluationList.data
+                });
+                const detail = res.data.goodsDetail.contents;
+                const that = this;
+                WxParse.wxParse('detail', 'html', detail, that, 15);
+            } else {
+                this.setData({ goodsDetail: {}, storeDetail: {}, evaluations: [] });
+            }
+        });
     },
     /**
      * 跳转到评价列表
      */
     gotoEvaluationList: function() {
         wx.navigateTo({
-            url: 'evaluation-list?storeId=' + this.data.store.store_id
+            url: 'evaluation-list?storeId=' + this.data.storeDetail.store_id
         });
     },
     /**
@@ -68,13 +65,13 @@ Page({
      */
     gotoPay: function() {
         const params = JSON.stringify({
-            merchant_id: this.data.store.merchant_id,
-            store_id: this.data.store.store_id,
-            store_name: this.data.store.store_name,
-            goods_id: this.data.goods.related_id,
-            money: this.data.goods.price,
-            goods_name: this.data.goods.goods_name,
-            category: this.data.goods.related_type
+            goods_id: this.data.goodsDetail.related_id,
+            money: this.data.goodsDetail.promotion_price,
+            merchant_id: this.data.goodsDetail.merchant_id,
+            store_id: this.data.goodsDetail.store_id,
+            store_name: this.data.storeDetail.store_name,
+            goods_name: this.data.goodsDetail.related_name,
+            category: this.data.goodsDetail.category
         });
         wx.navigateTo({ url: '../payment/payment?params=' + params });
     },
@@ -84,7 +81,7 @@ Page({
     gotoRegister: function() {
         const params = JSON.stringify({ userId: this.form.user_id, recommendType: 4 }); //0无1提供商2顾问3门店4用户
         wx.redirectTo({
-            url: '/pages/register/register?params=' + params
+            url: '../../../pages/register/register?params=' + params
         });
     },
     onGotoPay: function() {
@@ -100,11 +97,11 @@ Page({
      */
     openLocation: function() {
         openLocation({
-            latitude: parseFloat(this.data.store.store_lati),
-            longitude: parseFloat(this.data.store.store_long),
+            latitude: parseFloat(this.data.storeDetail.store_lati),
+            longitude: parseFloat(this.data.storeDetail.store_long),
             scale: 18,
-            name: this.data.store.store_name,
-            address: this.data.store.store_address
+            name: this.data.storeDetail.store_name,
+            address: this.data.storeDetail.store_address
         });
     },
     /**
@@ -124,18 +121,13 @@ Page({
      */
     generateSharingImage: function() {
         showLoading('图片生成中');
-        get('weapp/share-goods-image', this.data.form, false).then(res => {
+        get('weapp/generate-goods-share-image', this.data.form, false).then(res => {
             wx.hideLoading();
             if (res.errcode === 0) {
-                this.setData({
-                    sharingImage: res.data,
-                    imageVisible: true
-                });
+                this.setData({ sharingImage: res.data, imageVisible: true });
                 return;
             }
-            this.setData({
-                sharingImage: ''
-            });
+            this.setData({ sharingImage: '' });
             confirmMsg('', '图片生成失败', false);
         });
     },
@@ -204,33 +196,27 @@ Page({
     /**
      * 跳转到店内促销详情页
      */
-    gotoStoreDetail: function() {
+    gotoStorePromotion: function() {
         const params = JSON.stringify({
-            merchant_id: this.data.store.merchant_id,
-            store_id: this.data.store.store_id
+            merchant_id: this.data.storeDetail.merchant_id,
+            store_id: this.data.storeDetail.store_id
         });
         wx.navigateTo({
-            url: '/pages/store-list/detail?params=' + params
+            url: '../store-goods/index?params=' + params
         });
     },
     /**
      * 生命周期函数--监听页面加载
      */
     onLoad: function(options) {
-        let params = null;
-        if (options.q) {
-            params = getUrlArgs(decodeURIComponent(options.q));
-        } else if (options.params) {
-            params = JSON.parse(options.params);
-        }
-
+        const params = JSON.parse(options.params);
         const userData = wx.getStorageSync('userData');
+        const userId = !params.user_id ? params.user_id : !!userData && !!userData ? userData.id : 0;
         this.setData({
-            'form.related_id': params.related_id,
-            'form.related_type': params.related_type,
+            'form.id': params.id,
             'form.merchant_id': params.merchant_id,
             'form.store_id': params.store_id,
-            'form.user_id': !!userData && !!userData ? userData.id : 0
+            'form.user_id': userId
         });
         this.getDetail();
     },
@@ -238,15 +224,14 @@ Page({
      * 分享
      */
     onShareAppMessage: function() {
+        const userData = wx.getStorageSync('userData');
+        const userId = !!userData && !!userData ? userData.id : 0;
         const params = JSON.stringify({
-            related_id: this.data.form.related_id,
+            id: this.data.form.id,
             merchant_id: this.data.form.merchant_id,
             store_id: this.data.form.store_id,
-            user_id: this.data.form.user_id
+            user_id: userId
         });
-        return {
-            title: '促销活动--' + this.data.goods.related_name,
-            path: '/promotion/pages/goods-detail/index?params=' + params
-        };
+        return { title: this.data.goodsDetail.related_name, path: '/pages/goods/detail?params=' + params };
     }
 });

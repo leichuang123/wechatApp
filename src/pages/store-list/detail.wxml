@@ -115,18 +115,18 @@
         </view>
         <view class="btn-list">
             <view class="weui-flex">
-                <view url="" hover-class="none" class="weui-flex__item">
+                <navigator url="/pages/construction-case/index?storeId={{storeInfo.store_id}}" hover-class="none" class="weui-flex__item">
                     <view class="icon-border automobile-border">
                         <image src='../../assets/images/construction-case.png' class='icon-width2'></image>
                     </view>
                     <view class="pad-top">施工案例</view>
-                </view>
-                <view url="" hover-class="none" class="weui-flex__item">
+                </navigator>
+                <navigator url="/pages/complaint/index?storeId={{storeInfo.store_id}}" hover-class="none" class="weui-flex__item">
                     <view class="icon-border calendar2-border">
                         <image src='../../assets/images/recommendations.png' class='icon-width2'></image>
                     </view>
                     <view class="pad-top">投诉建议</view>
-                </view>
+                </navigator>
                 <navigator url="/pages/wifi/index?storeId={{storeInfo.store_id}}" class="weui-flex__item" hover-class="none">
                     <view class="icon-border maximize-border">
                         <image src='../../assets/images/free-wifi.png' class='icon-width2'></image>

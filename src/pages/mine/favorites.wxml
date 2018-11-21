@@ -20,7 +20,7 @@
     <scroll-view scroll-y style="height:{{scrollHeight}}px;" scroll-top="{{scrollTop}}" bindscrolltolower="loadMore">
         <block wx:for="{{favorites}}" wx:key="index">
             <view class="weui-cell list-item" data-item="{{item}}" bindtap="gotoStoreService">
-                <view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
+                <view class="weui-media-box__hd_in-appmsg">
                     <image class="weui-media-box__thumb" src="{{item.store_img}}" />
                 </view>
                 <view class="weui-cell__bd">

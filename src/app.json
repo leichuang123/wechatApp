@@ -76,7 +76,13 @@
         "pages/my-rebate/shareholder/withdraw-record",
         "pages/my-rebate/shareholder/recharge",
         "pages/my-rebate/shareholder/shareable-card",
-        "pages/wifi/index"
+        "pages/wifi/index",
+        "pages/complaint/index",
+        "pages/construction-case/index",
+        "pages/construction-case/category",
+        "pages/construction-case/detail",
+        "pages/my-reminding/index",
+        "pages/my-reminding/reminding"
     ],
     "subPackages": [
         {

@@ -1,11 +1,11 @@
 <view>
     <view class='whole-scroll'>
-        <view class="weui-panel__bd bg-white">
+        <view class="bg-white">
             <navigator url="" class="weui-media-box weui-media-box_appmsg" hover-class="weui-cell_active">
-                <view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
+                <view class="weui-media-box__hd_in-appmsg">
                     <image class="weui-media-box__thumb" src="{{card.store_template}}" />
                 </view>
-                <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
+                <view class="weui-media-box__bd_in-appmsg">
                     <view class="weui-media-box__title">{{card.store_name}}</view>
                 </view>
             </navigator>

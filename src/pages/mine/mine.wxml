@@ -88,10 +88,10 @@
         <image class="weui-grid__icon" src="../../assets/images/icon/collect1.png" />
         <view class="weui-grid__label">收藏夹</view>
     </navigator>
-    <!-- <navigator url="" class="weui-grid" hover-class="weui-grid_active">
+    <navigator url="/pages/my-reminding/index?type=0" class="weui-grid" hover-class="weui-grid_active">
         <image class="weui-grid__icon" src="../../assets/images/icon/bell.png" />
         <view class="weui-grid__label">到期提醒</view>
-    </navigator> -->
+    </navigator>
     <navigator url="/pages/settings/settings" class="weui-grid" hover-class="weui-grid_active">
         <image class="weui-grid__icon" src="../../assets/images/icon/grid-set.png" />
         <view class="weui-grid__label">设置</view>

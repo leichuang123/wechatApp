@@ -1,25 +1,25 @@
-<view class="weui-panel__bd weui-panel_access bg-white mart5">
+<view class="weui-panel__bd  bg-white mart5">
     <navigator url="list" class="weui-media-box weui-media-box_appmsg" hover-class="weui-cell_active">
-        <view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
+        <view class="weui-media-box__hd_in-appmsg">
             <text class='card-circle-icon'>
                 <text class="icon-money"></text>
             </text>
         </view>
-        <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
+        <view class="weui-media-box__bd_in-appmsg">
             <view class="weui-media-box__title">我的优惠券</view>
             <view class="weui-media-box__desc">可在门店直接使用</view>
         </view>
         <view class="weui-cell__ft weui-cell__ft_in-access"></view>
     </navigator>
 </view>
-<view class="weui-panel__bd weui-panel_access bg-white mart5">
+<view class="weui-panel__bd  bg-white mart5">
     <navigator url="sharable-list" class="weui-media-box weui-media-box_appmsg" hover-class="weui-cell_active">
-        <view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
+        <view class="weui-media-box__hd_in-appmsg">
             <text class='card-circle-icon bg-green'>
                 <text class="icon-money"></text>
             </text>
         </view>
-        <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
+        <view class="weui-media-box__bd_in-appmsg">
             <view class="weui-media-box__title">可转赠优惠券</view>
             <view class="weui-media-box__desc">可将优惠券转赠给好友使用</view>
         </view>

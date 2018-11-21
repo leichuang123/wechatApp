@@ -45,9 +45,7 @@ Page({
      * 获取车牌号
      */
     getCarNumber: function(e) {
-        this.setData({
-            carNumber: e.detail.carNumber
-        });
+        this.setData({ 'form.car_number': e.detail.carNumber });
     },
     /**
      * 调用发短信接口获取验证码
@@ -167,7 +165,6 @@ Page({
      * 注册验证
      */
     onRegister: function(e) {
-        this.setData({ 'form.car_number': this.data.carNumber });
         const errMsg = this.validate();
         if (errMsg !== '') {
             showTopTips(this, errMsg);

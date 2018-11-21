@@ -57,7 +57,6 @@
     </view>
     <block wx:for="{{evaluations}}" wx:key="index">
         <view class="weui-panel">
-            <view class="weui-panel__bd">
                 <view class="weui-media-box weui-media-box_small-appmsg">
                     <view class="weui-cells weui-cells_in-small-appmsg">
                         <view class="weui-cell">
@@ -100,7 +99,6 @@
                         </block>
                     </view>
                 </view>
-            </view>
         </view>
     </block>
     <view class="weui-loadmore" bindtap="gotoEvaluationList" wx:if="{{evaluations.length>0}}">
@@ -123,15 +121,26 @@
 <view class="bottom-btn">
     <view class="weui-flex bottom-btn__box">
         <view class='weui-flex__item' bindtap="gotoIndex">
-            <image src='/assets/images/home.png' class='share-icon'></image>
+            <button type='default' size='mini'>
+            <view class='share-icon-box text-center'>
+                <image src='/assets/images/home.png' class='share-icon'></image>
+            </view>
+            <view class="share-text grey">首页</view>
+            </button>
         </view>
         <view class='weui-flex__item'>
-            <button class="share-btn" type='default' size='mini' open-type="share">
-                <image src='/assets/images/share-gray.png' class='share-icon'></image>
+            <button type='default' size='mini' open-type="share">
+                <view class='share-icon-box text-center'><image src='/assets/images/share-gray.png' class='share-icon'></image></view>
+                <view class="share-text grey">分享</view>
             </button>
         </view>
         <view class='weui-flex__item' bindtap='generateSharingImage'>
+            <button type='default' size='mini'>
+            <view class='share-icon-box text-center'>
             <image src='/assets/images/circle-share-gray.png' class='share-icon'></image>
+            </view>
+            <view class="share-text grey">图片</view>
+            </button>
         </view>
         <view class="weui-flex__item">
             <text class="btn-purchase" bindtap="onGotoPay">立即购买</text>

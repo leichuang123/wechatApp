@@ -1,12 +1,12 @@
 <import src="../../../common/templates/loading" />
 <view>
     <block wx:for="{{accounts}}" wx:key="index">
-        <view class="weui-panel__bd bg-white">
+        <view class="bg-white">
             <view url="" class="weui-media-box weui-media-box_appmsg">
-                <view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
+                <view class="weui-media-box__hd_in-appmsg">
                     <image class="weui-media-box__thumb" src="{{item.store_template}}" />
                 </view>
-                <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
+                <view class="weui-media-box__bd_in-appmsg">
                     <view class="weui-media-box__title">{{item.store_name}}</view>
                 </view>
                 <view class="weui-media-box__bd">

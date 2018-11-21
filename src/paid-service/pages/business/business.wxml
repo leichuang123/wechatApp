@@ -2,10 +2,10 @@
 <view wx:if="{{!loadingVisible}}">
     <block wx:for="{{businessList}}" wx:key="index">
         <view class="weui-media-box weui-media-box_appmsg bg-white">
-            <view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
+            <view class="weui-media-box__hd_in-appmsg">
                 <image class="weui-media-box__thumb" src="{{item.logo}}" />
             </view>
-            <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
+            <view class="weui-media-box__bd_in-appmsg">
                 <view class="weui-flex">
                     <view class="bold weui-flex__item">{{item.name}}</view>
                     <view>

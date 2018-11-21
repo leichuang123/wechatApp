@@ -81,7 +81,8 @@ Page({
     gotoGoodsDetail: function(e) {
         const goods = e.currentTarget.dataset.item;
         const params = JSON.stringify({
-            id: goods.id,
+            related_id: goods.id,
+            related_type: goods.category,
             store_id: goods.store_id,
             merchant_id: goods.merchant_id,
             is_promotion: goods.is_promotion

@@ -13,11 +13,8 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-calendar2:before {
-  content: "\e902";
-}
-.icon-checkmark:before {
-  content: "\e908";
+.icon-drag_handle:before {
+  content: "\e90b";
 }
 .icon-calendar:before {
   content: "\e906";
@@ -37,8 +34,17 @@
 .icon-cross:before {
   content: "\e117";
 }
+.icon-calendar2:before {
+  content: "\e902";
+}
+.icon-checkmark:before {
+  content: "\e908";
+}
 .icon-wallet:before {
   content: "\e907";
+}
+.icon-thumbs-up:before {
+  content: "\e90a";
 }
 .icon-aperture:before {
   content: "\e909";

@@ -26,7 +26,7 @@
                     车牌号
                 </view>
                 <view class="weui-cell__bd" bindtap="showKeyboard">
-                    <input type="text" class="weui-input" name="car_number" value="{{carNumber}}" maxlength="8" placeholder="填写车牌号" disabled />
+                    <input type="text" class="weui-input" name="car_number" value="{{form.car_number}}" maxlength="8" placeholder="填写车牌号" disabled />
                 </view>
             </view>
         </view>

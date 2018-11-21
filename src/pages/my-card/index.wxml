@@ -1,25 +1,25 @@
-<view class="weui-panel__bd weui-panel_access bg-white mart5">
+<view class="bg-white mart5">
     <navigator url="own/index" class="weui-media-box weui-media-box_appmsg" hover-class="weui-cell_active">
-        <view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
+        <view class="weui-media-box__hd_in-appmsg">
             <text class="card-circle-icon">
                 <text class="icon-credit-card"></text>
             </text>
         </view>
-        <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
+        <view class="weui-media-box__bd_in-appmsg">
             <view class="weui-media-box__title">我的会员卡</view>
             <view class="weui-media-box__desc">可在门店直接使用</view>
         </view>
         <view class="weui-cell__ft weui-cell__ft_in-access"></view>
     </navigator>
 </view>
-<view class="weui-panel__bd weui-panel_access bg-white mart5">
+<view class="bg-white mart5">
     <navigator url="shareable/index" class="weui-media-box weui-media-box_appmsg" hover-class="weui-cell_active">
-        <view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
+        <view class="weui-media-box__hd_in-appmsg">
             <text class='card-circle-icon bg-green'>
                 <text class="icon-credit-card"></text>
             </text>
         </view>
-        <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
+        <view class="weui-media-box__bd_in-appmsg">
             <view class="weui-media-box__title">可转赠给朋友</view>
             <view class="weui-media-box__desc">可将分享卡转赠给好友使用</view>
         </view>

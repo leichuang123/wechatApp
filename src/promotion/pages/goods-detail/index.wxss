@@ -41,30 +41,40 @@
     font-size: 14px;
 }
 
-button[type=default] {
+button[type='default'] {
     background-color: #fff;
     border: none;
     padding: 0;
 }
 
-button[size=mini] {
+button[size='mini'] {
     display: inline-block;
     line-height: 30px;
     font-size: 14px;
     vertical-align: middle;
 }
 
-button[type=default]:after {
+button[type='default']:after {
     border: none;
 }
-
+.share-icon-box {
+    height: 15px;
+    line-height: 15px;
+    vertical-align: middle;
+}
 .share-icon {
-    width: 30px;
-    height: 30px;
+    width: 15px;
+    height: 15px;
+    line-height: 15px;
+}
+.share-text {
+    height: 15px;
+    font-size: 12px;
+    line-height: 15px;
     vertical-align: middle;
 }
 
-.button-hover[type="default"] {
+.button-hover[type='default'] {
     color: #fff;
     background-color: #fff;
     opacity: 1;
@@ -77,10 +87,10 @@ button[type=default]:after {
     line-height: 30px;
     vertical-align: middle;
 }
-.wx-parse__detail{
+.wx-parse__detail {
     padding: 10px 15px;
     background-color: #fff;
-    margin-top:10px; 
+    margin-top: 10px;
 }
 
 .share-pic {
