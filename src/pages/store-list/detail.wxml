@@ -115,13 +115,13 @@
         </view>
         <view class="btn-list">
             <view class="weui-flex">
-                <navigator url="/pages/construction-case/index?storeId={{storeInfo.store_id}}" hover-class="none" class="weui-flex__item">
+                <navigator url="/pages/construction-case/index?merchantId={{storeInfo.merchant_id}}&storeId={{storeInfo.store_id}}" hover-class="none" class="weui-flex__item">
                     <view class="icon-border automobile-border">
                         <image src='../../assets/images/construction-case.png' class='icon-width2'></image>
                     </view>
                     <view class="pad-top">施工案例</view>
                 </navigator>
-                <navigator url="/pages/complaint/index?storeId={{storeInfo.store_id}}" hover-class="none" class="weui-flex__item">
+                <navigator url="/pages/complaint/index?merchantId={{storeInfo.merchant_id}}&storeId={{storeInfo.store_id}}" hover-class="none" class="weui-flex__item">
                     <view class="icon-border calendar2-border">
                         <image src='../../assets/images/recommendations.png' class='icon-width2'></image>
                     </view>

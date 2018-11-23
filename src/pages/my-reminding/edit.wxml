@@ -1,0 +1,45 @@
+<view wx:if="{{detail}}">
+    <view class="weui-cells__title">我的驾驶证</view>
+    <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell weui-cell_input">
+            <view class="weui-cell__hd">
+                <view class="weui-label"><text class="fc-red">*</text>姓名</view>
+            </view>
+            <view class="weui-cell__bd">
+                <input class="weui-input text-right" data-name="name" bindinput="getInputValue" />
+            </view>
+        </view>
+        <view class="weui-cell weui-cell_select fs15">
+            <view class="weui-cell__hd weui-cell__hd_in-select-after">
+                <view class="weui-label" style="width:120px;"><text class="fc-red">*</text>{{ expireTimeName }}</view>
+            </view>
+            <view class="weui-cell__bd">
+                <picker mode="date" value="{{form.expire_time}}" bindchange="onExpireTimeChange">
+                    <view class="weui-select weui-select_in-select-after text-right">{{ form.expire_time }}</view>
+                </picker>
+            </view>
+        </view>
+        <view class="weui-cell weui-cell_input">
+            <view class="weui-cell__hd">
+                <view class="weui-label" style="width:120px;"><text class="fc-red">*</text>提前几天提醒</view>
+            </view>
+            <view class="weui-cell__bd">
+                <input class="weui-input text-right" data-name="name" bindinput="getInputValue" />
+            </view>
+        </view>
+        <view class="weui-cell weui-cell_select fs15">
+            <view class="weui-cell__hd weui-cell__hd_in-select-after">
+                <view class="weui-label" style="width:120px;"><text class="fc-red">*</text>提醒周期</view>
+            </view>
+            <view class="weui-cell__bd">
+                <picker mode="date" bindchange="onExpireTimeChange" value="{{form.expire_time}}">
+                    <view class="weui-select weui-select_in-select-after text-right">{{ form.expire_time }}</view>
+                </picker>
+            </view>
+        </view>
+        <view class="weui-cell">
+            <view class="weui-cell__bd"><text class="hide">*</text>到期提醒时间</view>
+            <view class="weui-cell__ft text-right">说明文字</view>
+        </view>
+    </view>
+</view>

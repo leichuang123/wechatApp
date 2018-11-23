@@ -1,0 +1,31 @@
+<!--pages/construction-detail/construction-detail.wxml-->
+<view class='padlr15 padb50 bg-white'>
+  <view class='fc-primary text-center'>漆面打蜡
+  </view>
+  <view class='bold fs15 mart10'>别克漆面打蜡，抛光处理，内饰清理与保养</view>
+  <view class='mart10 detail-img'>
+    <image src='../../assets/images/excample.png' mode="aspectFill"></image>
+  </view>
+  <view class='fs15 mart10'>
+    检查车况：与车主确认车辆情况。 洗车：此工序需要很高的车辆洁净度。 用打蜡海绵粘蜡，以螺旋轨迹直线进行打蜡. 注意车窗、胶条、保险杠、车灯上均不可粘蜡. 打磨均匀后，等待15分钟左右，直至蜡显白色后， 用干棉布擦净车身经检验后，交车。
+  </view>
+  <view class='mart10 detail-img'>
+    <image src='../../assets/images/excample.png' mode="aspectFill"></image>
+  </view>
+  <view class="weui-flex mart10">
+    <view class="weui-flex__item">
+      阅读 23
+    </view>
+    <view class="weui-flex__item text-right">
+      <text class="icon-thumbs-up"></text> 2
+    </view>
+  </view>
+</view>
+<view class="weui-flex bottom-btn">
+  <view class="weui-flex__item">
+  <text class="icon-home2"></text> 首页
+  </view>
+  <view class="weui-flex__item">
+  <text class="icon-share2"></text> 分享
+  </view>
+</view>

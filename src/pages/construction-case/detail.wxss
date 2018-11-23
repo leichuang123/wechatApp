@@ -1,0 +1,21 @@
+/* pages/construction-detail/construction-detail.wxss */
+
+.mart10 {
+  margin-top: 10px;
+}
+
+.detail-img {
+  width: 100%;
+  height: 180px;
+}
+
+.padb50 {
+  padding-bottom: 50px;
+}
+
+.bottom-btn {
+  line-height: 2.0em;
+  text-align: center;
+  color: #9fd4ca;
+  background: #fff;
+}

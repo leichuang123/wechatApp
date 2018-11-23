@@ -1,0 +1,78 @@
+<view class="weui-tab">
+    <view class="weui-navbar bg-white">
+        <block wx:for="{{tabs}}" wx:key="index">
+            <view
+                id="{{index}}"
+                class="weui-navbar__item {{form.type == index ? 'weui-bar__item_on' : ''}}"
+                bindtap="switchTab"
+            >
+                <view class="weui-navbar__title">{{ item.name }}</view>
+            </view>
+        </block>
+        <view
+            class="weui-navbar__slider"
+            style="width:{{sliderWidth}}px;left: {{sliderLeft}}px; transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px);"
+        ></view>
+    </view>
+    <view class="weui-tab__panel">
+        <block wx:for="{{3}}" wx:key="index" wx:if="{{form.type==0}}">
+            <view class="weui-panel fs15">
+                <view class="weui-cells weui-cells_after-title">
+                    <view class="weui-cell  fs15">
+                        <view class="weui-cell__bd">标题文字</view>
+                        <view class="weui-cell__ft fc-jasper" bindtap="onDelete">删除</view>
+                    </view>
+                    <view data-item="{{item}}" class="weui-cell weui-cell_access fs15" bindtap="gotoEditPage">
+                        <view class="weui-cell__bd">到期时间</view>
+                        <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+                    </view>
+                </view>
+            </view>
+        </block>
+        <block wx:for="{{2}}" wx:key="index" wx:if="{{form.type==1}}">
+            <view class="weui-panel fs15">
+                <view class="weui-media-box weui-media-box_appmsg bottom-line">
+                    <view class="weui-media-box__hd_in-appmsg">
+                        <image class="weui-media-box__thumb" src="{{icon60}}"></image>
+                    </view>
+                    <view class="flex2">
+                        <view class="weui-media-box__title">一汽大众-宝来</view>
+                        <view class="weui-media-box__title">鄂A15JK5</view>
+                    </view>
+                    <view class="weui-media-box__bd_in-appmsg fc-jasper text-right">
+                        <view class="weui-media-box__title">删除</view>
+                    </view>
+                </view>
+                <view class="weui-cells weui-cells_after-title">
+                    <view
+                        class="weui-cell weui-cell_access"
+                        hover-class="weui-cell_active"
+                        data-item="{{item}}"
+                        bindtap="gotoEditPage"
+                    >
+                        <view class="weui-cell__bd">年审到期时间</view>
+                        <view class="weui-cell__ft weui-cell__ft_in-access">说明文字</view>
+                    </view>
+                    <view
+                        class="weui-cell weui-cell_access"
+                        hover-class="weui-cell_active"
+                        data-item="{{item}}"
+                        bindtap="gotoEditPage"
+                    >
+                        <view class="weui-cell__bd">保险到期时间</view>
+                        <view class="weui-cell__ft weui-cell__ft_in-access">说明文字</view>
+                    </view>
+                    <view
+                        class="weui-cell weui-cell_access"
+                        hover-class="weui-cell_active"
+                        data-item="{{item}}"
+                        bindtap="gotoEditPage"
+                    >
+                        <view class="weui-cell__bd">保养到期时间</view>
+                        <view class="weui-cell__ft weui-cell__ft_in-access">说明文字</view>
+                    </view>
+                </view>
+            </view>
+        </block>
+    </view>
+</view>

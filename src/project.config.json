@@ -8,9 +8,9 @@
 		"newFeature": true
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.3.0",
-	"appid": "wx1284a221eb2fdac5",
-	"projectname": "weapp-production",
+	"libVersion": "2.4.0",
+	"appid": "wx68b84434fb5b8c17",
+	"projectname": "weapp-local",
 	"condition": {
 		"search": {
 			"current": -1,

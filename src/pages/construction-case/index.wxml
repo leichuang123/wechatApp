@@ -1,0 +1,11 @@
+<!--pages/construction-case /construction-case.wxml-->
+
+<view class="case-box" wx:for="{{4}}" wx:key="*this">
+  <navigator url="category" class="case-inner">
+    <view class='case-inner-img'>
+      <image src='../../assets/images/excample.png' mode="aspectFit"></image>
+    </view>
+    <view class='case-text'>汽车维修保养</view>
+  </navigator>
+</view>
+

@@ -82,7 +82,7 @@
         "pages/construction-case/category",
         "pages/construction-case/detail",
         "pages/my-reminding/index",
-        "pages/my-reminding/reminding"
+        "pages/my-reminding/edit"
     ],
     "subPackages": [
         {

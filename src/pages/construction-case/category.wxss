@@ -1,0 +1,10 @@
+/* pages/construction-classification/construction-classificatio.wxss */
+.fs12 {
+  font-size: 12px;
+}
+.case-inner {
+  height: 175px;
+}
+.bort1 {
+  border-top: 1px dashed #ccc;
+}
