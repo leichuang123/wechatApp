@@ -1,1 +1,2 @@
 .hide { visibility: hidden;}
+.bottom-line{border-bottom:1rpx solid #ccc;}

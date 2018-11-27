@@ -1,13 +1,22 @@
-<view wx:if="{{detail}}">
-    <view class="weui-cells__title">我的驾驶证</view>
+<import src="../../common/templates/top-tips.wxml" />
+<view>
+    <template is="top-tips" data="{{showTopTips,errorMsg}}"></template>
+    <view class="weui-cells__title" wx:if="{{form.remind_type==1}}">我的驾驶证</view>
+    <view class="weui-media-box weui-media-box_appmsg bottom-line bg-white" wx:if="{{form.remind_type==2}}">
+        <view class="weui-media-box__hd_in-appmsg">
+            <image class="weui-media-box__thumb" src="{{form.logo}}"></image>
+        </view>
+        <view class="weui-cell__bd">
+            <view>{{form.brand_serie}}</view>
+            <view>{{form.car_number}}</view>
+        </view>
+    </view>
     <view class="weui-cells weui-cells_after-title">
-        <view class="weui-cell weui-cell_input">
+        <view class="weui-cell weui-cell_input" wx:if="{{form.remind_type==1}}">
             <view class="weui-cell__hd">
                 <view class="weui-label"><text class="fc-red">*</text>姓名</view>
             </view>
-            <view class="weui-cell__bd">
-                <input class="weui-input text-right" data-name="name" bindinput="getInputValue" />
-            </view>
+            <view class="weui-cell__bd"> <input class="weui-input text-right" value="{{form.name}}" bindinput="onNameChange" /> </view>
         </view>
         <view class="weui-cell weui-cell_select fs15">
             <view class="weui-cell__hd weui-cell__hd_in-select-after">
@@ -24,7 +33,12 @@
                 <view class="weui-label" style="width:120px;"><text class="fc-red">*</text>提前几天提醒</view>
             </view>
             <view class="weui-cell__bd">
-                <input class="weui-input text-right" data-name="name" bindinput="getInputValue" />
+                <input
+                    type="number"
+                    class="weui-input text-right"
+                    value="{{form.remind_day_before}}"
+                    bindinput="onRemindDayChange"
+                />
             </view>
         </view>
         <view class="weui-cell weui-cell_select fs15">
@@ -32,14 +46,28 @@
                 <view class="weui-label" style="width:120px;"><text class="fc-red">*</text>提醒周期</view>
             </view>
             <view class="weui-cell__bd">
-                <picker mode="date" bindchange="onExpireTimeChange" value="{{form.expire_time}}">
-                    <view class="weui-select weui-select_in-select-after text-right">{{ form.expire_time }}</view>
+                <picker
+                    bindchange="onFrequencyChange"
+                    range="{{frequencyOptions}}"
+                    value="{{frequencyIndex}}"
+                >
+                    <view class="weui-select weui-select_in-select-after text-right">{{
+                        frequencyOptions[frequencyIndex]
+                    }}</view>
                 </picker>
             </view>
         </view>
         <view class="weui-cell">
             <view class="weui-cell__bd"><text class="hide">*</text>到期提醒时间</view>
-            <view class="weui-cell__ft text-right">说明文字</view>
+            <view class="weui-cell__ft text-right">{{ form.remind_time }}</view>
+        </view>
+    </view>
+    <view class="weui-flex bottom-btn">
+        <view class="weui-flex__item pad">
+            <button class="weui-btn" type="default" bindtap='goBack'>返回</button>
+        </view>
+        <view class="weui-flex__item pad">
+            <button class="weui-btn" type="primary" bindtap="onAddReminding">保存</button>
         </view>
     </view>
 </view>

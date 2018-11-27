@@ -5,7 +5,7 @@
             <view class="weui-cell__bd fs18">
                 {{goods.goods_name}}
             </view>
-            <view wx:if="{{form.is_promotion==1}}" class="weui-cell__ft weui-media-box__desc padl">截止日期
+            <view class="weui-cell__ft weui-media-box__desc padl">截止日期
                 <text class="fc-red">{{goods.end_time}}</text>
             </view>
         </view>

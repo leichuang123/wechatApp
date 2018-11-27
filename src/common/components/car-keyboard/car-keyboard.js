@@ -1,4 +1,3 @@
-import { provinceKeyboard, alphaKeyboard, numKeyboard } from '../../../utils/data';
 Component({
     behaviors: [],
 
@@ -56,7 +55,6 @@ Component({
             //获取键盘点击的内容，并将内容赋值到input框中
             let alphaVisible,
                 numVisible,
-                tapIndex = e.target.dataset.index,
                 tapVal = e.target.dataset.val;
             if (tapVal === 'x') {
                 //说明是删除

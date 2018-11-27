@@ -1,5 +1,0 @@
-<view class="toast" wx:if="{{visible&&props.msg!==''}}">
-    <image class="toast-image" wx:if="{{props.type==='image'}}" src="{{props.imagePath}}" mode="aspectFit"></image>
-    <icon wx:if="{{props.type!=='image'&&props.type!=='text'}}" type="{{props.type}}" size="50" color="{{iconColor}}" />
-    <view wx:if="{{props.msg}}">{{props.msg}}</view>
-</view>

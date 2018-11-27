@@ -3,15 +3,17 @@ const successImagePath = '/assets/images/success.png';
 /**
  * 时间格式化
  */
-const formatTime = date => {
+const formatTime = (date,withTime = true) => {
     const year = date.getFullYear();
     const month = date.getMonth() + 1;
     const day = date.getDate();
     const hour = date.getHours();
     const minute = date.getMinutes();
     const second = date.getSeconds();
-
-    return [year, month, day].map(formatNumber).join('-') + ' ' + [hour, minute, second].map(formatNumber).join(':');
+    if (withTime){
+        return [year, month, day].map(formatNumber).join('-') + ' ' + [hour, minute, second].map(formatNumber).join(':');
+    }
+    return [year, month, day].map(formatNumber).join('-');
 };
 
 const formatNumber = n => {

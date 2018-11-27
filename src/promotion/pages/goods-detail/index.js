@@ -218,22 +218,13 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function(options) {
-        let params = null;
-        if (options.q) {
-            params = getUrlArgs(decodeURIComponent(options.q));
-        } else if (options.params) {
-            params = JSON.parse(options.params);
-        } else {
-            params = options;
-        }
+        const params = JSON.parse(options.params);
         const userData = wx.getStorageSync('userData');
         const userId = !!params.user_id ? params.user_id : !!userData && !!userData ? userData.id : 0;
         this.setData({
-            'form.related_id': params.related_id,
-            'form.related_type': params.related_type,
+            'form.id': params.id,
             'form.merchant_id': params.merchant_id,
             'form.store_id': params.store_id,
-            'form.is_promotion': params.is_promotion,
             'form.user_id': userId
         });
         this.getDetail();
@@ -249,12 +240,10 @@ Page({
             related_type: this.data.form.related_type,
             merchant_id: this.data.form.merchant_id,
             store_id: this.data.form.store_id,
-            is_promotion: this.data.form.is_promotion,
             user_id: userId
         });
-        let prefixTitle = this.data.form.is_promotion == 1 ? '促销活动--' : `${this.data.goods.store_name}--`;
         return {
-            title: prefixTitle + this.data.goods.related_name,
+            title: '促销活动--' + this.data.goods.related_name,
             path: '/promotion/pages/goods-detail/index?params=' + params
         };
     }

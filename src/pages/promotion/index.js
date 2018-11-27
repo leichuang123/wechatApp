@@ -81,11 +81,9 @@ Page({
     gotoGoodsDetail: function(e) {
         const goods = e.currentTarget.dataset.item;
         const params = JSON.stringify({
-            related_id: goods.id,
-            related_type: goods.category,
+            id: goods.id,
             store_id: goods.store_id,
             merchant_id: goods.merchant_id,
-            is_promotion: goods.is_promotion
         });
         wx.navigateTo({
             url: '../../promotion/pages/goods-detail/index?params=' + params

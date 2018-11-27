@@ -132,17 +132,6 @@ Page({
      * 选择首页推荐里的商品
      */
     chooseRecommendedGoods: function(e) {
-        // const params = JSON.stringify({
-        //     merchant_id: 3,
-        //     store_id: 1,
-        //     related_id: 17,
-        //     related_type: 0,
-        //     user_id: 214,
-        //     is_promotion: 2
-        // });
-        // wx.navigateTo({
-        //     url: '/promotion/pages/goods-detail/index?params=' + params
-        // });
         let index = e.currentTarget.id,
             items = this.data.recommendedGoods,
             money = 0,
