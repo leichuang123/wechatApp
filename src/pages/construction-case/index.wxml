@@ -1,11 +1,13 @@
-<!--pages/construction-case /construction-case.wxml-->
-
-<view class="case-box" wx:for="{{4}}" wx:key="*this">
-  <navigator url="category" class="case-inner">
-    <view class='case-inner-img'>
-      <image src='../../assets/images/excample.png' mode="aspectFit"></image>
+<block wx:for="{{list}}" wx:key="index">
+    <view class="case-box" data-item="{{item}}" bindtap="goCategoryPage">
+        <view class="case-inner">
+            <view class='case-inner-img'>
+                <image src="{{item.fist_image}}" mode="aspectFit"></image>
+            </view>
+            <view class='case-text'>{{item.title}}</view>
+        </view>
     </view>
-    <view class='case-text'>汽车维修保养</view>
-  </navigator>
+</block>
+<view class="weui-loadmore weui-loadmore_line" wx:if="{{list.length==0}}" style="margin-top:2em;">
+    <view class="weui-loadmore__tips weui-loadmore__tips_in-line">暂无数据</view>
 </view>
-

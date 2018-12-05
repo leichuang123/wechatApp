@@ -99,18 +99,20 @@ Page({
      */
     getLocation: function() {
         getLocation({
-            type: 'wgs84'
-        })
+                type: 'wgs84'
+            })
             .then(res => {
                 let locationInfo = {
                     latitude: res.latitude,
                     longitude: res.longitude
                 };
                 api.get('weapp/getcityinfo', locationInfo, false).then(res => {
-                    console.log(res);
                     const selectedCity = wx.getStorageSync('selectedCity');
                     if (res.errcode === 0) {
-                        locationInfo.code = res.data.ad_info.adcode;
+                        locationInfo.adcode = res.data.ad_info.adcode;
+                        locationInfo.city_code = res.data.ad_info.city_code.substring(res.data.ad_info.nation_code.length);
+                        locationInfo.city = res.data.ad_info.city;
+                        locationInfo.district = res.data.ad_info.district
                         wx.setStorageSync('locationInfo', locationInfo);
                         const locatedCity = res.data.ad_info.city;
                         if (locatedCity !== selectedCity.name) {
@@ -125,7 +127,7 @@ Page({
                                     });
                                     wx.setStorageSync('selectedCity', {
                                         name: locatedCity,
-                                        code: res.data.ad_info.adcode
+                                        code: res.data.ad_info.city_code
                                     });
                                 },
                                 () => {
@@ -186,6 +188,7 @@ Page({
         });
         if (!app.globalData.sessionKey) {
             app.doLoginCallBack = res => {
+                console.log('doLoginCallBack:', res.sessionKey);
                 wx.setStorageSync('sessionKey', res.sessionKey);
                 this.getIndexInfo();
             };

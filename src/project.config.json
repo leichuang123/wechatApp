@@ -5,12 +5,14 @@
 		"es6": true,
 		"postcss": true,
 		"minified": true,
-		"newFeature": true
+		"newFeature": true,
+		"autoAudits": false,
+		"uglifyFileName": false
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.4.0",
-	"appid": "wx68b84434fb5b8c17",
-	"projectname": "weapp-local",
+	"libVersion": "2.4.1",
+	"appid": "wx1284a221eb2fdac5",
+	"projectname": "weapp-production",
 	"condition": {
 		"search": {
 			"current": -1,

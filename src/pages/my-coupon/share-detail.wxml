@@ -26,21 +26,16 @@
             <view class="weui-flex__item pad">
                 <button class="weui-btn" type="primary" bindtap="hasExpired">领取</button>
             </view>
-            <view wx:if="{{coupon.sharable&&sharable}}">
+            <block wx:if="{{coupon.sharable&&sharable}}">
                 <view class="weui-flex__item pad" wx:if="{{hasAuth}}">
                     <button class="weui-btn share-btn" type="primary" open-type="share">分享给朋友</button>
                 </view>
                 <view class="weui-flex__item pad" wx:else>
-                    <button
-                        class="weui-btn share-btn"
-                        type="primary"
-                        open-type="getUserInfo"
-                        bindgetuserinfo="onGetUserInfo"
-                    >
+                    <button class="weui-btn share-btn" type="primary" open-type="getUserInfo" bindgetuserinfo="onGetUserInfo">
                         分享给朋友
                     </button>
                 </view>
-            </view>
+            </block>
         </view>
     </view>
     <view class="weui-cells fs14">

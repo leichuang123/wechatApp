@@ -1,50 +1,50 @@
 <import src="../../common/templates/top-tips.wxml" />
 <template is="top-tips" data="{{showTopTips,errorMsg}}"></template>
 <view class='bg-white'>
-  <view class="weui-cell weui-cell_select">
-    <view class="weui-cell__hd weui-cell__hd_in-select-after">
-      <view class="weui-label"><text class='fc-red'>*</text>反馈类型</view>
-    </view>
-    <view class="weui-cell__bd">
-      <picker value="{{feedbackTypeIndex}}" range="{{feedbackTypes}}" bindchange="onFeedbackTypeChange">
-        <view class="weui-select weui-select_in-select-after">
-          {{feedbackTypes[feedbackTypeIndex]}}
+    <view class="weui-cell weui-cell_select">
+        <view class="weui-cell__hd weui-cell__hd_in-select-after">
+            <view class="weui-label"><text class='fc-red'>*</text>反馈类型</view>
         </view>
-      </picker>
-    </view>
-  </view>
-    <view class="weui-cell weui-cell_input">
-      <view class="weui-cell__hd">
-        <view class="weui-label"><text class='hide'>*</text>车牌号</view>
-      </view>
-      <view class="weui-cell__bd" bindtap="showKeyboard">
-        <input class="weui-input" value="{{form.car_number}}" data-name="car_number" maxlength="8" disabled />
-      </view>
-    </view>
-    <view class="weui-cell weui-cell_input">
-      <view class="weui-cell__hd">
-        <view class="weui-label"><text class='hide'>*</text>联系人</view>
-      </view>
-      <view class="weui-cell__bd">
-        <input class="weui-input" data-name="contact" bindinput="getInputValue" />
-      </view>
-    </view>
-    <view class="weui-cell weui-cell_input">
-      <view class="weui-cell__hd">
-        <view class="weui-label"><text class='fc-red'>*</text>手机号</view>
-      </view>
-      <view class="weui-cell__bd">
-        <input class="weui-input" type="number" data-name="mobile" bindinput="getInputValue" />
-      </view>
-    </view>
-  </view>
-  <view class="weui-cells__title"><text class='fc-red'>*</text>问题详情</view>
-  <view class='bg-white'>
-    <view class="weui-cells weui-cells_after-title">
-      <view class="weui-cell">
         <view class="weui-cell__bd">
-          <textarea class="weui-textarea" placeholder="请输入文本" style="min-height: 3.3em"  maxlength="200" data-name="details" bindinput="getInputValue" />
-          <view class="weui-textarea-counter">{{form.details.length}}/200</view>
+            <picker value="{{feedbackTypeIndex}}" range="{{feedbackTypes}}" bindchange="onFeedbackTypeChange">
+                <view class="weui-select weui-select_in-select-after">
+                    {{feedbackTypes[feedbackTypeIndex]}}
+                </view>
+            </picker>
+        </view>
+    </view>
+    <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+            <view class="weui-label"><text class='hide'>*</text>车牌号</view>
+        </view>
+        <view class="weui-cell__bd" bindtap="showKeyboard">
+            <input class="weui-input" value="{{form.car_number}}" data-name="car_number" maxlength="8" disabled />
+        </view>
+    </view>
+    <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+            <view class="weui-label"><text class='hide'>*</text>联系人</view>
+        </view>
+        <view class="weui-cell__bd">
+            <input class="weui-input" data-name="contact" bindinput="getInputValue" />
+        </view>
+    </view>
+    <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+            <view class="weui-label"><text class='fc-red'>*</text>手机号</view>
+        </view>
+        <view class="weui-cell__bd">
+            <input class="weui-input" type="number" data-name="mobile" bindinput="getInputValue" />
+        </view>
+    </view>
+</view>
+<view class="weui-cells__title"><text class='fc-red'>*</text>问题详情</view>
+<view class='bg-white'>
+    <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell">
+            <view class="weui-cell__bd">
+                <textarea class="weui-textarea" placeholder="请输入文本" style="min-height: 3.3em" maxlength="200" data-name="details" bindinput="getInputValue" />
+                <view class="weui-textarea-counter">{{form.details.length}}/200</view>
         </view>
       </view>
     </view>
@@ -57,7 +57,7 @@
             <label class="weui-cell weui-check__label">
               <icon class="weui-icon-checkbox_circle" type="circle" size="23" wx:if="{{!item.checked}}"></icon>
               <icon class="weui-icon-checkbox_success" type="success" size="23" wx:if="{{item.checked}}"></icon>
-              <radio class="weui-check" value="{{item.id}}" checked="{{item.checked}}" />
+              <radio class="weui-check" value="{{index}}" checked="{{item.checked}}" />
               <view class="weui-cell__bd">{{item.name}}</view>
               <view class="weui-cell__ft weui-cell__ft_in-radio" wx:if="{{item.checked}}">
               </view>

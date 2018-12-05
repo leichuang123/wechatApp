@@ -69,16 +69,17 @@
                     <text wx:for="{{storeInfo.store_tags}}" wx:key="index">{{item}}</text>
                 </view>
             </view>
-            <view class="navigation-width" catchtap="openLocation">
+            <view class="navigation-width">
                 <view>{{storeInfo.distance}}</view>
-                <view>
+                <!-- <view>
                     <text class="icon-map-marker mine-icon"></text>导航
-                </view>
+                </view> -->
             </view>
         </view>
-        <view class="weui-cell">
+        <view class="weui-cell" bindtap="openLocation">
             <view class="weui-cell__bd">
                 <text class="icon-map-marker mine-icon"></text>{{storeInfo.store_address}}</view>
+                <view class="weui-cell__ft weui-cell__ft_in-access"></view>
         </view>
         <view data-tel="{{storeInfo.contact}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active" bindtap="call">
             <view class="weui-cell__bd">

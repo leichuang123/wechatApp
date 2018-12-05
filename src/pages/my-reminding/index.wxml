@@ -1,18 +1,11 @@
 <view class="weui-tab">
     <view class="weui-navbar bg-white">
         <block wx:for="{{tabs}}" wx:key="index">
-            <view
-                id="{{index}}"
-                class="weui-navbar__item {{form.type == index ? 'weui-bar__item_on' : ''}}"
-                bindtap="switchTab"
-            >
+            <view id="{{index}}" class="weui-navbar__item {{form.type == index ? 'weui-bar__item_on' : ''}}" bindtap="switchTab">
                 <view class="weui-navbar__title">{{ item.name }}</view>
             </view>
         </block>
-        <view
-            class="weui-navbar__slider"
-            style="width:{{sliderWidth}}px;left: {{sliderLeft}}px; transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px);"
-        ></view>
+        <view class="weui-navbar__slider" style="width:{{sliderWidth}}px;left: {{sliderLeft}}px; transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px);"></view>
     </view>
     <view class="weui-tab__panel">
         <view wx:if="{{form.type==0}}">
@@ -23,21 +16,13 @@
                             <view class="weui-cell__bd">{{ item.name }}</view>
                             <view class="weui-cell__ft fc-jasper" data-item="{{item}}" data-type="{{REMIND_TYPE_LICENSE}}" bindtap="onDelete">删除</view>
                         </view>
-                        <view
-                            data-item="{{item}}"
-                            data-type="license"
-                            class="weui-cell weui-cell_access fs15"
-                            bindtap="onEdit"
-                        >
+                        <view data-item="{{item}}" data-type="license" class="weui-cell weui-cell_access fs15" bindtap="onEdit">
                             <view class="weui-cell__bd">到期时间</view>
-                            <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+                            <view class="weui-cell__ft weui-cell__ft_in-access">{{item.expire_time}}</view>
                         </view>
                     </view>
                 </view>
             </block>
-            <view class="weui-btn-area">
-                <button class="weui-btn" type="primary" data-type="1" bindtap="onAdd">添加驾驶证</button>
-            </view>
         </view>
         <view wx:if="{{form.type==1}}">
             <block wx:for="{{cars}}" wx:key="index">
@@ -55,48 +40,34 @@
                         </view>
                     </view>
                     <view class="weui-cells weui-cells_after-title">
-                        <view
-                            class="weui-cell weui-cell_access"
-                            hover-class="weui-cell_active"
-                            data-item="{{item}}"
-                            data-type="examine"
-                            bindtap="onEdit"
-                        >
+                        <view class="weui-cell weui-cell_access" hover-class="weui-cell_active" data-item="{{item}}" data-type="examine" bindtap="onEdit">
                             <view class="weui-cell__bd">年审到期时间</view>
                             <view class="weui-cell__ft weui-cell__ft_in-access">{{
                                 item.time.examine.expire_time
-                            }}</view>
+                                }}</view>
                         </view>
-                        <view
-                            class="weui-cell weui-cell_access"
-                            hover-class="weui-cell_active"
-                            data-item="{{item}}"
-                            data-type="insurance"
-                            bindtap="onEdit"
-                        >
+                        <view class="weui-cell weui-cell_access" hover-class="weui-cell_active" data-item="{{item}}" data-type="insurance" bindtap="onEdit">
                             <view class="weui-cell__bd">保险到期时间</view>
                             <view class="weui-cell__ft weui-cell__ft_in-access">{{
                                 item.time.insurance.expire_time
-                            }}</view>
+                                }}</view>
                         </view>
-                        <view
-                            class="weui-cell weui-cell_access"
-                            hover-class="weui-cell_active"
-                            data-item="{{item}}"
-                            data-type="maintain"
-                            bindtap="onEdit"
-                        >
+                        <view class="weui-cell weui-cell_access" hover-class="weui-cell_active" data-item="{{item}}" data-type="maintain" bindtap="onEdit">
                             <view class="weui-cell__bd">保养到期时间</view>
                             <view class="weui-cell__ft weui-cell__ft_in-access">{{
                                 item.time.maintain.expire_time
-                            }}</view>
+                                }}</view>
                         </view>
                     </view>
                 </view>
             </block>
-            <view class="weui-btn-area">
+            <!--  <view class="weui-btn-area">
                 <button class="weui-btn" type="primary" data-type="2" bindtap="onAdd">添加车辆</button>
-            </view>
+            </view> -->
         </view>
     </view>
+</view>
+<view class='btn-bottom'>
+    <button wx:if="{{form.type==1}}" class=" weui-btn" type="primary" data-type="2" bindtap="onAdd">添加车辆</button>
+    <button wx:else class="weui-btn" type="primary" data-type="1" bindtap="onAdd">添加驾驶证</button>
 </view>

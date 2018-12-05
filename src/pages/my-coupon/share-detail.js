@@ -79,6 +79,7 @@ Page({
         showLoading();
         api.get('weapp-coupon/get-share-detail', params, false)
             .then(res => {
+                wx.hideLoading();
                 console.log(['getDetail response: ', res]);
                 if (res.errcode === 0) {
                     this.setData({
@@ -87,6 +88,7 @@ Page({
                 }
             })
             .catch(res => {
+                wx.hideLoading();
                 console.log(['getDetail response-catch: ', res]);
             });
     },
@@ -158,8 +160,8 @@ Page({
     call: function(e) {
         let tel = e.currentTarget.dataset.tel;
         makePhoneCall({
-            phoneNumber: tel
-        })
+                phoneNumber: tel
+            })
             .then(res => {
                 console.log('拨打成功');
             })

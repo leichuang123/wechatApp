@@ -55,7 +55,7 @@ const get = (url, params = {}, check = true) => {
  */
 const post = (url, data = {}) => {
     let formData = data;
-    formData.sessionKey = wx.getStorageSync('sessionKey') ? wx.getStorageSync('sessionKey') : '';
+    formData.sessionKey = wx.getStorageSync('sessionKey') || null;
     return new Promise((resolve, reject) => {
         wx.request({
             url: host + url,

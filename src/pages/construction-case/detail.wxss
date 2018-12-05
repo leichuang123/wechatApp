@@ -19,3 +19,12 @@
   color: #9fd4ca;
   background: #fff;
 }
+button.share-btn{
+    border-radius:0;
+    color:#9fd4ca;
+    background-color: #fff;
+}
+button:after {
+    border:none;
+}
+.case-title{padding-top:10px;padding-bottom:10px;text-align:center;border-bottom:dotted 1px #000;margin-bottom:10px;}

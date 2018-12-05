@@ -12,12 +12,33 @@ Page({
         serviceAllChecked: true,
         subServiceAllChecked: true,
         areaAllChecked: true,
-        selectedArea: null,
-        selectedServiceClass: null,
+        selectedArea: {
+            areaId: "420100",
+            area: "武汉市",
+            father: "420000",
+            checked: true
+        },
+        selectedServiceClass: {
+            class_id: 1,
+            class_name: "洗车美容",
+            pid: 0,
+            checked: true
+        },
         currentServiceClassIndex: 0,
-        selectedSort: null,
+        selectedSort: {
+            name: "默认排序",
+            id: 0,
+            value: "distance",
+            checked: true
+        },
         cityId: 0,
         totalPage: 0,
+
+        defaultMenus: {
+            area: '',
+            serviceClass: '',
+            sort: '默认排序'
+        },
 
         areas: [],
         serviceClasses: [],
@@ -207,6 +228,7 @@ Page({
      */
     getSubTypes: function(e) {
         const index = e.currentTarget.dataset.index;
+        console.log(index);
         const items = this.data.serviceClasses.map((n, i) => {
             return Object.assign({}, n, {
                 checked: i == index
@@ -216,6 +238,7 @@ Page({
         if (items[index].children === undefined || items[index].children.length === 0) {
             this.setData({
                 subTypes: [],
+                serviceClasses: items,
                 'form.classId': items[index].class_id,
                 'form.classType': 'first',
                 'form.page': 1,
@@ -279,11 +302,14 @@ Page({
     onLoad: function(options) {
         const locationInfo = wx.getStorageSync('locationInfo');
         const selectedCity = wx.getStorageSync('selectedCity');
+        console.log(locationInfo)
         this.setData({
             'form.fromPage': options.fromPage,
             'form.latitude': locationInfo.latitude,
             'form.longitude': locationInfo.longitude,
-            'form.cityId': selectedCity.code
+            'form.cityId': locationInfo.city_code,
+            'selectedArea.name': locationInfo.city,
+            'selectedServiceClass.name': options.fromPage === 'queue' ? '洗车美容' : '全部分类'
         });
         wx.setNavigationBarTitle({
             title: options.fromPage === 'queue' ? '排队取号' : '预约保养'

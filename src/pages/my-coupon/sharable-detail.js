@@ -30,6 +30,8 @@ Page({
                     coupon: res.data
                 });
             }
+        }).catch(() => {
+            wx.hideLoading();
         });
     },
     /**
@@ -55,8 +57,8 @@ Page({
     call: function(e) {
         const tel = e.currentTarget.dataset.tel;
         makePhoneCall({
-            phoneNumber: tel
-        })
+                phoneNumber: tel
+            })
             .then(() => {
                 console.log('拨打成功');
             })
@@ -141,9 +143,10 @@ Page({
                 '&has_send_record=' +
                 this.data.HAS_SEND_RECORD +
                 '&send_mode=' +
-                this.datra.SEND_MODE_SHARE +
+                this.data.SEND_MODE_SHARE +
                 '&sharable=' +
                 this.data.SHARABLE;
+            console.log(sharedUrl);
             this.addShareRecord(nickName);
             return { title: params.share_title, path: sharedUrl, imageUrl: params.share_img_url };
         }

@@ -11,7 +11,7 @@ App({
             latitude: 30.5287,
             longitude: 114.371399,
             code: '420102',
-            name: '武汉市'
+            city: '武汉市'
         },
         sessionKey: ''
     },
@@ -43,8 +43,8 @@ App({
      */
     getLocation: function(cb) {
         getLocation({
-            type: 'wgs84'
-        })
+                type: 'wgs84'
+            })
             .then(data => {
                 if (typeof cb === 'function') {
                     cb(data);

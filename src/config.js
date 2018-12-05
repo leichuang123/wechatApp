@@ -2,13 +2,13 @@
  * 小程序配置文件
  */
 // const host = 'bms-local.com'; //local
-const host = 't17.hb400.net'; //staging
-// const host = 'sh.huobanyc.com'; //production
+// const host = 't17.hb400.net'; //staging
+const host = 'sh.huobanyc.com'; //production
 
 const config = {
     // host: 'http://bms-local.com/', //local
-    host: 'https://t17.hb400.net/', //staging
-    // host: 'https://sh.huobanyc.com/', //production
+    // host: 'https://t17.hb400.net/', //staging
+    host: 'https://sh.huobanyc.com/', //production
 
     // 上传文件接口
     // uploadFileUrl: `http://${host}/weapp/upload`,

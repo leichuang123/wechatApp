@@ -1,11 +1,13 @@
-<view class="case-box" wx:for="{{4}}" wx:key="*this">
-  <navigator url="detail" class="case-inner">
-    <view class='case-inner-img'>
-      <image src='../../assets/images/excample.png' mode="aspectFit"></image>
+<block wx:for="{{list}}" wx:key="index">
+    <view class="case-box">
+        <navigator url="detail?id={{item.id}}" class="case-inner">
+            <view class='case-inner-img'>
+                <image src="{{item.cover_image}}" mode="aspectFit"></image>
+            </view>
+            <view class='fc-primary fs15'>{{item.name}}</view>
+            <view class='bort1'>
+                <text class='fc-red fs15'>￥{{item.actual_price}}</text>
+                <text class='fs12 fc-grey'>￥{{item.original_price}}</text> </view>
+        </navigator>
     </view>
-    <view class='fc-primary fs15'>轮胎翻新</view>
-    <view class='bort1'>
-      <text class='fc-red fs15'>￥249.00</text>
-      <text class='fs12 fc-grey'>￥449.00</text> </view>
-  </navigator>
-</view>
+</block>

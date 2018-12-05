@@ -17,22 +17,14 @@
                     </block>
                 </view>
             </view>
-            <view class="fc-lightgrey">可分享领取次数：{{ coupon.share_times }}次</view>
-            <view class="fc-lightgrey" wx:if="{{coupon.award_coupon_name!==''}}"
-                >分享奖励：{{ coupon.award_coupon_name }}</view
-            >
+            <view class="fc-lightgrey">可分享领取数：{{ coupon.share_times }}次</view>
+            <view class="fc-lightgrey" wx:if="{{coupon.award_coupon_name!==''}}">分享奖励：{{ coupon.award_coupon_name }}</view>
         </view>
         <view class="button-sp-area">
             <button class="weui-btn" type="primary" wx:if="{{hasAuth&&form.type==1}}" open-type="share">
                 分享给朋友
             </button>
-            <button
-                class="weui-btn"
-                type="primary"
-                wx:if="{{!hasAuth&&form.type==1}}"
-                open-type="getUserInfo"
-                bindgetuserinfo="onGetUserInfo"
-            >
+            <button class="weui-btn" type="primary" wx:if="{{!hasAuth&&form.type==1}}" open-type="getUserInfo" bindgetuserinfo="onGetUserInfo">
                 分享给朋友
             </button>
             <button class="weui-btn" type="default" wx:if="{{form.type==2}}" disabled="true">已分享</button>
@@ -58,7 +50,9 @@
             <block wx:for="{{coupon.get_record}}" wx:key="index">
                 <view class="weui-cells weui-cells_after-title fs14">
                     <view class="weui-cell">
-                        <view class="weui-cell__hd member-face"> <image src="{{item.receiver_avatar}}"></image> </view>
+                        <view class="weui-cell__hd member-face">
+                            <image src="{{item.receiver_avatar}}"></image>
+                        </view>
                         <view class="weui-cell__bd">{{ item.receiver_nick_name }}</view>
                         <view class="weui-cell__ft grey">{{ item.get_time }}</view>
                     </view>

@@ -14,14 +14,13 @@ Page({
             merchant_id: 0,
             store_id: 0,
             feedback_type: 0,
-            type: 0,
+            type: 1,
             car_number: '',
             contact: '',
             mobile: '',
             details: ''
         },
-        radioItems: [
-            {
+        radioItems: [{
                 id: 1,
                 name: '投诉',
                 checked: true
@@ -60,7 +59,7 @@ Page({
     onFeedbackTypeChange: function(e) {
         this.setData({
             feedbackTypeIndex: e.detail.value,
-            'form.feedback_type': e.detail.value + 1
+            'form.feedback_type': Number(e.detail.value) + 1
         });
     },
     getInputValue: function(e) {
@@ -68,6 +67,18 @@ Page({
         console.log(prop);
         this.setData({
             [prop]: e.detail.value
+        });
+    },
+    radioChange: function(e) {
+        const index = e.detail.value;
+        const items = this.data.radioItems.map((n, i) => {
+            return Object.assign({}, n, {
+                checked: i == index
+            });
+        });
+        this.setData({
+            'form.type': items[index].id,
+            radioItems: items
         });
     },
     /**
@@ -105,7 +116,7 @@ Page({
                     wx.navigateBack(1);
                 });
             } else {
-                confirmMsg('', res.errmsg, false,()=>{
+                confirmMsg('', res.errmsg, false, () => {
                     wx.navigateBack(1);
                 });
             }

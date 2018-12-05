@@ -1,66 +1,56 @@
-// pages/construction-detail/construction-detail.js
+import api from '../../utils/api.js';
+import { showLoading } from '../../utils/util.js';
+import WxParse from '../../assets/plugins/wxParse/wxParse';
 Page({
+    data: {
+        isLike: false,
+        case: {},
+    },
+    getDetail: function(id) {
+        showLoading();
+        api.get('weapp/get-construction-case-details', { id: id }).then(res => {
+            wx.hideLoading();
+            if (res.errcode === 0) {
+                this.setData({
+                    case: res.data
+                });
+                WxParse.wxParse('detail', 'html', res.data.details, this, 15);
+            }
+        })
+    },
+    like: function() {
+        api.post('weapp/like-num-increment', { id: this.data.case.id }).then(res => {
+            if (res.errcode === 0) {
+                this.setData({
+                    'case.like_num': this.data.case.like_num + 1,
+                    isLike: true
+                });
+            }
+        });
+    },
+    inrementReadCount: function() {
+        api.post('weapp/read-num-increment', { id: this.data.case.id }).then(res => {
+            console.log(res);
+        });
+    },
+    gotoIndex:function(){
+        wx.switchTab({
+            url:'/pages/index/index'
+        });
+    },
+    onLoad: function(options) {
+        this.getDetail(options.id);
+    },
+    onShow: function() {
 
-  /**
-   * 页面的初始数据
-   */
-  data: {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
-  }
+    },
+    onUnload:function(){
+        this.inrementReadCount();
+    },
+    onShareAppMessage: function() {
+        return {
+            title: '施工案例--' + this.data.case.name,
+            path: '/pages/construction-case/detail?id=' + this.data.case.id
+        };
+    }
 })
