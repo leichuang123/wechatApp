@@ -149,7 +149,7 @@ Page({
         this.setData({
             'form.latitude': locationInfo.latitude,
             'form.longitude': locationInfo.longitude,
-            'form.area_code': locationInfo.code,
+            'form.area_code': locationInfo.adcode,
             sliderLeft: (app.globalData.windowWidth / this.data.tabs.length - sliderWidth) / 2,
             sliderOffset: (app.globalData.windowWidth / this.data.tabs.length) * this.data.activeIndex
         });

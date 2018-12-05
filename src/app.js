@@ -10,7 +10,7 @@ App({
         defaultLocation: {
             latitude: 30.5287,
             longitude: 114.371399,
-            code: '420102',
+            city_code: '420100',
             city: '武汉市'
         },
         sessionKey: ''

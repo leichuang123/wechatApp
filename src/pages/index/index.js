@@ -188,7 +188,6 @@ Page({
         });
         if (!app.globalData.sessionKey) {
             app.doLoginCallBack = res => {
-                console.log('doLoginCallBack:', res.sessionKey);
                 wx.setStorageSync('sessionKey', res.sessionKey);
                 this.getIndexInfo();
             };
