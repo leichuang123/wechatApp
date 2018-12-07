@@ -116,7 +116,7 @@ Page({
             if (res.errcode === 0) {
                 this.setData({
                     'locatedCity.name': res.data.ad_info.city,
-                    'locatedCity.code': res.data.ad_info.adcode,
+                    'locatedCity.code': res.data.ad_info.city_code.substring(res.data.ad_info.nation_code.length),
                     isLocated: true
                 });
                 return;
@@ -179,6 +179,7 @@ Page({
      */
     gotoIndex: function(e) {
         const item = e.currentTarget.dataset.item;
+        console.log(item)
         wx.setStorageSync('selectedCity', {
             name: item.name,
             code: item.code
