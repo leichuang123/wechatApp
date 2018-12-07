@@ -127,7 +127,7 @@ Page({
                                     });
                                     wx.setStorageSync('selectedCity', {
                                         name: locatedCity,
-                                        code: res.data.ad_info.city_code
+                                        code: locationInfo.city_code
                                     });
                                 },
                                 () => {

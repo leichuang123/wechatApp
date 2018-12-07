@@ -302,13 +302,12 @@ Page({
     onLoad: function(options) {
         const locationInfo = wx.getStorageSync('locationInfo');
         const selectedCity = wx.getStorageSync('selectedCity');
-        console.log(locationInfo)
         this.setData({
             'form.fromPage': options.fromPage,
             'form.latitude': locationInfo.latitude,
             'form.longitude': locationInfo.longitude,
-            'form.cityId': locationInfo.city_code,
-            'selectedArea.name': locationInfo.city,
+            'form.cityId': selectedCity.code,
+            'selectedArea.name': selectedCity.name,
             'selectedServiceClass.name': options.fromPage === 'queue' ? '洗车美容' : '全部分类'
         });
         wx.setNavigationBarTitle({
