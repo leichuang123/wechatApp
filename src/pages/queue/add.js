@@ -181,9 +181,9 @@ Page({
     getServices: function() {
         showLoading();
         const params = {
-            merchant_id: this.orderForm.store_id,
-            merchant_id: this.orderForm.merchant_id,
-            car_number: this.orderForm.car_number
+            merchant_id: this.data.orderForm.store_id,
+            merchant_id: this.data.orderForm.merchant_id,
+            car_number: this.data.orderForm.car_number
         };
         api.get('weapp/customerservice', params).then(res => {
             wx.hideLoading();
@@ -275,9 +275,9 @@ Page({
     getGoods: function() {
         showLoading();
         const params = {
-            storeId: this.orderForm.store_id,
-            merchantId: this.orderForm.merchant_id,
-            car_number: this.orderForm.car_number
+            storeId: this.data.orderForm.store_id,
+            merchantId: this.data.orderForm.merchant_id,
+            car_number: this.data.orderForm.car_number
         };
         api.get('weapp/storegoodsitem', params, false).then(res => {
             wx.hideLoading();
@@ -670,6 +670,7 @@ Page({
         const params = JSON.parse(options.params);
         const userData = wx.getStorageSync('userData');
         const carNumber = !!userData ? userData.default_car : '';
+        console.log(params);
         this.setData({
             'form.store_id': params.store_id,
             'form.car_number': carNumber,
