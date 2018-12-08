@@ -46,7 +46,7 @@
                             <text class="fc-red">{{item.end_time}}</text>
                         </view>
                         <view class="weui-media-box__title">
-                            <text class="text-red">￥{{item.price}}</text>
+                            <text class="text-red">￥{{item.promotion_price}}</text>
                             <text class="original-price">原价：¥{{item.original_price}}</text>
                         </view>
                     </view>
