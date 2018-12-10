@@ -83,9 +83,9 @@ Page({
      * 选择会员卡服务
      */
     chooseCardService: function(e) {
-        let index = e.currentTarget.dataset.index,
-            cItems = this.data.cardServices,
-            bItems = this.data.boughtServices;
+        const index = e.currentTarget.dataset.index;
+        let cItems = this.data.cardServices;
+        let bItems = this.data.boughtServices;
         cItems[index].checked = !cItems[index].checked;
         if (cItems[index].checked) {
             cItems = cItems.map((n, i) => {
@@ -124,9 +124,9 @@ Page({
      * 选择已购买的服务
      */
     chooseBoughtService: function(e) {
-        let index = e.currentTarget.dataset.index;
-        let bItems = this.data.boughtServices,
-            cItems = this.data.cardServices;
+        const index = e.currentTarget.dataset.index;
+        let bItems = this.data.boughtServices;
+        let cItems = this.data.cardServices;
         bItems[index].checked = !bItems[index].checked;
         if (bItems[index].checked) {
             cItems = cItems.map((n, i) => {
@@ -206,10 +206,7 @@ Page({
         api.post('weapp/addqueue', this.data.form).then(res => {
             if (res.errcode === 0) {
                 toastMsg('取号成功', 'success', 1000, () => {
-                    let queueData = JSON.stringify(res.data);
-                    wx.navigateTo({
-                        url: 'detail?queueData=' + queueData
-                    });
+                    wx.navigateTo({ url: 'detail?queueData=' + JSON.stringify(res.data) });
                 });
             } else {
                 confirmMsg('提示', res.errmsg, false);
@@ -220,7 +217,7 @@ Page({
      * 切换视图
      */
     changeView: function(e) {
-        let index = e.target.dataset.index;
+        const index = e.target.dataset.index;
         if (index == this.data.tabIndex) {
             return;
         }
@@ -298,12 +295,11 @@ Page({
      * 选择首页推荐里的商品
      */
     chooseRecommendedGoods: function(e) {
-        let index = e.currentTarget.id,
-            items = this.data.recommendedGoods,
-            money = 0,
-            isQueue = e.currentTarget.dataset.queue;
-        console.log(items[index])
-        if (!items[index].checked && this.data.washSelected && isQueue) {
+        const index = e.currentTarget.id;
+        const isQueue = e.currentTarget.dataset.queue;
+        let items = this.data.recommendedGoods;
+        let money = 0;
+        if (!items[index].checked && this.data.washSelected && isQueue == 1) {
             confirmMsg('提示', '只能选择一种清洗类的商品', false);
             return;
         }
@@ -331,8 +327,8 @@ Page({
      * 选择清洗类的商品
      */
     chooseWashGoods: function(e) {
-        let index = e.currentTarget.id,
-            items = this.data.washGoods.goods;
+        const index = e.currentTarget.id;
+        let items = this.data.washGoods.goods;
         if (!items[index].checked) {
             if (this.data.washSelected) {
                 confirmMsg('提示', '只能选择一种清洗类的商品', false);
@@ -363,11 +359,13 @@ Page({
      * 选择服务类的商品
      */
     chooseServiceGoods: function(e) {
-        let pIndex = e.currentTarget.dataset.index,
-            index = e.currentTarget.id,
-            items = this.data.serviceGoods;
-        items[pIndex].goods[index].checked = !items[pIndex].goods[index].checked;
+        const index = e.currentTarget.id;
+        const pIndex = e.currentTarget.dataset.index;
         let money = 0;
+        let items = this.data.serviceGoods;
+
+        items[pIndex].goods[index].checked = !items[pIndex].goods[index].checked;
+
         if (items[pIndex].goods[index].checked) {
             money = add(this.data.serviceMoney, items[pIndex].goods[index].sale_price);
         } else {
@@ -410,9 +408,9 @@ Page({
      * 展开与折叠服务项目
      */
     toggleServiceGoods: function(e) {
-        let currentIndex = e.currentTarget.dataset.index,
-            items = this.data.serviceGoods,
-            findIndex = items.findIndex((item, index) => currentIndex == index);
+        const currentIndex = e.currentTarget.dataset.index;
+        let items = this.data.serviceGoods;
+        const findIndex = items.findIndex((item, index) => currentIndex == index);
         if (findIndex !== -1) {
             items[findIndex].open = !items[findIndex].open;
         }
@@ -424,106 +422,126 @@ Page({
      * 跳转到支付页面
      */
     gotoPay: function() {
-        let params = JSON.stringify(this.data.orderForm);
-        console.log(this.data.orderForm)
-        wx.navigateTo({
-            url: '/pages/payment/payment?params=' + params
-        });
+        wx.navigateTo({ url: '/pages/payment/payment?params=' + JSON.stringify(this.data.orderForm) });
     },
     /**
      * 计算首页推荐里的商品
      */
     calculateRecommnededGoods: function() {
-        let goods = {},
-            item = {},
-            recommendedGoods = this.data.recommendedGoods,
-            len = recommendedGoods.length,
-            goodsOfWash = this.data.washGoodsOrder.goods,
-            goodsOfService = this.data.serviceGoodsOrder.goods,
-            goodsOfPackage = this.data.packageOrder.goods,
-            goodsOfValueCard = this.data.valueCardOrder.goods;
-        if (len > 0) {
-            for (let i = 0; i < len; i++) {
-                item = recommendedGoods[i];
-                if (item.checked) {
-                    this.setData({
-                        'orderForm.num': this.data.orderForm.num + 1
-                    });
-                    if (item.category == this.data.TYPE_GOODS) {
-                        let service = !!item.recommend ? item.recommend.service : [];
-                        goods = {
-                            id: item.relate_id,
-                            price: item.sale_price,
-                            num: 1,
-                            type: 0,
-                            name: item.featured_name,
-                            service_item: service.length > 0 ? service : [],
-                            service_name: service.length > 0 ? service[0].name : '',
-                            station_type: service.length > 0 ? service[0].station_type : 0,
-                            is_queue: item.is_queue == 1
-                        };
-                        if (goods.is_queue && service.length > 0) {
-                            goodsOfWash.push(goods);
-                            this.setData({
-                                'washGoodsOrder.money': add(this.data.washGoodsOrder.money, item.sale_price),
-                                'washGoodsOrder.is_queue': true,
-                                'washGoodsOrder.goods': goodsOfWash,
-                                'orderForm.is_queue': true
-                            });
-                        } else {
-                            goodsOfService.push(goods);
-                            this.setData({
-                                'serviceGoodsOrder.money': add(this.data.serviceGoodsOrder.money, item.sale_price),
-                                'serviceGoodsOrder.goods': goodsOfService
-                            });
-                        }
-                    }
-                    if (item.category == this.data.TYPE_PACKAGE) {
-                        goods = {
-                            id: item.relate_id,
-                            price: item.sale_price,
-                            num: 1,
-                            type: 1,
-                            name: item.featured_name
-                        };
-                        goodsOfPackage.push(goods);
+        let goods = {};
+        let goodsOfWash = this.data.washGoodsOrder.goods;
+        let goodsOfService = this.data.serviceGoodsOrder.goods;
+        let goodsOfPackage = this.data.packageOrder.goods;
+        let goodsOfValueCard = this.data.valueCardOrder.goods;
+        this.data.recommendedGoods.forEach(item => {
+            if (item.checked) {
+                if (item.category == this.data.TYPE_GOODS) {
+                    let service = !!item.recommend ? item.recommend.service : [];
+                    goods = {
+                        id: item.relate_id,
+                        price: item.sale_price,
+                        num: 1,
+                        type: 0,
+                        name: item.featured_name,
+                        service_item: service.length > 0 ? service : [],
+                        service_name: service.length > 0 ? service[0].name : '',
+                        station_type: service.length > 0 ? service[0].station_type : 0,
+                        is_queue: item.is_queue == 1
+                    };
+                    if (goods.is_queue && service.length > 0) {
+                        goodsOfWash.push(goods);
                         this.setData({
-                            'packageOrder.money': add(this.data.packageOrder.money, item.sale_price),
-                            'packageOrder.is_queue': false,
-                            'packageOrder.goods': goodsOfPackage
+                            'washGoodsOrder.money': add(this.data.washGoodsOrder.money, item.sale_price),
+                            'washGoodsOrder.is_queue': true,
+                            'washGoodsOrder.goods': goodsOfWash,
+                            'orderForm.is_queue': true,
+                            'orderForm.num': this.data.orderForm.num + 1
                         });
-                    }
-                    if (item.category == this.data.TYPE_VALUE_CARD) {
-                        goods = {
-                            id: item.relate_id,
-                            price: item.sale_price,
-                            num: 1,
-                            type: 2,
-                            name: item.featured_name
-                        };
-                        goodsOfValueCard.push(goods);
+                    } else {
+                        goodsOfService.push(goods);
                         this.setData({
-                            'valueCardOrder.money': add(this.data.valueCardOrder.money, item.sale_price),
-                            'valueCardOrder.is_queue': false,
-                            'valueCardOrder.goods': goodsOfValueCard
+                            'serviceGoodsOrder.money': add(this.data.serviceGoodsOrder.money, item.sale_price),
+                            'serviceGoodsOrder.goods': goodsOfService,
+                            'orderForm.num': this.data.orderForm.num + 1
                         });
                     }
                 }
+                if (item.category == this.data.TYPE_PACKAGE) {
+                    goods = {
+                        id: item.relate_id,
+                        price: item.sale_price,
+                        num: 1,
+                        type: 1,
+                        name: item.featured_name
+                    };
+                    goodsOfPackage.push(goods);
+                    this.setData({
+                        'packageOrder.money': add(this.data.packageOrder.money, item.sale_price),
+                        'packageOrder.is_queue': false,
+                        'packageOrder.goods': goodsOfPackage,
+                        'orderForm.num': this.data.orderForm.num + 1
+                    });
+                }
+                if (item.category == this.data.TYPE_VALUE_CARD) {
+                    goods = {
+                        id: item.relate_id,
+                        price: item.sale_price,
+                        num: 1,
+                        type: 2,
+                        name: item.featured_name
+                    };
+                    goodsOfValueCard.push(goods);
+                    this.setData({
+                        'valueCardOrder.money': add(this.data.valueCardOrder.money, item.sale_price),
+                        'valueCardOrder.is_queue': false,
+                        'valueCardOrder.goods': goodsOfValueCard,
+                        'orderForm.num': this.data.orderForm.num + 1
+                    });
+                }
             }
-        }
+        });
     },
     /**
      * 计算清洗服务 的商品
      */
     calculateWashGoods: function() {
-        let goods = {},
-            item = {},
-            washGoods = this.data.washGoods,
-            goodsOfWash = this.data.washGoodsOrder.goods,
-            len = !washGoods.goods ? 0 : washGoods.goods.length;
-        if (len > 0) {
-            for (let i = 0; i < len; i++) {
-                item = washGoods.goods[i];
+        let goods = {};
+        let washGoods = this.data.washGoods;
+        let goodsOfWash = this.data.washGoodsOrder.goods;
+        this.data.washGoods.goods.forEach(item => {
+            if (item.checked) {
+                let service = item.service;
+                goods = {
+                    id: item.goods_id,
+                    price: item.sale_price,
+                    num: 1,
+                    type: 0,
+                    name: item.goods_name,
+                    service_item: service.length > 0 ? service : [],
+                    service_name: service.length > 0 ? service[0].service_name : '',
+                    station_type: service.length > 0 ? service[0].station_type : 0,
+                    is_queue: !!service && washGoods.is_queue == 1
+                };
+                goodsOfWash.push(goods);
+                this.setData({
+                    'orderForm.num': this.data.orderForm.num + 1,
+                    'washGoodsOrder.money': add(this.data.washGoodsOrder.money, item.sale_price),
+                    'washGoodsOrder.goods': goodsOfWash,
+                    'orderForm.is_queue': goods.is_queue,
+                    'washGoodsOrder.is_queue': goods.is_queue
+                });
+            }
+        });
+    },
+    /**
+     * 计算保养类服务的商品
+     */
+    calcuteServiceGoods: function() {
+        let goods = {};
+        let goodsOfWash = this.data.washGoodsOrder.goods;
+        let goodsOfService = this.data.serviceGoodsOrder.goods;
+        this.data.serviceGoods.forEach(val => {
+            val.goods.forEach(item => {
                 if (item.checked) {
                     let service = item.service;
                     goods = {
@@ -535,65 +553,27 @@ Page({
                         service_item: service.length > 0 ? service : [],
                         service_name: service.length > 0 ? service[0].service_name : '',
                         station_type: service.length > 0 ? service[0].station_type : 0,
-                        is_queue: !!service && washGoods.is_queue == 1
+                        is_queue: val.is_queue == 1
                     };
-                    goodsOfWash.push(goods);
-                    this.setData({
-                        'orderForm.num': this.data.orderForm.num + 1,
-                        'washGoodsOrder.money': add(this.data.washGoodsOrder.moneyitem.sale_price),
-                        'washGoodsOrder.goods': goodsOfWash,
-                        'orderForm.is_queue': goods.is_queue,
-                        'washGoodsOrder.is_queue': goods.is_queue
-                    });
-                }
-            }
-        }
-    },
-    /**
-     * 计算保养类服务的商品
-     */
-    calcuteServiceGoods: function() {
-        let goods = {},
-            item = {},
-            goodsOfWash = this.data.washGoodsOrder.goods,
-            goodsOfService = this.data.serviceGoodsOrder.goods;
-        if (this.data.serviceGoods.length > 0) {
-            for (let i = 0, len = this.data.serviceGoods.length; i < len; i++) {
-                for (let j = 0, _len = this.data.serviceGoods[i].goods.length; j < _len; j++) {
-                    item = this.data.serviceGoods[i].goods[j];
-                    if (item.checked) {
-                        let service = item.service;
-                        goods = {
-                            id: item.goods_id,
-                            price: item.sale_price,
-                            num: 1,
-                            type: 0,
-                            name: item.goods_name,
-                            service_item: service.length > 0 ? service : [],
-                            service_name: service.length > 0 ? service[0].service_name : '',
-                            station_type: service.length > 0 ? service[0].station_type : 0,
-                            is_queue: this.data.serviceGoods[i].is_queue == 1
-                        };
-                        if (goods.is_queue && service.length > 0) {
-                            goodsOfWash.push(goods);
-                            this.setData({
-                                'orderForm.is_queue': true,
-                                'orderForm.num': this.data.orderForm.num + 1,
-                                'washGoodsOrder.goods': goodsOfWash,
-                                'washGoodsOrder.money': add(this.data.washGoodsOrder.moneyitem.sale_price)
-                            });
-                        } else {
-                            goodsOfService.push(goods);
-                            this.setData({
-                                'orderForm.num': this.data.orderForm.num + 1,
-                                'serviceGoodsOrder.goods': goodsOfService,
-                                'serviceGoodsOrder.money': add(this.data.serviceGoodsOrder.moneyitem.sale_price)
-                            });
-                        }
+                    if (goods.is_queue && service.length > 0) {
+                        goodsOfWash.push(goods);
+                        this.setData({
+                            'orderForm.is_queue': true,
+                            'orderForm.num': this.data.orderForm.num + 1,
+                            'washGoodsOrder.goods': goodsOfWash,
+                            'washGoodsOrder.money': add(this.data.washGoodsOrder.moneyitem.sale_price)
+                        });
+                    } else {
+                        goodsOfService.push(goods);
+                        this.setData({
+                            'orderForm.num': this.data.orderForm.num + 1,
+                            'serviceGoodsOrder.goods': goodsOfService,
+                            'serviceGoodsOrder.money': add(this.data.serviceGoodsOrder.money, item.sale_price)
+                        });
                     }
                 }
-            }
-        }
+            });
+        });
     },
     /**
      * 结算
@@ -614,19 +594,15 @@ Page({
             let order = [];
             setTimeout(() => {
                 if (this.data.valueCardOrder.goods.length > 0) {
-                    console.log(this.data.valueCardOrder)
                     order.push(this.data.valueCardOrder);
                 }
                 if (this.data.washGoodsOrder.goods.length > 0) {
-                    console.log(this.data.washGoodsOrder)
                     order.push(this.data.washGoodsOrder);
                 }
                 if (this.data.serviceGoodsOrder.goods.length > 0) {
-                    console.log(this.data.serviceGoodsOrder)
                     order.push(this.data.serviceGoodsOrder);
                 }
                 if (this.data.packageOrder.goods.length > 0) {
-                    console.log(this.data.packageOrder)
                     order.push(this.data.packageOrder);
                 }
                 this.setData({
@@ -689,7 +665,7 @@ Page({
             carNumbers: !!userData ? userData.car : []
         });
         if (this.data.carNumbers.length > 0) {
-            let index = this.data.carNumbers.findIndex(value => carNumber === value);
+            const index = this.data.carNumbers.findIndex(value => carNumber === value);
             this.setData({ carIndex: index > -1 ? index : 0 });
         }
     },
@@ -729,7 +705,7 @@ Page({
             'packageOrder.is_queue': false,
             'packageOrder.goods': [],
             'washGoodsOrder.money': 0,
-            'washGoodsOrder.is_queue:': false,
+            'washGoodsOrder.is_queue': false,
             'washGoodsOrder.goods': [],
             'serviceGoodsOrder.money': 0,
             'serviceGoodsOrder.is_queue:': false,
