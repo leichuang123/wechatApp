@@ -181,7 +181,7 @@ Page({
     getServices: function() {
         showLoading();
         const params = {
-            merchant_id: this.data.orderForm.store_id,
+            store_id: this.data.orderForm.store_id,
             merchant_id: this.data.orderForm.merchant_id,
             car_number: this.data.orderForm.car_number
         };
@@ -676,7 +676,6 @@ Page({
         const params = JSON.parse(options.params);
         const userData = wx.getStorageSync('userData');
         const carNumber = !!userData ? userData.default_car : '';
-        console.log(params);
         this.setData({
             'form.store_id': params.store_id,
             'form.car_number': carNumber,
