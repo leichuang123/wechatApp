@@ -506,9 +506,8 @@ Page({
      */
     calculateWashGoods: function() {
         let goods = {};
-        let washGoods = this.data.washGoods;
         let goodsOfWash = this.data.washGoodsOrder.goods;
-        if (this.data.washGoods.length === 0) {
+        if (!this.data.washGoods.goods || this.data.washGoods.goods.length === 0) {
             return;
         }
         this.data.washGoods.goods.forEach(item => {
@@ -523,7 +522,7 @@ Page({
                     service_item: service.length > 0 ? service : [],
                     service_name: service.length > 0 ? service[0].service_name : '',
                     station_type: service.length > 0 ? service[0].station_type : 0,
-                    is_queue: !!service && washGoods.is_queue == 1
+                    is_queue: !!service && this.data.washGoods.is_queue == 1
                 };
                 goodsOfWash.push(goods);
                 this.setData({
