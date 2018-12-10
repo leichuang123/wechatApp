@@ -302,6 +302,7 @@ Page({
             items = this.data.recommendedGoods,
             money = 0,
             isQueue = e.currentTarget.dataset.queue;
+        console.log(items[index])
         if (!items[index].checked && this.data.washSelected && isQueue) {
             confirmMsg('提示', '只能选择一种清洗类的商品', false);
             return;
@@ -424,6 +425,7 @@ Page({
      */
     gotoPay: function() {
         let params = JSON.stringify(this.data.orderForm);
+        console.log(this.data.orderForm)
         wx.navigateTo({
             url: '/pages/payment/payment?params=' + params
         });
@@ -447,7 +449,7 @@ Page({
                     this.setData({
                         'orderForm.num': this.data.orderForm.num + 1
                     });
-                    if (item.category == this.TYPE_GOODS) {
+                    if (item.category == this.data.TYPE_GOODS) {
                         let service = !!item.recommend ? item.recommend.service : [];
                         goods = {
                             id: item.relate_id,
@@ -476,7 +478,7 @@ Page({
                             });
                         }
                     }
-                    if (item.category == this.TYPE_PACKAGE) {
+                    if (item.category == this.data.TYPE_PACKAGE) {
                         goods = {
                             id: item.relate_id,
                             price: item.sale_price,
@@ -491,7 +493,7 @@ Page({
                             'packageOrder.goods': goodsOfPackage
                         });
                     }
-                    if (item.category == this.TYPE_VALUE_CARD) {
+                    if (item.category == this.data.TYPE_VALUE_CARD) {
                         goods = {
                             id: item.relate_id,
                             price: item.sale_price,
@@ -612,15 +614,19 @@ Page({
             let order = [];
             setTimeout(() => {
                 if (this.data.valueCardOrder.goods.length > 0) {
+                    console.log(this.data.valueCardOrder)
                     order.push(this.data.valueCardOrder);
                 }
                 if (this.data.washGoodsOrder.goods.length > 0) {
+                    console.log(this.data.washGoodsOrder)
                     order.push(this.data.washGoodsOrder);
                 }
                 if (this.data.serviceGoodsOrder.goods.length > 0) {
+                    console.log(this.data.serviceGoodsOrder)
                     order.push(this.data.serviceGoodsOrder);
                 }
                 if (this.data.packageOrder.goods.length > 0) {
+                    console.log(this.data.packageOrder)
                     order.push(this.data.packageOrder);
                 }
                 this.setData({
