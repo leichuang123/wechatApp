@@ -347,6 +347,9 @@ Page({
     calculateWashGoods: function() {
         let goods = {};
         let goodsOfWash = this.data.washGoodsOrder.goods;
+        if (this.data.washGoods.length === 0) {
+            return;
+        }
         this.data.washGoods.goods.forEach(item => {
             if (item.checked) {
                 let service = item.service;
