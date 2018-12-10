@@ -2,7 +2,7 @@
     <view class="case-box" data-item="{{item}}" bindtap="goCategoryPage">
         <view class="case-inner">
             <view class='case-inner-img'>
-                <image src="{{item.fist_image}}" mode="aspectFit"></image>
+                <image src="{{item.first_image}}" mode="aspectFit"></image>
             </view>
             <view class='case-text'>{{item.title}}</view>
         </view>
