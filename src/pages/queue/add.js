@@ -710,7 +710,7 @@ Page({
             'washGoodsOrder.is_queue': false,
             'washGoodsOrder.goods': [],
             'serviceGoodsOrder.money': 0,
-            'serviceGoodsOrder.is_queue:': false,
+            'serviceGoodsOrder.is_queue': false,
             'serviceGoodsOrder.goods': [],
             'orderForm.order': [],
             'washGoods.open': true,

@@ -1,6 +1,6 @@
 <import src="../../assets/plugins/wxParse/wxParse.wxml" />
 <view class='padlr15 padb50 bg-white'>
-    <view class='case-title fc-primary'>漆面打蜡</view>
+    <view class='case-title fc-primary'>{{case.name}}</view>
     <view class="wx-parse__detail fs15 light-black">
         <template is="wxParse" data="{{wxParseData:detail.nodes}}" />
     </view>
