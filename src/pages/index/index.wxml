@@ -71,7 +71,7 @@
     <view class="dialog-title">优惠券</view>
     <block wx:for="{{unreceivedCoupons}}" wx:key="index">
     <view class="weui-flex padlr15 borb bg-white">
-            <view class="face-img-mine"> <image src="{{item.share_img_url}}"/></view>
+            <view class="face-img-mine"> <image src="{{item.pic_url}}"/></view>
             <view class="weui-flex__item">
                 <view class="weui-flex center-item">
                     <view class="weui-flex__item">
