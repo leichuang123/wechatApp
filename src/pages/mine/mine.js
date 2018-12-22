@@ -22,7 +22,7 @@ Page({
                     hasUserInfo: res.data.registered
                 });
                 wx.setStorageSync('sessionKey', res.data.sessionKey);
-                wx.setStorageSync('userData', res.data);
+                wx.setStorageSync('userData', res.data.userData);
                 return;
             }
             this.setData({

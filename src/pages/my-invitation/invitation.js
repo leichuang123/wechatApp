@@ -123,7 +123,7 @@ Page({
      */
     onLoad: function(options) {
         const userData = wx.getStorageSync('userData');
-        const userId = !!options.userId ? options.userId : !!userData ? userData.id : 0;
+        const userId = !!options.userId ? options.userId : (!!userData ? userData.id : 0);
         this.setData({ userId: userId });
         this.getInviteQrCode();
     },

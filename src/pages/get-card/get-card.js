@@ -124,14 +124,11 @@ Page({
             return;
         }
         let time = 60;
-        wx.showLoading({ title: '提交请求中', mask: true });
-        api.get(
-            'weapp/phonecode',
-            {
-                mobile: this.data.form.mobile
-            },
-            false
-        ).then(res => {
+        wx.showLoading({
+            title: '提交请求中',
+            mask: true
+        });
+        api.get('weapp/phonecode', { mobile: this.data.form.mobile }, false).then(res => {
             wx.hideLoading();
             if (res.errcode === 0) {
                 let interval = setInterval(() => {
@@ -157,7 +154,9 @@ Page({
      * 跳转到首页
      */
     gotoIndex: function() {
-        wx.switchTab({ url: '/pages/index/index' });
+        wx.switchTab({
+            url: '/pages/index/index'
+        });
     },
     //获取微信用户信息
     onGetUserInfo: function(e) {
@@ -201,7 +200,10 @@ Page({
             showTopTips(this, msg);
             return;
         }
-        wx.showLoading({ title: '提交请求中', mask: true });
+        wx.showLoading({
+            title: '提交请求中',
+            mask: true
+        });
         api.post('weapp/get-card', this.data.form).then(res => {
             wx.hideLoading();
             if (res.errcode === 0) {
@@ -231,11 +233,17 @@ Page({
      * 获取会员卡详情
      */
     getDetail: function() {
-        this.setData({ loading: true });
+        this.setData({
+            loading: true
+        });
         api.post('weapp/get-share-card-info', this.data.form).then(res => {
-            this.setData({ loading: false });
+            this.setData({
+                loading: false
+            });
             if (res.errcode === 0) {
-                this.setData({ card: res.data });
+                this.setData({
+                    card: res.data
+                });
                 return;
             }
         });
@@ -247,7 +255,9 @@ Page({
         login()
             .then(res => {
                 if (res.code) {
-                    this.setData({ 'form.js_code': res.code });
+                    this.setData({
+                        'form.js_code': res.code
+                    });
                 } else {
                     console.log('登录失败：' + res.errMsg);
                 }

@@ -1,5 +1,12 @@
-import { get } from '../../../utils/api';
-import { toastMsg, confirmMsg, isCarNumber, showLoading } from '../../../utils/util';
+import {
+    get
+} from '../../../utils/api';
+import {
+    toastMsg,
+    confirmMsg,
+    isCarNumber,
+    showLoading
+} from '../../../utils/util';
 Page({
     data: {
         keyboardVisible: false,
@@ -47,7 +54,10 @@ Page({
      * 获取车牌号
      */
     getCarNumber: function(e) {
-        this.setData({ carNumber: e.detail.carNumber, 'form.car_number': carNumber });
+        this.setData({
+            carNumber: e.detail.carNumber,
+            'form.car_number': e.detail.carNumber
+        });
     },
     /**
      * 获取充值金额
@@ -79,15 +89,11 @@ Page({
             wx.hideLoading();
             if (res.errcode === 0) {
                 toastMsg('充值成功', 'success', 1000, () => {
-                    wx.navigateBack({
-                        delta: 1
-                    });
+                    this.goBack();
                 });
             } else {
                 toastMsg(res.errmsg, 'error', 1000, () => {
-                    wx.navigateBack({
-                        delta: 1
-                    });
+                    this.goBack();
                 });
             }
         });
@@ -104,10 +110,19 @@ Page({
      * 全部充值
      */
     rechargeAll: function() {
-        this.setData({ 'form.money': this.data.card.balance });
+        this.setData({
+            'form.money': this.data.card.balance
+        });
         this.onRecharge();
     },
-
+    goBack() {
+        wx.navigateBack({
+            delta: 1
+        });
+    },
+    cancelRecharge: function() {
+        this.goBack();
+    },
     /**
      * 生命周期函数--监听页面加载
      */

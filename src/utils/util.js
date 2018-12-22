@@ -3,14 +3,14 @@ const successImagePath = '/assets/images/success.png';
 /**
  * 时间格式化
  */
-const formatTime = (date,withTime = true) => {
+const formatTime = (date, withTime = true) => {
     const year = date.getFullYear();
     const month = date.getMonth() + 1;
     const day = date.getDate();
     const hour = date.getHours();
     const minute = date.getMinutes();
     const second = date.getSeconds();
-    if (withTime){
+    if (withTime) {
         return [year, month, day].map(formatNumber).join('-') + ' ' + [hour, minute, second].map(formatNumber).join(':');
     }
     return [year, month, day].map(formatNumber).join('-');
@@ -209,8 +209,10 @@ const isMobile = mobile => {
  * 车牌号验证
  */
 const isCarNumber = carNumber => {
-    let reg = /^[京津冀晋蒙辽吉黑沪苏浙皖闽赣鲁豫鄂湘粤桂琼川贵云渝藏陕甘青宁新使领]{1}[A-Z]{1}[A-Z0-9]{4,5}[A-Z0-9挂学警港澳]{1}$/;
-    return reg.test(carNumber);
+    // let reg = /^[京津冀晋蒙辽吉黑沪苏浙皖闽赣鲁豫鄂湘粤桂琼川贵云渝藏陕甘青宁新使领]{1}[A-Z]{1}[A-Z0-9]{4,5}[A-Z0-9挂学警港澳]{1}$/;
+    // return reg.test(carNumber);
+
+    return carNumber.length >= 7;
 };
 
 /**

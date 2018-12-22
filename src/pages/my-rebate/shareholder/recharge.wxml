@@ -1,16 +1,14 @@
 <view class="bg-white">
-    <navigator url="" class="weui-media-box weui-media-box_appmsg" hover-class="weui-cell_active">
+    <view class="weui-media-box weui-media-box_appmsg">
         <view class="weui-media-box__hd_in-appmsg">
             <image class="weui-media-box__thumb" src="{{card.pic_url}}" />
         </view>
-        <view class="weui-media-box__bd_in-appmsg">
-            <view class="weui-media-box__title">{{card.card_name}}</view>
-        </view>
         <view class="fs15">
+            <view>{{card.card_name}}</view>
             <view>卡号：{{card.card_number}}</view>
             <view>余额：{{card.balance}}</view>
         </view>
-    </navigator>
+    </view>
 </view>
 <view class='mart8 bg-white'>
     <view class="weui-cell">
@@ -37,7 +35,7 @@
         <button class="weui-btn" type="primary" disabled="{{!rechargeable}}" bindtap="onRecharge">确认充值</button>
     </view>
     <view class="weui-flex__item cell">
-        <button class="weui-btn" type="default">取消</button>
+        <button class="weui-btn" type="default"bindtap="cancelRecharge">取消</button>
     </view>
 </view>
 <car-keyboard keyboard-visible="{{keyboardVisible}}" bind:hidekeyboard="hideKeyboard" bind:getcarnumber="getCarNumber"></car-keyboard>

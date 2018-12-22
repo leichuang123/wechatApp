@@ -17,7 +17,7 @@ Page({
             }
             this.setData({
                 loadingVisible: false,
-                hasData: this.data.accounts.length === 0 ? false : true
+                hasData: this.data.accounts.length > 0
             });
         });
     },
@@ -26,7 +26,7 @@ Page({
      */
     gotoCardDetail: function(e) {
         let item = e.currentTarget.dataset.item;
-        let params = JSON.stringify({
+        const params = JSON.stringify({
             merchant_id: item.merchant_id,
             store_id: item.store_id,
             shareholder_id: item.shareholder_id,
@@ -50,7 +50,7 @@ Page({
      */
     gotoWithdraw: function(e) {
         let item = e.currentTarget.dataset.item;
-        let params = JSON.stringify({
+        const params = JSON.stringify({
             balance: item.balance,
             name: item.name,
             shareholder_id: item.shareholder_id
@@ -77,7 +77,7 @@ Page({
     },
     gotoRecharge: function(e) {
         let item = e.currentTarget.dataset.item;
-        let params = JSON.stringify({
+        const params = JSON.stringify({
             merchant_id: item.merchant_id,
             customer_id: item.customer_id,
             shareholder_id: item.shareholder_id
@@ -91,5 +91,5 @@ Page({
      */
     onLoad: function(options) {
         this.getAccounts();
-    },
+    }
 });
