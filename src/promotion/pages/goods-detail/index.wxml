@@ -39,7 +39,7 @@
         </view>
         <view class="weui-cell weui-cell_access fs15" hover-class="weui-cell_active" bindtap="openLocation">
             <view class="weui-cell__bd">
-                <text class="icon-map-marker mine-icon"></text> {{store.store_address}}</view>
+                <text class="icon-map-marker mine-icon"></text>{{store.store_address}}</view>
             <view class="weui-cell__ft weui-cell__ft_in-access"></view>
         </view>
         <view data-tel="{{store.contact}}" class="weui-cell weui-cell_access fs15" hover-class="weui-cell_active" bindtap="call">
@@ -52,9 +52,9 @@
             <text class="icon-alarm mine-icon"></text> 营业时间：{{store.opening_hours}}
         </view>
     </view>
-    <view class="wx-parse__detail fs15 light-black">
+    <!-- <view class="wx-parse__detail fs15 light-black">
         <template is="wxParse" data="{{wxParseData:detail.nodes}}" />
-    </view>
+    </view> -->
     <block wx:for="{{evaluations}}" wx:key="index">
         <view class="weui-panel">
                 <view class="weui-media-box weui-media-box_small-appmsg">

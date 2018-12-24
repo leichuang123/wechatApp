@@ -46,19 +46,19 @@
     padding: 10px;
 }
 .icon-width {
-    width: 30px;
-    height: 30px;
-}
-.icon-width2 {
     width: 25px;
     height: 25px;
+}
+.icon-width2 {
+    width: 20px;
+    height: 20px;
 }
 .btn-list {
     text-align: center;
     padding: 10px 0 10px;
 }
 .pad-top {
-    font-size: 17px;
+    font-size: 15px;
     margin-top: 10px;
     color: #4d4d4d;
 }
@@ -67,5 +67,5 @@
     border-bottom: 1rpx solid #d9d9d9;
 }
 .station-list {
-    font-size: 17px;
+    font-size: 15px;
 }

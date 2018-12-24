@@ -77,17 +77,17 @@
             </view>
         </view>
         <view class="weui-cell" bindtap="openLocation">
-            <view class="weui-cell__bd">
+            <view class="weui-cell__bd fs15">
                 <text class="icon-map-marker mine-icon"></text>{{storeInfo.store_address}}</view>
                 <view class="weui-cell__ft weui-cell__ft_in-access"></view>
         </view>
         <view data-tel="{{storeInfo.contact}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active" bindtap="call">
-            <view class="weui-cell__bd">
+            <view class="weui-cell__bd fs15">
                 <text class="icon-phone mine-icon"></text>{{storeInfo.contact}}</view>
             <view class="weui-cell__ft weui-cell__ft_in-access"></view>
         </view>
         <view class="weui-cell  weui-cell_access">
-            <view class="weui-cell__bd">
+            <view class="weui-cell__bd fs15">
                 <text class="icon-alarm mine-icon"></text>营业时间：{{storeInfo.opening_hours}}</view>
         </view>
     </view>

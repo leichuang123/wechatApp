@@ -1,4 +1,4 @@
-<view class="detail-benner">
+<!-- <view class="detail-benner">
     <view class="banner-tag">{{storeInfo.store_pic.length}}</view>
     <view class="detail-benner">
         <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
@@ -9,7 +9,7 @@
             </block>
         </swiper>
     </view>
-</view>
+</view> -->
 <view class="weui-cell list-box">
     <view class="weui-cell__bd">
         <text>{{storeInfo.store_name}}</text>
