@@ -52,9 +52,9 @@
             <text class="icon-alarm mine-icon"></text> 营业时间：{{store.opening_hours}}
         </view>
     </view>
-    <!-- <view class="wx-parse__detail fs15 light-black">
+    <view class="wx-parse__detail fs15 light-black">
         <template is="wxParse" data="{{wxParseData:detail.nodes}}" />
-    </view> -->
+    </view>
     <block wx:for="{{evaluations}}" wx:key="index">
         <view class="weui-panel">
                 <view class="weui-media-box weui-media-box_small-appmsg">

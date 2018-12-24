@@ -1,6 +1,6 @@
 <import src="../../../common/templates/loading" />
 <view class="banner-tag">{{storeDetail.store_pic.length}}</view>
-<view class="detail-benner">
+<!-- <view class="detail-benner">
     <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
         <block wx:for="{{storeDetail.store_pic}}" wx:key="index">
             <swiper-item>
@@ -8,7 +8,7 @@
             </swiper-item>
         </block>
     </swiper>
-</view>
+</view> -->
 <view class="bg-white">
     <view class="weui-cell">
         <view class="weui-cell__bd">
