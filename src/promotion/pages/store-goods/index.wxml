@@ -1,5 +1,5 @@
 <import src="../../../common/templates/loading" />
-<view class="banner-tag">{{storeDetail.store_pic.length}}</view>
+<!-- <view class="banner-tag">{{storeDetail.store_pic.length}}</view> -->
 <!-- <view class="detail-benner">
     <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
         <block wx:for="{{storeDetail.store_pic}}" wx:key="index">
