@@ -19,8 +19,9 @@ Page({
                 this.setData({
                     'userInfo.mobile': res.data.userData.mobile,
                     'userInfo.integral': res.data.userData.integral,
-                    hasUserInfo: res.data.registered
+                    hasUserInfo: res.data.userData.registered
                 });
+
                 wx.setStorageSync('sessionKey', res.data.sessionKey);
                 wx.setStorageSync('userData', res.data.userData);
                 return;
