@@ -49,7 +49,8 @@ Page({
                         id: this.data.form.goods_id,
                         price: this.data.form.money,
                         num: 1,
-                        type: this.data.form.category
+                        type: this.data.form.category,
+                        name: this.data.form.goods_name
                     }
                 ]
             }
