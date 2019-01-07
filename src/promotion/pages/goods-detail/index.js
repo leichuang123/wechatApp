@@ -236,8 +236,7 @@ Page({
         const userData = wx.getStorageSync('userData');
         const userId = !!userData && !!userData ? userData.id : 0;
         const params = JSON.stringify({
-            related_id: this.data.form.related_id,
-            related_type: this.data.form.related_type,
+            id: this.data.form.id,
             merchant_id: this.data.form.merchant_id,
             store_id: this.data.form.store_id,
             user_id: userId
