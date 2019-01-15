@@ -59,9 +59,10 @@ Page({
     },
     gotoDetail: function(e) {
         const item = e.currentTarget.dataset.item;
-        if (this.data.form.type != 0) {
+        if (this.data.form.type == 1) {
             wx.navigateTo({ url: 'detail?id=' + item.id });
-        } else {
+        } 
+        if (this.data.form.type == 0) {
             const params = JSON.stringify(item);
             wx.navigateTo({
                 url: '/pages/my-coupon/share-detail?params=' + params

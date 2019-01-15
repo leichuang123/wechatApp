@@ -8,10 +8,7 @@ Page({
         hasAuth: false,
         couponWidth: '',
         SEND_MODE_SHARE: 6,
-        NOT_SEND: 2,
-        IS_USER_COUPON: 1,
-        HAS_SEND_RECORD: 1,
-        SHARABLE: 2,
+        SHARABLE: 1,
         coupon: {},
         form: {
             id: 0,
@@ -37,7 +34,9 @@ Page({
     /**
      * 添加分享记录
      */
-    addShareRecord: function(nickName) {
+    addShareRecord: function() {
+        const wxUserInfo = wx.getStorageSync('wxUserInfo');
+        const nickName = !wxUserInfo ? '' : wxUserInfo.nickName;
         const params = {
             merchant_id: this.data.coupon.merchant_id,
             store_id: this.data.coupon.store_id,
@@ -99,7 +98,24 @@ Page({
         });
         this.getCouponInfo();
     },
-
+    generateShareUrl() {
+        return sharedUrl =
+            '/pages/my-coupon/share-detail?related_id=' +
+            params.related_id +
+            '&related_type=' +
+            params.related_type +
+            '&sender_id=' +
+            params.user_id +
+            '&send_record_id=' +
+            params.send_record_id +
+            '&give_num=1' +
+            '&is_gather=' +
+            params.is_gather +
+            '&share_uuid=' +
+            params.share_uuid +
+            '&send_mode=' +
+            this.data.SEND_MODE_SHARE;
+    },
     /**
      * 生命周期函数--监听页面加载
      */
@@ -111,43 +127,11 @@ Page({
      */
     onShareAppMessage: function(res) {
         if (res.from === 'button') {
-            const wxUserInfo = wx.getStorageSync('wxUserInfo');
-            const nickName = !wxUserInfo ? '' : wxUserInfo.nickName;
-            const params = this.data.coupon;
-            const sharedUrl =
-                '/pages/my-coupon/share-detail?merchant_id=' +
-                params.merchant_id +
-                '&store_id=' +
-                params.store_id +
-                '&related_id=' +
-                params.related_id +
-                '&related_type=' +
-                params.related_type +
-                '&sender_id=' +
-                params.user_id +
-                '&send_record_id=' +
-                params.send_record_id +
-                '&sender_customer_id=' +
-                params.customer_id +
-                '&sender_nick_name=' +
-                nickName +
-                '&give_num=1' +
-                '&is_gather=' +
-                params.is_gather +
-                '&share_uuid=' +
-                params.share_uuid +
-                '&is_send=' +
-                this.data.NOT_SEND +
-                '&is_user_coupon=' +
-                this.data.IS_USER_COUPON +
-                '&has_send_record=' +
-                this.data.HAS_SEND_RECORD +
-                '&send_mode=' +
-                this.data.SEND_MODE_SHARE +
-                '&sharable=' +
-                this.data.SHARABLE;
-            console.log(sharedUrl);
             this.addShareRecord(nickName);
+
+            const params = Object.assign({}, this.data.coupon);
+            const sharedUrl = this.generateShareUrl(params);
+
             return { title: params.share_title, path: sharedUrl, imageUrl: params.share_img_url };
         }
     }

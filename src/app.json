@@ -148,5 +148,10 @@
                 "selectedIconPath": "assets/images/mine-active.png"
             }
         ]
+    },
+    "permission": {
+        "scope.userLocation": {
+            "desc": "你的位置信息将方便与查找附近的门店"
+        }
     }
 }

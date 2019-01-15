@@ -13,7 +13,8 @@ App({
             city_code: '420100',
             city: '武汉市'
         },
-        sessionKey: ''
+        sessionKey: '',
+        extConfig: {},
     },
     //设置用户缓存
     doLogin(jsCode) {
@@ -77,6 +78,7 @@ App({
         const wxUserInfo = wx.getStorageSync('wxUserInfo');
         this.globalData.hasAuth = !!wxUserInfo;
         this.onLogin();
+        this.globalData.extConfig = wx.getExtConfigSync ? wx.getExtConfigSync() : {}
     },
     onShow: function() {}
 });
