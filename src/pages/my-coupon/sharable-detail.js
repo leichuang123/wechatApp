@@ -37,17 +37,18 @@ Page({
     addShareRecord: function() {
         const wxUserInfo = wx.getStorageSync('wxUserInfo');
         const nickName = !wxUserInfo ? '' : wxUserInfo.nickName;
+        const coupon = Object.assign({}, this.data.coupon)
         const params = {
-            merchant_id: this.data.coupon.merchant_id,
-            store_id: this.data.coupon.store_id,
-            related_id: this.data.coupon.related_id,
-            related_type: this.data.coupon.related_type,
-            sender_customer_id: this.data.coupon.customer_id,
-            sender_id: this.data.coupon.user_id,
-            send_record_id: this.data.coupon.send_record_id,
+            merchant_id: coupon.merchant_id,
+            store_id: coupon.store_id,
+            related_id: coupon.related_id,
+            related_type: coupon.related_type,
+            sender_customer_id: coupon.customer_id,
+            sender_id: coupon.user_id,
+            send_record_id: coupon.send_record_id,
+            share_uuid: coupon.share_uuid,
+            is_gather: coupon.is_gather,
             sender_nick_name: nickName,
-            share_uuid: this.data.coupon.share_uuid,
-            is_gather: this.data.coupon.is_gather
         };
         api.post('weapp-coupon/add-share-record', params, false).then(res => {
             console.log(['addShareRecord-response', res.errmsg]);
@@ -98,9 +99,8 @@ Page({
         });
         this.getCouponInfo();
     },
-    generateShareUrl() {
-        return sharedUrl =
-            '/pages/my-coupon/share-detail?related_id=' +
+    generateShareUrl(params) {
+        return '/pages/my-coupon/share-detail?related_id=' +
             params.related_id +
             '&related_type=' +
             params.related_type +
@@ -127,7 +127,7 @@ Page({
      */
     onShareAppMessage: function(res) {
         if (res.from === 'button') {
-            this.addShareRecord(nickName);
+            this.addShareRecord();
 
             const params = Object.assign({}, this.data.coupon);
             const sharedUrl = this.generateShareUrl(params);

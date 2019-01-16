@@ -28,12 +28,12 @@ Page({
             if (res.errcode === 0) {
                 this.setData({ coupons: this.data.coupons.concat(res.data.data) });
             }
-            let hasMore = res.errcode !== 0 || this.data.form.page >= res.data.last_page ? false : true;
+            let hasMore = !(res.errcode !== 0 || this.data.form.page >= res.data.last_page);
             this.setData({
                 hasMore: hasMore,
                 loadMoreVisible: false,
                 loadingVisible: false,
-                hasData: this.data.coupons.length === 0 ? false : true
+                hasData: this.data.coupons.length > 0
             });
         });
     },

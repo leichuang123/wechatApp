@@ -43,11 +43,10 @@ Page({
             address: this.data.coupon.store_address
         });
     },
-
     /**
-     * 生命周期函数--监听页面加载
+     * 获取优惠券样式
      */
-    onLoad: function(options) {
+    getCouponStyle() {
         getSystemInfo()
             .then(res => {
                 this.setData({
@@ -61,6 +60,13 @@ Page({
                     height: app.globalData.windowHeight + 48 + 'px'
                 });
             });
+    },
+
+    /**
+     * 生命周期函数--监听页面加载
+     */
+    onLoad: function(options) {
+        this.getCouponStyle();
         this.getCouponInfo(options.id);
     }
 });

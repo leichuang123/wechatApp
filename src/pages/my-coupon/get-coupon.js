@@ -34,7 +34,7 @@ Page({
             sender_id: 0,
             give_num: 0,
             send_record_id: 0,
-            is_user_coupon: 2,
+            sharable: true,
             recommend_user: 0,
             recommend_type: 0 //0无1提供商2顾问3门店4用户
         },
@@ -253,11 +253,7 @@ Page({
             'form.car_number': this.data.carNumbers[index]
         });
     },
-    /**
-     * 生命周期函数--监听页面加载
-     */
-    onLoad: function(options) {
-        const params = JSON.parse(options.params);
+    initData(params) {
         const userData = wx.getStorageSync('userData');
         const defaultCar = !!userData ? userData.default_car : '';
         const carNumbers = !!userData ? userData.car : [];
@@ -291,5 +287,11 @@ Page({
             this.setData({ carIndex: index > -1 ? index : 0 });
         }
         this.wxLogin();
+    },
+    /**
+     * 生命周期函数--监听页面加载
+     */
+    onLoad: function(options) {
+        this.initData(JSON.parse(options.params));
     }
 });

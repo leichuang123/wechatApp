@@ -37,7 +37,7 @@ Page({
     hasExpired: function() {
         const params = {
             send_record_id: this.data.shareForm.send_record_id,
-            share_uuid: !this.data.shareForm.share_uuid ? 0 : this.data.shareForm.share_uuid,
+            share_uuid: this.data.shareForm.share_uuid || 0,
             related_id: this.data.shareForm.related_id,
             related_type: this.data.shareForm.related_type,
         };
@@ -55,8 +55,7 @@ Page({
                     'shareForm.share_img_url': this.data.coupon.share_img_url,
                     'shareForm.sharable': this.data.coupon.sharable == this.data.SHARABLE
                 });
-                const params = JSON.stringify(this.data.shareForm);
-                wx.navigateTo({ url: 'get-coupon?params=' + params });
+                wx.navigateTo({ url: 'get-coupon?params=' + JSON.stringify(this.data.shareForm) });
             } else {
                 wx.navigateTo({ url: 'share-expired' });
             }
@@ -68,7 +67,8 @@ Page({
     getDetail: function() {
         const params = {
             related_id: this.data.shareForm.related_id,
-            related_type: this.data.shareForm.related_type
+            related_type: this.data.shareForm.related_type,
+            send_mode: this.data.shareForm.send_mode
         };
         showLoading();
         api.get('weapp-coupon/get-share-detail', params, false)
@@ -90,16 +90,17 @@ Page({
      * 添加发送记录
      */
     addSendRecord: function() {
+        const coupon = Object.assign({}, this.data.coupon);
         const params = {
-            merchant_id: this.data.coupon.merchant_id,
-            store_id: this.data.coupon.store_id,
-            related_id: this.data.shareForm.related_id,
-            related_type: this.data.shareForm.related_type,
-            send_mode: this.data.shareForm.send_mode,
-            give_num: this.data.shareForm.give_num,
-            staff_id: this.data.shareForm.staff_id,
-            is_gather: this.data.shareForm.is_gather,
-            customer_id: this.data.shareForm.receiver_customer_id
+            merchant_id: coupon.merchant_id,
+            store_id: coupon.store_id,
+            related_id: shareForm.related_id,
+            related_type: shareForm.related_type,
+            send_mode: shareForm.send_mode,
+            give_num: shareForm.give_num,
+            staff_id: shareForm.staff_id,
+            is_gather: shareForm.is_gather,
+            customer_id: shareForm.receiver_customer_id
         };
         console.log(['addSendRecord-params:', params]);
         api.post('weapp-coupon/add-send-record', params, false).then(res => {
@@ -240,15 +241,18 @@ Page({
         this.setCouponStyle();
         this.getDetail();
 
-        //发送
+        //发送记录id为空，并且发送方式为分享,则添加发送记录
         if (!params.send_record_id && params.send_mode != this.data.SEND_MODE_SHARE) {
             this.addSendRecord();
         }
-        //分享
+        //发送方式为分享
         if (params.send_mode == this.data.SEND_MODE_SHARE) {
             this.wxLogin();
         }
     },
+    /**
+     * 生成分享地址
+、     */
     generateShareUrl() {
         const wxUserInfo = wx.getStorageSync('wxUserInfo');
         const nickName = !wxUserInfo ? '' : wxUserInfo.nickName;
