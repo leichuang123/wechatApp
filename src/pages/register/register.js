@@ -12,6 +12,8 @@ Page({
         codeText: '获取验证码',
         interval: 0,
         form: {
+            weapp_config_id: 0,
+            user_id: 0,
             name: '',
             mobile: '',
             js_code: '',
@@ -204,12 +206,12 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function(options) {
-        if (!!options.userId) {
-            this.setData({
-                'form.recommend_user': options.userId,
-                'form.recommend_type': options.recommendType
-            });
-        }
+        this.setData({
+            'form.weapp_config_id': this.globalData.extConfig.weapp_config_id || 10,
+            'form.user_id': options.user_id || 0,
+            'form.recommend_user': options.userId || 0,
+            'form.recommend_type': options.recommendType || 0,
+        });
         this.wxLogin();
     }
 });

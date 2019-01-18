@@ -76,7 +76,11 @@ Page({
      * 获取首页信息
      */
     getIndexInfo: function() {
-        api.get('weapp/indexinfo', {}, false).then(res => {
+        const params = {
+            auth_type: app.globalData.extConfig.auth_type || 1,
+            auth_related_id: app.globalData.extConfig.auth_related_id || 1
+        };
+        api.get('weapp/indexinfo', params, false).then(res => {
             if (res.errcode === 0) {
                 this.setData({
                     userData: res.data.userData,

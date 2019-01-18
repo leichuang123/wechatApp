@@ -14,6 +14,8 @@ Page({
             storeName: ''
         },
         form: {
+            weapp_config_id: 0,
+            user_id: 0,
             url: '',
             js_code: '',
             mobile: '',
@@ -57,8 +59,7 @@ Page({
      */
     checkExpire: function() {
         api.get(
-            'weapp/checkgivenurl',
-            {
+            'weapp/checkgivenurl', {
                 url: this.data.form.url
             },
             false
@@ -185,6 +186,7 @@ Page({
             'form.url': url,
             'form.recommend_user': options.recommendId,
             'form.recommend_type': options.recommendType,
+            'form.weapp_config_id': this.globalData.extConfig.weapp_config_id || 10,
             couponInfo: {
                 serviceName: options.serviceName,
                 storeName: options.storeName

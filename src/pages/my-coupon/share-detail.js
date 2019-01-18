@@ -139,7 +139,9 @@ Page({
     getShareRecordUuid: function(jsCode) {
         const params = {
             send_record_id: this.data.shareForm.send_record_id,
-            js_code: jsCode
+            js_code: jsCode,
+            auth_type: app.globalData.extConfig.auth_type || 1,
+            auth_related_id: app.globalData.extConfig.auth_related_id || 1
         };
         console.log(['getShareRecordUuid form: ', params]);
         api.post('weapp-coupon/get-share-record-uuid', params, false).then(res => {

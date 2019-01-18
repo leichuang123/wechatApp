@@ -12,7 +12,9 @@ Page({
         coupon: {},
         form: {
             id: 0,
-            type: 1
+            type: 1,
+            auth_type: 0,
+            auth_related_id: 0
         }
     },
     /**
@@ -94,7 +96,9 @@ Page({
             couponWidth: app.globalData.windowWidth - 30 + 'px',
             form: {
                 id: options.id,
-                type: options.type
+                type: options.type,
+                auth_type: app.globalData.extConfig.auth_type || 1,
+                auth_related_id: app.globalData.extConfig.auth_related_id || 1
             }
         });
         this.getCouponInfo();
