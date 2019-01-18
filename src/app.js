@@ -18,9 +18,15 @@ App({
     },
     //设置用户缓存
     doLogin(jsCode) {
-        api.get('weapp/login', { js_code: jsCode }, false).then(res => {
+        const params = {
+            js_code: jsCode,
+            auth_type: this.globalData.extConfig.auth_type || 1,
+            auth_related_id: this.globalData.extConfig.auth_related_id || 1,
+            weapp_config_id: this.globalData.extConfig.weapp_config_id || 10,
+        };
+        api.get('weapp/login', params, false).then(res => {
             if (res.errcode === 0) {
-                const sessionKey = res.data.sessionKey;
+                const sessionKey = res.data;
                 wx.setStorageSync('sessionKey', sessionKey);
                 this.globalData.sessionKey = sessionKey;
                 if (this.doLoginCallBack) {
@@ -77,8 +83,9 @@ App({
         });
         const wxUserInfo = wx.getStorageSync('wxUserInfo');
         this.globalData.hasAuth = !!wxUserInfo;
-        this.onLogin();
+
         this.globalData.extConfig = wx.getExtConfigSync ? wx.getExtConfigSync() : {}
+        this.onLogin();
     },
     onShow: function() {}
 });

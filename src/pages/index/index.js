@@ -191,8 +191,8 @@ Page({
             unreceivedCoupons: []
         });
         if (!app.globalData.sessionKey) {
-            app.doLoginCallBack = res => {
-                wx.setStorageSync('sessionKey', res.sessionKey);
+            app.doLoginCallBack = sessionKey => {
+                wx.setStorageSync('sessionKey',sessionKey);
                 this.getIndexInfo();
             };
         } else {
