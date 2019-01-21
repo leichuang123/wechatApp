@@ -23,7 +23,7 @@
 }
 
 .weui-btn-area {
-    margin: 60px 15px 0.3em;
+    margin: 40px 15px 0.3em;
 }
 
 .auth-btn {

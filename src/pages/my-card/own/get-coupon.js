@@ -15,6 +15,7 @@ Page({
         },
         form: {
             weapp_config_id: 0,
+            wechat_config_id: 0,
             user_id: 0,
             url: '',
             js_code: '',
@@ -186,7 +187,8 @@ Page({
             'form.url': url,
             'form.recommend_user': options.recommendId,
             'form.recommend_type': options.recommendType,
-            'form.weapp_config_id': this.globalData.extConfig.weapp_config_id || 10,
+            'form.weapp_config_id': this.globalData.extConfig.weapp_config_id || 0,
+            'form.wechat_config_id': app.globalData.extConfig.wechat_config_id || 0,
             couponInfo: {
                 serviceName: options.serviceName,
                 storeName: options.storeName

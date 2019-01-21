@@ -16,6 +16,7 @@ Page({
         card: {},
         form: {
             weapp_config_id: 0,
+            weapp_config_id: 0,
             user_id: 0,
             url: '',
             js_code: '',
@@ -282,7 +283,8 @@ Page({
             'form.customer_card_id': params.customer_card_id,
             'form.shareholder_id': params.shareholder_id,
             'form.level': params.level,
-            'form.weapp_config_id': this.globalData.extConfig.weapp_config_id || 10,
+            'form.weapp_config_id': this.globalData.extConfig.weapp_config_id || 0,
+            'form.wechat_config_id': app.globalData.extConfig.wechat_config_id || 0,
             cardForm: {
                 merchant_id: params.merchant_id,
                 store_id: params.store_id,

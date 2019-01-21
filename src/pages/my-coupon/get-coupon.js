@@ -14,6 +14,7 @@ Page({
         codeText: '获取验证码',
         form: {
             weapp_config_id: 0,
+            wechat_config_id: 0,
             user_id: 0,
             code: '', //验证码
             mobile: '',
@@ -272,7 +273,8 @@ Page({
             'form.share_uuid': params.share_uuid,
             'form.sharable': params.sharable,
             'form.is_register': !!userData && userData.registered,
-            'form.weapp_config_id': this.globalData.extConfig.weapp_config_id || 10,
+            'form.weapp_config_id': this.globalData.extConfig.weapp_config_id || 0,
+            'form.wechat_config_id': app.globalData.extConfig.wechat_config_id || 0,
             'form.recommend_user': params.sender_id || 0,
             'form.recommend_type': params.sender_id ? 4 : 0,
             carNumbers: carNumbers,

@@ -45,6 +45,8 @@ Page({
         subTypes: [],
         stores: [],
         form: {
+            auth_type: 0,
+            auth_related_id: 0,
             latitude: 0,
             longitude: 0,
             fromPage: '',
@@ -307,6 +309,8 @@ Page({
             'form.latitude': locationInfo.latitude,
             'form.longitude': locationInfo.longitude,
             'form.cityId': selectedCity.code,
+            'form.auth_type': app.globalData.extConfig.auth_type || 1,
+            'form.auth_related_id': app.globalData.extConfig.auth_related_id || 1,
             'selectedArea.name': selectedCity.name,
             'selectedServiceClass.name': options.fromPage === 'queue' ? '洗车美容' : '全部分类'
         });

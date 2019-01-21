@@ -20,7 +20,7 @@
                     <view class="weui-vcode_btn" bindtap="getCode">{{codeText}}</view>
                 </view>
             </view>
-            <view class="weui-cell">
+            <view class="weui-cell" wx:if="{{isRegister}}">
                 <view class="regster-title fs13">
                     <text class="icon-automobile register-icon"></text>
                     车牌号
@@ -30,8 +30,17 @@
                 </view>
             </view>
         </view>
-        <view class="weui-btn-area">
-            <button class="weui-btn" type="primary" open-type="getUserInfo" bindgetuserinfo="onGetUserInfo">立即登录</button>
+        <view wx:if="{{isRegister}}">
+            <view class="weui-btn-area">
+                <button id="signup" class="weui-btn" type="primary" open-type="getUserInfo" bindgetuserinfo="onGetUserInfo">注册</button>
+                <button class="weui-btn" type="default" bindtap="switchAction">已有账号登录</button>
+            </view>
+        </view>
+        <view wx:else>
+            <view class="weui-btn-area">
+                <button id="signin" class="weui-btn" type="primary" bindtap="onLogin">登录</button>
+                <button class="weui-btn" type="default" bindtap="switchAction">注册新账号</button>
+            </view>
         </view>
     </form>
     <car-keyboard keyboard-visible="{{keyboardVisible}}" bind:hidekeyboard="hideKeyboard" bind:getcarnumber="getCarNumber"></car-keyboard>

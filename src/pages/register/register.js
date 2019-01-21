@@ -11,8 +11,12 @@ Page({
         errorMsg: '',
         codeText: '获取验证码',
         interval: 0,
+        isRegister: true,
         form: {
             weapp_config_id: 0,
+            wechat_config_id: 0,
+            auth_type: 0,
+            auth_related_id: 0,
             user_id: 0,
             name: '',
             mobile: '',
@@ -110,7 +114,7 @@ Page({
             return '手机号格式不正确';
         } else if (this.data.form.code.length !== 4) {
             return '验证码必须为4位';
-        } else if (!isCarNumber(this.data.form.car_number)) {
+        } else if (!isCarNumber(this.data.form.car_number) && this.isRegister) {
             return '请填写有效的车牌号';
         } else {
             return '';
@@ -131,6 +135,7 @@ Page({
         login()
             .then(res => {
                 if (res.code) {
+                    console.log(res.code)
                     this.setData({ 'form.js_code': res.code });
                 } else {
                     console.log('登录失败：' + res.errMsg);
@@ -138,29 +143,6 @@ Page({
             })
             .catch(res => {
                 console.log('登录失败：' + res.errMsg);
-            });
-    },
-    /**
-     * 注册
-     */
-    register: function() {
-        showLoading('提交请求中');
-        api.post('weapp/signup', this.data.form, false, false)
-            .then(res => {
-                wx.hideLoading();
-                if (res.errcode === 0) {
-                    toastMsg('注册成功', 'success', 1000, () => {
-                        wx.setStorageSync('sessionKey', res.data.sessionKey);
-                        this.gotoIndex();
-                    });
-                } else {
-                    toastMsg(res.errmsg, 'error', 1000, () => {
-                        this.gotoIndex();
-                    });
-                }
-            })
-            .catch(res => {
-                wx.hideLoading();
             });
     },
     /**
@@ -172,7 +154,7 @@ Page({
             showTopTips(this, errMsg);
             return;
         }
-        this.register();
+        this.handleAction();
     },
     //获取微信用户信息
     onGetUserInfo: function(e) {
@@ -201,13 +183,49 @@ Page({
             this.onRegister();
         }
     },
+    switchAction() {
+        this.setData({
+            isRegister: !this.data.isRegister
+        });
+    },
+    onLogin(action) {
+        const errMsg = this.validate();
+        if (errMsg !== '') {
+            showTopTips(this, errMsg);
+            return;
+        }
+        this.handleAction('signin');
+    },
+    handleAction(action = 'signup') {
+        showLoading('提交请求中');
+        api.post('weapp/' + action, this.data.form)
+            .then(res => {
+                wx.hideLoading();
+                if (res.errcode === 0) {
+                    toastMsg(res.errmsg, 'success', 1000, () => {
+                        wx.setStorageSync('sessionKey', res.data);
+                        this.gotoIndex();
+                    });
+                } else {
+                    toastMsg(res.errmsg, 'error', 1000, () => {
+                        this.gotoIndex();
+                    });
+                }
+            })
+            .catch(res => {
+                wx.hideLoading();
+            });
+    },
 
     /**
      * 生命周期函数--监听页面加载
      */
     onLoad: function(options) {
         this.setData({
-            'form.weapp_config_id': this.globalData.extConfig.weapp_config_id || 10,
+            'form.weapp_config_id': app.globalData.extConfig.weapp_config_id || 0,
+            'form.wechat_config_id': app.globalData.extConfig.wechat_config_id || 0,
+            'form.auth_related_id': app.globalData.extConfig.auth_related_id || 0,
+            'form.auth_type': app.globalData.extConfig.auth_type || 0,
             'form.user_id': options.user_id || 0,
             'form.recommend_user': options.userId || 0,
             'form.recommend_type': options.recommendType || 0,
