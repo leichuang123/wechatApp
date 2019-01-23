@@ -1,14 +1,14 @@
 <view class="bg-white">
-    <view class="time-title">伙伴养车</view>
-    <view class="rank-cell">服务时间： 周一至周六 8：30-18：00</view>
+    <view class="time-title">{{contactInfo.title}}</view>
+    <view class="rank-cell">服务时间： {{contactInfo.service_time}}</view>
     <view>
         <view class="weui-cell">
             <view class="weui-cell__bd">
-                服务热线：{{phoneNumber}}</view>
+                服务热线：{{contactInfo.service_hotline}}</view>
             <view class="weui-cell__ft" bindtap="call">
                 <text class="icon-phone fc-jasper"></text>
             </view>
         </view>
     </view>
-    <view class="rank-cell">邮箱： hbyc@palcar.cn</view>
+    <view class="rank-cell">邮箱： {{contactInfo.mailbox}}</view>
 </view>
