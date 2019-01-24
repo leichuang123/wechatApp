@@ -18,6 +18,7 @@ Page({
             auth_type: 0,
             auth_related_id: 0,
             user_id: 0,
+            user_weapp_id: 0,
             name: '',
             mobile: '',
             js_code: '',
@@ -135,7 +136,6 @@ Page({
         login()
             .then(res => {
                 if (res.code) {
-                    console.log(res.code)
                     this.setData({ 'form.js_code': res.code });
                 } else {
                     console.log('登录失败：' + res.errMsg);
@@ -227,7 +227,8 @@ Page({
             'form.auth_related_id': app.globalData.extConfig.auth_related_id || 0,
             'form.auth_type': app.globalData.extConfig.auth_type || 0,
             'form.user_id': options.user_id || 0,
-            'form.recommend_user': options.userId || 0,
+            'form.user_weap_id': options.user_weap_id || 0,
+            'form.recommend_user': options.recommendUser || 0,
             'form.recommend_type': options.recommendType || 0,
         });
         this.wxLogin();

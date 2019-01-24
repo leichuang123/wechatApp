@@ -111,7 +111,7 @@ Page({
      */
     gotoRegister: function() {
         const params = JSON.stringify({
-            userId: this.data.userId,
+            recommendUser: this.data.userId,
             recommendType: 4 //0无1提供商2顾问3门店4用户
         });
         wx.redirectTo({

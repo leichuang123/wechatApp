@@ -83,7 +83,7 @@ Page({
      * 跳转到注册页面
      */
     gotoRegister: function() {
-        const params = JSON.stringify({ userId: this.form.user_id, recommendType: 4 }); //0无1提供商2顾问3门店4用户
+        const params = JSON.stringify({ recommendUser: this.form.user_id, recommendType: 4 }); //0无1提供商2顾问3门店4用户
         wx.redirectTo({
             url: '../../../pages/register/register?params=' + params
         });
