@@ -1,6 +1,7 @@
 import { post } from '../../utils/api';
 import { toastMsg, confirmMsg, showLoading } from '../../utils/util';
 import wxPay from '../../utils/requestPayment';
+const app = getApp();
 Page({
     data: {
         form: {
@@ -14,7 +15,8 @@ Page({
             merchant_id: 0,
             mobile: '',
             first_pay: 0,
-            order: []
+            order: [],
+            weapp_config_id: 0
         },
         queueForm: {
             store_id: 0,
@@ -187,6 +189,7 @@ Page({
         this.setData({
             form: params,
             'form.car_number': carNumber,
+            'form.weapp_config_id': app.globalData.extConfig.weapp_config_id || 1,
             'queueForm.store_id': params.store_id,
             'queueForm.car_number': carNumber
         });

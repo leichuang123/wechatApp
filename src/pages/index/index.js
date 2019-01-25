@@ -78,7 +78,8 @@ Page({
     getIndexInfo: function() {
         const params = {
             auth_type: app.globalData.extConfig.auth_type || 1,
-            auth_related_id: app.globalData.extConfig.auth_related_id || 1
+            auth_related_id: app.globalData.extConfig.auth_related_id || 1,
+            weapp_config_id: app.globalData.extConfig.weapp_config_id || 1
         };
         api.get('weapp/indexinfo', params, false).then(res => {
             if (res.errcode === 0) {
@@ -192,7 +193,7 @@ Page({
         });
         if (!app.globalData.sessionKey) {
             app.doLoginCallBack = sessionKey => {
-                wx.setStorageSync('sessionKey',sessionKey);
+                wx.setStorageSync('sessionKey', sessionKey);
                 this.getIndexInfo();
             };
         } else {

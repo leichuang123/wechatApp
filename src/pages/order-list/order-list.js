@@ -16,6 +16,8 @@ Page({
         tabs: ['全部', '待付款', '已付款', '已完成', '待评价'],
         reasons: ['没有时间去，不想要了', '买错了', '其它原因', '门店服务态度不好'],
         orderForm: {
+            auth_type: 0,
+            auth_related_id: 0,
             type: 0, //1待付款，2已付款，3已完成，4退款
             page: 1
         },
@@ -55,7 +57,11 @@ Page({
     pay: function(e) {
         wx.showLoading();
         let order = e.target.dataset.order;
-        api.get('/weapp/paysignpackage', { order_id: order.id }).then(res => {
+        const params = {
+            order_id: order.id,
+            merchant_id: merchant_id
+        };
+        api.get('/weapp/paysignpackage', params).then(res => {
             wx.hideLoading();
             if (res.errcode === 0) {
                 wxPay(
@@ -195,6 +201,8 @@ Page({
      */
     onLoad: function(options) {
         this.setData({
+            'orderForm.auth_type': app.globalData.extConfig.auth_type || 1,
+            'orderForm.auth_related_id': app.globalData.extConfig.auth_related_id || 1,
             'orderForm.type': options.type,
             sliderLeft: (app.globalData.windowWidth / this.data.tabs.length - sliderWidth) / 2,
             sliderOffset: (app.globalData.windowWidth / this.data.tabs.length) * options.type

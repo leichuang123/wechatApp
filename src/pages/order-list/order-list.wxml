@@ -55,27 +55,27 @@
                         </view>
                     </view>
                     <view class="text-right">
-                        <view class="order-view" wx:if="{{item.type==1||orderForm.type==1}}">
+                        <view class="order-view" wx:if="{{item.type==1}}">
                             <button class="weui-btn order-btn" type="primary" plain="true" size="mini" data-order="{{item}}" bindtap="pay">
                                 立即付款
                             </button>
                         </view>
-                        <view class="order-view" wx:if="{{(item.type==2||item.type==3||orderForm.type==2||orderForm.type==3)}}">
+                        <view class="order-view" wx:if="{{item.type==2||item.type==3}}">
                             <button class="weui-btn order-btn" type="primary" plain="true" size="mini" data-item="{{item}}" id="index" bindtap="onApplyForRefund">
                                 申请退款
                             </button>
                         </view>
-                        <view class="order-view" wx:if="{{item.type==4||orderForm.type==4}}">
+                        <view class="order-view" wx:if="{{item.type==4}}">
                             <button class="weui-btn order-btn" type="primary" plain="true" size="mini" data-item="{{item}}" bindtap="gotoEvaluate">
                                 评价
                             </button>
                         </view>
-                        <view class="order-view" wx:if="{{item.category_value==6&&(item.type==2||orderForm.type==2||item.type==3||orderForm.type==3)}}">
+                        <view class="order-view" wx:if="{{item.category_value==6&&(item.type==2||item.type==3)}}">
                             <button class="weui-btn order-btn" type="primary" plain="true" size="mini" data-item="{{item}}" bindtap="gotoProgress">
                                 查看进度
                             </button>
                         </view>
-                        <view class="order-view" wx:if="{{item.category_value==6&&(item.type==2||orderForm.type==2)}}">
+                        <view class="order-view" wx:if="{{item.category_value==6&&item.type==2}}">
                             <button class="weui-btn order-btn" type="primary" size="mini" data-id="{{item.id}}" bindtap="confirmFinish">
                                 确认完成
                             </button>

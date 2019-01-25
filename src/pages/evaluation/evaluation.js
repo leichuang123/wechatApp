@@ -11,7 +11,8 @@ Page({
             store_star: 0,
             content: '',
             pic_url: [],
-            category: 3 //1服务开单2清洗开单3订单4计次记录
+            category: 3, //1服务开单2清洗开单3订单4计次记录
+            user_avatar: '', //用户头像
         }
     },
     /**
@@ -159,9 +160,11 @@ Page({
      */
     onLoad: function(options) {
         let params = JSON.parse(options.params);
+        const wxUserInfo = wx.getStorageSync('wxUserInfo');
         this.setData({
             'form.order_id': params.id,
-            'form.category': params.category
+            'form.category': params.category,
+            'form.user_avatar': wxUserInfo.avatarUrl || ''
         });
     }
 });

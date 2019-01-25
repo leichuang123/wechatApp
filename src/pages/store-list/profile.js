@@ -143,11 +143,13 @@ Page({
      */
     onLoad: function(options) {
         let storeData = JSON.parse(options.storeData);
+        const wxUserInfo = wx.getStorageSync('wxUserInfo');
         this.setData({
             storeId: storeData.storeId,
             activeIndex: storeData.type,
             form: storeData,
-            'evaluationForm.store_id': storeData.storeId
+            'evaluationForm.store_id': storeData.storeId,
+            'form.user_avatar': wxUserInfo.avatar || ''
         });
         storeData.type == 0 ? this.getStoreInfo() : this.getEvaluations();
     },

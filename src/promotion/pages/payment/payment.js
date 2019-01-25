@@ -1,6 +1,7 @@
 import { post } from '../../../utils/api';
 import { toastMsg, confirmMsg, showLoading } from '../../../utils/util';
 import wxPay from '../../../utils/requestPayment';
+const app = getApp();
 Page({
     data: {
         form: {
@@ -14,7 +15,8 @@ Page({
             mobile: '',
             notice: '',
             is_promote: 1,
-            order: []
+            order: [],
+            weapp_config_id: 0
         }
     },
     /**
@@ -44,15 +46,13 @@ Page({
                 money: this.data.form.money,
                 content: '',
                 is_queue: false,
-                goods: [
-                    {
-                        id: this.data.form.goods_id,
-                        price: this.data.form.money,
-                        num: 1,
-                        type: this.data.form.category,
-                        name: this.data.form.goods_name
-                    }
-                ]
+                goods: [{
+                    id: this.data.form.goods_id,
+                    price: this.data.form.money,
+                    num: 1,
+                    type: this.data.form.category,
+                    name: this.data.form.goods_name
+                }]
             }
         });
     },
@@ -138,6 +138,7 @@ Page({
             'form.category': params.category,
             'form.car_number': defaultCar,
             'form.mobile': !!userData ? userData.mobile : '',
+            'form.weapp_config_id': app.globalData.extConfig.weapp_config_id || 1,
             carNumbers: !!userData ? userData.car : [],
             carIndex: 0
         });

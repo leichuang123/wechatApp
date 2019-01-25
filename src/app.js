@@ -22,7 +22,7 @@ App({
             js_code: jsCode,
             auth_type: this.globalData.extConfig.auth_type || 1,
             auth_related_id: this.globalData.extConfig.auth_related_id || 1,
-            weapp_config_id: this.globalData.extConfig.weapp_config_id || 10,
+            weapp_config_id: this.globalData.extConfig.weapp_config_id || 1,
         };
         api.get('weapp/login', params, false).then(res => {
             if (res.errcode === 0) {
