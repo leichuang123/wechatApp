@@ -1,5 +1,6 @@
 import api from 'utils/api';
 import { login, getSystemInfo, getLocation } from 'utils/wx-api';
+import config from './config';
 App({
     globalData: {
         hasAuth: false,
@@ -20,9 +21,10 @@ App({
     doLogin(jsCode) {
         const params = {
             js_code: jsCode,
-            auth_type: this.globalData.extConfig.auth_type || 1,
-            auth_related_id: this.globalData.extConfig.auth_related_id || 1,
-            weapp_config_id: this.globalData.extConfig.weapp_config_id || 1,
+            auth_type: this.globalData.extConfig.auth_type || 0,
+            auth_related_id: this.globalData.extConfig.auth_related_id || 0,
+            weapp_config_id: this.globalData.extConfig.weapp_config_id || 0,
+            wechat_config_id: this.globalData.extConfig.wechat_config_id || 0,
         };
         api.get('weapp/login', params, false).then(res => {
             if (res.errcode === 0) {
@@ -86,6 +88,7 @@ App({
 
         this.globalData.extConfig = wx.getExtConfigSync ? wx.getExtConfigSync() : {}
         this.onLogin();
+        console.log('config.host:', config.host);
     },
     onShow: function() {}
 });

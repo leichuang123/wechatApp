@@ -16,6 +16,8 @@ Page({
         form: {
             weapp_config_id: 0,
             wechat_config_id: 0,
+            auth_related_id:0,
+            auth_type:0,
             user_id: 0,
             url: '',
             js_code: '',

@@ -201,6 +201,7 @@ Page({
      *
      */
     getStoresWithClass: function() {
+        console.log('getStoresWithClass:', this.data.form);
         api.get('weapp/get-stores-with-class', this.data.form, false).then(res => {
             if (res.errcode === 0) {
                 const index = this.getCurrentServiceClassIndex(res.data.classes.serviceClass.classes);
