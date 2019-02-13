@@ -16,7 +16,6 @@ Page({
             mobile: '',
             first_pay: 0,
             order: [],
-            weapp_config_id: 0
         },
         queueForm: {
             store_id: 0,
@@ -189,7 +188,6 @@ Page({
         this.setData({
             form: params,
             'form.car_number': carNumber,
-            'form.weapp_config_id': app.globalData.extConfig.weapp_config_id || 1,
             'queueForm.store_id': params.store_id,
             'queueForm.car_number': carNumber
         });
