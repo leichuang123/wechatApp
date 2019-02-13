@@ -62,7 +62,6 @@
         "pages/my-card/index",
         "pages/my-card/own/index",
         "pages/my-card/own/detail",
-        "pages/my-card/own/get-coupon",
         "pages/my-card/own/privilege",
         "pages/my-card/shareable/index",
         "pages/my-card/shareable/detail",
