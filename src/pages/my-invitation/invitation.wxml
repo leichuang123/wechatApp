@@ -2,7 +2,7 @@
     <view> <image class="invitation-bg" src="../../assets/images/invitation-bg.jpg"> </image> </view>
     <view style="position:absolute;top:20px;">
         <view class="text-center">
-            <image src="../../assets/images/logo.png" style="width:158px;height:41px;"></image>
+            <image src="{{inviteData.weapp_logo}}" style="width:158px;height:41px;"></image>
         </view>
         <view class="rank-cell" style="background:rgba(255,255,255,0)">
             <view class="text-center invitation-title" style="color:#61B8A8;">您的爱车小伙伴 </view>
@@ -21,7 +21,7 @@
                 <text class="list-dot"></text>为车主提供车辆年审、车牌业务、车辆过户、补换证等便捷、优质的车务服务
             </view>
             <view class="text-center">
-                <image class="qr-code" src="{{qrCode}}"></image> <view>微信扫码注册</view>
+                <image class="qr-code" src="{{inviteData.qrcode}}"></image> <view>微信扫码注册</view>
             </view>
         </view>
     </view>

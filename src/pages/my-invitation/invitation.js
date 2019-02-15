@@ -7,16 +7,17 @@ Page({
         qrCode: '',
         sharingImage: '',
         imageVisible: false,
-        userId: 0
+        userId: 0,
+        inviteData:{}
     },
     /**
      * 获取邀请二维码
      */
     getInviteQrCode: function() {
         showLoading();
-        get('weapp/invite-qrcode', { userId: this.data.userId }).then(res => {
+        get('weapp/invite-qrcode').then(res => {
             wx.hideLoading();
-            this.setData({ qrCode: res.errcode === 0 ? res.data : '' });
+            this.setData({ inviteData: res.errcode === 0 ? res.data : {} });
         });
     },
     /**
