@@ -24,15 +24,15 @@ Page({
     /**
      * 绑定门店
      */
-    bindStore: function() {
+    bindStore: function (userData) {
         scanCode()
             .then(res => {
                 const storeData = JSON.parse(res.result);
                 const bindParams = {
                     store_id: storeData.store_id,
-                    car_number: this.data.userData.car,
-                    mobile: this.data.userData.mobile,
-                    user_id: this.data.userData.id
+                    car_number: userData.car,
+                    mobile: userData.mobile,
+                    user_id: userData.id
                 };
                 api.post('weapp/bind', bindParams)
                     .then(res => {
@@ -66,7 +66,7 @@ Page({
         if (!userData || !userData.registered) {
             this.remindRegister();
         } else {
-            this.bindStore();
+            this.bindStore(userData);
         }
     },
     /**
@@ -74,9 +74,9 @@ Page({
      */
     getIndexInfo: function() {
         const params = {
-            auth_type: app.globalData.extConfig.auth_type || 1,
-            auth_related_id: app.globalData.extConfig.auth_related_id || 1,
-            weapp_config_id: app.globalData.extConfig.weapp_config_id || 1
+            auth_type: app.globalData.extConfig.auth_type ||0,
+            auth_related_id: app.globalData.extConfig.auth_related_id ||0,
+            weapp_config_id: app.globalData.extConfig.weapp_config_id || 0
         };
         api.get('weapp/indexinfo', params, false).then(res => {
             if (res.errcode === 0) {
@@ -87,6 +87,7 @@ Page({
                     unreceivedCoupons: !res.data.unreceivedCoupons ? [] : res.data.unreceivedCoupons.data,
                     couponDialogVisible: !!res.data.unreceivedCoupons && res.data.unreceivedCoupons.data.length > 0
                 });
+                console.log(this.data.userData)
                 wx.setStorageSync('sessionKey', res.data.sessionKey);
                 wx.setStorageSync('userData', res.data.userData);
             } else if (res.errcode === 999) {
@@ -183,7 +184,6 @@ Page({
     initData: function() {
         this.setData({
             couponDialogVisible: false,
-            userData: null,
             queues: [],
             reservations: [],
             unreceivedCoupons: []
