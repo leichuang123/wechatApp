@@ -1,6 +1,6 @@
 import api from '../../utils/api';
 import { toastMsg, confirmMsg } from '../../utils/util';
-import { scanCode, getLocation } from '../../utils/wx-api';
+import { scanCode, getLocation, getSystemInfo } from '../../utils/wx-api';
 const app = getApp();
 Page({
     data: {
@@ -53,12 +53,9 @@ Page({
                         }
                         confirmMsg('', res.errmsg, false);
                     })
-                    .catch(res => {
-                        console.log(res);
-                    });
             })
-            .catch(() => {
-                console.log('扫码失败');
+            .catch((res) => {
+                console.log('扫码失败:', res);
             });
     },
     /**

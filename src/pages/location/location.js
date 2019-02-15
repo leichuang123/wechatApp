@@ -193,7 +193,8 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function() {
-        const winHeight = app.globalData.windowHeight;
+        const systemInfo = wx.getStorageSync('systemInfo');
+        const winHeight = systemInfo.windowHeight;
         const lineHeight = winHeight / 26;
         this.setData({
             cities: cities,

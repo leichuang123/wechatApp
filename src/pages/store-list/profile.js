@@ -13,7 +13,7 @@ Page({
         storeInfo: {},
         evaluations: [],
         storeId: 0,
-        scrollHeight: app.globalData.windowHeight - 59,
+        scrollHeight:0,
         scrollTop: 59,
         form: {
             storeId: 0,
@@ -144,12 +144,14 @@ Page({
     onLoad: function(options) {
         let storeData = JSON.parse(options.storeData);
         const wxUserInfo = wx.getStorageSync('wxUserInfo');
+        const systemInfo = wx.getStorageSync('systemInfo');
         this.setData({
             storeId: storeData.storeId,
             activeIndex: storeData.type,
             form: storeData,
             'evaluationForm.store_id': storeData.storeId,
-            'form.user_avatar': wxUserInfo.avatar || ''
+            'form.user_avatar': wxUserInfo.avatar || '',
+            scrollHeight: systemInfo.windowHeight,
         });
         storeData.type == 0 ? this.getStoreInfo() : this.getEvaluations();
     },

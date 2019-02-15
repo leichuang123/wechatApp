@@ -4,8 +4,6 @@ App({
     globalData: {
         hasAuth: false,
         city: '',
-        windowHeight: 0,
-        windowWidth: 0,
         //默认经纬度为武汉经纬度
         defaultLocation: {
             latitude: 30.5287,
@@ -77,16 +75,15 @@ App({
             });
     },
     onLaunch: function() {
-        getSystemInfo().then(res => {
-            this.globalData.windowHeight = res.windowHeight + 48;
-            this.globalData.windowWidth = res.windowWidth;
-        });
+        const systemInfo = wx.getSystemInfoSync();
+        wx.setStorageSync('systemInfo', systemInfo);
+
         const wxUserInfo = wx.getStorageSync('wxUserInfo');
         this.globalData.hasAuth = !!wxUserInfo;
 
         this.globalData.extConfig = wx.getExtConfigSync ? wx.getExtConfigSync() : {}
         this.onLogin();
-        console.log(this.globalData.extConfig);
+        // console.log(this.globalData.extConfig);
     },
     onShow: function() {}
 });

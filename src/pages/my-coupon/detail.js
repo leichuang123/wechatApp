@@ -1,7 +1,6 @@
 import api from '../../utils/api';
 import { makePhoneCall, openLocation, getSystemInfo } from '../../utils/wx-api';
 import { showLoading } from '../../utils/util';
-const app = getApp();
 Page({
     data: {
         loading: false,
@@ -44,29 +43,14 @@ Page({
         });
     },
     /**
-     * 获取优惠券样式
-     */
-    getCouponStyle() {
-        getSystemInfo()
-            .then(res => {
-                this.setData({
-                    couponWidth: res.windowWidth - 30 + 'px',
-                    height: res.windowHeight + 'px'
-                });
-            })
-            .catch(() => {
-                this.setData({
-                    couponWidth: app.globalData.windowWidth - 30 + 'px',
-                    height: app.globalData.windowHeight + 48 + 'px'
-                });
-            });
-    },
-
-    /**
      * 生命周期函数--监听页面加载
      */
     onLoad: function(options) {
-        this.getCouponStyle();
+        const systemInfo = wx.getStorageSync('systemInfo');
+        this.setData({
+            couponWidth: systemInfo.windowWidth - 30 + 'px',
+            height: systemInfo.windowHeight + 'px'
+        });
         this.getCouponInfo(options.id);
     }
 });

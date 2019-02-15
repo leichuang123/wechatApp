@@ -188,12 +188,14 @@ Page({
         this.getBrands();
     },
     initData: function() {
-        const winHeight = app.globalData.windowHeight - 56;
-        const lineHeight = winHeight / 27;
+        const systemInfo = wx.getStorageSync('systemInfo');
+        const winHeight = systemInfo.windowHeight;
+        const seriesHeight = winHeight - 56;
+        const lineHeight = seriesHeight / 27;
         this.setData({
             winHeight: winHeight + 'px',
             lineHeight: lineHeight + 'px',
-            seriesHeight: winHeight + 'px'
+            seriesHeight: seriesHeight + 'px'
         });
         this.getBrandsWithHot();
     },

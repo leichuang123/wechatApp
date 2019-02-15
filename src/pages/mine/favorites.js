@@ -9,7 +9,7 @@ Page({
         loadNore: false,
         hasMore: true,
         favorites: [],
-        scrollHeight: app.globalData.windowHeight - 59,
+        scrollHeight: 0,
         scrollTop: 59,
         searchForm: {
             store_name: '',
@@ -159,6 +159,10 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function(options) {
+        const systemInfo = wx.getStorageSync('systemInfo');
+        this.setData({
+            scrollHeight: systemInfo.windowHeight,
+        });
         this.getFavorites();
         this.getLocation();
     },
