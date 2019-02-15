@@ -85,21 +85,6 @@
     ],
     "subPackages": [
         {
-            "root": "paid-service",
-            "pages": [
-                "pages/business/business",
-                "pages/business/detail",
-                "pages/business/handle",
-                "pages/business/settlement",
-                "pages/enquiry/enquiry",
-                "pages/payment/payment",
-                "pages/payment/pay-success",
-                "pages/service-term/service-term",
-                "pages/complain/complain",
-                "pages/business-progress/business-progress"
-            ]
-        },
-        {
             "root": "promotion",
             "pages": [
                 "pages/goods-detail/index",
@@ -133,12 +118,6 @@
                 "text": "促销活动",
                 "iconPath": "assets/images/promotion.png",
                 "selectedIconPath": "assets/images/promotion-active.png"
-            },
-            {
-                "pagePath": "pages/paid-service/paid-service",
-                "text": "增值服务",
-                "iconPath": "assets/images/paid-service.png",
-                "selectedIconPath": "assets/images/paid-service-active.png"
             },
             {
                 "pagePath": "pages/mine/mine",

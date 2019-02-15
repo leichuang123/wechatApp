@@ -1,6 +1,5 @@
 import api from 'utils/api';
 import { login, getSystemInfo, getLocation } from 'utils/wx-api';
-import config from './config';
 App({
     globalData: {
         hasAuth: false,
@@ -28,9 +27,8 @@ App({
         };
         api.get('weapp/login', params, false).then(res => {
             if (res.errcode === 0) {
-                const sessionKey = res.data;
-                wx.setStorageSync('sessionKey', sessionKey);
-                this.globalData.sessionKey = sessionKey;
+                wx.setStorageSync('sessionKey', res.data);
+                this.globalData.sessionKey = res.data;
                 if (this.doLoginCallBack) {
                     this.doLoginCallBack(res.data);
                 }
@@ -88,7 +86,7 @@ App({
 
         this.globalData.extConfig = wx.getExtConfigSync ? wx.getExtConfigSync() : {}
         this.onLogin();
-        console.log('config.host:', config.host);
+        console.log(this.globalData.extConfig);
     },
     onShow: function() {}
 });
