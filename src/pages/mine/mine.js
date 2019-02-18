@@ -2,33 +2,19 @@ import { get } from '../../utils/api';
 const app = getApp();
 Page({
     data: {
-        hasUserInfo: false,
-        userInfo: {
-            nickName: '',
-            avatar: '',
-            mobile: '',
-            integral: 0 //用户积分,
-        }
+        userInfo: null
     },
     /**
      * 获取平台用户信息
      */
     getPlatformUserInfo: function() {
-        get('weapp/indexinfo', {}, false).then(res => {
+        get('weapp/get-user-info', {}, false).then(res => {
             if (res.errcode === 0) {
                 this.setData({
-                    'userInfo.mobile': res.data.userData.mobile,
-                    'userInfo.integral': res.data.userData.integral,
-                    hasUserInfo: res.data.userData.registered
+                    userInfo: res.data
                 });
-
-                wx.setStorageSync('sessionKey', res.data.sessionKey);
-                wx.setStorageSync('userData', res.data.userData);
-                return;
+                wx.setStorageSync('userData', res.data);
             }
-            this.setData({
-                hasUserInfo: false
-            });
         });
     },
     //获取用户信息
@@ -45,9 +31,7 @@ Page({
             this.getPlatformUserInfo();
         } else {
             this.setData({
-                'userInfo.mobile': userData.mobile,
-                'userInfo.integral': userData.integral,
-                hasUserInfo: userData.registered
+                userInfo: userData,
             });
         }
     },

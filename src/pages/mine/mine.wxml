@@ -1,5 +1,10 @@
 <view class="user-box">
-    <view class="weui-cell" wx:if="{{hasUserInfo}}">
+    <view wx:if="{{!userInfo}}" style="text-align:center;padding-top:20px;">
+        <button type="default" size="mini" open-type="getUserInfo" bindgetuserinfo="onGetUserInfo">
+            登录
+        </button>
+    </view>
+    <view class="weui-cell" wx:else>
         <view class="min-face-box">
             <view class="face-img-mine">
                 <open-data type="userAvatarUrl"></open-data>
@@ -21,11 +26,7 @@
             </view>
         </view>
     </view>
-    <view wx:else style="text-align:center;padding-top:20px;">
-        <button type="default" size="mini" open-type="getUserInfo" bindgetuserinfo="onGetUserInfo">
-            登录
-        </button>
-    </view>
+
 </view>
 <view class="weui-flex orien-list">
     <navigator url="/pages/queue/queue" hover-class="none" class="weui-flex__item">
