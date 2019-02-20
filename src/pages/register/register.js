@@ -222,6 +222,7 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function(options) {
+        console.log('register page options:', options);
         this.setData({
             'form.weapp_config_id': app.globalData.extConfig.weapp_config_id || 0,
             'form.wechat_config_id': app.globalData.extConfig.wechat_config_id || 0,

@@ -1,15 +1,3 @@
-<!-- <view class="detail-benner">
-    <view class="banner-tag">{{storeInfo.store_pic.length}}</view>
-    <view class="detail-benner">
-        <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
-            <block wx:for="{{storeInfo.store_pic}}" wx:key="index">
-                <swiper-item>
-                    <image src="{{item}}" />
-                </swiper-item>
-            </block>
-        </swiper>
-    </view>
-</view> -->
 <view class="weui-cell list-box">
     <view class="weui-cell__bd">
         <text>{{storeInfo.store_name}}</text>
