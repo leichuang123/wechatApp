@@ -81,11 +81,15 @@ Page({
                     couponDialogVisible: !!res.data.unreceivedCoupons && res.data.unreceivedCoupons.data.length > 0
                 });
                 wx.setStorageSync('userData', res.data.userData);
-            } else if (res.errcode === 999) {
+            } 
+            else {
                 console.log(res.errmsg);
-            } else {
-                confirmMsg('提示', res.errmsg, false);
             }
+            // else if (res.errcode === 999) {
+            //     console.log(res.errmsg);
+            // } else {
+            //     confirmMsg('提示', res.errmsg, false);
+            // }
         });
     },
     /**

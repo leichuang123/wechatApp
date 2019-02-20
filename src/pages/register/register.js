@@ -204,6 +204,7 @@ Page({
                 if (res.errcode === 0) {
                     toastMsg(res.errmsg, 'success', 1000, () => {
                         wx.setStorageSync('sessionKey', res.data);
+                        app.globalData.sessionKey = res.data;
                         this.gotoIndex();
                     });
                 } else {
