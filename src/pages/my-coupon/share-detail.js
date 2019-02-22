@@ -94,13 +94,13 @@ Page({
         const params = {
             merchant_id: coupon.merchant_id,
             store_id: coupon.store_id,
-            related_id: shareForm.related_id,
-            related_type: shareForm.related_type,
-            send_mode: shareForm.send_mode,
-            give_num: shareForm.give_num,
-            staff_id: shareForm.staff_id,
-            is_gather: shareForm.is_gather,
-            customer_id: shareForm.receiver_customer_id
+            related_id: this.data.shareForm.related_id,
+            related_type: this.data.shareForm.related_type,
+            send_mode: this.data.shareForm.send_mode,
+            give_num: this.data.shareForm.give_num,
+            staff_id: this.data.shareForm.staff_id,
+            is_gather: this.data.shareForm.is_gather,
+            customer_id: this.data.shareForm.receiver_customer_id
         };
         console.log(['addSendRecord-params:', params]);
         api.post('weapp-coupon/add-send-record', params, false).then(res => {
