@@ -2,11 +2,13 @@
 <view>
     <template is="top-tips" data="{{showTopTips,errorMsg}}"></template>
     <view class="weui-cells weui-cells_after-title">
-        <view class="weui-flex">
-            <view>赠送内容</view>
-            <view class="weui-flex__item">
+        <view class="weui-cell">
+            <view class="weui-cell__hd wid95">赠送内容</view>
+            <view class="weui-cell__bd">
                 <block wx:for="{{card.services}}" wx:key="index">
-                    <view>{{item.service_name}}<text style='margin-left:5px;'>{{item.service_num}}</text></view>
+                    <view>{{item.service_name}}
+                        <text style='margin-left:5px;'>{{item.service_num}}</text>
+                    </view>
                 </block>
             </view>
         </view>
