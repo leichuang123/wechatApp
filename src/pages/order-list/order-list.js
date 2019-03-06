@@ -59,7 +59,7 @@ Page({
         let order = e.target.dataset.order;
         const params = {
             order_id: order.id,
-            merchant_id: merchant_id
+            merchant_id: order.merchant_id
         };
         api.get('/weapp/paysignpackage', params).then(res => {
             wx.hideLoading();
@@ -200,12 +200,14 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function(options) {
+        const systemInfo = wx.getStorageSync('systemInfo');
+        console.log(systemInfo);
         this.setData({
-            'orderForm.auth_type': app.globalData.extConfig.auth_type || 1,
-            'orderForm.auth_related_id': app.globalData.extConfig.auth_related_id || 1,
+            'orderForm.auth_type': app.globalData.extConfig.auth_type || 0,
+            'orderForm.auth_related_id': app.globalData.extConfig.auth_related_id || 0,
             'orderForm.type': options.type,
-            sliderLeft: (app.globalData.windowWidth / this.data.tabs.length - sliderWidth) / 2,
-            sliderOffset: (app.globalData.windowWidth / this.data.tabs.length) * options.type
+            sliderLeft: (systemInfo.windowWidth / this.data.tabs.length - sliderWidth) / 2,
+            sliderOffset: (systemInfo.windowWidth / this.data.tabs.length) * options.type
         });
     },
     /**

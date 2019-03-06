@@ -164,6 +164,14 @@ Page({
         // this.initData();
     },
     onShow:function(){
+        this.setData({
+            goods:[],
+            page:1,
+            loadMoreVisible: true,
+            loadingVisible: true,
+            hasData: true,
+            hasMore: true
+        });
         this.initData();
     },
     /**
