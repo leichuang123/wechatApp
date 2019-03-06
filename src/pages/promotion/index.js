@@ -143,13 +143,15 @@ Page({
     },
     initData: function() {
         let locationInfo = wx.getStorageSync('locationInfo');
-        if (!locationInfo) {
+        let selectedCity = wx.getStorageSync('selectedCity');
+        console.log([locationInfo, selectedCity]);
+        if (!locationInfo && selectedCity) {
             locationInfo = app.globalData.defaultLocation;
         }
         this.setData({
             'form.latitude': locationInfo.latitude,
             'form.longitude': locationInfo.longitude,
-            'form.area_code': locationInfo.adcode,
+            'form.area_code': !!selectedCity ? selectedCity.code: locationInfo.adcode,
             sliderLeft: (app.globalData.windowWidth / this.data.tabs.length - sliderWidth) / 2,
             sliderOffset: (app.globalData.windowWidth / this.data.tabs.length) * this.data.activeIndex
         });
@@ -159,6 +161,9 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function(options) {
+        // this.initData();
+    },
+    onShow:function(){
         this.initData();
     },
     /**
