@@ -202,7 +202,7 @@ const checkDataType = (type, obj) => {
  * 手机号验证
  */
 const isMobile = mobile => {
-    let reg = /^1[345678]\d{9}$/;
+    let reg = /^1[3-9]\d{9}$/;
     return reg.test(mobile);
 };
 /**
