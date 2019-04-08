@@ -13,7 +13,7 @@ Page({
     /**
      * 注册提醒
      */
-    remindRegister: function () {
+    remindRegister: function() {
         confirmMsg('亲', '您还没有注册呢，先注册一下吧', true, () => {
             wx.navigateTo({
                 url: '/pages/register/register'
@@ -23,7 +23,7 @@ Page({
     /**
      * 绑定门店
      */
-    bindStore: function (userData) {
+    bindStore: function(userData) {
         scanCode()
             .then(res => {
                 const storeData = JSON.parse(res.result);
@@ -60,7 +60,7 @@ Page({
     /**
      * 绑定门店时验证是否注册
      */
-    onBindStore: function () {
+    onBindStore: function() {
         const userData = wx.getStorageSync('userData');
         if (!userData || !userData.registered) {
             this.remindRegister();
@@ -71,7 +71,7 @@ Page({
     /**
      * 获取首页信息
      */
-    getIndexInfo: function () {
+    getIndexInfo: function() {
         api.get('weapp/indexinfo', {}, false).then(res => {
             if (res.errcode === 0) {
                 this.setData({
@@ -81,24 +81,18 @@ Page({
                     couponDialogVisible: !!res.data.unreceivedCoupons && res.data.unreceivedCoupons.data.length > 0
                 });
                 wx.setStorageSync('userData', res.data.userData);
-            } 
-            else {
+            } else {
                 console.log(res.errmsg);
             }
-            // else if (res.errcode === 999) {
-            //     console.log(res.errmsg);
-            // } else {
-            //     confirmMsg('提示', res.errmsg, false);
-            // }
         });
     },
     /**
      * 定位
      */
-    getLocation: function () {
+    getLocation: function() {
         getLocation({
-            type: 'wgs84'
-        })
+                type: 'wgs84'
+            })
             .then(res => {
                 let locationInfo = {
                     latitude: res.latitude,
@@ -116,14 +110,14 @@ Page({
                         if (locatedCity !== selectedCity.name) {
                             const content = '您当前的位置为' + locatedCity + '，是否切换到当前城市';
                             confirmMsg('', content, true, () => {
-                                this.setData({
-                                    city: locatedCity
-                                });
-                                wx.setStorageSync('selectedCity', {
-                                    name: locatedCity,
-                                    code: locationInfo.city_code
-                                });
-                            },
+                                    this.setData({
+                                        city: locatedCity
+                                    });
+                                    wx.setStorageSync('selectedCity', {
+                                        name: locatedCity,
+                                        code: locationInfo.city_code
+                                    });
+                                },
                                 () => {
                                     this.setData({
                                         city: !selectedCity ? '请选择' : selectedCity.name
@@ -143,14 +137,14 @@ Page({
                 wx.setStorageSync('locationInfo', app.globalData.defaultLocation);
             });
     },
-    onGetCoupon: function (e) {
+    onGetCoupon: function(e) {
         const params = JSON.stringify(e.currentTarget.dataset.item);
         this.updateRemindCount();
         wx.navigateTo({
             url: '/pages/my-coupon/share-detail?params=' + params
         });
     },
-    updateRemindCount: function () {
+    updateRemindCount: function() {
         const ids = this.getUnreceivedCouponSendDetailIds();
         api.post('/weapp-coupon/update-remind-count', { id: ids }).then(res => {
             if (res.errcode !== 0) {
@@ -158,7 +152,7 @@ Page({
             }
         });
     },
-    getUnreceivedCouponSendDetailIds: function () {
+    getUnreceivedCouponSendDetailIds: function() {
         return this.data.unreceivedCoupons.map(val => val.id);
     },
     /**
@@ -166,13 +160,13 @@ Page({
      *
      * @param {event} e
      */
-    closeCouponDialog: function (e) {
+    closeCouponDialog: function(e) {
         this.setData({
             couponDialogVisible: false
         });
         this.updateRemindCount();
     },
-    initData: function () {
+    initData: function() {
         this.setData({
             couponDialogVisible: false,
             queues: [],
@@ -201,10 +195,10 @@ Page({
     /**
      * 生命周期函数--监听页面加载
      */
-    onLoad: function (options) {
+    onLoad: function(options) {
         this.getLocation();
     },
-    onShow: function () {
+    onShow: function() {
         this.initData();
     }
 });

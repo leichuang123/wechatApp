@@ -15,8 +15,8 @@ Page({
         form: {
             weapp_config_id: 0,
             wechat_config_id: 0,
-            auth_related_id:0,
-            auth_type:0,
+            auth_related_id: 0,
+            auth_type: 0,
             user_id: 0,
             code: '', //验证码
             mobile: '',
@@ -264,6 +264,7 @@ Page({
         this.setData({
             'form.merchant_id': params.merchant_id,
             'form.store_id': params.store_id,
+            'form.mobile': userData.mobile,
             'form.related_id': params.related_id,
             'form.related_type': params.related_type,
             'form.send_mode': params.send_mode,

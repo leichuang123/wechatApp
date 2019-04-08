@@ -10,9 +10,9 @@
 		"uglifyFileName": false
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.4.1",
-	"appid": "wx1284a221eb2fdac5",
-	"projectname": "weapp-production",
+	"libVersion": "2.6.0",
+	"appid": "wx68b84434fb5b8c17",
+	"projectname": "weapp-3rd-platform",
 	"condition": {
 		"search": {
 			"current": -1,
