@@ -130,7 +130,11 @@ Page({
         }
         let time = 60;
         showLoading('提交请求中');
-        api.get('weapp/phonecode', { mobile: this.data.form.mobile }, false).then(res => {
+        api.get(
+            'weapp/phonecode',
+            { mobile: this.data.form.mobile, oem_id: this.globalData.extConfig.oem_id || 0 },
+            false
+        ).then(res => {
             wx.hideLoading();
             if (res.errcode === 0) {
                 let interval = setInterval(() => {

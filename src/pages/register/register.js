@@ -67,7 +67,11 @@ Page({
         }
         let time = 60;
         showLoading('提交请求中');
-        api.get('weapp/phonecode', { mobile: this.data.form.mobile }, false).then(res => {
+        api.get(
+            'weapp/phonecode',
+            { mobile: this.data.form.mobile, oem_id: this.globalData.extConfig.oem_id || 0 },
+            false
+        ).then(res => {
             wx.hideLoading();
             if (res.errcode === 0) {
                 let interval = setInterval(() => {
@@ -231,7 +235,7 @@ Page({
             'form.user_id': options.user_id || 0,
             'form.user_weapp_id': options.user_weapp_id || 0,
             'form.recommend_user': options.recommendUser || 0,
-            'form.recommend_type': options.recommendType || 0,
+            'form.recommend_type': options.recommendType || 0
         });
         this.wxLogin();
     }
