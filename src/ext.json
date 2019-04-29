@@ -1,0 +1,12 @@
+{
+    "extEnable": true,
+    "extAppid": "wx68b84434fb5b8c17",
+    "directCommit": false,
+    "ext": {
+        "auth_type": 1,
+        "auth_related_id": 1,
+        "weapp_config_id": 3,
+        "wechat_config_id": 7,
+        "oem_id": 1
+    }
+}
