@@ -1,0 +1,36 @@
+page {
+    background: white;
+}
+.tips {
+    color: rgba(255, 152, 0, 1);
+    font-size: 14px;
+    padding: 7px;
+    border-bottom: 1px solid #f1f1f1;
+}
+.check {
+    color: #101010;
+    font-size: 14px;
+    padding: 7px;
+    border-bottom: 1px solid #f1f1f1;
+}
+.action {
+    margin-top: 88px;
+    padding-bottom: 20px;
+    display: flex;
+    justify-content: space-around;
+}
+.action view {
+    width: 109px;
+    height: 30px;
+    text-align: center;
+    line-height: 30px;
+    font-size: 14px;
+    color: black;
+    background: #ffffff;
+    border: 1px solid #f1f1f1;
+    border-radius: 3px;
+}
+.action .sure {
+    color: #ffffff;
+    background: #009688;
+}

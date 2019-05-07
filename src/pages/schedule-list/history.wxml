@@ -1,0 +1,21 @@
+<view class="mapbox">
+    <map id="myMap" latitude="{{latitude}}" longitude="{{longitude}}" markers="{{markers}}" polyline="{{polyline}}" scale="15" style="width:100%;height:{{height}}px" />
+    <cover-view class="sz" bindtap="play">
+        <cover-image src="../../assets/images/icons/bofang.png" />
+    </cover-view>
+    <cover-view class="sz icon1" bindtap="speed">
+        <cover-image src="../../assets/images/icons/sudu.png" />
+    </cover-view>
+    <cover-view class="select" wx:if="{{select}}">
+        <cover-view class="title">选择播放速度</cover-view>
+        <cover-view class="items {{type=='800' ? 'ac' : ''}}" bindtap="check" id="800">
+            快
+        </cover-view>
+        <cover-view class="items {{type=='1000' ? 'ac' : ''}}" bindtap="check" id="1000">
+            中
+        </cover-view>
+        <cover-view class="items {{type=='1500' ? 'ac' : ''}}" bindtap="check" id="1500">
+            慢
+        </cover-view>
+    </cover-view>
+</view>

@@ -1,0 +1,74 @@
+/* pages/medical/medical-map.wxss */
+#myMap {
+    width: 100%;
+}
+.boxbar {
+    padding-top: 10px;
+    position: fixed;
+    bottom: 34px;
+    left: 50%;
+    width: 333px;
+    height: 59px;
+    margin-left: -167px;
+    line-height: 20px;
+    border-radius: 30px;
+    text-align: center;
+    z-index: 99999;
+    background: white;
+    display: flex;
+    justify-content: space-around;
+}
+.round {
+    width: 64px;
+    height: 69px;
+    text-align: center;
+    border-radius: 100%;
+    font-size: 12px;
+    box-sizing: border-box;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    margin-left: -32px;
+    text-align: center;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    background: #61b8a8;
+    color: white;
+}
+.bars {
+    font-size: 12px;
+    color: #101010;
+    text-align: center;
+}
+.bars cover-image {
+    width: 28px;
+    height: 28px;
+    margin: 0 auto;
+}
+.sz {
+    position: fixed;
+    z-index: 99999;
+    width: 32px;
+    height: 32px;
+    border-radius: 5px;
+    text-align: center;
+    line-height: 32px;
+    top: 35px;
+    right: 13px;
+    background: white;
+}
+.sz cover-image {
+    width: 30px;
+    height: 30px;
+}
+.icon1 {
+    top: 80px;
+}
+
+.icon2 {
+    top: 125px;
+}
+.icon3 {
+    top: 170px;
+}

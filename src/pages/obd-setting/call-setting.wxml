@@ -1,0 +1,15 @@
+<view>
+    <view class="tips">提示：勾选后系统将使用微信公众号的模板消息通知</view>
+    <checkbox-group class="radio-group" bindchange="checkboxChange">
+        <view class="check" wx:for="{{callList}}" wx:key="index">
+            <label class="radio">
+                <checkbox checked="{{item.selected>0}}" value="{{item.type}}" />
+                {{item.name}}
+            </label>
+        </view>
+    </checkbox-group>
+    <view class="action">
+        <view class="cel" bindtap="cel">取消</view>
+        <view class="sure" bindtap="sure">确定</view>
+    </view>
+</view>

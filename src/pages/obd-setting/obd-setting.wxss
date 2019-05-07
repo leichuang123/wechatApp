@@ -1,0 +1,46 @@
+page {
+    background: #ffffff;
+    overflow: hidden;
+}
+
+.nav {
+    width: 100%;
+    background: #ffffff;
+}
+.links {
+    background: #ffffff;
+    padding: 12px 12px 2px 12px;
+    border-bottom: 1px solid #f1f1f1;
+    overflow: hidden;
+}
+.links view {
+    font-size: 14px;
+    color: #101010;
+}
+.linkstitle {
+    float: left;
+}
+.linksicon {
+    float: right;
+}
+.linksicon image {
+    width: 24px;
+    height: 24px;
+}
+.linksins {
+    float: right;
+}
+.back {
+    width: 297px;
+    height: 35px;
+    line-height: 35px;
+    border-radius: 5px;
+    background-color: rgba(97, 184, 168, 1);
+    color: rgba(255, 255, 255, 1);
+    font-size: 16px;
+    text-align: center;
+    position: fixed;
+    bottom: 25px;
+    left: 50%;
+    margin-left: -149px;
+}

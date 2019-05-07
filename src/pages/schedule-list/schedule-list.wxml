@@ -1,0 +1,32 @@
+<view class="box">
+    <view class="type">
+        <view class="da">{{date}}</view>
+        <view class="date">
+            <picker style="width:24px;height:24px;z-index:9999" mode="date" value="{{date}}" end="{{date}}" bindchange="bindDateChange" class="pick_date">
+                <image src="../../assets/images/icons/rili.png" />
+            </picker>
+        </view>
+    </view>
+    <block>
+        <view class="list" wx:for="{{lists}}" wx:key="index" data-item="{{item}}" bindtap="detail">
+            <view class="time">
+                <view class="s" style="margin-top:6px">
+                    <view class="start"></view>
+                    <view class="start1">{{item.short_stime}}</view>
+                </view>
+                <view class="s" style="margin-top:12px">
+                    <view class="end"></view>
+                    <view class="end1">{{item.short_etime}}</view>
+                </view>
+            </view>
+            <view class="ins">
+                <view class="startins">{{item.startAddress}}</view>
+                <view class="endins">{{item.endAddress}}</view>
+            </view>
+            <view class="total">
+                {{item.distance}}
+                <text>公里</text>
+            </view>
+        </view>
+    </block>
+</view>

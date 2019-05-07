@@ -1,0 +1,31 @@
+<view>
+    <view class="part1">
+        <ff-canvas id="pieSelect" canvas-id="pieSelect" opts="{{ opts }}"></ff-canvas>
+    </view>
+    <view class="part3">
+        <view class="result">
+            <view>怠速系统</view>
+            <view class="{{result.cooling==0 ? 'ok' : 'erro'}}">{{arr[result.idling]}}</view>
+        </view>
+        <view class="result">
+            <view>冷却系统</view>
+            <view class="{{result.cooling==0 ? 'ok' : 'erro'}}">{{arr[result.cooling]}}</view>
+        </view>
+        <view class="result">
+            <view>排放系统</view>
+            <view class="{{result.discharge==0 ? 'ok' : 'erro'}}">{{arr[result.discharge]}}</view>
+        </view>
+        <view class="result">
+            <view>气门系统</view>
+            <view class="{{result.valve==0 ? 'ok' : 'erro'}}">{{arr[result.valve]}}</view>
+        </view>
+        <view class="result">
+            <view>电路系统</view>
+            <view class="{{result.circuit==0 ? 'ok' : 'erro'}}">{{arr[result.circuit]}}</view>
+        </view>
+        <view class="result">
+            <view>发动机系统</view>
+            <view class="{{result.engine==0 ? 'ok' : 'erro'}}">{{arr[result.engine]}}</view>
+        </view>
+    </view>
+</view>

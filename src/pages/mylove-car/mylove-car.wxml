@@ -1,0 +1,13 @@
+<view>
+    <view class="lovecar" id='{{item.car_number}}' bindtap="select" wx:for="{{cars}}" wx:key="index">
+        <view class="caricon">
+            <image src="{{item.car_brand_logo}}" />
+        </view>
+        <view class="carinformation">
+            <view class="carname">{{item.car_brand}}-{{item.car_serie}}</view>
+            <view>{{item.car_category}}</view>
+            <view>{{item.car_number}}</view>
+        </view>
+    </view>
+    <view class="addobd" bindtap="addlove">添加爱车</view>
+</view>

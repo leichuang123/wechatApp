@@ -69,7 +69,7 @@ Page({
         showLoading('提交请求中');
         api.get(
             'weapp/phonecode',
-            { mobile: this.data.form.mobile, oem_id: this.globalData.extConfig.oem_id || 0 },
+            { mobile: this.data.form.mobile, oem_id: app.globalData.extConfig.oem_id || 0 },
             false
         ).then(res => {
             wx.hideLoading();
@@ -178,6 +178,7 @@ Page({
                 confirmMsg('', '需要微信授权才能登录哦', false);
             }
         } else {
+            console.log(wxUserInfo);
             this.setData({
                 'form.encryptedData': wxUserInfo.encryptedData,
                 'form.iv': wxUserInfo.iv,
@@ -205,6 +206,7 @@ Page({
         api.post('weapp/' + action, this.data.form)
             .then(res => {
                 wx.hideLoading();
+                console.log(res);
                 if (res.errcode === 0) {
                     toastMsg(res.errmsg, 'success', 1000, () => {
                         wx.setStorageSync('sessionKey', res.data);
@@ -226,12 +228,12 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function(options) {
-        console.log('register page options:', options);
+        const config = app.globalData.extConfig;
         this.setData({
-            'form.weapp_config_id': app.globalData.extConfig.weapp_config_id || 0,
-            'form.wechat_config_id': app.globalData.extConfig.wechat_config_id || 0,
-            'form.auth_related_id': app.globalData.extConfig.auth_related_id || 0,
-            'form.auth_type': app.globalData.extConfig.auth_type || 0,
+            'form.weapp_config_id': config.weapp_config_id || 0,
+            'form.wechat_config_id': config.wechat_config_id || 0,
+            'form.auth_related_id': config.auth_related_id || 0,
+            'form.auth_type': config.auth_type || 0,
             'form.user_id': options.user_id || 0,
             'form.user_weapp_id': options.user_weapp_id || 0,
             'form.recommend_user': options.recommendUser || 0,

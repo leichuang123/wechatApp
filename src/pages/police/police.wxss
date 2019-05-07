@@ -1,0 +1,29 @@
+page {
+    background: #ffffff;
+}
+.police {
+    padding: 10px;
+    border-bottom: 1px solid #f1f1f1;
+    font-size: 12px;
+    color: #101010;
+    overflow: hidden;
+}
+.policeimg {
+    float: left;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    background: #009688;
+    border-radius: 100%;
+    overflow: hidden;
+    margin-top: 4px;
+}
+.policeimg image {
+    width: 20px;
+    height: 20px;
+    margin-top: 5px;
+}
+.policer {
+    float: left;
+    margin-left: 11px;
+}

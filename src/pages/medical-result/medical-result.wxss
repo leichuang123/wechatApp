@@ -1,0 +1,137 @@
+page {
+    background: #f4f4f4;
+}
+.part1 {
+    width: 100%;
+    height: 182px;
+    background: #ffffff;
+    overflow: hidden;
+    padding: 10px 0;
+    position: relative;
+}
+.speed {
+    width: 60px;
+    position: absolute;
+    top: 49%;
+    left: 50%;
+    margin-left: -30px;
+    font-size: 14px;
+    color: #101010;
+    text-align: center;
+}
+.oli {
+    width: 60px;
+    position: absolute;
+    top: 55%;
+    left: 17%;
+    font-size: 14px;
+    color: #101010;
+    text-align: center;
+}
+.dis {
+    width: 60px;
+    position: absolute;
+    top: 55%;
+    right: 17%;
+    font-size: 14px;
+    color: #101010;
+    text-align: center;
+}
+.part1 image {
+    width: 100%;
+    height: 100%;
+}
+.part2 {
+    width: 100%;
+    height: 120px;
+    background: #ffffff;
+    margin-top: 5px;
+    overflow: hidden;
+}
+.pitem {
+    float: left;
+    width: 50%;
+    height: 60px;
+    box-sizing: border-box;
+    padding: 5px;
+    overflow: hidden;
+}
+.pitem view {
+    font-size: 12px;
+    color: #101010;
+}
+.pitem image {
+    width: 30px;
+    height: 30px;
+    margin-left: 12px;
+    float: left;
+}
+.pins {
+    margin-top: 2px;
+    overflow: hidden;
+}
+.pins view {
+    float: left;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    line-height: 30px;
+    margin-left: 21px;
+    font-size: 14px;
+}
+.pins .excel {
+    width: 45px;
+    float: right;
+    margin-left: 0;
+    color: #999999;
+}
+.border1 {
+    border-right: 2px solid #f4f4f4;
+    border-bottom: 2px solid #f4f4f4;
+}
+.border0 {
+    border-bottom: 2px solid #f4f4f4;
+}
+.border2 {
+    border-right: 2px solid #f4f4f4;
+}
+.part3 {
+    margin-top: 12px;
+    width: 100%;
+    background: white;
+    box-sizing: border-box;
+    padding: 12px;
+}
+.result {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    color: #101010;
+    margin-bottom: 7px;
+}
+.model {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+.model image {
+    width: 341px;
+    height: 430px;
+}
+.close {
+    width: 100px;
+    height: 40px;
+    text-align: center;
+    line-height: 40px;
+    color: #ffffff;
+    background-color: #61b8a8;
+    border-radius: 5px;
+}

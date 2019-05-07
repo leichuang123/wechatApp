@@ -11,8 +11,7 @@ App({
             city_code: '420100',
             city: '武汉市'
         },
-        sessionKey: '',
-        extConfig: {},
+        sessionKey: ''
     },
     //设置用户缓存
     doLogin(jsCode) {
@@ -21,7 +20,7 @@ App({
             auth_type: this.globalData.extConfig.auth_type || 0,
             auth_related_id: this.globalData.extConfig.auth_related_id || 0,
             weapp_config_id: this.globalData.extConfig.weapp_config_id || 0,
-            wechat_config_id: this.globalData.extConfig.wechat_config_id || 0,
+            wechat_config_id: this.globalData.extConfig.wechat_config_id || 0
         };
         api.get('weapp/login', params, false).then(res => {
             if (res.errcode === 0) {
@@ -48,8 +47,8 @@ App({
      */
     getLocation: function(cb) {
         getLocation({
-                type: 'wgs84'
-            })
+            type: 'wgs84'
+        })
             .then(data => {
                 if (typeof cb === 'function') {
                     cb(data);
@@ -81,9 +80,8 @@ App({
         const wxUserInfo = wx.getStorageSync('wxUserInfo');
         this.globalData.hasAuth = !!wxUserInfo;
 
-        this.globalData.extConfig = wx.getExtConfigSync ? wx.getExtConfigSync() : {}
+        this.globalData.extConfig = wx.getExtConfigSync ? wx.getExtConfigSync() : {};
         this.onLogin();
-        // console.log(this.globalData.extConfig);
     },
     onShow: function() {}
 });

@@ -1,0 +1,42 @@
+<view>
+    <view class="show" wx:if="{{show1}}">
+        <view class="tips">
+            <view class="title">设置紧急联系人</view>
+            <view>1.设置后在紧急情况下，平台会主动通知紧急联系人</view>
+            <view>2.添加或修改紧急联系人后请及时告知对方</view>
+            <view>3.最多可以添加3个亲情号码</view>
+        </view>
+        <view class="check">
+            <view class="contact" wx:for="{{contact}}" wx:key="index">
+                <view class="who">
+                    <view>{{item.sos_relation_name}}</view>
+                    <view class="tel">{{item.sos_phone}}</view>
+                </view>
+                <view class="del" id="{{item.id}}" bindtap="del">删除</view>
+            </view>
+        </view>
+        <view class="action">
+            <view class="cel" bindtap="cel">取消</view>
+            <view class="sure" bindtap="sure">添加</view>
+        </view>
+    </view>
+    <!-- 添加 -->
+    <view class="add" wx:if="{{show2}}">
+        <view class="tips">选择与联系人的关系</view>
+        <view class="check">
+            <block>
+                <view class="cc {{relation_id==item.id ? 'actives' : ''}}" wx:for="{{type}}" wx:key="index" data-item="{{item}}" bindtap="selectType">
+                    {{item.relation_name}}
+                </view>
+            </block>
+        </view>
+        <view class="tips">紧急联系人手机</view>
+        <view class="input">
+            <input type="number" placlholder="请输入联系人手机号" maxlength="11" bindchange="checkboxChange" />
+        </view>
+        <view class="action">
+            <view class="cel" bindtap="noadd">取消</view>
+            <view class="sure" bindtap="add">保存</view>
+        </view>
+    </view>
+</view>

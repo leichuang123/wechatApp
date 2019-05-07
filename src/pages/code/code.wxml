@@ -1,0 +1,16 @@
+<view>
+    <image src="../../assets/images/icons/x.png" />
+    <view class="code" wx:if="{{showcode}}">
+        <text>发现{{list.length}}条故障代码</text>
+        <view class="codebox">
+            <view class="c" wx:for="{{list}}" wx:key="index">
+                <view>{{item.FaultCode}}</view>
+                <view>{{item.Describe}}</view>
+            </view>
+        </view>
+    </view>
+    <view class="action">
+        <view class="search" bindtap='search'>一键查询</view>
+        <view bindtap='clear'>清空</view>
+    </view>
+</view>

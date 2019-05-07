@@ -1,0 +1,43 @@
+<view>
+    <!-- 简单介绍 -->
+    <view class="welcome" wx:if="{{hasBind}}" style="height:{{height}}px">
+        <image src="../../assets/images/icons/bg.jpg" class="bg" />
+        <view class="welcomeins">
+            OBD是英文On-Board Diagnostics的缩写，中文翻译为“车载诊断系统”。这个系统随时监控发动机的运行状况和尾气后处理系统的工作状态，一旦发现有可能引起排放超标的情况，会马上发出警示。当系统出现故障时，故障灯(MIL)或检查发动机(Check Engine)警告灯亮，同时OBD系统会将故障信息存入存储器，通过标准的诊断仪器和诊断接口可以以故障码的形式读取相关信息。根据故障码的提示，维修人员能迅速准确地确定故障的性质和部位。
+        </view>
+        <button class="btn" type="primary" bindtap="bindObd">绑定设备</button>
+    </view>
+    <!-- 填写绑定信息 -->
+    <view class='write' wx:if="{{!hasBind}}">
+        <view class="writetop">
+            <view class="upload" bindtap="wxChooseImage" wx:if="{{!hasimg}}">
+                <image src="../../assets/images/icons/sc.png" />
+                <view>上传照片</view>
+            </view>
+            <image wx:if="{{hasimg}}" src="{{imgsrc}}" class="userimg" />
+        </view>
+        <view class="writebox">
+            <view class="boxpancel">
+                车牌号
+                <text>*</text>
+            </view>
+            <view class="boxinput" bindtap="showKeyboard">
+                <input value="{{box.cardNum}}" maxlength="8" disabled='true' />
+                <image src="../../assets/images/icons/youjiantou.png" />
+            </view>
+            <view class="boxpancel">设备SIM卡号</view>
+            <view class="boxinput">
+                <input type="number" value="{{box.simNum}}" bindinput="getsimNum" />
+            </view>
+            <view class="boxpancel">
+                设备号
+                <text>*</text>
+            </view>
+            <view class="boxinput" bindtap='scan'>
+                <input type="number" disabled="true" value="{{box.obdNum}}" />
+                <image src="../../assets/images/icons/tubiaozhizuomoban.png" />
+            </view>
+            <button class="sure" bindtap="sure">完成</button>
+        </view>
+    </view>
+</view>

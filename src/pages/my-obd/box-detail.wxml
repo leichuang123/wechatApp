@@ -1,0 +1,20 @@
+<view>
+    <view class="links first" bindtap="xiugai">
+        <view class="linkstitle">
+            <view>{{cardNum}}</view>
+            <view>IMEI号：{{simNum}}</view>
+        </view>
+        <view class="linksicon">
+            <image src="../../assets/images/icons/youjiantou.png" />
+        </view>
+    </view>
+    <view class="nav">
+        <navigator class="links" url="/pages/fence-list/fence-list">
+            <view class="linkstitle">电子围栏</view>
+            <view class="linksicon">
+                <image src="../../assets/images/icons/youjiantou.png" />
+            </view>
+        </navigator>
+    </view>
+    <view class="back" bindtap="sureUntie">解绑智能盒</view>
+</view>

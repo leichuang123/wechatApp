@@ -3,16 +3,19 @@
 	"setting": {
 		"urlCheck": false,
 		"es6": true,
-		"postcss": true,
+		"postcss": false,
 		"minified": true,
 		"newFeature": true,
 		"autoAudits": false,
-		"uglifyFileName": false
+		"uglifyFileName": false,
+		"checkInvalidKey": true
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.6.0",
+	"libVersion": "2.6.6",
 	"appid": "wx68b84434fb5b8c17",
 	"projectname": "weapp-3rd-platform",
+	"simulatorType": "wechat",
+	"simulatorPluginLibVersion": {},
 	"condition": {
 		"search": {
 			"current": -1,
@@ -22,9 +25,38 @@
 			"current": -1,
 			"list": []
 		},
-		"miniprogram": {
+		"plugin": {
 			"current": -1,
 			"list": []
+		},
+		"game": {
+			"list": []
+		},
+		"miniprogram": {
+			"current": 2,
+			"list": [
+				{
+					"id": -1,
+					"name": "地图首页",
+					"pathName": "pages/medical/medical-map",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 1,
+					"name": "历史",
+					"pathName": "pages/schedule-list/history",
+					"query": "travel_id=132206&start=2019-04-30 16:09:23&end=2019-04-30 17:12:24",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "车况",
+					"pathName": "pages/medical-result/medical-result",
+					"query": "",
+					"scene": null
+				}
+			]
 		}
 	}
 }

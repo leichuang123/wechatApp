@@ -1,0 +1,19 @@
+<view>
+    <view class="car" bindtap="see" wx:for="{{carList}}" wx:key="index" data-item="{{item}}">
+        <view class="carimg">
+            <image src="{{item.head_img}}" />
+        </view>
+        <view class="carinformation">
+            <view>{{item.car_number}}</view>
+            <view>{{item.imei}}</view>
+        </view>
+        <view class="carsee">
+            <image src="../../assets/images/icons/center.png" />
+        </view>
+        <view class="carstatus">
+            <view class="stautsicon  {{item.status=='在线' ? 'online' : ''}},{{item.status=='停止' ? 'stop' : ''}}"></view>
+            <view class="stautstext">{{item.status}}</view>
+        </view>
+    </view>
+    <view class="addobd" bindtap="addobd">绑定智能盒</view>
+</view>

@@ -133,7 +133,7 @@ Page({
         });
         api.get(
             'weapp/phonecode',
-            { mobile: this.data.form.mobile, oem_id: this.globalData.extConfig.oem_id || 0 },
+            { mobile: this.data.form.mobile, oem_id: app.globalData.extConfig.oem_id || 0 },
             false
         ).then(res => {
             wx.hideLoading();

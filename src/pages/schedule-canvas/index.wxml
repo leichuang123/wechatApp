@@ -1,0 +1,128 @@
+<view class="box">
+    <view class="canvas" wx:if="{{last}}">
+        <text class="message">{{ message }}</text>
+        <ff-canvas id="pieSelect" canvas-id="pieSelect" opts="{{ opts }}"></ff-canvas>
+    </view>
+    <view class="canvas" wx:if="{{!last}}">
+        <ff-canvas id="pieSelects" canvas-id="pieSelects" opts="{{ drawBar }}"></ff-canvas>
+    </view>
+    <view class="nav" wx:if="{{last}}">
+        <view class="links">
+            <view class="icon s1"></view>
+            <view class="linkstitle">
+                超速
+                <view class="bz">>120KM/h</view>
+            </view>
+            <view class="linksins">{{describe.over_speed.data}}</view>
+        </view>
+        <view class="links">
+            <view class="icon s2"></view>
+            <view class="linkstitle">
+                高速
+                <view class="bz">80-120KM/h</view>
+            </view>
+            <view class="linksins">{{describe.high_speed.data}}</view>
+        </view>
+        <view class="links">
+            <view class="icon s3"></view>
+            <view class="linkstitle">
+                中速
+                <view class="bz">40-50KM/h</view>
+            </view>
+            <view class="linksins">{{describe.mid_speed.data}}</view>
+        </view>
+        <view class="links">
+            <view class="icon s4"></view>
+            <view class="linkstitle">
+                低速
+                <view class="bz">1-40KM/h</view>
+            </view>
+            <view class="linksins">{{describe.low_speed.data}}</view>
+        </view>
+        <view class="links">
+            <view class="icon s5"></view>
+            <view class="linkstitle">
+                怠速
+                <view class="bz">0KM/h</view>
+            </view>
+            <view class="linksins">{{describe.no_speed.data}}</view>
+        </view>
+    </view>
+    <!-- 驾驶行为 -->
+     <!-- 驾驶行为 -->
+    <view class="nav" wx:if="{{type==4}}">
+        <view class="links">
+            <view class="icon s1"></view>
+            <view class="linkstitle">急加速</view>
+            <view class="linksins">{{describe.Rapid}}次</view>
+        </view>
+        <view class="links">
+            <view class="icon s2"></view>
+            <view class="linkstitle">急加油</view>
+             <view class="linksins">{{describe.Come}}次</view>
+        </view>
+        <view class="links">
+            <view class="icon s3"></view>
+            <view class="linkstitle">快速变道</view>
+             <view class="linksins">{{describe.RapidLaneChange}}次</view>
+        </view>
+        <view class="links">
+            <view class="icon s4"></view>
+            <view class="linkstitle">急转弯</view>
+             <view class="linksins">{{describe.SharpTurn}}次</view>
+        </view>
+        <view class="links">
+            <view class="icon s5"></view>
+            <view class="linkstitle">急刹车</view>
+             <view class="linksins">{{describe.SlamTheBrakesOn}}次</view>
+        </view>
+        <view class="links">
+            <view class="icon s6"></view>
+            <view class="linkstitle">超速</view>
+             <view class="linksins">{{describe.Speeding}}次</view>
+        </view>
+        <view class="links">
+            <view class="icon s7"></view>
+            <view class="linkstitle">怠速</view>
+             <view class="linksins">{{describe.idling}}次</view>
+        </view>
+    </view>
+    <!-- 报警 -->
+    <view class="nav" wx:if="{{type==5}}">
+        <view class="links">
+            <view class="icon s1"></view>
+            <view class="linkstitle">震动报警</view>
+            <view class="linksins">{{describe.shock}}次</view>
+        </view>
+        <view class="links">
+            <view class="icon s2"></view>
+            <view class="linkstitle">插拔报警</view>
+            <view class="linksins">{{describe.PullOut}}次</view>
+        </view>
+        <view class="links">
+            <view class="icon s3"></view>
+            <view class="linkstitle">拖车报警</view>
+            <view class="linksins">{{describe.trailer}}次</view>
+        </view>
+        <view class="links">
+            <view class="icon s4"></view>
+            <view class="linkstitle">疲劳驾驶报警</view>
+            <view class="linksins">{{describe.FatigueDriving}}次</view>
+        </view>
+        <view class="links">
+            <view class="icon s5"></view>
+            <view class="linkstitle">电瓶欠电报警</view>
+            <view class="linksins">{{describe.Battery}}次</view>
+        </view>
+        <view class="links">
+            <view class="icon s6"></view>
+            <view class="linkstitle">GPS模块故障报警</view>
+            <view class="linksins">{{describe.GPS}}次</view>
+        </view>
+        <view class="links">
+            <view class="icon s7"></view>
+            <view class="linkstitle">冷却液温度过高报警</view>
+            <view class="linksins">{{describe.Coolant}}次</view>
+        </view>
+    </view>
+</view>

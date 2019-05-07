@@ -1,0 +1,72 @@
+page {
+    background: #f1f1f1;
+}
+.car {
+    width: 100%;
+    background: white;
+    margin-bottom: 8px;
+    box-sizing: border-box;
+    padding: 20px;
+    overflow: hidden;
+    position: relative;
+}
+.carimg {
+    float: left;
+    width: 30px;
+    height: 30px;
+    border-radius: 100%;
+    overflow: hidden;
+}
+.carimg image {
+    width: 30px;
+    height: 30px;
+    border-radius: 100%;
+}
+.carinformation {
+    float: left;
+    font-size: 14px;
+    color: #101010;
+    margin-left: 10px;
+    overflow: hidden;
+    margin-top: -2px;
+    width: 230px;
+}
+.carstatus {
+    float: left;
+    font-size: 14px;
+    color: #101010;
+    height: 40px;
+    line-height: 40px;
+    overflow: hidden;
+}
+.stautstext {
+    float: left;
+}
+.no {
+    text-align: center;
+    font-size: 14px;
+    color: #101010;
+    padding-top: 20px;
+}
+.del {
+    position: absolute;
+    right: 25px;
+    bottom: 25px;
+    font-size: 14px;
+    color: #eb5c62;
+}
+.addobd {
+    position: fixed;
+    width: 317px;
+    height: 35px;
+    bottom: 25px;
+    left: 50%;
+    margin-left: -159px;
+    line-height: 35px;
+    border-radius: 5px;
+    background-color: rgba(97, 184, 168, 1);
+    color: rgba(255, 255, 255, 1);
+    font-size: 14px;
+    text-align: center;
+    font-family: Roboto;
+}
