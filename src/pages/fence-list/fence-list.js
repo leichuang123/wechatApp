@@ -3,6 +3,7 @@ import { confirmMsg, toastMsg, showLoading } from '../../utils/util';
 Page({
     data: {
         hasdata: false,
+        index: '',
         carList: [],
         type: ['进入报警', '离开报警', '进出报警'],
         touchStartPageX: 0,
@@ -43,9 +44,18 @@ Page({
     },
     //确认是否删除
     sureDel: function(e) {
+        const self = this;
         confirmMsg('', '是否删除该围栏', true, () => {
             const obd_device_id = e.currentTarget.dataset.item.obd_device_id;
             const fence_id = e.currentTarget.dataset.item.fence_id;
+            for (let k in self.data.carList) {
+                if (self.data.carList[k].fence_id == e.currentTarget.dataset.item.fence_id) {
+                    self.setData({
+                        index: k
+                    });
+                    break;
+                }
+            }
             this.delThis(obd_device_id, fence_id);
         });
     },
@@ -55,12 +65,16 @@ Page({
             obd_device_id: obd_device_id,
             fence_id: fence_id
         };
+        const slef = this;
         api.post('weapp-obd-geofence/delete-geofence', param).then(res => {
             if (res.errcode != 0) {
                 confirmMsg('', res.errmsg, false);
                 return;
             }
             toastMsg(res.errmsg, 'success', 1500, () => {
+                slef.setData({
+                    carList: []
+                });
                 this.getList();
             });
         });

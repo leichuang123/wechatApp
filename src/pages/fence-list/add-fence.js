@@ -10,7 +10,7 @@ Page({
             { name: '进出报警', value: 3, checked: 'false' }
         ],
         fence_id: '',
-        http: 'weapp-obd-geofence/geofence-detail',
+        http: 'weapp-obd-geofence/create-geofence',
         fence_name: '',
         alarm_type: 1,
         height: '',
@@ -140,12 +140,6 @@ Page({
             fence_name: self.data.fence_name,
             alarm_type: self.data.alarm_type
         };
-        if (self.data.fence_id != '') {
-            param.fence_id = self.data.fence_id;
-            self.setData({
-                http: 'weapp-obd-geofence/edit-geofence'
-            });
-        }
         api.post(self.data.http, param).then(res => {
             if (res.errcode != 0) {
                 toastMsg(res.errmsg, 'error');
@@ -178,7 +172,8 @@ Page({
         });
         if (options.fence_id) {
             this.setData({
-                fence_id: options.fence_id
+                fence_id: options.fence_id,
+                http: 'weapp-obd-geofence/edit-geofence'
             });
             this.init(options.fence_id);
             return;
