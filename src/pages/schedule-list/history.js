@@ -105,7 +105,7 @@ Page({
                         confirmMsg('', '播放结束', false);
                         //播放结束重新绘制地图及信息
                         self.setData({
-                            latitude: elf.data.markers[0].latitude,
+                            latitude: self.data.markers[0].latitude,
                             longitude: self.data.markers[0].longitude,
                             markers: [
                                 {
