@@ -1,6 +1,5 @@
 page {
     overflow: hidden;
-    background: #ffffff;
 }
 .tips {
     background: #ffffff;

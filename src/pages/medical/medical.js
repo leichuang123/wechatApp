@@ -94,6 +94,14 @@ Page({
         });
     },
     /**
+     * obdNum
+     */
+    obdNum: function(e) {
+        this.setData({
+            'box.obdNum': e.detail.value
+        });
+    },
+    /**
      * 扫码
      */
 

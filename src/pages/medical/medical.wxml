@@ -34,7 +34,7 @@
                 <text>*</text>
             </view>
             <view class="boxinput">
-                <input type="number" value="{{box.obdNum}}" />
+                <input type="number" value="{{box.obdNum}}" bindinput="obdNum" />
                 <image src="../../assets/images/icons/tubiaozhizuomoban.png" bindtap='scan' />
             </view>
             <button class="sure" bindtap="sure">完成</button>
