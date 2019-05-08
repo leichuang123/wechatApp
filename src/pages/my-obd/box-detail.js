@@ -46,9 +46,10 @@ Page({
                 confirmMsg('', res.errmsg, false);
                 return;
             }
-            toastMsg(res.errmsg, 'success', 1000, () => {});
-            wx.navigateTo({
-                url: '/pages/index/index'
+            confirmMsg('', res.errmsg, true, () => {
+                wx.navigateTo({
+                    url: '/pages/index/index'
+                });
             });
         });
     },

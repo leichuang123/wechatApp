@@ -33,9 +33,9 @@
                 设备号
                 <text>*</text>
             </view>
-            <view class="boxinput" bindtap='scan'>
-                <input type="number" disabled="true" value="{{box.obdNum}}" />
-                <image src="../../assets/images/icons/tubiaozhizuomoban.png" />
+            <view class="boxinput">
+                <input type="number" value="{{box.obdNum}}" />
+                <image src="../../assets/images/icons/tubiaozhizuomoban.png" bindtap='scan' />
             </view>
             <button class="sure" bindtap="sure">完成</button>
         </view>

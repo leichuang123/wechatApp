@@ -99,6 +99,7 @@
     top: 50%;
     margin-top: -12px;
     right: 5px;
+    z-index: 9999;
 }
 .sure {
     margin-top: 59px;
