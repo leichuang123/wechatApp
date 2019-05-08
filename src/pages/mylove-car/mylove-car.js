@@ -9,7 +9,9 @@ Page({
         carNumber: '',
         carId: '',
         cars: [],
-        type: ''
+        type: '',
+        simNum: '', //sim卡
+        obdNum: '' //ime玛
     },
     /**
      * 获取用户名下所有的车
@@ -45,7 +47,15 @@ Page({
     //点击选中改车
     select: function(e) {
         wx.navigateTo({
-            url: '/pages/medical/medical?carName=' + e.currentTarget.id + '&type=' + this.data.type
+            url:
+                '/pages/medical/medical?carName=' +
+                e.currentTarget.id +
+                '&type=' +
+                this.data.type +
+                '&simNum=' +
+                this.data.simNum +
+                '&obdNum=' +
+                this.data.obdNum
         });
     },
     //增加车辆
@@ -56,7 +66,9 @@ Page({
     },
     onLoad(options) {
         this.setData({
-            type: options.type
+            type: options.type,
+            simNum: options.simNum,
+            obdNum: options.obdNum
         });
         this.getCars();
     },

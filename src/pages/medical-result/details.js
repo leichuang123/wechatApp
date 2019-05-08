@@ -43,7 +43,10 @@ Page({
                 });
                 chart.source(data, {
                     date: {
-                        alias: '日期' // 列定义，定义该属性显示的别名
+                        alias: '日期', // 列定义，定义该属性显示的别名
+                        type: 'timeCat',
+                        range: [0, 1],
+                        tickCount: 4
                     },
                     fuel_lv: {
                         alias: '油耗'
@@ -64,13 +67,13 @@ Page({
                     .line()
                     .position('date*fuel_lv')
                     .shape('left')
-                    .size(5);
+                    .size(3);
                 chart
                     .line()
                     .position('date*distance')
                     .color('#36B3C3')
                     .shape('right')
-                    .size(5);
+                    .size(3);
                 chart.render();
             });
             wx.hideLoading();

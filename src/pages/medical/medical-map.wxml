@@ -1,6 +1,6 @@
 <!-- pages/medical/medical-map.wxml -->
 <view class="mapbox">
-    <map id="myMap" latitude="{{latitude}}" longitude="{{longitude}}" markers="{{markers}}" enable-3D="{{look}}" scale="14" style="width:100%;height:{{height}}px" bindcallouttap="bindcallouttap" />
+    <map id="myMap" latitude="{{latitude}}" longitude="{{longitude}}" markers="{{markers}}" enable-3D="{{look}}" enable-rotate="true" scale="{{scale}}" style="width:100%;height:{{height}}px" bindcallouttap="bindcallouttap" />
     <cover-view class="boxbar">
         <cover-view class="bars" bindtap="realtime">
             <cover-image src="../../assets/images/icons/yibiaopan.png" />

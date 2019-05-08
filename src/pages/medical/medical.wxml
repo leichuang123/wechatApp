@@ -10,11 +10,11 @@
     <!-- 填写绑定信息 -->
     <view class='write' wx:if="{{!hasBind}}">
         <view class="writetop">
-            <view class="upload" bindtap="wxChooseImage" wx:if="{{!hasimg}}">
+            <view class="upload" bindtap="wxChooseImage" wx:if="{{imgsrc==''}}">
                 <image src="../../assets/images/icons/sc.png" />
                 <view>上传照片</view>
             </view>
-            <image wx:if="{{hasimg}}" src="{{imgsrc}}" class="userimg" />
+            <image wx:if="{{imgsrc!=''}}" src="{{imgsrc}}" class="userimg" bindtap="wxChooseImage" />
         </view>
         <view class="writebox">
             <view class="boxpancel">
@@ -34,7 +34,7 @@
                 <text>*</text>
             </view>
             <view class="boxinput">
-                <input type="number" value="{{box.obdNum}}" bindinput="obdNum" />
+                <input type="number" disabled="{{type==3}}" value="{{box.obdNum}}" bindinput="obdNum" />
                 <image src="../../assets/images/icons/tubiaozhizuomoban.png" bindtap='scan' />
             </view>
             <button class="sure" bindtap="sure">完成</button>

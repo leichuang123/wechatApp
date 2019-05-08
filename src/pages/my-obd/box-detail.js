@@ -46,8 +46,8 @@ Page({
                 confirmMsg('', res.errmsg, false);
                 return;
             }
-            confirmMsg('', res.errmsg, true, () => {
-                wx.navigateTo({
+            toastMsg(res.errmsg, 'success', 100, () => {
+                wx.switchTab({
                     url: '/pages/index/index'
                 });
             });

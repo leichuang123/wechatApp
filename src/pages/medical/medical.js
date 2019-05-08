@@ -3,8 +3,8 @@ import { uploadFileUrl, host } from '../../config';
 import { confirmMsg, toastMsg } from '../../utils/util';
 Page({
     data: {
-        hasimg: false,
         hasBind: true,
+        disabled:false,
         height: '',
         box: {
             cardNum: ' ',
@@ -56,8 +56,7 @@ Page({
                 if (res.statusCode == 200) {
                     const data = JSON.parse(res.data);
                     self.setData({
-                        imgsrc: host + data.data.url,
-                        hasimg: true
+                        imgsrc: host + data.data.url
                     });
                 } else {
                     confirmMsg('提示', '上传图片出错', false);
@@ -81,8 +80,18 @@ Page({
      *点击选车
      */
     showKeyboard: function() {
+        if(this.data.disabled==true){
+            confirmMsg('', '不能修改绑定车辆', false);
+            return
+        }
         wx.navigateTo({
-            url: '/pages/mylove-car/mylove-car?type=' + this.data.type
+            url:
+                '/pages/mylove-car/mylove-car?type=' +
+                this.data.type +
+                '&simNum=' +
+                this.data.box.simNum +
+                '&obdNum=' +
+                this.data.box.obdNum
         });
     },
     /**
@@ -134,7 +143,7 @@ Page({
             const param = {
                 car_number: self.data.box.cardNum,
                 sim: self.data.box.simNum,
-                head_img: self.data.imgsrc || wx.getStorageSync('wxUserInfo').avatarUrl,
+                head_img: self.data.imgsrc==""?wx.getStorageSync('wxUserInfo').avatarUrl:self.data.imgsrc,
                 obd_device_id: self.data.obd_device_id
             };
             api.post('weapp-obd-user/edit-device', param).then(res => {
@@ -155,7 +164,7 @@ Page({
                 car_number: self.data.box.cardNum,
                 sim: self.data.box.simNum,
                 imei: self.data.box.obdNum,
-                head_img: self.data.imgsrc || wx.getStorageSync('wxUserInfo').avatarUrl
+                head_img: self.data.imgsrc==""?wx.getStorageSync('wxUserInfo').avatarUrl:self.data.imgsrc
             };
             api.post('weapp-obd-user/bind-device', param).then(res => {
                 if (res.errcode != 0) {
@@ -175,7 +184,7 @@ Page({
                 car_number: self.data.box.cardNum,
                 sim: self.data.box.simNum,
                 imei: self.data.box.obdNum,
-                head_img: self.data.imgsrc || wx.getStorageSync('wxUserInfo').avatarUrl
+                head_img: self.data.imgsrc==""?wx.getStorageSync('wxUserInfo').avatarUrl:self.data.imgsrc
             };
             api.post('weapp-obd-user/register', param).then(res => {
                 if (res.errcode != 0) {
@@ -210,13 +219,16 @@ Page({
         if (options.carName) {
             this.setData({
                 hasBind: false,
-                'box.cardNum': options.carName
+                'box.cardNum': options.carName,
+                'box.simNum': options.simNum || '',
+                'box.obdNum': options.obdNum || ''
             });
         }
         //如果是从智能盒详情进入修改
         if (options.type == 3) {
             this.setData({
                 hasBind: false,
+                disabled:true,
                 type: 3
             });
             this.getObd();

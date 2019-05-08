@@ -12,7 +12,7 @@
         </view>
     </view>
     <view class="canvas">
-        <text>{{date}}</text>
+        <!-- <text>{{date}}</text> -->
         <ff-canvas id="gauge-dom" canvas-id="gauge" opts="{{ opts1 }}"></ff-canvas>
     </view>
     <view class="nav">

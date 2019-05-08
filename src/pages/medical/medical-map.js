@@ -2,6 +2,7 @@ import api from '../../utils/api';
 import { toastMsg, goBack, showLoading } from '../../utils/util';
 Page({
     data: {
+        scale:14,
         look:false,
         height: '',
         latitude: null,
@@ -125,14 +126,17 @@ Page({
             url: '/pages/police/police'
         });
     },
+    //开启3d视角
     includePoints: function() {
         if(this.data.look==false){
             this.setData({
-                look: true
+                look: true,
+                scale:18
             });
         }else{
             this.setData({
-                look: false
+                look: false,
+                scale:14
             });            
         }
 
