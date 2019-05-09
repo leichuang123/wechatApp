@@ -41,7 +41,7 @@ Page({
                 return;
             }
             const phoneData = wx.getStorageSync('systemInfo');
-            this.setData({
+            self.setData({
                 height: phoneData.screenHeight - 152,
                 latitude: res.data.lat,
                 longitude: res.data.lng,
@@ -86,12 +86,11 @@ Page({
             },
             success: function(res) {
                 that.setData({
-                    adress:
-                        res.result.address +
-                        res.result.address_reference.crossroad.title +
-                        res.result.address_reference.crossroad._dir_desc +
-                        res.result.address_reference.crossroad._distance +
-                        'm'
+                    adress: res.result.formatted_addresses.recommend,
+                    latitude: res.result.location.lat,
+                    longitude: res.result.location.lng,
+                    'markers[0].latitude': res.result.location.lat,
+                    'markers[0].longitude': res.result.location.lng
                 });
             }
         });

@@ -1,6 +1,6 @@
 <view>
     <block>
-        <view>
+        <view class="list">
             <view class="car" wx:for="{{carList}}" wx:key="index">
                 <view class="carimg" data-item="{{item}}" bindtap='edit'>
                     <image src="../../assets/images/icons/zhinanzhen.png" />

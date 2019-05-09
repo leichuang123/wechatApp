@@ -1,6 +1,9 @@
 page {
     background: #f1f1f1;
 }
+.list {
+    padding-bottom: 80px;
+}
 .car {
     width: 100%;
     background: white;

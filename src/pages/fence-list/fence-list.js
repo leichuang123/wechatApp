@@ -30,6 +30,12 @@ Page({
                 wx.hideLoading();
                 return;
             }
+            if (res.errcode == 100) {
+                self.setData({
+                    carList: []
+                });
+                return;
+            }
             wx.hideLoading();
             self.setData({
                 carList: res.data
@@ -72,9 +78,11 @@ Page({
                 return;
             }
             toastMsg(res.errmsg, 'success', 1500, () => {
-                slef.setData({
-                    carList: []
-                });
+                if (slef.data.carList.length == 1) {
+                    slef.setData({
+                        carList: []
+                    });
+                }
                 this.getList();
             });
         });

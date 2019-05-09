@@ -26,7 +26,7 @@ Page({
                 points: [],
                 color: '#ff9800',
                 width: 5,
-                arrowLine: true
+                dottedLine: true
             }
         ]
     },
@@ -100,8 +100,7 @@ Page({
                 destination: loopdata[sindex],
                 animationEnd: function() {
                     sindex += 1;
-                    if (sindex == loopdata.length - 1) {
-                        clearInterval(loop);
+                    if (sindex == loopdata.length) {
                         confirmMsg('', '播放结束', false);
                         //播放结束重新绘制地图及信息
                         self.setData({
@@ -120,6 +119,7 @@ Page({
                                 }
                             ]
                         });
+                        clearInterval(loop);
                         return;
                     }
                 }
