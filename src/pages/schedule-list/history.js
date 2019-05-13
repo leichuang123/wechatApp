@@ -1,11 +1,10 @@
 import api from '../../utils/api';
-import { openLocation } from '../../utils/wx-api';
 import { showLoading, confirmMsg } from '../../utils/util';
 Page({
     data: {
         select: false,
         selectarr: ['快', '中', '慢'],
-        type: 1000,
+        type: 800,
         height: '',
         latitude: '',
         longitude: '',

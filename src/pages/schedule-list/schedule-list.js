@@ -20,6 +20,11 @@ Page({
                 confirmMsg('', res.errmsg, false);
                 return;
             }
+            if (res.data.length==0) {
+                wx.hideLoading();
+                confirmMsg('', '暂无数据', false);
+                return;
+            }
             const data = res.data.items;
             self.setData({
                 lists: data

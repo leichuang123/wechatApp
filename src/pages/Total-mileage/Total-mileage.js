@@ -24,7 +24,8 @@ Page({
         const param = {
             obd_device_id: wx.getStorageSync('obd_device_id')[0],
             date: prevPage.data.date,
-            require: self.data.typeArr[self.data.type]
+            require: self.data.typeArr[self.data.type],
+            type: prevPage.data.type
         };
         showLoading();
         api.get('weapp-obd-user-car/travel-info', param).then(res => {

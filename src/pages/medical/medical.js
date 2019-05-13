@@ -4,7 +4,7 @@ import { confirmMsg, toastMsg } from '../../utils/util';
 Page({
     data: {
         hasBind: true,
-        disabled:false,
+        disabled: false,
         height: '',
         box: {
             cardNum: ' ',
@@ -80,9 +80,9 @@ Page({
      *点击选车
      */
     showKeyboard: function() {
-        if(this.data.disabled==true){
+        if (this.data.disabled == true) {
             confirmMsg('', '不能修改绑定车辆', false);
-            return
+            return;
         }
         wx.navigateTo({
             url:
@@ -143,7 +143,7 @@ Page({
             const param = {
                 car_number: self.data.box.cardNum,
                 sim: self.data.box.simNum,
-                head_img: self.data.imgsrc==""?wx.getStorageSync('wxUserInfo').avatarUrl:self.data.imgsrc,
+                head_img: self.data.imgsrc == '' ? wx.getStorageSync('wxUserInfo').avatarUrl : self.data.imgsrc,
                 obd_device_id: self.data.obd_device_id
             };
             api.post('weapp-obd-user/edit-device', param).then(res => {
@@ -164,7 +164,7 @@ Page({
                 car_number: self.data.box.cardNum,
                 sim: self.data.box.simNum,
                 imei: self.data.box.obdNum,
-                head_img: self.data.imgsrc==""?wx.getStorageSync('wxUserInfo').avatarUrl:self.data.imgsrc
+                head_img: self.data.imgsrc == '' ? wx.getStorageSync('wxUserInfo').avatarUrl : self.data.imgsrc
             };
             api.post('weapp-obd-user/bind-device', param).then(res => {
                 if (res.errcode != 0) {
@@ -184,7 +184,7 @@ Page({
                 car_number: self.data.box.cardNum,
                 sim: self.data.box.simNum,
                 imei: self.data.box.obdNum,
-                head_img: self.data.imgsrc==""?wx.getStorageSync('wxUserInfo').avatarUrl:self.data.imgsrc
+                head_img: self.data.imgsrc == '' ? wx.getStorageSync('wxUserInfo').avatarUrl : self.data.imgsrc
             };
             api.post('weapp-obd-user/register', param).then(res => {
                 if (res.errcode != 0) {
@@ -228,8 +228,11 @@ Page({
         if (options.type == 3) {
             this.setData({
                 hasBind: false,
-                disabled:true,
+                disabled: true,
                 type: 3
+            });
+            wx.setNavigationBarTitle({
+                title: '编辑智能盒'
             });
             this.getObd();
         }

@@ -8,22 +8,25 @@
     overflow: hidden;
 }
 .typecheck {
-    width: 220px;
+    width: 213px;
     height: 25px;
     border: 1px solid white;
     display: flex;
-    justify-content: left;
     border-radius: 25px;
     margin: 6px auto;
     overflow: hidden;
 }
 .typecheck view {
-    width: 73px;
+    flex: 1;
     height: 25px;
     text-align: center;
     line-height: 25px;
     color: white;
     font-size: 14px;
+}
+.typecheck view:nth-child(3) {
+    border-top-right-radius: 25px;
+    border-bottom-right-radius: 25px;
 }
 .typecheck .active {
     background: #ffffff;

@@ -126,17 +126,15 @@ Page({
             url: '/pages/police/police'
         });
     },
-    //开启3d视角
+    //开启卫星图
     includePoints: function() {
         if(this.data.look==false){
             this.setData({
                 look: true,
-                scale:18
             });
         }else{
             this.setData({
                 look: false,
-                scale:14
             });            
         }
 
