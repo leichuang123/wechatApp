@@ -12,8 +12,8 @@
         </view>
         <view class="ok" bindtap="submit">确定</view>
     </view>
-    <map id="myMap" latitude="{{latitude}}" longitude="{{longitude}}" markers="{{markers}}" scale="{{scale}}" style="width:100%;height:{{height}}px" bindupdated="where" bindregionchange="bindregionchange" />
-    <cover-view class="circle" style="top:{{(height-300)/2+152}}px"></cover-view>
+    <map id="myMap" wx:if="{{!model}}" latitude="{{latitude}}" longitude="{{longitude}}" markers="{{markers}}" scale="{{scale}}" style="width:100%;height:{{height}}px" bindupdated="where" bindregionchange="bindregionchange" />
+    <cover-view class="circle"  wx:if="{{!model}}" style="top:{{(height-300)/2+152}}px"></cover-view>
     <view class="model" wx:if="{{model}}">
         <view class="modeler">
             <input placeholder="请输入围栏名称" bindchange="inputChange" value="{{fence_name}}" />

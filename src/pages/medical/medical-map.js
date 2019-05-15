@@ -2,8 +2,8 @@ import api from '../../utils/api';
 import { toastMsg, goBack, showLoading } from '../../utils/util';
 Page({
     data: {
-        scale:14,
-        look:false,
+        scale: 14,
+        look: false,
         height: '',
         latitude: null,
         longitude: null,
@@ -74,8 +74,7 @@ Page({
                 return;
             }
             wx.hideLoading();
-            toastMsg(res.errmsg, 'error');
-            goBack(1);
+            toastMsg(res.errmsg, 'error', 2000);
         });
     },
     //实时车况
@@ -128,16 +127,15 @@ Page({
     },
     //开启卫星图
     includePoints: function() {
-        if(this.data.look==false){
+        if (this.data.look == false) {
             this.setData({
-                look: true,
+                look: true
             });
-        }else{
+        } else {
             this.setData({
-                look: false,
-            });            
+                look: false
+            });
         }
-
     },
     //点击汽包查看智能详情
     bindcallouttap: function() {

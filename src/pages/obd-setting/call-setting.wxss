@@ -20,10 +20,10 @@ page {
     justify-content: space-around;
 }
 .action view {
-    width: 109px;
-    height: 30px;
+    width: 150px;
+    height: 40px;
     text-align: center;
-    line-height: 30px;
+    line-height: 40px;
     font-size: 14px;
     color: black;
     background: #ffffff;
@@ -32,5 +32,5 @@ page {
 }
 .action .sure {
     color: #ffffff;
-    background: #009688;
+    background: rgba(97, 184, 168, 1);
 }

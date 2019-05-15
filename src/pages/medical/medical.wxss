@@ -1,25 +1,11 @@
 .welcome {
     width: 100%;
     height: 100%;
-    overflow: hidden;
     position: relative;
 }
-.bg {
+.slide-image {
     width: 100%;
     height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 10;
-}
-.welcomeins {
-    font-size: 13px;
-    color: white;
-    padding: 20px;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 999;
 }
 .welcome .btn {
     width: 233px;
@@ -104,8 +90,8 @@
 .sure {
     margin-top: 59px;
     width: 288px;
-    height: 35px;
-    line-height: 35px;
+    height: 40px;
+    line-height: 40px;
     border-radius: 5px;
     background-color: rgba(97, 184, 168, 1);
     color: rgba(255, 255, 255, 1);

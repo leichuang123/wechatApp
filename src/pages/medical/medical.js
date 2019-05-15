@@ -3,6 +3,14 @@ import { uploadFileUrl, host } from '../../config';
 import { confirmMsg, toastMsg } from '../../utils/util';
 Page({
     data: {
+        indicatorDots: false,
+        autoplay: false,
+        interval: 3000,
+        duration: 1000,
+        imgUrls: [
+            'https://sh.huobanyc.com/images/weapp/obd_banner_1.jpeg',
+            'https://sh.huobanyc.com/images/weapp/obd_banner_2.jpeg'
+        ],
         hasBind: true,
         disabled: false,
         height: '',

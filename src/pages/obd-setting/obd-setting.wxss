@@ -32,8 +32,8 @@ page {
 }
 .back {
     width: 297px;
-    height: 35px;
-    line-height: 35px;
+    height: 40px;
+    line-height: 40px;
     border-radius: 5px;
     background-color: rgba(97, 184, 168, 1);
     color: rgba(255, 255, 255, 1);

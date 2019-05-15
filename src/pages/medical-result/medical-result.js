@@ -20,8 +20,7 @@ Page({
                 });
                 return;
             }
-            toastMsg(res.errmsg, 'error');
-            goBack(1);
+            toastMsg(res.errmsg, 'error', 2000);
         });
     },
     showexcel: function() {

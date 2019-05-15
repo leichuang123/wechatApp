@@ -72,8 +72,7 @@ Page({
                 wx.hideLoading();
                 return;
             }
-            toastMsg(res.errmsg, 'error');
-            goBack(1);
+            toastMsg(res.errmsg, 'error', 2000);
         });
     },
     onLoad: function(options) {

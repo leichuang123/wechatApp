@@ -1,10 +1,10 @@
 <view>
     <!-- 简单介绍 -->
     <view class="welcome" wx:if="{{hasBind}}" style="height:{{height}}px">
-        <image src="../../assets/images/icons/bg.jpg" class="bg" />
-        <view class="welcomeins">
-            OBD是英文On-Board Diagnostics的缩写，中文翻译为“车载诊断系统”。这个系统随时监控发动机的运行状况和尾气后处理系统的工作状态，一旦发现有可能引起排放超标的情况，会马上发出警示。当系统出现故障时，故障灯(MIL)或检查发动机(Check Engine)警告灯亮，同时OBD系统会将故障信息存入存储器，通过标准的诊断仪器和诊断接口可以以故障码的形式读取相关信息。根据故障码的提示，维修人员能迅速准确地确定故障的性质和部位。
-        </view>
+        <!-- 图片 -->
+        <block>
+            <image wx:for="{{imgUrls}}" wx:key="index" src="{{item}}" class="slide-image" />
+        </block>
         <button class="btn" type="primary" bindtap="bindObd">绑定设备</button>
     </view>
     <!-- 填写绑定信息 -->
