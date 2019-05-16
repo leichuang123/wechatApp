@@ -62,7 +62,7 @@
             <view hover-class="none" class="weui-cell weui-flex__item" bindtap="gotoMedical">
                 <view class="icon-addbg icon-light-blue">
                     <!-- <text class="icon-cog"></text> -->
-                    <image src="../../assets/images/icons/banner.png" style="width:26px;height:26px;margin-top:7px;" />
+                    <image src="../../assets/images/icons/banner.png" style="width:26px;height:30px;margin-top:9px;" />
                 </view>
                 <view class="weui-cell__bd">车辆体检</view>
             </view>

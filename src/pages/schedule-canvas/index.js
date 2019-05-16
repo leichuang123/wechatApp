@@ -1,6 +1,5 @@
 import api from '../../utils/api';
 import F2 from '../../f2-canvas/lib/f2';
-import { getDate } from '../../utils/util';
 import { confirmMsg, showLoading } from '../../utils/util';
 let chart;
 Page({
@@ -100,9 +99,7 @@ Page({
                             }
                         }
                     });
-                    chart.legend({
-                        position: 'right'
-                    });
+                    chart.legend(false);
                     chart.tooltip(false);
                     chart.coord('polar', {
                         transposed: true,
@@ -184,9 +181,10 @@ Page({
                     });
                     chart.source(data, {
                         sales: {
-                            tickCount: 7
+                            tickCount: 4
                         }
                     });
+                    chart.legend(false);
                     chart.axis('name', false);
                     chart
                         .interval()

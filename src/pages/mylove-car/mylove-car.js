@@ -1,5 +1,4 @@
 import api from '../../utils/api';
-import { toastMsg, confirmMsg } from '../../utils/util';
 Page({
     data: {
         carVisible: false,
@@ -70,9 +69,10 @@ Page({
             simNum: options.simNum,
             obdNum: options.obdNum
         });
+    },
+    onShow() {
         this.getCars();
     },
-
     /**
      * 页面相关事件处理函数--监听用户下拉动作
      */

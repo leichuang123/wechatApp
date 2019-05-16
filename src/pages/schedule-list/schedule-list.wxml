@@ -24,7 +24,7 @@
                 <view class="endins">{{item.endAddress}}</view>
             </view>
             <view class="total">
-                {{item.distance}}
+                <view>{{item.distance}}</view>
                 <text>公里</text>
             </view>
         </view>

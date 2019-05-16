@@ -24,7 +24,10 @@
     color: #101010;
     margin-left: 20px;
 }
-.carinformation view:nth-child(2),
+.carinformation view:nth-child(2) {
+    margin-top: 5px;
+    font-size: 12px;
+}
 .carinformation view:nth-child(3) {
     margin-top: 5px;
 }
@@ -35,12 +38,11 @@
 }
 .addobd {
     position: fixed;
-    width: 317px;
-    height: 35px;
+    width: 90%;
+    height: 40px;
     bottom: 25px;
-    left: 50%;
-    margin-left: -159px;
-    line-height: 35px;
+    left: 5%;
+    line-height: 40px;
     border-radius: 5px;
     background-color: rgba(97, 184, 168, 1);
     color: rgba(255, 255, 255, 1);

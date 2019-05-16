@@ -85,8 +85,7 @@ page {
 }
 .modeler {
     width: 90%;
-    height: 164px;
-    border-radius: 5px;
+    border-radius: 3px;
     border: 1px solid rgba(187, 187, 187, 1);
     background-color: white;
     top: 160px;
@@ -94,8 +93,10 @@ page {
     position: absolute;
     box-sizing: border-box;
     padding: 10px;
+    overflow: hidden;
 }
 .modeler input {
+    margin-top: 5px;
     border-bottom: 1px solid #bbbbbb;
     color: #888888;
     font-size: 14px;
@@ -104,9 +105,6 @@ page {
     color: #101010;
     font-size: 14px;
     margin-top: 8px;
-}
-.radio-group {
-    margin-top: 9px;
 }
 .modeler label {
     color: #101010;
@@ -118,7 +116,7 @@ page {
     margin-top: 13px;
 }
 .action button {
-    width: 49%;
+    width: 46%;
     height: 37px;
     text-align: center;
     line-height: 37px;
@@ -127,4 +125,8 @@ page {
     background: #ffffff;
     border: none;
     outline: none;
+}
+.action button:nth-child(2) {
+    background: #61b8a8;
+    color: #ffffff;
 }

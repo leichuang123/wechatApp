@@ -35,7 +35,7 @@
             </view>
             <view class="boxinput">
                 <input type="number" disabled="{{type==3}}" value="{{box.obdNum}}" bindinput="obdNum" />
-                <image src="../../assets/images/icons/tubiaozhizuomoban.png" bindtap='scan' />
+                <image src="../../assets/images/icons/tubiaozhizuomoban.png" bindtap='scan' style="right:7px;" />
             </view>
             <button class="sure" bindtap="sure">完成</button>
         </view>

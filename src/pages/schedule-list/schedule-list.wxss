@@ -76,7 +76,6 @@
     margin-left: 6px;
 }
 .ins view {
-    width: 200px;
     height: 30px;
     overflow: hidden;
     text-overflow: ellipsis;

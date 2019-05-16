@@ -90,9 +90,7 @@ Page({
                             }
                         }
                     });
-                    chart.legend({
-                        position: 'right'
-                    });
+                    chart.legend(false);
                     chart.tooltip(false);
                     chart.coord('polar', {
                         transposed: true,
@@ -174,13 +172,24 @@ Page({
                     });
                     chart.source(data, {
                         sales: {
-                            tickCount: 7
+                            tickCount: 4
                         }
                     });
+                    chart.guide().text({
+                        position: ['min', 'max'],
+                        content: '次数',
+                        style: {
+                            textBaseline: 'middle',
+                            textAlign: 'start'
+                        },
+                        offsetX: -10,
+                        offsetY: -20
+                    });
+                    chart.legend(false);
                     chart.axis('name', false);
                     chart
                         .interval()
-                        .position(['name', 'sales'])
+                        .position('name*sales')
                         .color('name', ['#8a24a8', '#ff9800', '#726bda', '#76d2f6', '#259b24', '#009688', '#e51c23']);
                     chart.render();
                     return chart;

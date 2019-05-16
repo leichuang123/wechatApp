@@ -62,7 +62,26 @@ Page({
                 chart.axis('distance', {
                     grid: null
                 });
-
+                chart.guide().text({
+                    position: ['min', 'max'],
+                    content: '油耗/L',
+                    style: {
+                        textBaseline: 'middle',
+                        textAlign: 'start'
+                    },
+                    offsetX: -10,
+                    offsetY: -20
+                });
+                chart.guide().text({
+                    position: ['min', 'max'],
+                    content: '里程/KM',
+                    style: {
+                        textBaseline: 'middle',
+                        textAlign: 'start'
+                    },
+                    offsetY: -20,
+                    offsetX: 290
+                });
                 chart
                     .line()
                     .position('date*fuel_lv')
