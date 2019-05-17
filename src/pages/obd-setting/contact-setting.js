@@ -1,5 +1,5 @@
 import api from '../../utils/api';
-import { confirmMsg, isMobile, toastMsg } from '../../utils/util';
+import { confirmMsg, isMobile, toastMsg, showLoading } from '../../utils/util';
 Page({
     data: {
         show1: true,
@@ -106,6 +106,7 @@ Page({
             confirmMsg('', '手机号码格式不正确', false);
             return;
         }
+        showLoading();
         const self = this;
         const param = {
             relation_id: self.data.relation_id,
@@ -116,6 +117,7 @@ Page({
                 confirmMsg('', res.errmsg, false);
                 return;
             }
+            wx.hideLoading();
             toastMsg(res.errmsg, 'success', 1000, () => {
                 self.setData({
                     show1: true,

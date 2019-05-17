@@ -10,9 +10,9 @@
             <slider class="s" bindchange="sliderchange" min="12" max="18" step="1" value="{{sliderScale}}" />
             <view class="fw">5km</view>
         </view>
-        <view class="ok" bindtap="submit">确定</view>
+        <button type="primary" class="ok" bindtap="submit">确定</button>
     </view>
-    <map id="myMap" wx:if="{{!model}}" latitude="{{latitude}}" longitude="{{longitude}}" markers="{{markers}}" scale="{{scale}}" style="width:100%;height:{{height}}px" bindupdated="where" bindregionchange="bindregionchange" />
+    <map id="myMap" wx:if="{{!model}}" latitude="{{latitude}}" longitude="{{longitude}}" markers="{{markers}}" scale="{{scale}}" style="width:100%;height:{{height}}px"  bindregionchange="bindregionchange" />
     <cover-view class="circle" wx:if="{{!model}}" style="top:{{(height-300)/2+152}}px"></cover-view>
     <view class="model" wx:if="{{model}}">
         <view class="modeler">
@@ -26,8 +26,8 @@
                 </label>
             </radio-group>
             <view class="action">
-                <button bindtap="isCancle">取消</button>
-                <button bindtap="isOk">确认</button>
+                <button type="primary" bindtap="isCancle">取消</button>
+                <button type="primary" bindtap="isOk">确认</button>
             </view>
         </view>
     </view>

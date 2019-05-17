@@ -87,14 +87,18 @@
     color: #101010;
     padding-left: 2px;
 }
-.boxinput image {
+.boxinput .iconfont {
     width: 24px;
     height: 24px;
+    text-align: center;
+    line-height: 24px;
     position: absolute;
     top: 50%;
     margin-top: -12px;
     right: 5px;
-    z-index: 9999;
+    z-index: 999;
+    color: #101010;
+    font-size: 24px;
 }
 .sure {
     position: fixed;

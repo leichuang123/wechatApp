@@ -9,7 +9,7 @@ page {
 }
 .links {
     background: #ffffff;
-    padding: 12px 12px 2px 12px;
+    padding: 12px;
     border-bottom: 1px solid #f1f1f1;
     overflow: hidden;
 }
@@ -22,10 +22,6 @@ page {
 }
 .linksicon {
     float: right;
-}
-.linksicon image {
-    width: 24px;
-    height: 24px;
 }
 .linksins {
     float: right;

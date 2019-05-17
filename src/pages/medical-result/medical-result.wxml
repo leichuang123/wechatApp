@@ -9,7 +9,7 @@
         <view class="pitem border1">
             <view>电瓶电压</view>
             <view class="pins">
-                <image src="../../assets/images/icons/dianya.png" />
+                <text class="iconfont icon-dianya"></text>
                 <view>{{result.vol}}v</view>
                 <view class="excel" bindtap="showexcel">对照表</view>
             </view>
@@ -17,21 +17,21 @@
         <view class="pitem border0">
             <view>发动机转速</view>
             <view class="pins">
-                <image src="../../assets/images/icons/xinxinicon.png" />
+                <text class="iconfont icon-xinxinicon"></text>
                 <view>{{result.rpm}}r/min</view>
             </view>
         </view>
         <view class="pitem border2">
             <view>冷却液温度</view>
             <view class="pins">
-                <image src="../../assets/images/icons/temperature.png" />
+                <text class="iconfont icon-temperature"></text>
                 <view>{{result.coolant_temp}}*C</view>
             </view>
         </view>
         <view class="pitem">
             <view>空燃比系数</view>
             <view class="pins">
-                <image src="../../assets/images/icons/yibiaopans.png" />
+                <text class="iconfont icon-yibiaopan"></text>
                 <view>{{result.air_fuel}}km/h</view>
             </view>
         </view>
@@ -100,8 +100,51 @@
     </view>
     <block wx:if="{{excel}}">
         <view class="model">
-            <image src="../../assets/images/icons/excel.png" />
-            <view class="close" bindtap="hidexcel">关闭</view>
+            <view class="title">-电瓶电压值判断对照表-</view>
+            <view class="table">
+                <view class="table1">
+                    <view style="flex:2;border-right:1px solid #101010">电瓶电压值</view>
+                    <view style="flex:1;border-right:1px solid #101010">判断标准</view>
+                    <view style="flex:2;">影响及对应方法</view>
+                </view>
+                <view class="table2">
+                    <view class="t1">发动前</view>
+                    <view class="t2">
+                        <view>＜10.8v</view>
+                        <view>10.8~11.8v</view>
+                        <view>11.8~12.8v</view>
+                    </view>
+                    <view class="t3">
+                        <view class="red">过低</view>
+                        <view class="red">偏低</view>
+                        <view>正常</view>
+                    </view>
+                    <view class="t4">
+                        <view>无法启动汽车,可能需要更换电瓶</view>
+                        <view>启动较难,请关闭其他用电器,并发动汽车充电</view>
+                        <view style="text-align:center;line-height:50px;">-</view>
+                    </view>
+                </view>
+                <view class="table2">
+                    <view class="t1">发动后</view>
+                    <view class="t2">
+                        <view>12.8~13.2v</view>
+                        <view>13.2~14.8v</view>
+                        <view>＞14.8v</view>
+                    </view>
+                    <view class="t3">
+                        <view class="red">过低</view>
+                        <view>正常</view>
+                        <view class="red">过高</view>
+                    </view>
+                    <view class="t4">
+                        <view>可能无法给电瓶供电,检查发动机和其他用电负荷</view>
+                        <view style="text-align:center;line-height:50px;">-</view>
+                        <view>可能损害电瓶,检查发动机稳定期</view>
+                    </view>
+                </view>
+            </view>
+            <button type="primary" class="close" bindtap="hidexcel">关闭</button>
         </view>
     </block>
 </view>

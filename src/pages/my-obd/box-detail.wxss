@@ -5,7 +5,7 @@
 }
 .links {
     background: #ffffff;
-    padding: 12px 12px 2px 12px;
+    padding: 12px;
     border-bottom: 1px solid #f1f1f1;
     overflow: hidden;
 }
@@ -22,9 +22,12 @@
 .linksicon {
     float: right;
 }
-.linksicon image {
+.linksicon .iconfont {
     width: 24px;
     height: 24px;
+    font-size: 14px;
+    color: #101010;
+    line-height: 24px;
 }
 .linksins {
     float: right;
@@ -44,7 +47,7 @@
     left: 5%;
     line-height: 40px;
     border-radius: 5px;
-    background-color: rgba(97, 184, 168, 1);
+    background-color: #ff9800;
     color: rgba(255, 255, 255, 1);
     font-size: 14px;
     text-align: center;

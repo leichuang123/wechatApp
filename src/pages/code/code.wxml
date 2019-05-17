@@ -10,7 +10,7 @@
         </view>
     </view>
     <view class="action">
-        <view class="search" bindtap='search'>一键查询</view>
-        <view bindtap='clear'>清空</view>
+        <button type="primary" class="search" bindtap='search'>一键查询</button>
+        <button type="primary" bindtap='clear'>清空</button>
     </view>
 </view>

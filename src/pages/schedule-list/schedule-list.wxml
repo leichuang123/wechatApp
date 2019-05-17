@@ -3,7 +3,7 @@
         <view class="da">{{date}}</view>
         <view class="date">
             <picker style="width:24px;height:24px;z-index:9999" mode="date" value="{{date}}" end="{{date}}" bindchange="bindDateChange" class="pick_date">
-                <image src="../../assets/images/icons/rili.png" />
+                <view class="iconfont icon-rili"></view>
             </picker>
         </view>
     </view>

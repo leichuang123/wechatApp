@@ -1,5 +1,5 @@
 import api from '../../utils/api';
-import { toastMsg } from '../../utils/util';
+import { toastMsg, showLoading } from '../../utils/util';
 Page({
     data: {
         showcode: false,
@@ -9,6 +9,7 @@ Page({
      * 一键查询
      */
     search: function() {
+        showLoading();
         const param = {
             obd_device_id: wx.getStorageSync('obd_device_id')[0]
         };
@@ -18,6 +19,7 @@ Page({
                 toastMsg(res.errmsg, 'error');
                 return;
             }
+            wx.hideLoading();
             self.setData({
                 list: res.data,
                 showcode: true
@@ -29,6 +31,7 @@ Page({
      */
 
     clear: function() {
+        showLoading();
         const param = {
             obd_device_id: wx.getStorageSync('obd_device_id')[0]
         };
@@ -38,6 +41,7 @@ Page({
                 toastMsg(res.errmsg, 'error');
                 return;
             }
+            wx.hideLoading();
             self.setData({
                 list: [],
                 showcode: false

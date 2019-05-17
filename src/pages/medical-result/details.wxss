@@ -37,9 +37,9 @@
     right: 9px;
     top: 7px;
 }
-.date image {
-    width: 24px;
-    height: 24px;
+.date .iconfont {
+    color: #ffffff;
+    font-size: 24px;
 }
 .canvas {
     width: 100%;
@@ -80,9 +80,9 @@ ff-canvas {
 .linksicon {
     float: right;
 }
-.linksicon image {
-    width: 24px;
-    height: 24px;
+.iconfont {
+    color: #101010;
+    font-size: 24px;
 }
 .linksins {
     float: right;

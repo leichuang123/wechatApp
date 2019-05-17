@@ -26,42 +26,30 @@
     <view class="nav">
         <view class="links" bindtap="history">
             <view class="linkstitle">行驶轨迹</view>
-            <view class="linksicon">
-                <image src="../../assets/images/icons/youjiantou.png" />
-            </view>
+            <view class="linksicon iconfont icon-guiji" style="font-size:26px;color:#61B8A8"></view>
         </view>
         <navigator class="links" url="/pages/schedule-canvas/index?type=1">
             <view class="linkstitle">总里程</view>
-            <view class="linksicon">
-                <image src="../../assets/images/icons/youjiantou.png" />
-            </view>
+            <view class="linksicon iconfont icon-xiangyou" style="font-size:22px;"></view>
             <view class="linksins">{{distance}}</view>
         </navigator>
         <navigator class="links" url="/pages/schedule-canvas/index?type=2">
             <view class="linkstitle">总油耗</view>
-            <view class="linksicon">
-                <image src="../../assets/images/icons/youjiantou.png" />
-            </view>
+            <view class="linksicon iconfont icon-xiangyou" style="font-size:22px;"></view>
             <view class="linksins">{{total_oil}}</view>
         </navigator>
         <navigator class="links" url="/pages/schedule-canvas/index?type=3">
             <view class="linkstitle">平均速速</view>
-            <view class="linksicon">
-                <image src="../../assets/images/icons/youjiantou.png" />
-            </view>
+            <view class="linksicon iconfont icon-xiangyou" style="font-size:22px;"></view>
             <view class="linksins">{{avg_speed}}</view>
         </navigator>
         <navigator class="links" url="/pages/schedule-canvas/index?type=4">
             <view class="linkstitle">驾驶行为</view>
-            <view class="linksicon">
-                <image src="../../assets/images/icons/youjiantou.png" />
-            </view>
+            <view class="linksicon iconfont icon-xiangyou" style="font-size:22px;"></view>
         </navigator>
         <navigator class="links" url="/pages/schedule-canvas/index?type=5">
             <view class="linkstitle">报警</view>
-            <view class="linksicon">
-                <image src="../../assets/images/icons/youjiantou.png" />
-            </view>
+            <view class="linksicon iconfont icon-xiangyou" style="font-size:22px;"></view>
         </navigator>
     </view>
 </view>

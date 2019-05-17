@@ -1,6 +1,6 @@
 import api from '../../utils/api';
 import { key } from '../../config';
-import { confirmMsg, toastMsg } from '../../utils/util';
+import { confirmMsg, toastMsg, showLoading } from '../../utils/util';
 Page({
     data: {
         model: false,
@@ -30,6 +30,7 @@ Page({
     },
     //编辑初始化
     init: function(id) {
+        showLoading();
         const self = this;
         const param = {
             obd_device_id: wx.getStorageSync('obd_device_id')[0],
@@ -40,6 +41,7 @@ Page({
                 confirmMsg('', res.errmsg, false);
                 return;
             }
+            wx.hideLoading();
             const phoneData = wx.getStorageSync('systemInfo');
             self.setData({
                 height: phoneData.screenHeight - 152,
@@ -58,7 +60,7 @@ Page({
     //监听地图中心点改变
     bindregionchange: function() {
         this.getCenterLocation();
-        this.where();
+        //this.where();
     },
     //获取中心点的位置
     getCenterLocation: function() {
@@ -69,32 +71,33 @@ Page({
                     'markers[0].latitude': res.latitude,
                     'markers[0].longitude': res.longitude
                 });
+                api.get('/weapp-obd-geofence/get-address-detail', { lat: res.latitude, lng: res.longitude }).then(
+                    res => {
+                        if (res.errcode == 0) {
+                            that.setData({
+                                adress: res.data.address
+                            });
+                        }
+                    }
+                );
             }
         });
     },
-    //调用地图取地址
-    where: function() {
-        const QQMapWX = require('../../utils/qqmap-wx-jssdk.min.js');
-        var qqmapsdk = new QQMapWX({
-            key: key
-        });
-        const that = this;
-        qqmapsdk.reverseGeocoder({
-            location: {
-                latitude: that.data.markers[0].latitude,
-                longitude: that.data.markers[0].longitude
-            },
-            success: function(res) {
-                that.setData({
-                    adress: res.result.formatted_addresses.recommend,
-                    latitude: res.result.location.lat,
-                    longitude: res.result.location.lng,
-                    'markers[0].latitude': res.result.location.lat,
-                    'markers[0].longitude': res.result.location.lng
-                });
-            }
-        });
-    },
+    //取地址
+    // where: function() {
+    //     const self = this;
+    //     var param = {
+    //         lat: self.data.markers[0].latitude,
+    //         lng: self.data.markers[0].longitude
+    //     };
+    //     api.get('/weapp-obd-geofence/get-address-detail', param).then(res => {
+    //         if (res.errcode == 0) {
+    //             self.setData({
+    //                 adress: res.data.address
+    //             });
+    //         }
+    //     });
+    // },
     //slider取值同步圆半径和地图缩放
     sliderchange: function(e) {
         const arr = [100, 200, 700, 1500, 3000, 4000, 5000];
@@ -126,6 +129,7 @@ Page({
     },
     //确认提交请求
     isOk: function() {
+        showLoading();
         const self = this;
         if (self.data.fence_name == '') {
             confirmMsg('', '请填写完整信息', false);
@@ -144,6 +148,7 @@ Page({
                 toastMsg(res.errmsg, 'error');
                 return;
             }
+            wx.hideLoading();
             this.setData({
                 model: false
             });
@@ -173,6 +178,7 @@ Page({
             this.setData({
                 fence_id: options.fence_id,
                 http: 'weapp-obd-geofence/edit-geofence'
+                // adress: options.where
             });
             this.init(options.fence_id);
             return;

@@ -19,7 +19,7 @@ page {
     display: flex;
     justify-content: space-around;
 }
-.action view {
+.action button {
     width: 150px;
     height: 40px;
     text-align: center;

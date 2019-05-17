@@ -1,5 +1,5 @@
 import api from '../../utils/api';
-import { toastMsg, goBack } from '../../utils/util';
+import { toastMsg } from '../../utils/util';
 Page({
     data: {
         result: {},

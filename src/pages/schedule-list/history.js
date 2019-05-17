@@ -10,14 +10,18 @@ Page({
         longitude: '',
         markers: [
             {
+                iconPath: '../../assets/images/icons/gos.png',
                 id: 0,
                 latitude: '',
-                longitude: ''
+                longitude: '',
+                anchor: {x: .5, y: 0.8},
             },
             {
+                iconPath: '../../assets/images/icons/end.png',
                 id: 2,
                 latitude: '',
-                longitude: ''
+                longitude: '',
+                anchor: {x: .5, y: 0.8},
             }
         ],
         polyline: [
@@ -54,6 +58,22 @@ Page({
             wx.hideLoading();
         });
     },
+    // //监听地图中心点改变
+    // bindregionchange: function() {
+    //     this.getCenterLocation();
+    // },
+    // //获取中心点的位置
+    // getCenterLocation: function() {
+    //     const that = this;
+    //     that.mapCtx.getCenterLocation({
+    //         success(res) {
+    //             that.setData({
+    //                 latitude: res.latitude,
+    //                 longitude: res.longitude
+    //             });
+    //         }
+    //     });
+    // },
     onReady(e) {
         this.mapCtx = wx.createMapContext('myMap');
     },
@@ -67,19 +87,19 @@ Page({
         this.getonce(options.start, options.end, options.travel_id, obd_device_id, sessionKey);
     },
     //打开速度选着框
-    speed: function() {
-        this.setData({
-            select: true
-        });
-    },
+    // speed: function() {
+    //     this.setData({
+    //         select: true
+    //     });
+    // },
     //切换速度
-    check: function(e) {
-        const index = e.currentTarget.id;
-        this.setData({
-            type: index,
-            select: false
-        });
-    },
+    // check: function(e) {
+    //     const index = e.currentTarget.id;
+    //     this.setData({
+    //         type: index,
+    //         select: false
+    //     });
+    // },
     //播放
     play: function() {
         var loop = null;
@@ -103,8 +123,8 @@ Page({
                         confirmMsg('', '播放结束', false);
                         //播放结束重新绘制地图及信息
                         self.setData({
-                            latitude: self.data.markers[0].latitude,
-                            longitude: self.data.markers[0].longitude,
+                                latitude: self.data.markers[0].latitude,
+                                longitude: self.data.markers[0].longitude,
                             markers: [
                                 {
                                     id: 0,

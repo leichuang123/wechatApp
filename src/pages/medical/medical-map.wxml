@@ -1,13 +1,15 @@
-<!-- pages/medical/medical-map.wxml -->
 <view class="mapbox">
-    <map id="myMap" latitude="{{latitude}}" longitude="{{longitude}}" markers="{{markers}}" enable-satellite="{{look}}" enable-rotate="true" scale="{{scale}}" style="width:100%;height:{{height}}px" bindcallouttap="bindcallouttap" />
     <cover-view class="boxbar">
         <cover-view class="bars" bindtap="realtime">
-            <cover-image src="../../assets/images/icons/yibiaopan.png" />
+            <cover-view class="iconfont">
+                <cover-image src="../../assets/images/icons/a2.png"></cover-image>
+            </cover-view>
             <cover-view>实时车况</cover-view>
         </cover-view>
         <cover-view class="bars" bindtap="car">
-            <cover-image src="../../assets/images/icons/cheliangpengzhuang.png" />
+            <cover-view class="iconfont">
+                <cover-image src="../../assets/images/icons/a3.png"></cover-image>
+            </cover-view>
             <cover-view>车辆体检</cover-view>
         </cover-view>
         <cover-view class="bars"></cover-view>
@@ -17,24 +19,37 @@
             <cover-view>{{FuelLv}}L</cover-view>
         </cover-view>
         <cover-view class="bars" bindtap="scheduce">
-            <cover-image src="../../assets/images/icons/lishihangcheng.png" />
+            <cover-view class="iconfont">
+                <cover-image src="../../assets/images/icons/a4.png"></cover-image>
+            </cover-view>
             <cover-view>行程列表</cover-view>
         </cover-view>
         <cover-view class="bars" bindtap="code">
-            <cover-image src="../../assets/images/icons/code.png" />
+            <cover-view class="iconfont">
+                <cover-image src="../../assets/images/icons/a5.png"></cover-image>
+            </cover-view>
             <cover-view>故障代码</cover-view>
         </cover-view>
     </cover-view>
     <cover-view class="sz" bindtap="includePoints">
-        <cover-image src="../../assets/images/icons/tuceng.png" />
+        <cover-view class="iconfont">
+            <cover-image src="../../assets/images/icons/i1.png" style="width:28px;height:28px;margin:2px;"></cover-image>
+        </cover-view>
     </cover-view>
     <cover-view class="sz icon1" bindtap="setting">
-        <cover-image src="../../assets/images/icons/shezhi.png" />
+        <cover-view class="iconfont">
+            <cover-image src="../../assets/images/icons/i2.png"></cover-image>
+        </cover-view>
     </cover-view>
     <cover-view class="sz icon2" bindtap="cars">
-        <cover-image src="../../assets/images/icons/qiche.png" />
+        <cover-view class="iconfont">
+            <cover-image src="../../assets/images/icons/i3.png"></cover-image>
+        </cover-view>
     </cover-view>
     <cover-view class="sz icon3" bindtap="police">
-        <cover-image src="../../assets/images/icons/jinggao.png" />
+        <cover-view class="iconfont">
+            <cover-image src="../../assets/images/icons/i4.png"></cover-image>
+        </cover-view>
     </cover-view>
+    <map id="myMap" latitude="{{latitude}}" longitude="{{longitude}}" markers="{{markers}}" enable-satellite="{{look}}" enable-rotate="true" scale="{{scale}}" style="width:100%;height:{{height}}px" bindcallouttap="bindcallouttap"></map>
 </view>

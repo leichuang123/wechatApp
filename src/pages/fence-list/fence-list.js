@@ -11,8 +11,12 @@ Page({
     },
     //新增围栏
     addobd: function() {
+        showLoading('跳转中');
         wx.navigateTo({
-            url: '/pages/fence-list/add-fence'
+            url: '/pages/fence-list/add-fence',
+            success() {
+                wx.hideLoading();
+            }
         });
     },
     //获取围栏信息列表
@@ -45,7 +49,7 @@ Page({
     //编辑围栏
     edit: function(e) {
         wx.navigateTo({
-            url: '/pages/fence-list/add-fence?fence_id=' + e.currentTarget.dataset.item.fence_id
+            url: '/pages/fence-list/add-fence?fence_id=' + e.currentTarget.dataset.item.fence_id +'&where='  +e.currentTarget.dataset.item.address
         });
     },
     //确认是否删除

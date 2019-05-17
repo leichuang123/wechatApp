@@ -9,5 +9,5 @@
             <view>{{item.car_number}}</view>
         </view>
     </view>
-    <view class="addobd" bindtap="addlove">添加爱车</view>
+    <button type="primary" class="addobd" bindtap="addlove">添加爱车</button>
 </view>

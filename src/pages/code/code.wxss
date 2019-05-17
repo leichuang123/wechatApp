@@ -18,6 +18,7 @@ image {
     padding: 7px;
     max-height: 120px;
     overflow-y: auto;
+    min-height: 120px;
 }
 .c {
     width: 100%;
@@ -35,7 +36,7 @@ image {
     display: flex;
     justify-content: space-around;
 }
-.action view {
+.action button {
     width: 130px;
     height: 40px;
     line-height: 40px;

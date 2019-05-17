@@ -8,18 +8,18 @@
     height: 32px;
     border-radius: 5px;
     text-align: center;
-    line-height: 32px;
     top: 35px;
     right: 13px;
     background: #61b8a8;
 }
-.sz cover-image {
-    width: 30px;
-    height: 30px;
+.s {
+    width: 32px;
+    height: 32px;
+    text-align: center;
+    line-height: 32px;
+    border-radius: 5px;
 }
-.icon1 {
-    top: 80px;
-}
+
 .select {
     position: fixed;
     z-index: 99999;

@@ -1,9 +1,9 @@
 <view>
     <view class="weui-cells weui-cells_after-title">
         <view class="weui-cell">
-            <view class="weui-cell__bd">车牌号码：</view>
+            <view class="weui-cell__bd">车牌号码</view>
             <view class="weui-cell__bd text-black" bindtap="showKeyboard">
-                <input type="text" value="{{carNumber}}" maxlength="8" disabled/>
+                <input type="text" style="text-align:right" placeholder="请输入车牌号" value="{{carNumber}}" maxlength="8" disabled />
             </view>
         </view>
         <view class="weui-cell" hover-class="navigator-hover" bindtap="gotoCars">

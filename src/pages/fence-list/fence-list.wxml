@@ -18,5 +18,5 @@
         </view>
     </block>
     <view wx:if="{{hasdata}}" class="no">暂无围栏信息</view>
-    <view class="addobd" bindtap="addobd">新增</view>
+    <button type="primary" class="addobd" bindtap="addobd">新增</button>
 </view>

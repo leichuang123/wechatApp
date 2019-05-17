@@ -7,7 +7,7 @@
         </view>
         <view class="date">
             <picker style="width:24px;height:24px;z-index:9999" mode="date" value="{{date}}" end="{{date}}" bindchange="bindDateChange" class="pick_date">
-                <image src="../../assets/images/icons/rili.png" />
+                <view class="iconfont icon-rili"></view>
             </picker>
         </view>
     </view>
@@ -17,36 +17,26 @@
     <view class="nav">
         <navigator class="links" url="/pages/Total-mileage/Total-mileage?type=1">
             <view class="linkstitle">总里程</view>
-            <view class="linksicon">
-                <image src="../../assets/images/icons/youjiantou.png" />
-            </view>
+            <view class="linksicon iconfont icon-xiangyou"></view>
             <view class="linksins">{{total.distance}}</view>
         </navigator>
         <navigator class="links" url="/pages/Total-mileage/Total-mileage?type=2">
             <view class="linkstitle">总油耗</view>
-            <view class="linksicon">
-                <image src="../../assets/images/icons/youjiantou.png" />
-            </view>
+            <view class="linksicon iconfont icon-xiangyou"></view>
             <view class="linksins">{{total.fuel_lv}}</view>
         </navigator>
         <navigator class="links" url="/pages/Total-mileage/Total-mileage?type=3">
             <view class="linkstitle">平均速速</view>
-            <view class="linksicon">
-                <image src="../../assets/images/icons/youjiantou.png" />
-            </view>
+            <view class="linksicon iconfont icon-xiangyou"></view>
             <view class="linksins">{{total.avg_speed}}</view>
         </navigator>
         <navigator class="links" url="/pages/Total-mileage/Total-mileage?type=4">
             <view class="linkstitle">驾驶行为</view>
-            <view class="linksicon">
-                <image src="../../assets/images/icons/youjiantou.png" />
-            </view>
+            <view class="linksicon iconfont icon-xiangyou"></view>
         </navigator>
         <navigator class="links" url="/pages/Total-mileage/Total-mileage?type=5">
             <view class="linkstitle">报警</view>
-            <view class="linksicon">
-                <image src="../../assets/images/icons/youjiantou.png" />
-            </view>
+            <view class="linksicon iconfont icon-xiangyou"></view>
         </navigator>
     </view>
 </view>

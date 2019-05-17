@@ -1,6 +1,6 @@
 import api from '../../utils/api';
 import { uploadFileUrl, host } from '../../config';
-import { confirmMsg, toastMsg } from '../../utils/util';
+import { confirmMsg, toastMsg, showLoading } from '../../utils/util';
 Page({
     data: {
         indicatorDots: false,
@@ -143,11 +143,12 @@ Page({
     //完成
     sure: function() {
         const self = this;
-        if (self.data.box.cardNum == '' || self.data.box.simNum == '' || self.data.box.obdNum == '') {
+        if (self.data.box.cardNum == '' || self.data.box.obdNum == '') {
             confirmMsg('', '请完善信息', false);
             return;
         } else if (self.data.type == 3) {
             //编辑obd信息
+            showLoading();
             const param = {
                 car_number: self.data.box.cardNum,
                 sim: self.data.box.simNum,
@@ -159,6 +160,7 @@ Page({
                     confirmMsg('', res.errmsg, false);
                     return;
                 }
+                wx.hideLoading();
                 toastMsg(res.errmsg, 'success', 1000, () => {
                     wx.navigateTo({
                         url: '/pages/my-obd/box-detail'
@@ -168,6 +170,7 @@ Page({
             return;
         } else if (self.data.type == 1) {
             //再次新增obd
+            showLoading;
             const param = {
                 car_number: self.data.box.cardNum,
                 sim: self.data.box.simNum,
@@ -180,6 +183,7 @@ Page({
                     return;
                 }
                 //缓存设备信息
+                wx.hideLoading();
                 wx.setStorageSync('obd_device_id', res.data.obd_device_ids);
                 wx.navigateTo({
                     url: '/pages/my-obd/my-obd'
@@ -187,6 +191,7 @@ Page({
             });
         } else {
             //注册obd
+            showLoading();
             const param = {
                 weapp_user_id: wx.getStorageSync('userData').id,
                 car_number: self.data.box.cardNum,
@@ -200,6 +205,7 @@ Page({
                     return;
                 }
                 //缓存设备信息
+                wx.hideLoading();
                 wx.setStorageSync('obd_device_id', res.data.obd_device_ids);
                 wx.navigateTo({
                     url: '/pages/medical/medical-map'

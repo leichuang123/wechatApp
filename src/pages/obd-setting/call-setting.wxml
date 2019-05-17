@@ -9,7 +9,7 @@
         </view>
     </checkbox-group>
     <view class="action">
-        <view class="cel" bindtap="cel">取消</view>
-        <view class="sure" bindtap="sure">确定</view>
+        <button type="primary" class="cel" bindtap="cel">取消</button>
+        <button type="primary" class="sure" bindtap="sure">确定</button>
     </view>
 </view>

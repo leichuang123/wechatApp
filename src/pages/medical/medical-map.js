@@ -1,5 +1,5 @@
 import api from '../../utils/api';
-import { toastMsg, goBack, showLoading } from '../../utils/util';
+import { toastMsg, showLoading } from '../../utils/util';
 Page({
     data: {
         scale: 14,
@@ -73,6 +73,10 @@ Page({
                 wx.hideLoading();
                 return;
             }
+            this.setData({
+                Distance: 0,
+                FuelLv: 0
+            });
             wx.hideLoading();
             toastMsg(res.errmsg, 'error', 2000);
         });
