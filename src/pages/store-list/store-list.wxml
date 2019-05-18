@@ -25,13 +25,16 @@
             <view class="list-box clearfix" wx:for="{{stores}}" wx:key="index">
                 <view class="weui-media-box weui-media-box_appmsg" data-item="{{item}}" bindtap="gotoDetail">
                     <view class="weui-media-box__hd_in-appmsg">
-                        <image class="weui-media-box__thumb" src="{{item.store_img}}" />
+                        <block>
+                            <image class="weui-media-box__thumb" wx:if="{{item.store_img}}" src="{{item.store_img}}" />
+                        </block>
                     </view>
                     <view class="weui-media-box__bd_in-appmsg">
                         <view class="weui-flex">
                             <view class="bold weui-flex__item">{{item.store_name}}</view>
                             <view>
-                                <text wx:if="{{item.verify_state==1}}" class="icon-checkmark fc-green text-right">已认证
+                                <text wx:if="{{item.verify_state==1}}" class="icon-checkmark fc-green text-right">
+                                    已认证
                                 </text>
                             </view>
                         </view>

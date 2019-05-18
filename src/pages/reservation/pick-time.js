@@ -29,6 +29,10 @@ Page({
         showLoading();
         api.get('weapp/reservedata', this.data.timetableForm).then(res => {
             wx.hideLoading();
+            if (res.errcode != 0) {
+                confirmMsg('', res.errmsg, false);
+                return;
+            }
             this.setData({
                 timetable: res.errcode === 0 ? res.data : []
             });

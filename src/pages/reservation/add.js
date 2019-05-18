@@ -67,9 +67,10 @@ Page({
      */
     changeCarNumber: function(e) {
         let index = e.detail.value;
+        let carNumbers = this.data.carNumbers[index];
         this.setData({
             carIndex: index,
-            'form.car_number': this.data.carNumbers[index]
+            'form.car_number': carNumbers
         });
     },
     /**
@@ -164,7 +165,7 @@ Page({
         this.setData({
             'form.store_id': params.store_id,
             'form.merchant_id': params.merchant_id,
-            'form.car_number': carNumber,
+            'form.car_number': userData.car[0],
             'form.mobile': !!userData ? userData.mobile : '',
             'form.contact': !linkman ? '' : linkman,
             carNumbers: !!userData ? userData.car : []

@@ -13,22 +13,22 @@ Page({
         subServiceAllChecked: true,
         areaAllChecked: true,
         selectedArea: {
-            areaId: "420100",
-            area: "武汉市",
-            father: "420000",
+            areaId: '420100',
+            area: '武汉市',
+            father: '420000',
             checked: true
         },
         selectedServiceClass: {
             class_id: 1,
-            class_name: "洗车美容",
+            class_name: '洗车美容',
             pid: 0,
             checked: true
         },
         currentServiceClassIndex: 0,
         selectedSort: {
-            name: "默认排序",
+            name: '默认排序',
             id: 0,
-            value: "distance",
+            value: 'distance',
             checked: true
         },
         cityId: 0,
@@ -201,7 +201,6 @@ Page({
      *
      */
     getStoresWithClass: function() {
-        console.log('getStoresWithClass:', this.data.form);
         api.get('weapp/get-stores-with-class', this.data.form, false).then(res => {
             if (res.errcode === 0) {
                 const index = this.getCurrentServiceClassIndex(res.data.classes.serviceClass.classes);
