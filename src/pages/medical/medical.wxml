@@ -25,10 +25,6 @@
                 <input value="{{box.cardNum}}" maxlength="8" disabled='true' />
                 <view class="iconfont icon-xiangyou"></view>
             </view>
-            <view class="boxpancel">设备SIM卡号</view>
-            <view class="boxinput">
-                <input type="number" value="{{box.simNum}}" bindinput="getsimNum" />
-            </view>
             <view class="boxpancel">
                 设备号
                 <text>*</text>

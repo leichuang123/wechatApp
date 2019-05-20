@@ -151,7 +151,6 @@ Page({
             showLoading();
             const param = {
                 car_number: self.data.box.cardNum,
-                sim: self.data.box.simNum,
                 head_img: self.data.imgsrc == '' ? wx.getStorageSync('wxUserInfo').avatarUrl : self.data.imgsrc,
                 obd_device_id: self.data.obd_device_id
             };
@@ -173,7 +172,6 @@ Page({
             showLoading;
             const param = {
                 car_number: self.data.box.cardNum,
-                sim: self.data.box.simNum,
                 imei: self.data.box.obdNum,
                 head_img: self.data.imgsrc == '' ? wx.getStorageSync('wxUserInfo').avatarUrl : self.data.imgsrc
             };
@@ -195,7 +193,6 @@ Page({
             const param = {
                 weapp_user_id: wx.getStorageSync('userData').id,
                 car_number: self.data.box.cardNum,
-                sim: self.data.box.simNum,
                 imei: self.data.box.obdNum,
                 head_img: self.data.imgsrc == '' ? wx.getStorageSync('wxUserInfo').avatarUrl : self.data.imgsrc
             };
