@@ -2,7 +2,7 @@
     <view class="type">
         <view class="da">{{date}}</view>
         <view class="date">
-            <picker style="width:24px;height:24px;z-index:9999" mode="date" value="{{date}}" end="{{date}}" bindchange="bindDateChange" class="pick_date">
+            <picker style="width:24px;height:24px;z-index:9999" mode="date" value="{{date}}" bindchange="bindDateChange" class="pick_date">
                 <view class="iconfont icon-rili"></view>
             </picker>
         </view>

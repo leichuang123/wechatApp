@@ -3,25 +3,24 @@ import { showLoading, confirmMsg } from '../../utils/util';
 Page({
     data: {
         select: false,
-        selectarr: ['快', '中', '慢'],
-        type: 800,
+        //selectarr: ['快', '中', '慢'],
+        type: 1200,
+        playing: true,
         height: '',
         latitude: '',
         longitude: '',
         markers: [
             {
-                iconPath: '../../assets/images/icons/gos.png',
+                //iconPath: '../../assets/images/icons/gos.png',
                 id: 0,
                 latitude: '',
-                longitude: '',
-                anchor: {x: .5, y: 0.8},
+                longitude: ''
             },
             {
-                iconPath: '../../assets/images/icons/end.png',
-                id: 2,
+                // iconPath: '../../assets/images/icons/end.png',
+                id: 1,
                 latitude: '',
-                longitude: '',
-                anchor: {x: .5, y: 0.8},
+                longitude: ''
             }
         ],
         polyline: [
@@ -29,7 +28,7 @@ Page({
                 points: [],
                 color: '#ff9800',
                 width: 5,
-                dottedLine: true
+                arrowLine: true
             }
         ]
     },
@@ -102,6 +101,12 @@ Page({
     // },
     //播放
     play: function() {
+        this.setData({
+            playing: false
+        });
+        wx.setNavigationBarTitle({
+            title: '正在播放...'
+        });
         var loop = null;
         var sindex = 1;
         var loopdata = this.data.polyline[0].points;
@@ -113,7 +118,7 @@ Page({
             });
             self.mapCtx.translateMarker({
                 markerId: 0,
-                autoRotate: true,
+                autoRotate: false,
                 duration: self.data.type, //速度
                 //终点
                 destination: loopdata[sindex],
@@ -123,8 +128,8 @@ Page({
                         confirmMsg('', '播放结束', false);
                         //播放结束重新绘制地图及信息
                         self.setData({
-                                latitude: self.data.markers[0].latitude,
-                                longitude: self.data.markers[0].longitude,
+                            latitude: self.data.markers[0].latitude,
+                            longitude: self.data.markers[0].longitude,
                             markers: [
                                 {
                                     id: 0,
@@ -132,11 +137,15 @@ Page({
                                     longitude: self.data.markers[0].longitude
                                 },
                                 {
-                                    id: 8,
+                                    id: 1,
                                     latitude: self.data.markers[1].latitude,
                                     longitude: self.data.markers[1].longitude
                                 }
-                            ]
+                            ],
+                            playing: true
+                        });
+                        wx.setNavigationBarTitle({
+                            title: '历史回放'
                         });
                         clearInterval(loop);
                         return;

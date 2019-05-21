@@ -16,6 +16,10 @@ Page({
             obd_device_id: wx.getStorageSync('obd_device_id')[0]
         };
         api.get('weapp-obd-user-car/run-car-test', param).then(res => {
+            if (res.errcode == 3000) {
+                toastMsg('暂无数据', 'error', 2000);
+                return;
+            }
             if (res.errcode == 0) {
                 this.setData({
                     result: res.data

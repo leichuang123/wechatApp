@@ -66,7 +66,7 @@ ff-canvas {
 }
 .links {
     background: #ffffff;
-    padding: 12px 12px 2px 12px;
+    padding: 12px;
     border-bottom: 1px solid #f1f1f1;
     overflow: hidden;
 }
@@ -80,10 +80,7 @@ ff-canvas {
 .linksicon {
     float: right;
 }
-.iconfont {
-    color: #101010;
-    font-size: 24px;
-}
+
 .linksins {
     float: right;
 }

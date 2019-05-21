@@ -28,6 +28,11 @@ Page({
                 wx.hideLoading();
                 return;
             }
+            if (res.data == '') {
+                confirmMsg('', '暂无数据', false);
+                wx.hideLoading();
+                return;
+            }
             self.setData({
                 total: res.data.total,
                 //折线数据

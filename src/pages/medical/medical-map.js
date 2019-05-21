@@ -62,7 +62,7 @@ Page({
                         '\n' +
                         '距离:' +
                         res.data.Distance +
-                        'km/h' +
+                        'km' +
                         '\n' +
                         '定位时间:' +
                         res.data.Item.DeviceDate +

@@ -20,6 +20,10 @@ Page({
                 });
                 return;
             }
+            if (res.errcode == 3000) {
+                toastMsg('暂无数据', 'error', 2000);
+                return;
+            }
             toastMsg(res.errmsg, 'error', 2000);
         });
     },

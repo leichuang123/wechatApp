@@ -34,6 +34,11 @@ Page({
                 wx.hideLoading();
                 return;
             }
+            if (res.data == '') {
+                confirmMsg('', '暂无数据', false);
+                wx.hideLoading();
+                return;
+            }
             //总里程
             if (self.data.type == 1) {
                 self.setData({

@@ -1,6 +1,5 @@
 import { get } from '../../utils/api';
 const app = getApp();
-const sliderWidth = 72; // 需要设置slider的宽度，用于计算中间位置
 Page({
     data: {
         loadingVisible: true,
@@ -10,7 +9,7 @@ Page({
         activeIndex: 0,
         sliderOffset: 0,
         sliderLeft: 0,
-        sliderWidth: sliderWidth,
+        sliderWidth: 0,
         goods: [],
         tabs: [
             {
@@ -83,7 +82,7 @@ Page({
         const params = JSON.stringify({
             id: goods.id,
             store_id: goods.store_id,
-            merchant_id: goods.merchant_id,
+            merchant_id: goods.merchant_id
         });
         wx.navigateTo({
             url: '../../promotion/pages/goods-detail/index?params=' + params
@@ -144,15 +143,16 @@ Page({
     initData: function() {
         let locationInfo = wx.getStorageSync('locationInfo');
         let selectedCity = wx.getStorageSync('selectedCity');
-        console.log([locationInfo, selectedCity]);
+        const mobile = wx.getStorageSync('systemInfo').windowWidth;
         if (!locationInfo && selectedCity) {
             locationInfo = app.globalData.defaultLocation;
         }
         this.setData({
+            sliderWidth: mobile / 4,
             'form.latitude': locationInfo.latitude,
             'form.longitude': locationInfo.longitude,
-            'form.area_code': !!selectedCity ? selectedCity.code: locationInfo.adcode,
-            sliderLeft: (app.globalData.windowWidth / this.data.tabs.length - sliderWidth) / 2,
+            'form.area_code': !!selectedCity ? selectedCity.code : locationInfo.adcode,
+            sliderLeft: (app.globalData.windowWidth / this.data.tabs.length - this.data.sliderWidth) / 2,
             sliderOffset: (app.globalData.windowWidth / this.data.tabs.length) * this.data.activeIndex
         });
         this.getGoods();
@@ -163,10 +163,10 @@ Page({
     onLoad: function(options) {
         // this.initData();
     },
-    onShow:function(){
+    onShow: function() {
         this.setData({
-            goods:[],
-            page:1,
+            goods: [],
+            page: 1,
             loadMoreVisible: true,
             loadingVisible: true,
             hasData: true,

@@ -142,24 +142,25 @@ Page({
     },
     //完成
     sure: function() {
+        showLoading();
         const self = this;
         if (self.data.box.cardNum == '' || self.data.box.obdNum == '') {
+            wx.hideLoading();
             confirmMsg('', '请完善信息', false);
             return;
         } else if (self.data.type == 3) {
             //编辑obd信息
-            showLoading();
             const param = {
                 car_number: self.data.box.cardNum,
                 head_img: self.data.imgsrc == '' ? wx.getStorageSync('wxUserInfo').avatarUrl : self.data.imgsrc,
                 obd_device_id: self.data.obd_device_id
             };
             api.post('weapp-obd-user/edit-device', param).then(res => {
+                wx.hideLoading();
                 if (res.errcode != 0) {
                     confirmMsg('', res.errmsg, false);
                     return;
                 }
-                wx.hideLoading();
                 toastMsg(res.errmsg, 'success', 1000, () => {
                     wx.navigateTo({
                         url: '/pages/my-obd/box-detail'
@@ -169,13 +170,13 @@ Page({
             return;
         } else if (self.data.type == 1) {
             //再次新增obd
-            showLoading;
             const param = {
                 car_number: self.data.box.cardNum,
                 imei: self.data.box.obdNum,
                 head_img: self.data.imgsrc == '' ? wx.getStorageSync('wxUserInfo').avatarUrl : self.data.imgsrc
             };
             api.post('weapp-obd-user/bind-device', param).then(res => {
+                wx.hideLoading();
                 if (res.errcode != 0) {
                     confirmMsg('', res.errmsg, false);
                     return;
@@ -189,7 +190,6 @@ Page({
             });
         } else {
             //注册obd
-            showLoading();
             const param = {
                 weapp_user_id: wx.getStorageSync('userData').id,
                 car_number: self.data.box.cardNum,
@@ -197,12 +197,12 @@ Page({
                 head_img: self.data.imgsrc == '' ? wx.getStorageSync('wxUserInfo').avatarUrl : self.data.imgsrc
             };
             api.post('weapp-obd-user/register', param).then(res => {
+                wx.hideLoading();
                 if (res.errcode != 0) {
                     confirmMsg('', res.errmsg, false);
                     return;
                 }
                 //缓存设备信息
-                wx.hideLoading();
                 wx.setStorageSync('obd_device_id', res.data.obd_device_ids);
                 wx.navigateTo({
                     url: '/pages/medical/medical-map'

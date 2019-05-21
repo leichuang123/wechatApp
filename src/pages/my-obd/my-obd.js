@@ -17,7 +17,7 @@ Page({
                 return;
             }
             self.setData({
-                carList: res.data.items
+                carList: res.data.data
             });
             wx.hideLoading();
         });

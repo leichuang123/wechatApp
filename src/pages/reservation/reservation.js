@@ -1,7 +1,6 @@
 import api from '../../utils/api';
 import { toastMsg, confirmMsg, makePhoneCall, showLoading } from '../../utils/util';
 const app = getApp();
-const sliderWidth = 96; // 需要设置slider的宽度，用于计算中间位置
 Page({
     data: {
         loadingVisible: true,
@@ -9,7 +8,7 @@ Page({
         activeIndex: 0,
         sliderOffset: 0,
         sliderLeft: 0,
-        sliderWidth: sliderWidth,
+        sliderWidth: 0,
         tabs: ['待服务', '已服务', '无效'],
         activeIndex: 0,
         reservations: [],
@@ -95,8 +94,10 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function(options) {
+        const mobile = wx.getStorageSync('systemInfo').windowWidth;
         this.setData({
-            sliderLeft: (app.globalData.windowWidth / this.data.tabs.length - sliderWidth) / 2,
+            sliderWidth: mobile / 3,
+            sliderLeft: (app.globalData.windowWidth / this.data.tabs.length - this.data.sliderWidth) / 2,
             sliderOffset: (app.globalData.windowWidth / this.data.tabs.length) * this.data.activeIndex
         });
         this.getReservations();

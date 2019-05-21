@@ -2,7 +2,7 @@
     <view class="tips">提示：勾选后系统将使用微信公众号的模板消息通知</view>
     <checkbox-group class="radio-group" bindchange="checkboxChange">
         <view class="check" wx:for="{{callList}}" wx:key="index">
-            <label class="radio">
+            <label class="radio" style="width:100%">
                 <checkbox checked="{{item.selected>0}}" value="{{item.type}}" />
                 {{item.name}}
             </label>

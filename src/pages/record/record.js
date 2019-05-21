@@ -1,6 +1,5 @@
 import api from '../../utils/api';
 const app = getApp();
-const sliderWidth = 96; // 需要设置slider的宽度，用于计算中间位置
 Page({
     data: {
         loadingVisible: true,
@@ -10,7 +9,7 @@ Page({
         activeIndex: 0,
         sliderOffset: 0,
         sliderLeft: 0,
-        sliderWidth: sliderWidth,
+        sliderWidth: 0,
         recordType: '',
         records: [],
         tabs: ['最近一个月', '最近三个月', '最近六个月'],
@@ -80,10 +79,12 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function(options) {
+        const mobile = wx.getStorageSync('systemInfo').windowWidth;
         this.setData({
             recordType: options.type,
             'form.month': options.month,
-            sliderLeft: (app.globalData.windowWidth / this.data.tabs.length - sliderWidth) / 2,
+            sliderWidth: mobile / 3,
+            sliderLeft: (app.globalData.windowWidth / this.data.tabs.length - this.data.sliderWidth) / 2,
             sliderOffset: (app.globalData.windowWidth / this.data.tabs.length) * this.data.activeIndex
         });
         let title = options.type === 'bill' ? '开单记录' : options.type === 'count' ? '计次记录' : '消费记录';
