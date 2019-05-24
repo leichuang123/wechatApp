@@ -253,12 +253,12 @@ Page({
     },
     changeCarNumber(e) {
         const index = e.detail.value;
-        if (this.data.carIndex == index) {
-            return;
-        }
+        const carArr = this.data.carNumbers;
+        const carSelect = carArr[index];
         this.setData({
             carIndex: index,
-            'form.car_number': this.data.carNumbers[index]
+            'form.car_number': carSelect,
+            carNumber: carSelect
         });
     },
     initData(params) {
