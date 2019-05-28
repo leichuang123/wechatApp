@@ -11,13 +11,13 @@ Page({
         longitude: '',
         markers: [
             {
-                //iconPath: '../../assets/images/icons/gos.png',
+                iconPath: '../../assets/images/icons/gos.png',
                 id: 0,
                 latitude: '',
                 longitude: ''
             },
             {
-                // iconPath: '../../assets/images/icons/end.png',
+                iconPath: '../../assets/images/icons/end.png',
                 id: 1,
                 latitude: '',
                 longitude: ''
@@ -134,12 +134,14 @@ Page({
                                 {
                                     id: 0,
                                     latitude: self.data.markers[0].latitude,
-                                    longitude: self.data.markers[0].longitude
+                                    longitude: self.data.markers[0].longitude,
+                                    iconPath: '../../assets/images/icons/gos.png'
                                 },
                                 {
                                     id: 1,
                                     latitude: self.data.markers[1].latitude,
-                                    longitude: self.data.markers[1].longitude
+                                    longitude: self.data.markers[1].longitude,
+                                    iconPath: '../../assets/images/icons/end.png'
                                 }
                             ],
                             playing: true

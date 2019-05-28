@@ -8,9 +8,11 @@
             </view>
         </view>
         <view class="activity-cont fc-white" style="width:{{couponWidth}}">
-            <view class="text-center marb20">活动期限：{{ coupon.start_time }}至{{ coupon.end_time }}</view>
+            <view class="text-center marb20">
+                活动期限：{{ coupon.start_time }}至{{ coupon.end_time }}
+            </view>
             <view class="fc-lightgrey weui-flex">
-                <view>优惠说明： </view>
+                <view>优惠说明：</view>
                 <view class="weui-flex__item break">
                     <block wx:for="{{coupon.instructions}}" wx:key="index">
                         <view>{{ item }}</view>
@@ -18,7 +20,9 @@
                 </view>
             </view>
             <view class="fc-lightgrey">可分享领取数：{{ coupon.share_times }}次</view>
-            <view class="fc-lightgrey" wx:if="{{coupon.award_coupon_name!==''}}">分享奖励：{{ coupon.award_coupon_name }}</view>
+            <view class="fc-lightgrey" wx:if="{{coupon.award_coupon_name!==''}}">
+                分享奖励：{{ coupon.award_coupon_name }}
+            </view>
         </view>
         <view class="button-sp-area">
             <button class="weui-btn" type="primary" wx:if="{{hasAuth&&form.type==1}}" open-type="share">
@@ -27,21 +31,29 @@
             <button class="weui-btn" type="primary" wx:if="{{!hasAuth&&form.type==1}}" open-type="getUserInfo" bindgetuserinfo="onGetUserInfo">
                 分享给朋友
             </button>
-            <button class="weui-btn" type="default" wx:if="{{form.type==2}}" disabled="true">已分享</button>
+            <button class="weui-btn" type="default" wx:if="{{form.type==2}}" disabled="true">
+                已分享
+            </button>
         </view>
     </view>
     <view class="weui-cells fs14">
         <view class="weui-cell">
-            <view class="weui-cell__bd marl8">服务门店：{{ coupon.store_name }} </view>
-            <view class="weui-cell__ft"> <text class="icon-home2 grey"></text> </view>
+            <view class="weui-cell__bd marl8">服务门店：{{ coupon.store_name }}</view>
+            <view class="weui-cell__ft">
+                <text class="icon-home2 grey"></text>
+            </view>
         </view>
         <view class="weui-cell" bindtap="openLocation">
             <view class="weui-cell__bd marl8">门店地址：{{ coupon.store_address }}</view>
-            <view class="weui-cell__ft"> <text class="icon-map-marker grey"></text> </view>
+            <view class="weui-cell__ft">
+                <text class="icon-map-marker grey"></text>
+            </view>
         </view>
         <view data-tel="{{coupon.tel}}" class="weui-cell weui-cells_after-title" bindtap="call">
             <view class="weui-cell__bd marl8">门店电话：{{ coupon.tel }}</view>
-            <view class="weui-cell__ft"> <text class="icon-phone grey"></text> </view>
+            <view class="weui-cell__ft">
+                <text class="icon-phone grey"></text>
+            </view>
         </view>
     </view>
     <view class="bg-white fs14 padb20">

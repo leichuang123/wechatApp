@@ -17,26 +17,26 @@
     <view class="nav">
         <navigator class="links" url="/pages/Total-mileage/Total-mileage?type=1">
             <view class="linkstitle">总里程</view>
-            <view class="linksicon iconfont icon-xiangyou" style="font-size: 22px;"></view>
+            <view class="linksicon iconfont icon-xiangyou ft"></view>
             <view class="linksins">{{total.distance}}</view>
         </navigator>
         <navigator class="links" url="/pages/Total-mileage/Total-mileage?type=2">
             <view class="linkstitle">总油耗</view>
-            <view class="linksicon iconfont icon-xiangyou" style="font-size: 22px;"></view>
+            <view class="linksicon iconfont icon-xiangyou ft"></view>
             <view class="linksins">{{total.fuel_lv}}</view>
         </navigator>
         <navigator class="links" url="/pages/Total-mileage/Total-mileage?type=3">
             <view class="linkstitle">平均速速</view>
-            <view class="linksicon iconfont icon-xiangyou" style="font-size: 22px;"></view>
+            <view class="linksicon iconfont icon-xiangyou ft"></view>
             <view class="linksins">{{total.avg_speed}}</view>
         </navigator>
         <navigator class="links" url="/pages/Total-mileage/Total-mileage?type=4">
             <view class="linkstitle">驾驶行为</view>
-            <view class="linksicon iconfont icon-xiangyou" style="font-size: 22px;"></view>
+            <view class="linksicon iconfont icon-xiangyou ft"></view>
         </navigator>
         <navigator class="links" url="/pages/Total-mileage/Total-mileage?type=5">
             <view class="linkstitle">报警</view>
-            <view class="linksicon iconfont icon-xiangyou" style="font-size: 22px;"></view>
+            <view class="linksicon iconfont icon-xiangyou ft"></view>
         </navigator>
     </view>
 </view>

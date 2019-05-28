@@ -1,5 +1,5 @@
 import api from '../../utils/api';
-import { toastMsg, confirmMsg } from '../../utils/util';
+import { toastMsg, confirmMsg, showLoading } from '../../utils/util';
 import { scanCode, getLocation, getSystemInfo } from '../../utils/wx-api';
 const app = getApp();
 Page({
@@ -201,25 +201,18 @@ Page({
      * 进入车辆体检时验证是否注册
      */
     gotoMedical: function() {
+        showLoading();
         const userData = wx.getStorageSync('userData');
         //1.判断是否登录
         if (!userData || !userData.registered) {
             this.remindRegister();
             return;
         }
-        //用户已注册但是设配已被清空
-        // if (wx.getStorageSync('obd_device_id') && wx.getStorageSync('obd_device_id').length == 0) {
-        //     confirmMsg('温馨提示', '您还没有绑定OBD哦，先绑定一下吧', true, () => {
-        //         wx.navigateTo({
-        //             url: '/pages/medical/medical'
-        //         });
-        //     });
-        //     return;
-        // }
         //2.判断用户是否注册obd
         api.get('weapp-obd-user/check-register', { weapp_user_id: userData.id }).then(res => {
             if (res.errcode !== 0) {
                 confirmMsg('温馨提示', '您还没有注册OBD哦，先绑定一下吧', true, () => {
+                    wx.hideLoading();
                     wx.navigateTo({
                         url: '/pages/medical/medical'
                     });
@@ -228,6 +221,7 @@ Page({
             }
             if (res.data.obd_device_ids.length < 1) {
                 confirmMsg('温馨提示', '您还没有绑定OBD哦，先绑定一下吧', true, () => {
+                    wx.hideLoading();
                     wx.navigateTo({
                         url: '/pages/medical/medical?type=1'
                     });
@@ -236,6 +230,7 @@ Page({
             }
             //已绑定，本地存储OBD平台用户信息
             wx.setStorageSync('obd_device_id', res.data.obd_device_ids);
+            wx.hideLoading();
             wx.navigateTo({
                 url: '/pages/medical/medical-map'
             });

@@ -250,7 +250,7 @@ Page({
         const currentIndex = e.currentTarget.dataset.index;
         let items = this.data.serviceGoods;
         const findIndex = items.findIndex((item, index) => currentIndex == index);
-        
+
         if (findIndex !== -1) {
             items[findIndex].open = !items[findIndex].open;
         }
@@ -514,13 +514,9 @@ Page({
             'orderForm.merchant_id': params.merchant_id,
             'orderForm.store_id': params.store_id,
             'orderForm.store_name': params.store_name,
-            'orderForm.car_number': carNumber,
+            'orderForm.car_number': userData.car[0],
             'orderForm.mobile': !!userData ? userData.mobile : ''
         });
-        if (this.data.carNumbers.length > 0) {
-            const index = this.data.carNumbers.indexOf(carNumber);
-            this.setData({ carIndex: index > -1 ? index : 0 });
-        }
     },
     /**
      * 生命周期函数--监听页面显示

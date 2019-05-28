@@ -1,9 +1,12 @@
+import { host } from '../../config';
 import api from '../../utils/api';
 import { toastMsg, confirmMsg, showTopTips, isMobile, isCarNumber, showLoading } from '../../utils/util';
 import { login } from '../../utils/wx-api';
 const app = getApp();
 Page({
     data: {
+        host: host,
+        share_img_url: '',
         flag: false,
         showTopTips: false,
         keyboardVisible: false,
@@ -293,7 +296,8 @@ Page({
                 storeName: params.store_name,
                 deduction_money: params.deduction_money,
                 share_img_url: params.share_img_url
-            }
+            },
+            share_img_url: params.share_img_url
         });
         if (carNumbers > 0) {
             const index = carNumbers.indexOf(defaultCar);

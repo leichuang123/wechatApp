@@ -26,6 +26,10 @@ page {
 .linksins {
     float: right;
 }
+.links .ft {
+    font-size: 16px;
+    margin-top: 2px;
+}
 .back {
     position: fixed;
     width: 90%;

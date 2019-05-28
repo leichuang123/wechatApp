@@ -1,6 +1,5 @@
 import api from '../../utils/api';
 const app = getApp();
-const sliderWidth = 96; // 需要设置slider的宽度，用于计算中间位置
 Page({
     data: {
         loadingVisible: true,
@@ -11,7 +10,7 @@ Page({
         activeIndex: 0,
         sliderOffset: 0,
         sliderLeft: 0,
-        sliderWidth: sliderWidth,
+        sliderWidth: 0,
         coupons: [],
         tabs: ['可分享', '已分享', '已过期'],
         form: {
@@ -74,10 +73,12 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function(options) {
+        const mobile = wx.getStorageSync('systemInfo').windowWidth;
         let userData = wx.getStorageSync('userData');
         this.setData({
+            sliderWidth: mobile / 4,
             'form.user_id': !!userData ? userData.id : 0,
-            sliderLeft: (app.globalData.windowWidth / this.data.tabs.length - sliderWidth) / 2,
+            sliderLeft: (app.globalData.windowWidth / this.data.tabs.length - this.data.sliderWidth) / 2,
             sliderOffset: (app.globalData.windowWidth / this.data.tabs.length) * this.data.activeIndex
         });
         this.getCoupons();

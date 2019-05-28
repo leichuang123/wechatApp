@@ -80,7 +80,10 @@ ff-canvas {
 .linksicon {
     float: right;
 }
-
+.links .ft {
+    font-size: 16px;
+    margin-top: 2px;
+}
 .linksins {
     float: right;
 }
