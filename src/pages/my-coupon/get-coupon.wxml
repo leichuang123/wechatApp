@@ -6,7 +6,7 @@
             <image mode='widthFix' src='{{host+share_img_url}}'></image>
         </block>
         <block wx:if="{{share_img_url==''}}">
-            <image mode='widthFix' src='../../assets/images/default.png'></image>
+            <image mode='widthFix' src='https://sh.huobanyc.com/images/weapp/coupon_default.png'></image>
         </block>
         <view class='denomination'>
             <view>￥{{coupon.deduction_money}}</view>
