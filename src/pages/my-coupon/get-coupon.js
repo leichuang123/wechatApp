@@ -290,7 +290,7 @@ Page({
             'form.recommend_user': params.sender_id || 0,
             'form.recommend_type': params.sender_id ? 4 : 0,
             carNumbers: carNumbers,
-            carNumber: defaultCar,
+            carNumber: carNumbers[0],
             coupon: {
                 name: params.coupon_name,
                 storeName: params.store_name,
@@ -299,10 +299,10 @@ Page({
             },
             share_img_url: params.share_img_url
         });
-        if (carNumbers > 0) {
-            const index = carNumbers.indexOf(defaultCar);
-            this.setData({ carIndex: index > -1 ? index : 0 });
-        }
+        // if (carNumbers > 0) {
+        //     const index = carNumbers.indexOf(defaultCar);
+        //     this.setData({ carIndex: index > -1 ? index : 0 });
+        // }
         this.wxLogin();
     },
     /**

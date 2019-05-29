@@ -2,8 +2,11 @@
 <view>
     <template is="top-tips" data="{{showTopTips,errorMsg}}"></template>
     <view class='big-img'>
-        <block wx:if="{{host}}">
+        <block wx:if="{{share_img_url!=''}}">
             <image mode='widthFix' src='{{host+share_img_url}}'></image>
+        </block>
+        <block wx:if="{{share_img_url==''}}">
+            <image mode='widthFix' src='../../assets/images/default.png'></image>
         </block>
         <view class='denomination'>
             <view>￥{{coupon.deduction_money}}</view>
