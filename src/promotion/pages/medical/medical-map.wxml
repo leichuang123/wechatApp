@@ -1,0 +1,55 @@
+<view class="mapbox">
+    <cover-view class="boxbar">
+        <cover-view class="bars" bindtap="realtime">
+            <cover-view class="iconfont">
+                <cover-image src="../../../assets/images/icons/a2.png"></cover-image>
+            </cover-view>
+            <cover-view>实时车况</cover-view>
+        </cover-view>
+        <cover-view class="bars" bindtap="car">
+            <cover-view class="iconfont">
+                <cover-image src="../../../assets/images/icons/a3.png"></cover-image>
+            </cover-view>
+            <cover-view>车辆体检</cover-view>
+        </cover-view>
+        <cover-view class="bars"></cover-view>
+        <cover-view class="bars"></cover-view>
+        <cover-view class="round" bindtap='details'>
+            <cover-view style="margin-top:20px">{{Distance}}km</cover-view>
+            <cover-view>{{FuelLv}}L</cover-view>
+        </cover-view>
+        <cover-view class="bars" bindtap="scheduce">
+            <cover-view class="iconfont">
+                <cover-image src="../../../assets/images/icons/a4.png"></cover-image>
+            </cover-view>
+            <cover-view>行程列表</cover-view>
+        </cover-view>
+        <cover-view class="bars" bindtap="code">
+            <cover-view class="iconfont">
+                <cover-image src="../../../assets/images/icons/a5.png"></cover-image>
+            </cover-view>
+            <cover-view>故障代码</cover-view>
+        </cover-view>
+    </cover-view>
+    <cover-view class="sz" bindtap="includePoints">
+        <cover-view class="iconfont">
+            <cover-image src="../../../assets/images/icons/i1.png" style="width:28px;height:28px;margin:2px;"></cover-image>
+        </cover-view>
+    </cover-view>
+    <cover-view class="sz icon1" bindtap="setting">
+        <cover-view class="iconfont">
+            <cover-image src="../../../assets/images/icons/i2.png"></cover-image>
+        </cover-view>
+    </cover-view>
+    <cover-view class="sz icon2" bindtap="cars">
+        <cover-view class="iconfont">
+            <cover-image src="../../../assets/images/icons/i3.png"></cover-image>
+        </cover-view>
+    </cover-view>
+    <cover-view class="sz icon3" bindtap="police">
+        <cover-view class="iconfont">
+            <cover-image src="../../../assets/images/icons/i4.png"></cover-image>
+        </cover-view>
+    </cover-view>
+    <map id="myMap" latitude="{{latitude}}" longitude="{{longitude}}" markers="{{markers}}" enable-satellite="{{look}}" enable-rotate="true" scale="{{scale}}" style="width:100%;height:{{height}}px" bindcallouttap="bindcallouttap"></map>
+</view>

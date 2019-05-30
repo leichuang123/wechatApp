@@ -214,7 +214,7 @@ Page({
             if (res.errcode !== 0) {
                 confirmMsg('温馨提示', '您还没有注册OBD哦，先绑定一下吧', true, () => {
                     wx.navigateTo({
-                        url: '/pages/medical/medical'
+                        url: '../../promotion/pages/medical/medical'
                     });
                 });
                 return;
@@ -223,7 +223,7 @@ Page({
                 wx.hideLoading();
                 confirmMsg('温馨提示', '您还没有绑定OBD哦，先绑定一下吧', true, () => {
                     wx.navigateTo({
-                        url: '/pages/medical/medical?type=1'
+                        url: '../../promotion/pages/medical/medical?type=1'
                     });
                 });
                 return;
@@ -232,7 +232,7 @@ Page({
             wx.setStorageSync('obd_device_id', res.data.obd_device_ids);
             wx.hideLoading();
             wx.navigateTo({
-                url: '/pages/medical/medical-map'
+                url: '../../promotion/pages/medical/medical-map'
             });
         });
     },

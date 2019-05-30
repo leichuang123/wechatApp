@@ -33,41 +33,13 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": -1,
+			"current": 0,
 			"list": [
 				{
 					"id": -1,
-					"name": "地图首页",
-					"pathName": "pages/medical/medical-map",
+					"name": "obd首页",
+					"pathName": "promotion/pages/medical/medical-map",
 					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "车况",
-					"pathName": "pages/medical-result/medical-result",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "bind",
-					"pathName": "pages/medical/medical",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "围栏",
-					"pathName": "pages/fence-list/fence-list",
-					"query": "travel_id=132206&start=2019-04-30 16:09:23&end=2019-04-30 17:12:24",
-					"scene": null
-				},
-				{
-					"id": 5,
-					"name": "history",
-					"pathName": "pages/schedule-list/history",
-					"query": "travel_id=87950&start=2019-05-17 07:26:56&end=2019-05-17 08:04:39",
 					"scene": null
 				}
 			]

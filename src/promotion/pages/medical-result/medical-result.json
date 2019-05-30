@@ -1,0 +1,6 @@
+{
+    "navigationBarTitleText": "实时车况",
+    "usingComponents": {
+        "ff-canvas": "../../../f2-canvas/f2-canvas"
+    }
+}

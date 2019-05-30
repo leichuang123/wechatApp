@@ -7,12 +7,12 @@ const host = 't17.hb400.net'; //staging
 
 const config = {
     // host: 'http://bms-local.com/', //local
-    host: 'https://t17.hb400.net/', //staging
+    host: 'http://t17.hb400.net/', //staging
     //host: 'https://sh.huobanyc.com/', //production
 
     // 上传文件接口
     // uploadFileUrl: `http://${host}/weapp/upload`,
-    uploadFileUrl: `https://${host}/weapp/upload`, //product
+    uploadFileUrl: `http://${host}/weapp/upload`, //product
     // 腾讯地图的key
     key: 'SLSBZ-BYRKG-NLYQ3-ILT6E-7OZFS-UAF4I'
 };

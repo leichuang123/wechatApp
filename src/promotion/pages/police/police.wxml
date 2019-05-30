@@ -1,0 +1,16 @@
+<import src="../../../common/templates/loading" />
+<view>
+    <view>
+        <view class="police" wx:for="{{list}}" wx:key="index">
+            <view class="policeimg">
+                <image src="../../assets/images/icons/jinggaos.png" />
+            </view>
+            <view class="policer">
+                <view>{{item.create_date}}</view>
+                <view>{{item.device_name}}  {{item.exception_name}}</view>
+            </view>
+        </view>
+    </view>
+    <template is="loading" data="{{ loadingVisible,hasData}}" />
+    <template is="loadMore" data="{{ loadMoreVisible,hasMore,hasData}}" />
+</view>
