@@ -210,9 +210,9 @@ Page({
         }
         //2.判断用户是否注册obd
         api.get('weapp-obd-user/check-register', { weapp_user_id: userData.id }).then(res => {
+            wx.hideLoading();
             if (res.errcode !== 0) {
                 confirmMsg('温馨提示', '您还没有注册OBD哦，先绑定一下吧', true, () => {
-                    wx.hideLoading();
                     wx.navigateTo({
                         url: '/pages/medical/medical'
                     });
@@ -220,8 +220,8 @@ Page({
                 return;
             }
             if (res.data.obd_device_ids.length < 1) {
+                wx.hideLoading();
                 confirmMsg('温馨提示', '您还没有绑定OBD哦，先绑定一下吧', true, () => {
-                    wx.hideLoading();
                     wx.navigateTo({
                         url: '/pages/medical/medical?type=1'
                     });
