@@ -6,22 +6,5 @@
                 <cover-image src="../../assets/images/icons/c1.png"></cover-image>
             </cover-view>
         </cover-view>
-        <!-- <cover-view class="s" bindtap="speed" style="margin-top:15px">
-            <cover-view class="iconfont">
-                <cover-image src="../../assets/images/icons/c2.png"></cover-image>
-            </cover-view>
-        </cover-view> -->
     </cover-view>
-    <!-- <cover-view class="select" wx:if="{{select}}">
-        <cover-view class="title">选择播放速度</cover-view>
-        <cover-view class="items {{type=='600' ? 'ac' : ''}}" bindtap="check" id="800">
-            快
-        </cover-view>
-        <cover-view class="items {{type=='800' ? 'ac' : ''}}" bindtap="check" id="1000">
-            中
-        </cover-view>
-        <cover-view class="items {{type=='1200' ? 'ac' : ''}}" bindtap="check" id="1500">
-            慢
-        </cover-view>
-    </cover-view> -->
 </view>

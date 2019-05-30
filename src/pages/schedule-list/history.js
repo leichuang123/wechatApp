@@ -3,7 +3,6 @@ import { showLoading, confirmMsg } from '../../utils/util';
 Page({
     data: {
         select: false,
-        //selectarr: ['快', '中', '慢'],
         type: 1200,
         playing: true,
         height: '',
@@ -46,34 +45,18 @@ Page({
         };
         api.get('weapp-obd-user-car/single-travel', param).then(res => {
             self.setData({
-                latitude: res.data.total.start_address.OLat,
-                longitude: res.data.total.start_address.OLng,
-                'markers[0].latitude': res.data.total.start_address.OLat,
-                'markers[0].longitude': res.data.total.start_address.OLng,
-                'markers[1].latitude': res.data.total.end_address.OLat,
-                'markers[1].longitude': res.data.total.end_address.OLng,
+                latitude: res.data.total.start_address.Lat,
+                longitude: res.data.total.start_address.Lng,
+                'markers[0].latitude': res.data.total.start_address.Lat,
+                'markers[0].longitude': res.data.total.start_address.Lng,
+                'markers[1].latitude': res.data.total.end_address.Lat,
+                'markers[1].longitude': res.data.total.end_address.Lng,
                 'polyline[0].points': res.data.travel_track
             });
             wx.hideLoading();
         });
     },
-    // //监听地图中心点改变
-    // bindregionchange: function() {
-    //     this.getCenterLocation();
-    // },
-    // //获取中心点的位置
-    // getCenterLocation: function() {
-    //     const that = this;
-    //     that.mapCtx.getCenterLocation({
-    //         success(res) {
-    //             that.setData({
-    //                 latitude: res.latitude,
-    //                 longitude: res.longitude
-    //             });
-    //         }
-    //     });
-    // },
-    onReady(e) {
+    onReady() {
         this.mapCtx = wx.createMapContext('myMap');
     },
     onLoad: function(options) {
@@ -85,20 +68,6 @@ Page({
         const obd_device_id = wx.getStorageSync('obd_device_id')[0];
         this.getonce(options.start, options.end, options.travel_id, obd_device_id, sessionKey);
     },
-    //打开速度选着框
-    // speed: function() {
-    //     this.setData({
-    //         select: true
-    //     });
-    // },
-    //切换速度
-    // check: function(e) {
-    //     const index = e.currentTarget.id;
-    //     this.setData({
-    //         type: index,
-    //         select: false
-    //     });
-    // },
     //播放
     play: function() {
         this.setData({
@@ -128,19 +97,19 @@ Page({
                         confirmMsg('', '播放结束', false);
                         //播放结束重新绘制地图及信息
                         self.setData({
-                            latitude: self.data.markers[0].latitude,
-                            longitude: self.data.markers[0].longitude,
+                            latitude: self.data.markers[0].Lat,
+                            longitude: self.data.markers[0].Lng,
                             markers: [
                                 {
                                     id: 0,
-                                    latitude: self.data.markers[0].latitude,
-                                    longitude: self.data.markers[0].longitude,
+                                    latitude: self.data.markers[0].Lat,
+                                    longitude: self.data.markers[0].Lng,
                                     iconPath: '../../assets/images/icons/gos.png'
                                 },
                                 {
                                     id: 1,
-                                    latitude: self.data.markers[1].latitude,
-                                    longitude: self.data.markers[1].longitude,
+                                    latitude: self.data.markers[1].Lat,
+                                    longitude: self.data.markers[1].Lng,
                                     iconPath: '../../assets/images/icons/end.png'
                                 }
                             ],
