@@ -15,8 +15,8 @@ Page({
         tabs: [
             { id: '', name: '全部' },
             { id: 'goods', name: '商品' },
-            { id: 'package', name: '计次卡' },
-            { id: 'stored_value_card', name: '储值卡' }
+            { id: 'package', name: '套餐卡' },
+            { id: 'stored_value_card', name: 'VIP卡' }
         ],
         form: {
             promotion_source: '',

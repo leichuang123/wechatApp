@@ -22,11 +22,11 @@ Page({
             },
             {
                 id: 'package',
-                name: '计次卡'
+                name: '套餐卡'
             },
             {
                 id: 'stored_value_card',
-                name: '储值卡'
+                name: 'VIP卡'
             }
         ],
         form: {
