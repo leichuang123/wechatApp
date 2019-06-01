@@ -189,6 +189,16 @@ Page({
             console.log(['get-coupon-response:', res]);
             if (res.errcode === 0) {
                 wx.setStorageSync('sessionkey', res.data);
+                if (!wx.getStorageSync('userData')) {
+                    get('weapp/get-user-info', {}, false).then(res => {
+                        if (res.errcode === 0) {
+                            this.setData({
+                                userInfo: res.data
+                            });
+                            wx.setStorageSync('userData', res.data);
+                        }
+                    });
+                }
                 toastMsg('领取成功', 'success', 1000, () => {
                     this.gotoIndex();
                 });
