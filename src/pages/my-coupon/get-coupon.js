@@ -190,7 +190,7 @@ Page({
             if (res.errcode === 0) {
                 wx.setStorageSync('sessionkey', res.data);
                 if (!wx.getStorageSync('userData')) {
-                    get('weapp/get-user-info', {}, false).then(res => {
+                    api.get('weapp/get-user-info', {}, false).then(res => {
                         if (res.errcode === 0) {
                             this.setData({
                                 userInfo: res.data
