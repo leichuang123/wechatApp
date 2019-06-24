@@ -91,7 +91,7 @@
         <view class='radius-box'>
             <view class="dialog-title">优惠券</view>
             <block wx:for="{{unreceivedCoupons}}" wx:key="index">
-                <view class="weui-flex padlr15 borb bg-white">
+                <view class="weui-flex padlr15 borb bg-white" style="padding:15px">
                     <view class="face-img-mine">
                         <image src="{{item.pic_url}}" />
                     </view>
@@ -105,7 +105,9 @@
                                 <text class="small-radius-btn">领取</text>
                             </view>
                         </view>
-                        <view class="fs13 ">{{item.start_time}}至{{item.end_time}}</view>
+                        <view class="fs13 " style="color:#909399">
+                            {{item.start_time}}至{{item.end_time}}
+                        </view>
                     </view>
                 </view>
             </block>
