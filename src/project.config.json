@@ -33,12 +33,19 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 0,
+			"current": 1,
 			"list": [
 				{
 					"id": -1,
 					"name": "obd首页",
 					"pathName": "promotion/pages/medical/medical-map",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 1,
+					"name": "1",
+					"pathName": "paid-service/pages/business-progress/business-progress",
 					"query": "",
 					"scene": null
 				}
