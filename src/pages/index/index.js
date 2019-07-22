@@ -205,6 +205,7 @@ Page({
         const userData = wx.getStorageSync('userData');
         //1.判断是否登录
         if (!userData || !userData.registered) {
+            wx.hideLoading();
             this.remindRegister();
             return;
         }
