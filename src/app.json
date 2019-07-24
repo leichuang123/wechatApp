@@ -1,7 +1,6 @@
 {
     "pages": [
         "pages/index/index",
-        "pages/paid-service/paid-service",
         "pages/promotion/index",
         "pages/store-list/store-list",
         "pages/store-list/detail",
