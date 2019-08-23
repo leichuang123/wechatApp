@@ -1,5 +1,5 @@
 <view>
-    <view class="rank-cell">
+    <view class="rank-cell" wx:if="{{!isComplaint}}">
         <view class="rank-nm">
             服务态度
             <text wx:for="{{5}}" wx:key="index" class="icon-star-full {{index<form.star?'fc-orange':'light-grey'}}" data-type="attitude" data-rate="{{index+1}}" bindtap="changeStar"></text>
@@ -13,9 +13,10 @@
         <view class="weui-cells_form bg-white">
             <view class="weui-cell">
                 <view class="weui-cell__bd">
-                    <textarea class="weui-textarea" name="content" placeholder=" 请输入评价内容" rows="3" bindinput="getContent"></textarea>
+                    <textarea class="weui-textarea" name="content" placeholder=" 请输入内容..." rows="3" bindinput="getContent"></textarea>
                     <view class="weui-textarea-counter">
-                        <text>{{cntentLength}}</text> /200
+                        <text>{{cntentLength}}</text>
+                        /200
                     </view>
                 </view>
             </view>

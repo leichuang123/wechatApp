@@ -12,8 +12,9 @@ Page({
             content: '',
             pic_url: [],
             category: 3, //1服务开单2清洗开单3订单4计次记录
-            user_avatar: '', //用户头像
-        }
+            user_avatar: '' //用户头像
+        },
+        isComplaint: false
     },
     /**
      * 评分
@@ -53,17 +54,18 @@ Page({
      */
     submitEvaluation: function(e) {
         if (this.data.form.content === '') {
-            toastMsg('评价内容不能为空', 'error');
+            toastMsg('内容不能为空', 'error');
             return;
         }
         wx.showLoading({
             title: '提交请求中',
             mask: true
         });
-        post('weapp/evaluate', this.data.form).then(res => {
+        let url = this.data.isComplaint ? '/weapp/appeal' : '/weapp/evaluate';
+        post(url, this.data.form).then(res => {
             wx.hideLoading();
             if (res.errcode === 0) {
-                toastMsg('评价成功', 'success', 1000, () => {
+                toastMsg(res.errmsg, 'success', 1000, () => {
                     this.goBack();
                 });
             } else {
@@ -164,7 +166,13 @@ Page({
         this.setData({
             'form.order_id': params.id,
             'form.category': params.category,
-            'form.user_avatar': wxUserInfo.avatarUrl || ''
+            'form.user_avatar': wxUserInfo.avatarUrl || '',
+            isComplaint: params.complaint ? true : false
         });
+        if (this.data.isComplaint) {
+            wx.setNavigationBarTitle({
+                title: '用户投诉'
+            });
+        }
     }
 });

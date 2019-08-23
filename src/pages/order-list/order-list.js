@@ -201,7 +201,6 @@ Page({
      */
     onLoad: function(options) {
         const systemInfo = wx.getStorageSync('systemInfo');
-        console.log(systemInfo);
         this.setData({
             'orderForm.auth_type': app.globalData.extConfig.auth_type || 0,
             'orderForm.auth_related_id': app.globalData.extConfig.auth_related_id || 0,

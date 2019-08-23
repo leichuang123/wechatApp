@@ -158,11 +158,12 @@ Page({
      */
     gotoComplain: function(e) {
         const params = JSON.stringify({
-            order_id: this.data.orderInfo.id,
-            order_number: this.data.orderInfo.order_number
+            id: this.data.orderInfo.id,
+            category: 3, //订单
+            complaint: true
         });
         wx.navigateTo({
-            url: '../../paid-service/pages/complain/complain?params=' + params
+            url: '/pages/evaluation/evaluation?params=' + params
         });
     },
     /**

@@ -9,14 +9,16 @@
     align-items: center;
     background: #fff;
 }
-
+.list-box {
+    padding: 8px 0;
+}
 .btn-flex__right {
     flex-direction: row-reverse;
 }
-.order-view{
-   display: inline-block;
+.order-view {
+    display: inline-block;
     margin-right: 15px;
 }
-.order-btn{
-    min-width:86px;
+.order-btn {
+    min-width: 86px;
 }
