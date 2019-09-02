@@ -12,9 +12,9 @@ Page({
         sliderWidth: 0,
         recordType: '',
         records: [],
-        tabs: ['最近一个月', '最近三个月', '最近六个月'],
+        tabs: ['最近三个月', '最近六个月', '最近一年'],
         form: {
-            month: 1,
+            month: 3,
             page: 1
         }
     },
@@ -28,7 +28,7 @@ Page({
         }
         this.setData({
             activeIndex: index,
-            'form.month': index == 0 ? 1 : index == 1 ? 3 : 6,
+            'form.month': index == 0 ? 3 : index == 1 ? 6 : 12,
             'form.page': 1,
             loadingVisible: true,
             hasData: true,
@@ -99,6 +99,7 @@ Page({
             hasMore: true,
             hasData: true,
             records: [],
+            'form.month': 3,
             'form.page': 1
         });
         this.getRecords();
