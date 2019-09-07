@@ -1,64 +1,44 @@
-.padl {
-    padding-left: 80px;
+page {
+    background: #61b8a8;
 }
-
-.mask-red {
-    width: 260px;
-    height: 0;
-    border-width: 0 20px 20px 20px;
-    border-style: none solid solid;
-    border-color: transparent transparent #e93a25;
-    margin: 0 auto;
+.card {
+    width: 90%;
+    background: #ffffff;
+    border-radius: 5px;
+    height: auto;
+    padding: 20px;
+    margin: 10px auto;
+    overflow: hidden;
 }
-
-.mask-orange {
-    width: 260px;
-    height: 0;
-    border-top: 20px solid #fabf08;
-    border-right: 20px solid transparent;
-    border-left: 20px solid transparent;
-    margin: 0 auto;
+.card_title {
+    font-size: 16px;
+    text-align: center;
+    color: #333333;
+    border-bottom: 2px #ededed dotted;
 }
-
-.coupon-body {
-    background: #fff;
-    padding-top: 20px;
-    padding-bottom: 20px;
-    margin-bottom: 1px;
+.deduction_money {
+    color: #61b8a8;
+    font-size: 28px;
 }
-
-.padding-top {
-    padding-top: 20px;
+.card_info {
+    box-sizing: border-box;
+    margin: 20px auto;
 }
-
+.infos {
+    font-size: 14px;
+    display: flex;
+    color: #333333;
+    justify-content: flex-start;
+    margin: 10px auto;
+}
+.infos_ins {
+    color: #666666;
+}
 .marl8 {
     margin-left: 8px;
 }
-.marl15{ 
-  margin-left:15px;
-}
-.use-btn-box{
-    text-align: center;
-    padding-bottom: 10px;
-}
-.use-btn{
-    border-radius: 20px;
-    width:160px;
-    height:40px;
-    padding:10px auto; 
-    background: #fabf08;
-    text-align: center;
-    color: #fff;
-    vertical-align: middle;
-    display: inline-block;
-    line-height:40px;
-    font-size: 14px;
-}
-.break {
-  word-break: break-all;
-  white-space: normal;
-}
-.coupon-body {
-    padding-bottom: 10px;
-    padding-top:10px; 
+.row-box,
+.privilege,
+.pad {
+    padding: 8px;
 }

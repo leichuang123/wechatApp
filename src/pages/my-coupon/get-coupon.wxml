@@ -3,12 +3,12 @@
     <template is="top-tips" data="{{showTopTips,errorMsg}}"></template>
     <view class='big-img'>
         <block wx:if="{{share_img_url!=''}}">
-            <image mode='widthFix' src='{{host+share_img_url}}'></image>
+            <image src='{{host+share_img_url}}'></image>
         </block>
         <block wx:if="{{share_img_url==''}}">
-            <image mode='widthFix' src='https://sh.huobanyc.com/images/weapp/coupon_default.png'></image>
+            <image src='https://sh.huobanyc.com/images/weapp/coupon_default.png'></image>
         </block>
-        <view class='denomination'>
+        <view class='denomination' style="padding:8px 14px">
             <view>￥{{coupon.deduction_money}}</view>
             <view>价值</view>
         </view>
@@ -68,15 +68,15 @@
                     <input class="text-right" type="text" name="name" placeholder="填写联系人" bindinput='getContactName' />
                 </view>
             </view>
-        </view>
-        <view class="weui-flex mart20">
-            <view class="weui-flex__item pad">
-                <button class="weui-btn" type="primary" open-type="getUserInfo" bindgetuserinfo="onGetUserInfo">
-                    确认领取
-                </button>
-            </view>
-            <view class="weui-flex__item pad">
-                <button class="weui-btn" type="yellow" bindtap="gotoIndex">取消</button>
+            <view class="weui-flex mart20">
+                <view class="weui-flex__item pad">
+                    <button class="weui-btn" type="primary" open-type="getUserInfo" bindgetuserinfo="onGetUserInfo">
+                        确认领取
+                    </button>
+                </view>
+                <!-- <view class="weui-flex__item pad">
+                    <button class="weui-btn" type="yellow" bindtap="gotoIndex">取消</button>
+                </view> -->
             </view>
         </view>
     </form>

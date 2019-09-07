@@ -13,7 +13,7 @@
             <block wx:for="{{coupons}}" wx:key="index">
                 <view class="coupon-box" data-item="{{item}}" bindtap="gotoDetail">
                     <view class="weui-flex">
-                        <view class="face-box face-pad" style="padding-top:0">
+                        <view class="face-box face-pad" style="padding-top:0;display:flex;flex-direction:column;justify-content:center">
                             <view class="face-img-mine" wx:if="{{item.pic_url}}">
                                 <image src='{{item.pic_url}}'></image>
                             </view>

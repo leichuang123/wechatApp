@@ -1,39 +1,49 @@
-<view class="bg-white" style="height:{{height}}">
-    <view class="coupon-body">
-        <view class="sherable-bg" style="width:{{couponWidth}}">
-            <image src="../../assets/images/sharable-top.png" mode="widthFix"></image>
-            <view class="sharable-cont">
-                <view class="fs18">{{ coupon.coupon_name }}</view>
-                <view class="fs24 fc-orange bold">￥{{ coupon.deduction_money }}</view>
-            </view>
+<view class="padding-bottom20">
+    <view class="card">
+        <view class="card_title">
+            <view>{{ coupon.coupon_name }}</view>
+            <view class="deduction_money">￥{{ coupon.deduction_money }}</view>
         </view>
-        <view class="activity-cont" style="width:{{couponWidth}}">
-            <view class="use-btn-box">
-                <view class="use-btn"> <text>请到店使用</text> </view>
+        <view class="card_info">
+            <view class="infos">
+                <view class="weui-flex__item pad" style="text-align:center">
+                    <button class="weui-btn" type="primary" size="mini">请到店使用</button>
+                </view>
             </view>
-            <view class="fc-white">有效期：{{ coupon.expire_time_start }}至{{ coupon.expire_time_end }}</view>
-            <view class="fc-lightgrey weui-flex">
-                <view>使用须知： </view>
-                <view class="weui-flex__item break">
+            <view class="infos">
+                <view>有效：</view>
+                <view class="infos_ins">
+                    {{ coupon.expire_time_start }}至{{ coupon.expire_time_end }}
+                </view>
+            </view>
+            <view class="infos">
+                <view>优惠说明：</view>
+                <view class="infos_ins">
                     <block wx:for="{{coupon.notice}}" wx:key="index">
                         <view>{{ item }}</view>
                     </block>
                 </view>
             </view>
-            <view class="weui-cells radius5 list-grey">
-                <view class="rank-cell bold marl15">{{ coupon.store_name }}</view>
-                <view>
-                    <view class="weui-cell fs14" bindtap="openLocation">
-                        <text class="icon-map-marker grey"></text>
-                        <view class="weui-cell__bd marl8">{{ coupon.store_address }}</view>
-                    </view>
-                </view>
-                <view>
-                    <view data-tel="{{coupon.tel}}" class="weui-cell fs14" bindtap="call">
-                        <text class="icon-phone grey"></text> <view class="weui-cell__bd marl8">{{ coupon.tel }}</view>
-                    </view>
-                </view>
+        </view>
+    </view>
+    <view class="card">
+        <view class="infos">
+            <view class="weui-cell__ft">
+                <text class="icon-home2 grey"></text>
             </view>
+            <view class="weui-cell__bd marl8">服务门店：{{ coupon.store_name }}</view>
+        </view>
+        <view class="infos" bindtap="openLocation">
+            <view class="weui-cell__ft">
+                <text class="icon-map-marker grey"></text>
+            </view>
+            <view class="weui-cell__bd marl8">门店地址：{{ coupon.store_address }}</view>
+        </view>
+        <view data-tel="{{coupon.tel}}" class="infos" bindtap="call">
+            <view class="weui-cell__ft">
+                <text class="icon-phone grey"></text>
+            </view>
+            <view class="weui-cell__bd marl8">门店电话：{{ coupon.tel }}</view>
         </view>
     </view>
 </view>

@@ -1,32 +1,56 @@
-.padl {
-    padding-left: 80px;
+page {
+    background: #61b8a8;
 }
-
-.text-offset {
-    display: inline-block;
-    width: 20px;
-    height: 20px;
-}
-
-.button-sp-area {
+.card {
+    width: 90%;
+    background: #ffffff;
+    border-radius: 5px;
+    height: auto;
+    padding: 20px;
     margin: 10px auto;
-    width: 160px;
+    overflow: hidden;
 }
-.margin-line {
-    margin-bottom: 1px;
+.card_title {
+    font-size: 16px;
+    text-align: center;
+    color: #333333;
+    border-bottom: 2px #ededed dotted;
 }
-.marb20 {
-    margin-bottom: 20px;
+.deduction_money {
+    color: #61b8a8;
+    font-size: 28px;
 }
-.coupon-body {
-    background: #fff;
-    padding-top: 10px;
-    padding-bottom: 10px;
+.card_info {
+    box-sizing: border-box;
+    margin: 20px auto;
 }
-.break {
-  word-break: break-all;
-  white-space: normal;
+.infos {
+    font-size: 14px;
+    display: flex;
+    color: #333333;
+    justify-content: flex-start;
+    margin: 10px auto;
 }
-.padb20{
-    padding-bottom: 20px;
+.infos_ins {
+    color: #666666;
+}
+.marl8 {
+    margin-left: 8px;
+}
+.theIns {
+    color: #999999;
+    font-size: 14px;
+}
+.center-title {
+    color: #101010;
+    margin-top: 0;
+}
+.center-title:after {
+    top: 30px;
+}
+.center-title:before {
+    top: 30px;
+}
+.special {
+    padding: 5px 20px;
 }

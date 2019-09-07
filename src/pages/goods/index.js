@@ -514,7 +514,7 @@ Page({
             'orderForm.merchant_id': params.merchant_id,
             'orderForm.store_id': params.store_id,
             'orderForm.store_name': params.store_name,
-            'orderForm.car_number': userData.car[0],
+            'orderForm.car_number': userData.car[0] ? userData.car[0] : '',
             'orderForm.mobile': !!userData ? userData.mobile : ''
         });
     },

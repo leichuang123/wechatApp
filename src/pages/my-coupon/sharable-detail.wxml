@@ -1,62 +1,65 @@
-<view>
-    <view class="coupon-body">
-        <view class="sherable-bg" style="width:{{couponWidth}}">
-            <image src="../../assets/images/sharable-top.png" mode="widthFix"></image>
-            <view class="sharable-cont">
-                <view class="fs18">{{ coupon.name }}</view>
-                <view class="fs24 fc-orange bold">￥{{ coupon.deduction_money }}</view>
-            </view>
+<view class="padding-bottom20">
+    <view class="card">
+        <view class="card_title">
+            <view>{{ coupon.name }}</view>
+            <view class="deduction_money">￥{{ coupon.deduction_money }}</view>
         </view>
-        <view class="activity-cont fc-white" style="width:{{couponWidth}}">
-            <view class="text-center marb20">
-                活动期限：{{ coupon.start_time }}至{{ coupon.end_time }}
+        <view class="card_info">
+            <view class="infos">
+                <view>活动期限：</view>
+                <view class="infos_ins">{{ coupon.start_time }}至{{ coupon.end_time }}</view>
             </view>
-            <view class="fc-lightgrey weui-flex">
+            <view class="infos">
                 <view>优惠说明：</view>
-                <view class="weui-flex__item break">
+                <view class="infos_ins">
                     <block wx:for="{{coupon.instructions}}" wx:key="index">
                         <view>{{ item }}</view>
                     </block>
                 </view>
             </view>
-            <view class="fc-lightgrey">可分享领取数：{{ coupon.share_times }}次</view>
-            <view class="fc-lightgrey" wx:if="{{coupon.award_coupon_name!==''}}">
-                分享奖励：{{ coupon.award_coupon_name }}
+            <view class="infos">
+                <view>可分享领取数：</view>
+                <view class="infos_ins">{{ coupon.share_times }}次</view>
+            </view>
+            <view class="infos" wx:if="{{coupon.award_coupon_name!==''}}">
+                <view>分享奖励：</view>
+                <view class="infos_ins">{{ coupon.award_coupon_name }}</view>
+            </view>
+            <text class="theIns">说明：达到分享数量后可进行奖励，同一个活动不会进行重复奖励。</text>
+            <view class="infos">
+                <button class="weui-btn" type="yellow" wx:if="{{hasAuth&&form.type==1}}" open-type="share">
+                    分享给朋友
+                </button>
+                <button class="weui-btn" type="yellow" wx:if="{{!hasAuth&&form.type==1}}" open-type="getUserInfo" bindgetuserinfo="onGetUserInfo">
+                    分享给朋友
+                </button>
+                <button class="weui-btn" type="default" wx:if="{{form.type==2}}" disabled="true">
+                    已分享
+                </button>
             </view>
         </view>
-        <view class="button-sp-area">
-            <button class="weui-btn" type="primary" wx:if="{{hasAuth&&form.type==1}}" open-type="share">
-                分享给朋友
-            </button>
-            <button class="weui-btn" type="primary" wx:if="{{!hasAuth&&form.type==1}}" open-type="getUserInfo" bindgetuserinfo="onGetUserInfo">
-                分享给朋友
-            </button>
-            <button class="weui-btn" type="default" wx:if="{{form.type==2}}" disabled="true">
-                已分享
-            </button>
-        </view>
     </view>
-    <view class="weui-cells fs14">
-        <view class="weui-cell">
-            <view class="weui-cell__bd marl8">服务门店：{{ coupon.store_name }}</view>
+    <view class="card">
+        <view class="infos">
             <view class="weui-cell__ft">
                 <text class="icon-home2 grey"></text>
             </view>
+            <view class="weui-cell__bd marl8">服务门店：{{ coupon.store_name }}</view>
         </view>
-        <view class="weui-cell" bindtap="openLocation">
-            <view class="weui-cell__bd marl8">门店地址：{{ coupon.store_address }}</view>
+        <view class="infos" bindtap="openLocation">
             <view class="weui-cell__ft">
                 <text class="icon-map-marker grey"></text>
             </view>
+            <view class="weui-cell__bd marl8">门店地址：{{ coupon.store_address }}</view>
         </view>
-        <view data-tel="{{coupon.tel}}" class="weui-cell weui-cells_after-title" bindtap="call">
-            <view class="weui-cell__bd marl8">门店电话：{{ coupon.tel }}</view>
+        <view data-tel="{{coupon.tel}}" class="infos" bindtap="call">
             <view class="weui-cell__ft">
                 <text class="icon-phone grey"></text>
             </view>
+            <view class="weui-cell__bd marl8">门店电话：{{ coupon.tel }}</view>
         </view>
     </view>
-    <view class="bg-white fs14 padb20">
+    <view class="card fs14 special">
         <view class="center-title">领取记录</view>
         <view wx:if="{{!!coupon.get_record&&coupon.get_record.length>0}}">
             <block wx:for="{{coupon.get_record}}" wx:key="index">

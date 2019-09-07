@@ -39,7 +39,7 @@ Page({
             send_record_id: this.data.shareForm.send_record_id,
             share_uuid: this.data.shareForm.share_uuid || 0,
             related_id: this.data.shareForm.related_id,
-            related_type: this.data.shareForm.related_type,
+            related_type: this.data.shareForm.related_type
         };
         console.log(['hasExpired:', params]);
         api.get('weapp-coupon/has-expired', params, false).then(res => {
@@ -130,7 +130,10 @@ Page({
         };
         console.log(['addShareRecord-params:', params]);
         api.post('weapp-coupon/add-share-record', params, false).then(res => {
-            console.log(['addShareRecord response: ', res.errmsg]);
+            if (res.errcode == 0) {
+                toastMsg(res.errmsg, 'success', 1000);
+            }
+            toastMsg(res.errmsg, 'error', 1000);
         });
     },
     /**
@@ -162,8 +165,8 @@ Page({
     call: function(e) {
         let tel = e.currentTarget.dataset.tel;
         makePhoneCall({
-                phoneNumber: tel
-            })
+            phoneNumber: tel
+        })
             .then(res => {
                 console.log('拨打成功');
             })
@@ -301,7 +304,7 @@ Page({
      */
     onShareAppMessage: function(res) {
         if (res.from === 'button') {
-            this.addShareRecord(nickName);
+            this.addShareRecord();
             const sharedUrl = this.generateShareUrl();
 
             return { title: this.data.coupon.share_title, path: sharedUrl, imageUrl: this.data.coupon.share_img_url };

@@ -22,16 +22,18 @@ Page({
      */
     getCouponInfo: function() {
         showLoading();
-        api.get('weapp-coupon/get-sharable-detail', this.data.form).then(res => {
-            wx.hideLoading();
-            if (res.errcode === 0) {
-                this.setData({
-                    coupon: res.data
-                });
-            }
-        }).catch(() => {
-            wx.hideLoading();
-        });
+        api.get('weapp-coupon/get-sharable-detail', this.data.form)
+            .then(res => {
+                wx.hideLoading();
+                if (res.errcode === 0) {
+                    this.setData({
+                        coupon: res.data
+                    });
+                }
+            })
+            .catch(() => {
+                wx.hideLoading();
+            });
     },
     /**
      * 添加分享记录
@@ -39,7 +41,7 @@ Page({
     addShareRecord: function() {
         const wxUserInfo = wx.getStorageSync('wxUserInfo');
         const nickName = !wxUserInfo ? '' : wxUserInfo.nickName;
-        const coupon = Object.assign({}, this.data.coupon)
+        const coupon = Object.assign({}, this.data.coupon);
         const params = {
             merchant_id: coupon.merchant_id,
             store_id: coupon.store_id,
@@ -50,17 +52,20 @@ Page({
             send_record_id: coupon.send_record_id,
             share_uuid: coupon.share_uuid,
             is_gather: coupon.is_gather,
-            sender_nick_name: nickName,
+            sender_nick_name: nickName
         };
         api.post('weapp-coupon/add-share-record', params, false).then(res => {
-            console.log(['addShareRecord-response', res.errmsg]);
+            if (res.errcode == 0) {
+                toastMsg(res.errmsg, 'success', 1000);
+            }
+            toastMsg(res.errmsg, 'error', 1000);
         });
     },
     call: function(e) {
         const tel = e.currentTarget.dataset.tel;
         makePhoneCall({
-                phoneNumber: tel
-            })
+            phoneNumber: tel
+        })
             .then(() => {
                 console.log('拨打成功');
             })
@@ -104,7 +109,8 @@ Page({
         this.getCouponInfo();
     },
     generateShareUrl(params) {
-        return '/pages/my-coupon/share-detail?related_id=' +
+        return (
+            '/pages/my-coupon/share-detail?related_id=' +
             params.related_id +
             '&related_type=' +
             params.related_type +
@@ -118,7 +124,8 @@ Page({
             '&share_uuid=' +
             params.share_uuid +
             '&send_mode=' +
-            this.data.SEND_MODE_SHARE;
+            this.data.SEND_MODE_SHARE
+        );
     },
     /**
      * 生命周期函数--监听页面加载
