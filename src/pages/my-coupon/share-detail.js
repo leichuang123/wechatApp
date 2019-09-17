@@ -28,7 +28,48 @@ Page({
             coupon_name: '',
             store_name: '',
             send_mode: 6,
-            sharable: true
+            sharable: true,
+
+            weapp_config_id: 0,
+            wechat_config_id: 0,
+            auth_related_id: 0,
+            auth_type: 0,
+            user_id: 0,
+            mobile: '',
+            car_number: '',
+            avatar: '',
+            name: '',
+            js_code: '',
+            iv: '',
+            encryptedData: '',
+            nick_name: ''
+        },
+        is_register: false
+    },
+    getInfo: function(e) {
+        const wxUserInfo = wx.getStorageSync('wxUserInfo');
+        if (!wxUserInfo) {
+            const data = e.detail;
+            if (data.errMsg === 'getUserInfo:ok') {
+                this.setData({
+                    'shareForm.encryptedData': data.encryptedData,
+                    'shareForm.iv': data.iv,
+                    'shareForm.avatar': data.userInfo.avatarUrl,
+                    'shareForm.nick_name': data.userInfo.nickName
+                });
+                app.setWxUserCache(data);
+                this.hasExpired();
+            } else {
+                confirmMsg('', '需要微信授权才能登录哦', false);
+            }
+        } else {
+            this.setData({
+                'shareForm.encryptedData': wxUserInfo.encryptedData,
+                'shareForm.iv': wxUserInfo.iv,
+                'shareForm.avatar': wxUserInfo.avatarUrl,
+                'shareForm.nick_name': wxUserInfo.nickName
+            });
+            this.hasExpired();
         }
     },
     /**
@@ -41,9 +82,8 @@ Page({
             related_id: this.data.shareForm.related_id,
             related_type: this.data.shareForm.related_type
         };
-        console.log(['hasExpired:', params]);
+        const userData = wx.getStorageSync('userData');
         api.get('weapp-coupon/has-expired', params, false).then(res => {
-            console.log(['hasExpired response: ', res]);
             this.setData({ hasExpired: res.errcode === 0 ? res.data : true });
             if (!this.data.hasExpired) {
                 this.setData({
@@ -53,11 +93,48 @@ Page({
                     'shareForm.store_name': this.data.coupon.store_name,
                     'shareForm.deduction_money': this.data.coupon.deduction_money,
                     'shareForm.share_img_url': this.data.coupon.share_img_url,
-                    'shareForm.sharable': this.data.coupon.sharable == this.data.SHARABLE
+                    'shareForm.sharable': this.data.coupon.sharable == this.data.SHARABLE,
+                    'shareForm.mobile': userData.mobile,
+                    'shareForm.car_number': userData.car_number,
+                    'shareForm.weapp_config_id': app.globalData.extConfig.weapp_config_id || 0,
+                    'shareForm.wechat_config_id': app.globalData.extConfig.wechat_config_id || 0,
+                    'shareForm.auth_type': app.globalData.extConfig.auth_type || 0,
+                    'shareForm.auth_related_id': app.globalData.extConfig.auth_related_id || 0,
+                    is_register: !!userData && userData.registered
                 });
-                wx.navigateTo({ url: 'get-coupon?params=' + JSON.stringify(this.data.shareForm) });
+                this.checkStatus();
+                // wx.navigateTo({ url: 'get-coupon?params=' + JSON.stringify(this.data.shareForm) });
             } else {
                 wx.navigateTo({ url: 'share-expired' });
+            }
+        });
+    },
+    /**
+     * 用户是否注册登录
+     */
+
+    checkStatus() {
+        if (!this.data.is_register) {
+            confirmMsg('', '您还没有注册哦', false, () => {
+                wx.navigateTo({ url: '/pages/register/register' });
+            });
+            return;
+        }
+        wx.showLoading({
+            title: '提交请求中',
+            mask: true
+        });
+        api.post('weapp-coupon/get-coupon', this.data.shareForm).then(res => {
+            wx.hideLoading();
+            if (res.errcode === 0) {
+                wx.setStorageSync('sessionkey', res.data);
+                toastMsg('领取成功', 'success', 1000, () => {
+                    this.gotoIndex();
+                });
+            } else {
+                confirmMsg('', res.errmsg, false, () => {
+                    this.gotoIndex();
+                });
             }
         });
     },
@@ -74,7 +151,7 @@ Page({
         api.get('weapp-coupon/get-share-detail', params, false)
             .then(res => {
                 wx.hideLoading();
-                console.log(['getDetail response: ', res]);
+
                 if (res.errcode === 0) {
                     this.setData({
                         coupon: res.data
@@ -83,7 +160,6 @@ Page({
             })
             .catch(res => {
                 wx.hideLoading();
-                console.log(['getDetail response-catch: ', res]);
             });
     },
     /**
@@ -102,9 +178,7 @@ Page({
             is_gather: this.data.shareForm.is_gather,
             customer_id: this.data.shareForm.receiver_customer_id
         };
-        console.log(['addSendRecord-params:', params]);
         api.post('weapp-coupon/add-send-record', params, false).then(res => {
-            console.log(['addSendRecord response: ', res]);
             if (res.errcode === 0) {
                 this.setData({ 'shareForm.send_record_id': res.data });
             }
@@ -128,7 +202,6 @@ Page({
             sender_nick_name: nickName,
             share_uuid: this.data.shareForm.share_uuid
         };
-        console.log(['addShareRecord-params:', params]);
         api.post('weapp-coupon/add-share-record', params, false).then(res => {
             if (res.errcode == 0) {
                 toastMsg(res.errmsg, 'success', 1000);
@@ -146,9 +219,7 @@ Page({
             auth_type: app.globalData.extConfig.auth_type || 1,
             auth_related_id: app.globalData.extConfig.auth_related_id || 1
         };
-        console.log(['getShareRecordUuid form: ', params]);
         api.post('weapp-coupon/get-share-record-uuid', params, false).then(res => {
-            console.log(['getShareRecordUuid response: ', res]);
             if (res.errcode) {
                 this.setData({ shareUuid: res.data });
             }
@@ -286,7 +357,6 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function(options) {
-        console.log(['share-detail.options', options]);
         let params = null;
         if (options.q) {
             params = getUrlArgs(decodeURIComponent(options.q));
@@ -295,7 +365,6 @@ Page({
         } else {
             params = options;
         }
-        console.log(['share-detail.params', params]);
         this.initData(params);
     },
 
