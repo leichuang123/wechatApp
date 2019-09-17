@@ -1,5 +1,5 @@
 import api from '../../utils/api';
-import { confirmMsg, getUrlArgs, showLoading } from '../../utils/util';
+import { confirmMsg, getUrlArgs, showLoading, toastMsg } from '../../utils/util';
 import { makePhoneCall, openLocation, login, getSystemInfo } from '../../utils/wx-api';
 const app = getApp();
 Page({
@@ -103,7 +103,6 @@ Page({
                     is_register: !!userData && userData.registered
                 });
                 this.checkStatus();
-                // wx.navigateTo({ url: 'get-coupon?params=' + JSON.stringify(this.data.shareForm) });
             } else {
                 wx.navigateTo({ url: 'share-expired' });
             }
@@ -115,13 +114,19 @@ Page({
 
     checkStatus() {
         if (!this.data.is_register) {
-            confirmMsg('', '您还没有注册哦', false, () => {
-                wx.navigateTo({ url: '/pages/register/register' });
+            confirmMsg('亲', '您还没有注册呢，先注册一下吧', true, () => {
+                wx.navigateTo({
+                    url: '/pages/register/register'
+                });
             });
             return;
         }
+        this.getCoupon();
+    },
+    //领取
+    getCoupon: function() {
         wx.showLoading({
-            title: '提交请求中',
+            title: '领取中',
             mask: true
         });
         api.post('weapp-coupon/get-coupon', this.data.shareForm).then(res => {
@@ -132,7 +137,7 @@ Page({
                     this.gotoIndex();
                 });
             } else {
-                confirmMsg('', res.errmsg, false, () => {
+                confirmMsg('', res.errmsg, true, () => {
                     this.gotoIndex();
                 });
             }
