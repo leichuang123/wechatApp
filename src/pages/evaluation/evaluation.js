@@ -3,6 +3,7 @@ import { uploadFileUrl } from '../../config';
 import { toastMsg, confirmMsg } from '../../utils/util';
 Page({
     data: {
+        items: [{ type_name: '好评', checked: 'true', value: 1 }, { type_name: '差评', value: 2 }],
         cntentLength: 0,
         imageList: [],
         form: {
@@ -12,9 +13,15 @@ Page({
             content: '',
             pic_url: [],
             category: 3, //1服务开单2清洗开单3订单4计次记录
-            user_avatar: '' //用户头像
+            user_avatar: '', //用户头像
+            evaluate_level: '1'
         },
         isComplaint: false
+    },
+    radioChange: function(e) {
+        this.setData({
+            'form.evaluate_level': e.detail.value
+        });
     },
     /**
      * 评分

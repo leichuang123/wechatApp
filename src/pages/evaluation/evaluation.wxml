@@ -1,6 +1,11 @@
 <view>
     <view class="rank-cell" wx:if="{{!isComplaint}}">
-        <view class="rank-nm">
+        <view class="rank-nm" style="line-height: 30px;">
+            <radio-group class="radio-group" bindchange="radioChange">
+                <radio class="radio" wx:for-items="{{items}}" wx:key="type_name" value="{{item.value}}" checked="{{item.checked}}" color='#61B8A8' style="margin-right:5px">
+                    <text>{{item.type_name}}</text>
+                </radio>
+            </radio-group>
             服务态度
             <text wx:for="{{5}}" wx:key="index" class="icon-star-full {{index<form.star?'fc-orange':'light-grey'}}" data-type="attitude" data-rate="{{index+1}}" bindtap="changeStar"></text>
         </view>
