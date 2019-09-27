@@ -131,7 +131,16 @@ Page({
      * 跳转到评价页面
      */
     gotoEvaluate: function(e) {
-        const params = JSON.stringify({ id: e.currentTarget.dataset.item.id, category: 3 }); //订单
+        const type = e.currentTarget.dataset.item.category;
+        var category = 0;
+        if (type == '维修开单') {
+            category = 1;
+        } else if (type == '清洗开单') {
+            category = 2;
+        } else {
+            category = 3;
+        }
+        const params = JSON.stringify({ id: e.currentTarget.dataset.item.id, category: category }); //订单
         wx.navigateTo({
             url: '/pages/evaluation/evaluation?params=' + params
         });
