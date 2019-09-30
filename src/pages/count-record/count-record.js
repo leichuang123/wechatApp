@@ -11,7 +11,7 @@ Page({
         sliderOffset: 0,
         sliderLeft: 0,
         sliderWidth: sliderWidth,
-        tabs: ['最近一个月', '最近三个月', '最近六个月'],
+        tabs: ['最近三个月', '最近六个月', '最近一年'],
         records: [],
         carNumber: '',
         form: {

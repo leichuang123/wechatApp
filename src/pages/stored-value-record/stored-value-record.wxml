@@ -7,39 +7,30 @@
         <view class="weui-cell bg-white">
             <view class="weui-cell__bd s-top">明细</view>
             <view class="weui-cell__ft">
-                <button class="weui-btn mart-right" type="{{form.timeField==='oneMonth'?'primary':'default'}}" plain="true" size="mini" data-month="oneMonth" bindtap="changeView">最近一个月</button>
-                <button class="weui-btn" type="{{form.timeField==='threeMonth'?'primary':'default'}}" plain="true" size="mini" data-month="threeMonth" bindtap="changeView">最近三个月</button>
+                <button class="weui-btn mart-right" type="{{form.timeField==='oneMonth'?'primary':'default'}}" plain="true" size="mini" data-month="oneMonth" bindtap="changeView">
+                    最近一个月
+                </button>
+                <button class="weui-btn" type="{{form.timeField==='threeMonth'?'primary':'default'}}" plain="true" size="mini" data-month="threeMonth" bindtap="changeView">
+                    最近三个月
+                </button>
+                <button style="margin-left:5px" class="weui-btn" type="{{form.timeField==='sixMonth'?'primary':'default'}}" plain="true" size="mini" data-month="sixMonth" bindtap="changeView">
+                    最近一年
+                </button>
             </view>
         </view>
         <view class='table' wx:if="{{records.length>0}}">
             <view class="weui-flex table-header">
-                <view class="weui-flex__item">
-                    时间
-                </view>
-                <view class="weui-flex__item">
-                    车牌号
-                </view>
-                <view class="weui-flex__item">
-                    项目类型
-                </view>
-                <view class='weui-flex__item'>
-                    金额
-                </view>
+                <view class="weui-flex__item">时间</view>
+                <view class="weui-flex__item">车牌号</view>
+                <view class="weui-flex__item">项目类型</view>
+                <view class='weui-flex__item'>金额</view>
             </view>
             <block wx:for="{{records}}" wx:key="index">
                 <view class="weui-flex table-row">
-                    <view class="weui-flex__item">
-                        {{item.create_time}}
-                    </view>
-                    <view class="weui-flex__item">
-                        {{item.car_number}}
-                    </view>
-                    <view class="weui-flex__item">
-                        {{item.type_name}}
-                    </view>
-                    <view class='fc-orange weui-flex__item'>
-                        {{item.money}}
-                    </view>
+                    <view class="weui-flex__item">{{item.create_time}}</view>
+                    <view class="weui-flex__item">{{item.car_number}}</view>
+                    <view class="weui-flex__item">{{item.type_name}}</view>
+                    <view class='fc-orange weui-flex__item'>{{item.money}}</view>
                 </view>
             </block>
             <view class="load-more" wx:if="{{hasData&&hasMore}}" bindtap='loadMore'>点击加载更多</view>
