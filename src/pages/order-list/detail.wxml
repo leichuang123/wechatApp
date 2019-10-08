@@ -72,7 +72,7 @@
             <view>下单时间：{{orderInfo.create_time}}</view>
             <view>车牌号：{{orderInfo.car_number}}</view>
             <view wx:if="{{form.type==2||form.type==3||form.type==4}}">
-                支付方式：{{orderInfo.payment_method}}
+                支付方式：{{orderInfo.pay_name}}
             </view>
             <view wx:if="{{form.type==2||form.type==3||form.type==4}}">
                 付款时间：{{orderInfo.update_time}}

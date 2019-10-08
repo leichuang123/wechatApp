@@ -1,4 +1,14 @@
 <import src="/common/templates/loading" />
+<view class="weui-tab" style="padding-bottom:50px">
+    <view class="weui-navbar bg-white">
+        <block wx:for="{{tabs}}" wx:key="*this">
+            <view id="{{index}}" class="weui-navbar__item {{activeIndex == index ? 'weui-bar__item_on' : ''}}" bindtap='tabClick'>
+                <view class="weui-navbar__title">{{item}}</view>
+            </view>
+        </block>
+        <view class="weui-navbar__slider" style="width:{{sliderWidth}}px;left: {{sliderLeft}}px; transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px);"></view>
+    </view>
+</view>
 <view class="bg-white">
     <block wx:for="{{cards}}" wx:key="index">
         <view data-item="{{item}}" class="weui-media-box weui-media-box_appmsg" hover-class="weui-cell_active" bindtap="gotoDetail">

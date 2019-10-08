@@ -38,7 +38,7 @@
                 <view class="weui-cell__bd">消费记录</view>
                 <view class="add-bor"></view>
             </navigator>
-            <navigator url="/pages/my-card/index" hover-class="none" class="weui-flex__item weui-cell">
+            <navigator url="/pages/my-card/own/index" hover-class="none" class="weui-flex__item weui-cell">
                 <view class="icon-addbg icon-bg-card">
                     <text class="icon-credit-card"></text>
                 </view>
