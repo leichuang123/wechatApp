@@ -133,14 +133,18 @@ Page({
     gotoEvaluate: function(e) {
         const type = e.currentTarget.dataset.item.category;
         var category = 0;
+        var id = 0;
         if (type == '维修开单') {
             category = 1;
+            id = e.currentTarget.dataset.item.service_billing_id;
         } else if (type == '清洗开单') {
+            id = e.currentTarget.dataset.item.wash_order_id;
             category = 2;
         } else {
+            id = e.currentTarget.dataset.item.id;
             category = 3;
         }
-        const params = JSON.stringify({ id: e.currentTarget.dataset.item.id, category: category }); //订单
+        const params = JSON.stringify({ id: id, category: category }); //订单
         wx.navigateTo({
             url: '/pages/evaluation/evaluation?params=' + params
         });
