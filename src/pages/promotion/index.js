@@ -35,7 +35,7 @@ Page({
             latitude: '',
             area_code: '',
             auth_type: app.globalData.extConfig.auth_type || 0,
-            auth_related_id: app.globalData.extConfig.auth_type || 0,
+            auth_related_id: app.globalData.extConfig.auth_related_id || 0,
             page: 1
         }
     },
@@ -155,7 +155,7 @@ Page({
             'form.longitude': locationInfo.longitude,
             'form.area_code': !!selectedCity ? selectedCity.code : locationInfo.adcode,
             'form.auth_type': app.globalData.extConfig.auth_type || 0,
-            'form.auth_related_id': app.globalData.extConfig.auth_type || 0,
+            'form.auth_related_id': app.globalData.extConfig.auth_related_id || 0,
             sliderLeft: (app.globalData.windowWidth / this.data.tabs.length - this.data.sliderWidth) / 2,
             sliderOffset: (app.globalData.windowWidth / this.data.tabs.length) * this.data.activeIndex
         });
