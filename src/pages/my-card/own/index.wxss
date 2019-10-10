@@ -66,3 +66,6 @@
 .station-list {
     font-size: 12px;
 }
+.red {
+    color: #e51c23;
+}
