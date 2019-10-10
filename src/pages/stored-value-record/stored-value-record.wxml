@@ -4,19 +4,16 @@
         <view class="weui-cell bg-white">
             <view class="weui-cell__bd">可用余额￥{{balance}}</view>
         </view>
-        <view class="weui-cell bg-white">
-            <view class="weui-cell__bd s-top">明细</view>
-            <view class="weui-cell__ft">
-                <button class="weui-btn mart-right" type="{{form.timeField==='oneMonth'?'primary':'default'}}" plain="true" size="mini" data-month="oneMonth" bindtap="changeView">
-                    最近一个月
-                </button>
-                <button class="weui-btn" type="{{form.timeField==='threeMonth'?'primary':'default'}}" plain="true" size="mini" data-month="threeMonth" bindtap="changeView">
-                    最近三个月
-                </button>
-                <button style="margin-left:5px" class="weui-btn" type="{{form.timeField==='sixMonth'?'primary':'default'}}" plain="true" size="mini" data-month="sixMonth" bindtap="changeView">
-                    最近一年
-                </button>
-            </view>
+        <view class="weui-cell bg-white" style="justify-content:space-around">
+            <button class="weui-btn mart-right" type="{{form.timeField==='oneMonth'?'primary':'default'}}" plain="true" size="mini" data-month="oneMonth" bindtap="changeView" style="margin-top:0;width:110px">
+                最近一个月
+            </button>
+            <button class="weui-btn" type="{{form.timeField==='threeMonth'?'primary':'default'}}" plain="true" size="mini" data-month="threeMonth" bindtap="changeView" style="margin-top:0;width:110px">
+                最近三个月
+            </button>
+            <button style="margin-left:5px" class="weui-btn" type="{{form.timeField==='sixMonth'?'primary':'default'}}" plain="true" size="mini" data-month="sixMonth" bindtap="changeView" style="margin-top:0;width:110px">
+                最近一年
+            </button>
         </view>
         <view class='table' wx:if="{{records.length>0}}">
             <view class="weui-flex table-header">
