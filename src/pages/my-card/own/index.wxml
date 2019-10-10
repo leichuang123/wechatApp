@@ -14,7 +14,6 @@
         <view class="member-ship">
             <view class="cards">
                 <view class="member-face">
-                    <image src="{{item.logo}}"></image>
                     <view>{{item.merchant_name}}</view>
                 </view>
                 <!-- 计次卡 -->
