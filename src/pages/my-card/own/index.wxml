@@ -13,12 +13,12 @@
     <block wx:for="{{cards}}" wx:key="index">
         <view class="member-ship">
             <view class="cards">
-                <view class="member-face" data-item="{{item}}" bindtap="gotoDetail">
-                    <image src="{{item.store_pic}}"></image>
-                    <view>{{item.store_name}}</view>
+                <view class="member-face">
+                    <image src="{{item.logo}}"></image>
+                    <view>{{item.merchant_name}}</view>
                 </view>
                 <!-- 计次卡 -->
-                <view class='station-list' wx:if="{{item.card_type==3}}">
+                <view class='station-list' style="border-top: 1px dotted #bbbbbb;padding-top:6px" wx:for="{{item.times_cards}}" wx:key="index" data-item="{{item}}" bindtap="gotoDetail">
                     <view class="titles">
                         <view class="types">服务套餐</view>
                         <view class="see" bindtap="gotoCountRecord" data-item="{{item.card_number}}">
@@ -31,8 +31,8 @@
                         <view class="weui-flex__item">剩余</view>
                         <view class="weui-flex__item">到期时间</view>
                     </view>
-                    <block wx:for="{{item.detail}}" wx:key="service_name">
-                        <view class="weui-flex table-row">
+                    <block wx:key="service_name">
+                        <view class="weui-flex table-row" wx:for="{{item.detail}}" wx:key="index">
                             <view class="weui-flex__item">{{item.item_name}}</view>
                             <view class="weui-flex__item">{{item.total}}</view>
                             <view class="weui-flex__item">{{item.overplus_num}}</view>
@@ -41,7 +41,7 @@
                     </block>
                 </view>
                 <!-- 储值卡 -->
-                <view class="card-record__table" wx:if="{{item.card_type==2}}">
+                <view class="card-record__table" style="border-top: 1px dotted #bbbbbb;padding-top:6px" wx:for="{{item.stored_value_card}}" wx:key="index" data-item="{{item}}" bindtap="gotoDetail">
                     <view class="titles">
                         <view class="types">储值</view>
                         <view class="see" bindtap="gotoValue" id='{{item.card_number}}'>
