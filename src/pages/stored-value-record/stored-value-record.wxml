@@ -6,10 +6,10 @@
         </view>
         <view class="weui-cell bg-white" style="justify-content:space-around">
             <button class="weui-btn mart-right" type="{{form.timeField==='oneMonth'?'primary':'default'}}" plain="true" size="mini" data-month="oneMonth" bindtap="changeView" style="margin-top:0;width:110px">
-                最近一个月
+                最近三个月
             </button>
             <button class="weui-btn" type="{{form.timeField==='threeMonth'?'primary':'default'}}" plain="true" size="mini" data-month="threeMonth" bindtap="changeView" style="margin-top:0;width:110px">
-                最近三个月
+                最近六个月
             </button>
             <button style="margin-left:5px" class="weui-btn" type="{{form.timeField==='sixMonth'?'primary':'default'}}" plain="true" size="mini" data-month="sixMonth" bindtap="changeView" style="margin-top:0;width:110px">
                 最近一年

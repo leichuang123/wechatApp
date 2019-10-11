@@ -81,10 +81,12 @@ Page({
      */
     onLoad: function(options) {
         let cardData = JSON.parse(options.cardData);
+        const mobile = wx.getStorageSync('systemInfo').windowWidth;
         this.setData({
             carNumber: cardData.carNumber,
             'form.cardNumber': cardData.cardNumber,
-            sliderLeft: (app.globalData.windowWidth / this.data.tabs.length - sliderWidth) / 2,
+            sliderWidth: mobile / 3,
+            sliderLeft: (app.globalData.windowWidth / this.data.tabs.length - this.data.sliderWidth) / 2,
             sliderOffset: (app.globalData.windowWidth / this.data.tabs.length) * this.data.activeIndex
         });
     },
