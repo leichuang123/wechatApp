@@ -12,7 +12,13 @@ Page({
      */
     getCouponInfo: function(id) {
         showLoading();
-        api.get('weapp-coupon/get-detail', { id: id }).then(res => {
+        const positionInfo = wx.getStorageSync('locationInfo');
+        const params = {
+            id: id,
+            latitude: positionInfo.latitude || '',
+            longitude: positionInfo.longitude || ''
+        };
+        api.get('weapp-coupon/get-detail', params).then(res => {
             wx.hideLoading();
             if (res.errcode === 0) {
                 this.setData({
