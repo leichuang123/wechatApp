@@ -21,20 +21,24 @@
                     </view>
                     <view class="rank-cell">
                         <view>消费时间：{{item.create_time}}</view>
-                        <view>车牌号：{{item.car_number!==''?item.car_number:'无'}}</view>
+                        <view wx:if="{{item.card_number!==''}}">会员卡号：{{item.card_number}}</view>
+                        <view wx:if="{{item.car_number!==''}}">车牌号：{{item.car_number}}</view>
                         <view>消费门店：{{item.category_value!=6?item.store_name:'无'}}</view>
                         <view wx:if="{{item.category_value==6}}">消费内容：{{item.content}}</view>
                         <view class="weui-flex" wx:if="{{item.category_value!=6}}">
                             <view>消费内容：</view>
                             <view class='weui-flex__item'>
                                 <block wx:for="{{item.service_content}}" wx:for-index="idx" wx:key="idx" wx:for-item="it">
-                                    <view>{{it.content}}
+                                    <view>
+                                        {{it.content}}
                                         <text style="margin-left:15px;">x{{it.num}}</text>
                                     </view>
                                 </block>
                             </view>
                         </view>
-                        <view class="ranking-btn" data-id="{{item.id}}" data-category="3" wx:if="{{item.evaluate_state==0}}" bindtap="gotoEvaluate">评价</view>
+                        <view class="ranking-btn" data-id="{{item.id}}" data-category="3" wx:if="{{item.evaluate_state==0}}" bindtap="gotoEvaluate">
+                            评价
+                        </view>
                     </view>
                 </view>
             </block>
@@ -55,13 +59,16 @@
                             <view>服务项目:</view>
                             <view class='weui-flex__item'>
                                 <block wx:for="{{item.total_data}}" wx:for-index="idx" wx:key="idx" wx:for-item="service">
-                                    <view>{{service.name}}
+                                    <view>
+                                        {{service.name}}
                                         <text style="margin-left:15px;">￥{{service.price}}</text>
                                     </view>
                                 </block>
                             </view>
                         </view>
-                        <view class="ranking-btn" data-id="{{item.id}}" data-category="1" wx:if="{{item.evaluate_state==0}}" bindtap="gotoEvaluate">评价</view>
+                        <view class="ranking-btn" data-id="{{item.id}}" data-category="1" wx:if="{{item.evaluate_state==0}}" bindtap="gotoEvaluate">
+                            评价
+                        </view>
                     </view>
                 </view>
             </block>
