@@ -22,7 +22,7 @@
                     <view class="rank-cell">
                         <view>消费时间：{{item.create_time}}</view>
                         <view wx:if="{{item.card_number!==''}}">会员卡号：{{item.card_number}}</view>
-                        <view wx:if="{{item.car_number!==''}}">车牌号：{{item.car_number}}</view>
+                        <view wx:if="{{item.card_number==''}}">车牌号：{{item.car_number}}</view>
                         <view>消费门店：{{item.category_value!=6?item.store_name:'无'}}</view>
                         <view wx:if="{{item.category_value==6}}">消费内容：{{item.content}}</view>
                         <view class="weui-flex" wx:if="{{item.category_value!=6}}">
