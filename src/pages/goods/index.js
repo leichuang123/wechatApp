@@ -421,51 +421,47 @@ Page({
      * 结算
      */
     settleAccounts: function() {
-        if (this.data.money > 0) {
+        this.setData({
+            'valueCardOrder.goods': [],
+            'packageOrder.goods': [],
+            'washGoodsOrder.goods': [],
+            'serviceGoodsOrder.goods': [],
+            'orderForm.order': [],
+            'orderForm.num': 0
+        });
+        this.calculateRecommnededGoods();
+        this.calculateWashGoods();
+        this.calcuteServiceGoods();
+        let order = [];
+        setTimeout(() => {
+            if (this.data.valueCardOrder.goods.length > 0) {
+                order.push(this.data.valueCardOrder);
+            }
+            if (this.data.washGoodsOrder.goods.length > 0) {
+                order.push(this.data.washGoodsOrder);
+            }
+            if (this.data.serviceGoodsOrder.goods.length > 0) {
+                order.push(this.data.serviceGoodsOrder);
+            }
+            if (this.data.packageOrder.goods.length > 0) {
+                order.push(this.data.packageOrder);
+            }
             this.setData({
-                'valueCardOrder.goods': [],
-                'packageOrder.goods': [],
-                'washGoodsOrder.goods': [],
-                'serviceGoodsOrder.goods': [],
-                'orderForm.order': [],
-                'orderForm.num': 0
+                'orderForm.order': order,
+                'orderForm.money': this.data.money
             });
-            this.calculateRecommnededGoods();
-            this.calculateWashGoods();
-            this.calcuteServiceGoods();
-            let order = [];
-            setTimeout(() => {
-                if (this.data.valueCardOrder.goods.length > 0) {
-                    order.push(this.data.valueCardOrder);
-                }
-                if (this.data.washGoodsOrder.goods.length > 0) {
-                    order.push(this.data.washGoodsOrder);
-                }
-                if (this.data.serviceGoodsOrder.goods.length > 0) {
-                    order.push(this.data.serviceGoodsOrder);
-                }
-                if (this.data.packageOrder.goods.length > 0) {
-                    order.push(this.data.packageOrder);
-                }
-                this.setData({
-                    'orderForm.order': order,
-                    'orderForm.money': this.data.money
-                });
-                this.gotoPay();
-            }, 500);
-        }
+            this.gotoPay();
+        }, 500);
     },
     /**
      * 结算前验证是否注册
      */
     onSettleAccounts: function() {
-        if (this.data.money > 0) {
-            const userData = wx.getStorageSync('userData');
-            if (!!userData && userData.registered) {
-                this.settleAccounts();
-            } else {
-                wx.navigateTo({ url: '/pages/register/register' });
-            }
+        const userData = wx.getStorageSync('userData');
+        if (!!userData && userData.registered) {
+            this.settleAccounts();
+        } else {
+            wx.navigateTo({ url: '/pages/register/register' });
         }
     },
     /**
