@@ -14,7 +14,8 @@ Page({
             pic_url: [],
             category: 3, //1服务开单2清洗开单3订单4计次记录
             user_avatar: '', //用户头像
-            evaluate_level: '1'
+            evaluate_level: '1',
+            uc_order_id: 0
         },
         isComplaint: false
     },
@@ -172,6 +173,7 @@ Page({
         const wxUserInfo = wx.getStorageSync('wxUserInfo');
         this.setData({
             'form.order_id': params.id,
+            'form.uc_order_id': params.uc_order_id || 0,
             'form.category': params.category,
             'form.user_avatar': wxUserInfo.avatarUrl || '',
             isComplaint: params.complaint ? true : false
