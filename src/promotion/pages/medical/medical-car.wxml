@@ -1,0 +1,21 @@
+<view>
+    <block wx:for="{{car}}" wx:key="index">
+        <view class="member-ship">
+            <view class="cards">
+                <view class="member-face">
+                    <view>{{item.merchant_name}}</view>
+                </view>
+                <view class='station-list' style="border-top: 1px dotted #bbbbbb;padding-top:6px">
+                    <view class="weui-flex table-header">
+                        <view class="weui-flex__item">车牌号</view>
+                    </view>
+                    <block wx:key="service_name">
+                        <view class="weui-flex table-row" wx:for="{{item.car_list}}" wx:key="index" wx:key="index" data-item="{{item}}" bindtap="gotoDetail">
+                            {{item.car_number}}
+                        </view>
+                    </block>
+                </view>
+            </view>
+        </view>
+    </block>
+</view>
