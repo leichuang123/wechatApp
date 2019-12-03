@@ -187,7 +187,7 @@ Page({
         }
         this.setData({
             loadMoreVisible: true,
-            'form.page': this.data.page + 1
+            'form.page': this.data.form.page + 1
         });
         this.getGoods();
     }
