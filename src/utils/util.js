@@ -107,7 +107,7 @@ const confirmMsg = (title, msg, showCancel, confirm, cancel) => {
         title: title,
         content: msg,
         showCancel: showCancel,
-        confirmColor: '#61B8A8',
+        confirmColor: '#E60103',
         success: res => {
             if (res.confirm) {
                 if (typeof confirm === 'function') {

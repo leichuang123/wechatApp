@@ -70,7 +70,7 @@ page {
     text-align: center;
     line-height: 30px;
     float: left;
-    color: #61b8a8;
+    color: #E60103;
     font-size: 28px;
 }
 .pins view {
@@ -125,7 +125,7 @@ page {
     background: #ffffff;
     width: 100%;
     text-align: center;
-    color: #61b8a8;
+    color: #E60103;
     font-size: 22px;
     height: 50px;
     line-height: 50px;
@@ -201,7 +201,7 @@ page {
     text-align: center;
     line-height: 40px;
     color: #ffffff;
-    background-color: #61b8a8;
+    background-color: #E60103;
     border-radius: 5px;
     position: absolute;
     left: 5%;

@@ -16,10 +16,13 @@
 }
 
 .state-color {
-    color: #61b8a8;
+    color: #e60103;
 }
-.cancel-btn{
-    color: #61b8a8;
+.cancel-btn {
+    color: #e60103;
     text-align: center;
 }
-.weui-cells{margin-bottom:10px;font-size: 14px;}
+.weui-cells {
+    margin-bottom: 10px;
+    font-size: 14px;
+}

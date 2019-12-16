@@ -17,7 +17,7 @@
                             <view class="face-img-mine" wx:if="{{item.pic_url}}">
                                 <image src='{{item.pic_url}}'></image>
                             </view>
-                            <view class="face-img-mine" style="text-align:center;line-height:60px;color:#ffffff;background:#61B8A8" wx:if="{{!item.pic_url}}">
+                            <view class="face-img-mine" style="text-align:center;line-height:60px;color:#ffffff;background:#E60103" wx:if="{{!item.pic_url}}">
                                 券
                             </view>
                         </view>

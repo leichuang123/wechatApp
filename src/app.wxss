@@ -109,8 +109,8 @@ textarea {
 }
 
 .cur {
-    border-bottom: 2px solid #61b8a8;
-    color: #61b8a8;
+    border-bottom: 2px solid #e60103;
+    color: #e60103;
 }
 
 .station-list {
@@ -183,8 +183,8 @@ textarea {
 }
 
 .title-active {
-    color: #3bbca5;
-    border-bottom: 2px solid #3bbca5;
+    color: #e60103;
+    border-bottom: 2px solid #e60103;
 }
 
 .bg-blue {
@@ -319,12 +319,12 @@ textarea {
 }
 
 .weui-navbar__slider {
-    background-color: #61b8a8;
+    background-color: #e60103;
     width: 3em;
 }
 
 .weui-navbar__item.weui-bar__item_on {
-    color: #61b8a8;
+    color: #e60103;
 }
 
 .weui-navbar {
@@ -334,29 +334,29 @@ textarea {
 /*按钮颜色重置*/
 .button-hover[type='primary'] {
     color: #ffffff;
-    background-color: #61b8a8;
+    background-color: #e60103;
     opacity: 0.8;
 }
 
 button[type='primary'] {
     color: #ffffff;
-    background-color: #61b8a8;
+    background-color: #e60103;
 }
 
 button[type='primary'][plain] {
-    color: #61b8a8;
-    border: 1px solid #61b8a8;
+    color: #e60103;
+    border: 1px solid #e60103;
     background-color: transparent;
 }
 
 button[loading][type='primary'] {
     color: rgba(255, 255, 255, 0.6);
-    background-color: #61b8a8;
+    background-color: #e60103;
 }
 
 button[disabled][type='primary'][plain='flase'] {
     color: #ffffff;
-    background-color: #61b8a8;
+    background-color: #e60103;
     opacity: 0.5;
 }
 
@@ -630,14 +630,14 @@ button[disabled][type='yellow'][plain='flase'] {
 }
 
 .list-title {
-    background: #edf7f7;
+    background: #ffcccc;
     padding: 5px 18px;
 }
 
 .right-text {
     text-align: right;
     padding: 0 15px;
-    color: #61b8a8;
+    color: #e60103;
 }
 
 /*精彩活动*/
@@ -671,14 +671,14 @@ button[disabled][type='yellow'][plain='flase'] {
 .user-box {
     height: 90px;
     color: #fff;
-    background: #61b8a8;
-    margin-bottom: 10px;
+    background: #ffffff;
+    margin-bottom: 5px;
 }
 
 .mine-integral {
-    background: #defaf3;
-    border-radius: 3px;
-    padding: 3px 5px;
+    background: #ebebeb;
+    border-radius: 15px;
+    padding: 3px 15px;
     color: #595758;
 }
 
@@ -711,17 +711,17 @@ button[disabled][type='yellow'][plain='flase'] {
 .orien-list {
     text-align: center;
     background: #fff;
-    margin-bottom: 10px;
-    padding: 14px 8px;
+    margin-bottom: 5px;
+    padding: 10px 15px;
 }
 
 .orien-list-four {
     text-align: center;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
 }
 
 .orien-list-four .icon {
-    color: #61b8a8;
+    color: #e60103;
     font-size: 22px;
     margin-bottom: 5px;
 }
@@ -739,7 +739,7 @@ button[disabled][type='yellow'][plain='flase'] {
 .mine-icon {
     width: 25px;
     display: inline-block;
-    color: #61b8a8;
+    color: #e60103;
 }
 
 .icon-light-blue {
@@ -953,8 +953,8 @@ button[disabled][type='yellow'][plain='flase'] {
     display: inline-block;
     margin: 3px 0;
     padding: 3px 6px;
-    border: 1px solid #61b8a8;
-    color: #61b8a8;
+    border: 1px solid #e60103;
+    color: #e60103;
     margin-left: 4px;
     border-radius: 3px;
     font-size: 12px;
@@ -1003,7 +1003,7 @@ button[disabled][type='yellow'][plain='flase'] {
 }
 
 .accounts-btn {
-    background: #61b8a8;
+    background: #e60103;
     padding: 0 13px;
     height: 100%;
     line-height: 100rpx;
@@ -1018,8 +1018,8 @@ button[disabled][type='yellow'][plain='flase'] {
     top: 5px;
     padding: 3px 10px;
     border-radius: 5px;
-    color: #61b8a8;
-    border: 1px solid #61b8a8;
+    color: #e60103;
+    border: 1px solid #e60103;
     background-color: transparent;
     font-size: 14px;
 }
@@ -1107,7 +1107,7 @@ button[disabled][type='yellow'][plain='flase'] {
     height: 150px;
     margin-bottom: 15px;
     border-radius: 5px;
-    background: #61b8a8;
+    background: #e60103;
     padding: 5px;
     box-sizing: border-box;
     color: #fff;
@@ -1217,7 +1217,7 @@ button[disabled][type='yellow'][plain='flase'] {
 }
 
 .cup-bg {
-    background: #61b8a8;
+    background: #e60103;
 }
 
 .cont-detail {
@@ -1260,7 +1260,7 @@ button[disabled][type='yellow'][plain='flase'] {
     position: absolute;
     width: 12px;
     height: 12px;
-    background: #61b8a8;
+    background: #e60103;
     border-radius: 100%;
     top: -3px;
 }
@@ -1288,9 +1288,9 @@ button[disabled][type='yellow'][plain='flase'] {
 
 .border-title {
     padding-left: 5px;
-    border-left: 4px solid #61b8a8;
+    border-left: 4px solid #e60103;
     margin: 10px 0;
-    color: #61b8a8;
+    color: #e60103;
     line-height: 1;
 }
 
@@ -1358,7 +1358,7 @@ button[disabled][type='yellow'][plain='flase'] {
 }
 
 .text-red {
-    color: red;
+    color: #920005;
 }
 
 /* 增值服务 */

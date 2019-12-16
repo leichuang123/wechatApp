@@ -13,7 +13,7 @@
 }
 
 .invitation-title {
-    color: #61b8a8;
+    color: #e60103;
     text-align: center;
     margin-bottom: 20px;
 }
@@ -76,20 +76,20 @@ image-container {
     right: 0;
     font-size: 14px;
 }
-button[type=default] {
+button[type='default'] {
     background-color: #fff;
     border: none;
     padding: 0;
 }
 
-button[size=mini] {
+button[size='mini'] {
     display: inline-block;
     line-height: 48px;
     font-size: 14px;
     padding: auto;
 }
 
-button[type=default]:after {
+button[type='default']:after {
     border: none;
 }
 
@@ -99,7 +99,7 @@ button[type=default]:after {
     vertical-align: middle;
 }
 
-.button-hover[type="default"] {
+.button-hover[type='default'] {
     color: #fff;
     background-color: #fff;
     opacity: 1;

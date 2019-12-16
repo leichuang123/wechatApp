@@ -25,7 +25,7 @@
     padding: 0;
     border-top: 1px solid #eaeaea;
     text-align: center;
-    line-height: 3.0em;
+    line-height: 3em;
 }
 
 .bor-r {
@@ -55,5 +55,5 @@
 }
 
 .text-green {
-    color: #61b8a8;
+    color: #e60103;
 }

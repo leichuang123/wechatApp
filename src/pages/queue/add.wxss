@@ -4,7 +4,7 @@
 
 .th {
     height: 38px;
-    background:  #defaf3;
+    background: #defaf3;
     text-align: center;
     line-height: 38px;
 }
@@ -50,7 +50,7 @@
 }
 
 .contact-btn {
-    color: #61b8a8;
+    color: #e60103;
     margin-bottom: -10rpx;
 }
 
@@ -89,7 +89,7 @@
 }
 
 .item:before {
-    content: " ";
+    content: ' ';
     position: absolute;
     left: 30rpx;
     top: 0;
@@ -166,7 +166,7 @@
     right: 200rpx;
 }
 
-button[open-type="contact"] {
+button[open-type='contact'] {
     border: 0;
     padding-left: 0;
     padding-right: 0;

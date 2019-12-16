@@ -4,7 +4,7 @@
 .type {
     width: 100%;
     height: 40px;
-    background: #61b8a8;
+    background: #E60103;
     overflow: hidden;
 }
 .typecheck {
@@ -30,7 +30,7 @@
 }
 .typecheck .active {
     background: #ffffff;
-    color: #61b8a8;
+    color: #E60103;
 }
 .date {
     position: absolute;

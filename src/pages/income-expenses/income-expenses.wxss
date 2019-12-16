@@ -1,5 +1,20 @@
-.border-bottom { border-bottom: 1rpx solid #d9d9d9}
-.marb { margin-bottom: 5px;}
-.icon-caret-down2{color:#4da595;}
-.dropdown{width:70px;}
-.cur{ border: 1rpx solid #61B8A8; color:#61B8A8;display: inline-block;margin-left: 5px; border-radius: 3px;padding: 0 3px;}
+.border-bottom {
+    border-bottom: 1rpx solid #d9d9d9;
+}
+.marb {
+    margin-bottom: 5px;
+}
+.icon-caret-down2 {
+    color: #4da595;
+}
+.dropdown {
+    width: 70px;
+}
+.cur {
+    border: 1rpx solid #e60103;
+    color: #e60103;
+    display: inline-block;
+    margin-left: 5px;
+    border-radius: 3px;
+    padding: 0 3px;
+}

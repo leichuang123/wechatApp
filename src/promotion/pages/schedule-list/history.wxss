@@ -10,7 +10,7 @@
     text-align: center;
     top: 35px;
     right: 13px;
-    background: #61b8a8;
+    background: #E60103;
 }
 .s {
     width: 32px;
@@ -49,6 +49,6 @@
     font-size: 14px;
 }
 .ac {
-    color: #61b8a8;
+    color: #E60103;
     background: #f1f1f1;
 }

@@ -1,0 +1,9 @@
+<view>
+    <view class="welcome" style="height:{{height}}px">
+        <!-- 图片 -->
+        <block>
+            <image src="{{item}}" class="slide-image" />
+        </block>
+        <button class="btn" type="primary" bindtap="addSubmit">立即申请</button>
+    </view>
+</view>

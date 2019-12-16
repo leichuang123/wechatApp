@@ -1,0 +1,44 @@
+<import src="../../../common/templates/top-tips.wxml" />
+<template is="top-tips" data="{{showTopTips,errorMsg}}"></template>
+<view class='bg-white'>
+    <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+            <view class="weui-label">
+                <text class='fc-red'>*</text>
+                姓名
+            </view>
+        </view>
+        <view class="weui-cell__bd">
+            <input class="weui-input" data-name="contact" bindinput="getInputValue" />
+        </view>
+    </view>
+    <view class="weui-cell weui-cell_input">
+        <view class="weui-cell__hd">
+            <view class="weui-label">
+                <text class='fc-red'>*</text>
+                手机号
+            </view>
+        </view>
+        <view class="weui-cell__bd">
+            <input class="weui-input" type="number" data-name="mobile" bindinput="getInputValue" />
+        </view>
+    </view>
+    <view class="weui-cell weui-cell_input" style="margin-top:10px">
+        <view class="weui-cell__hd">
+            <view class="weui-label">
+                <text class='fc-red'>*</text>
+                申请描述
+            </view>
+        </view>
+    </view>
+    <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell">
+            <view class="weui-cell__bd">
+                <textarea class="weui-textarea" placeholder="请简单描述您的资源情况" style="min-height: 3.3em" maxlength="200" data-name="details" bindinput="getInputValue" />
+            </view>
+        </view>
+    </view>
+</view>
+<view class="weui-btn-area">
+    <button class="weui-btn" type="primary" bindtap="onSubmit">提交</button>
+</view>

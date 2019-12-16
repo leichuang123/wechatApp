@@ -17,17 +17,25 @@
 }
 
 .eavluate-content__padding {
-    padding:0 15px 15px 60px;
+    padding: 0 15px 15px 60px;
 }
 
 .eavluate-content__margin {
     margin-bottom: 10px;
 }
-.reply-content{color: #61b8a8;}
+.reply-content {
+    color: #e60103;
+}
 .weui-panel {
     margin-top: 1px;
 }
-.face-img-mine { width: 40px; height: 40px; border-radius: 50%; margin-right:5px;overflow: hidden; }
-.wid-time { width:105px;}
-
-
+.face-img-mine {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 5px;
+    overflow: hidden;
+}
+.wid-time {
+    width: 105px;
+}

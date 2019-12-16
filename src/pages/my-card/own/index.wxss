@@ -49,7 +49,7 @@
 }
 .see {
     margin-right: 6px;
-    color: #60b8a8;
+    color: #e60103;
 }
 .card-record__th {
     margin-bottom: 10px;

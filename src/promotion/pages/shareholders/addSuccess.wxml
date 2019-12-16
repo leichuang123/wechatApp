@@ -1,0 +1,10 @@
+<view class="weui-cell bg-white" style="margin-top:20%">
+    <view class="weui-cell__bd">
+        <view class="text-center">
+            <icon type="success" size="30" color="green" style="margin-right:20px" />
+            <text style="color:#288BF2;font-size:20px">恭喜您提交成功</text>
+        </view>
+    </view>
+</view>
+<view style="color:#288BF2;padding-left:15px">温馨提示：</view>
+<view style="padding-left:15px;margin-top:20px">您的申请已经提交成功，我们会很快与您联系，请保持电话畅通。</view>

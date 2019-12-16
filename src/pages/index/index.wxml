@@ -1,70 +1,55 @@
-<view class="bg-white">
-    <view class="area">
+<view>
+    <view>
+        <image src="../../assets/images/newBanner.png" style="width:100%;display:block" />
+    </view>
+    <!-- <view class="area">
         <view class="weui-flex">
             <navigator url="/pages/location/location" class="weui-flex__item" hover-class="none">
                 {{ city }}
                 <text class="icon-angle-down"></text>
             </navigator>
         </view>
-    </view>
+    </view> -->
     <view class="btn-list">
         <view class="weui-flex">
             <navigator url="/pages/store-list/store-list?fromPage=queue" hover-class="none" class="weui-flex__item">
-                <view class="icon-border automobile-border">
-                    <text class="icon-automobile"></text>
+                <view class="icon-border  flexCenter">
+                    <image src="../../assets/images/newIcon/n1.png" />
                 </view>
-                <view class="pad-top">叫号洗车</view>
+                <view class="pad-top">线上排队</view>
             </navigator>
             <navigator url="/pages/store-list/store-list?fromPage=reserve" hover-class="none" class="weui-flex__item">
-                <view class="icon-border calendar2-border">
-                    <text class="icon-calendar2"></text>
+                <view class="icon-border  flexCenter">
+                    <image src="../../assets/images/newIcon/n2.png" />
                 </view>
-                <view class="pad-top">预约保养</view>
+                <view class="pad-top">预约服务</view>
             </navigator>
-            <view class="weui-flex__item" bindtap="onBindStore">
-                <view class="icon-border maximize-border">
-                    <text class="icon-maximize"></text>
+            <navigator url="../../promotion/pages/shareholders/shareholders" hover-class="none" class="weui-flex__item">
+                <view class="icon-border flexCenter">
+                    <image src="../../assets/images/newIcon/n3.png" />
                 </view>
-                <view class="pad-top">绑定门店</view>
-            </view>
-        </view>
-    </view>
-    <view class="btn-list-four">
-        <view class="weui-flex">
-            <navigator url="/pages/record/record?month=1&type=consume" hover-class="none" class="weui-flex__item weui-cell">
-                <view class="icon-addbg icon-bg-cny">
-                    <text class="icon-cny"></text>
-                </view>
-                <view class="weui-cell__bd">消费记录</view>
-                <view class="add-bor"></view>
-            </navigator>
-            <navigator url="/pages/my-card/own/index" hover-class="none" class="weui-flex__item weui-cell">
-                <view class="icon-addbg icon-bg-card">
-                    <text class="icon-credit-card"></text>
-                </view>
-                <view class="weui-cell__bd">我的会员卡</view>
+                <view class="pad-top">股东申请</view>
             </navigator>
         </view>
-        <view class="weui-flex">
-            <navigator url="/pages/my-coupon/index" hover-class="none" class="weui-cell weui-flex__item">
-                <view class="icon-addbg icon-bg-stack">
-                    <text class="icon-stack"></text>
+        <view class="weui-flex" style="margin-top:20px">
+            <navigator url="/pages/my-card/own/index" hover-class="none" class="weui-flex__item">
+                <view class="icon-border  flexCenter">
+                    <image src="../../assets/images/newIcon/n4.png" />
                 </view>
-                <view class="weui-cell__bd">优惠券</view>
-                <view class="add-bor"></view>
+                <view class="pad-top">会员卡</view>
             </navigator>
-            <!-- <navigator url="/pages/my-invitation/my-invitation" hover-class="none" class="weui-cell weui-flex__item">
-                <view class="icon-addbg icon-light-blue">
-                    <text class="icon-user-plus"></text>
+            <navigator url="/pages/my-coupon/index" hover-class="none" class="weui-flex__item">
+                <view class="icon-border  flexCenter">
+                    <image src="../../assets/images/newIcon/n5.png" />
                 </view>
-                <view class="weui-cell__bd">邀请有奖</view>
-            </navigator> -->
-            <view hover-class="none" class="weui-cell weui-flex__item" bindtap="gotoMedical">
-                <view class="icon-addbg icon-light-blue">
-                    <text class="iconfont icon-cheliangjiance" style="color:#ea9518"></text>
+                <view class="pad-top">优惠券</view>
+            </navigator>
+            <navigator url="/pages/my-rebate/index" hover-class="none" class="weui-flex__item">
+                <view class="icon-border  flexCenter">
+                    <image src="../../assets/images/newIcon/n6.png" />
                 </view>
-                <view class="weui-cell__bd">车辆体检</view>
-            </view>
+                <view class="pad-top">股东分红</view>
+            </navigator>
         </view>
     </view>
     <view class="list-title">当前排队</view>

@@ -40,8 +40,8 @@
 }
 .icon-border image {
     font-size: 26px;
-    border: 2px solid #61b8a8;
-    color: #61b8a8;
+    border: 2px solid #e60103;
+    color: #e60103;
     border-radius: 100%;
     padding: 10px;
 }

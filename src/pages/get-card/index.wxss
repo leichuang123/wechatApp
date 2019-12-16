@@ -15,24 +15,24 @@
 }
 
 .bort {
-    border-top: 1px solid #61B8A8;
+    border-top: 1px solid #e60103;
     padding-top: 8px;
 }
 
-button[type=default] {
+button[type='default'] {
     background-color: #fff;
     border: none;
     padding: 0;
 }
 
-button[size=mini] {
+button[size='mini'] {
     display: inline-block;
     line-height: 30px;
     font-size: 14px;
     vertical-align: middle;
 }
 
-button[type=default]:after {
+button[type='default']:after {
     border: none;
 }
 
@@ -42,7 +42,7 @@ button[type=default]:after {
     vertical-align: middle;
 }
 
-.button-hover[type="default"] {
+.button-hover[type='default'] {
     color: #fff;
     background-color: #fff;
     opacity: 1;

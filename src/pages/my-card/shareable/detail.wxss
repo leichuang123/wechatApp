@@ -12,6 +12,6 @@
     width: 100%;
 }
 .bort {
-    border-top: 1px solid #61b8a8;
+    border-top: 1px solid #e60103;
     padding-top: 8px;
 }

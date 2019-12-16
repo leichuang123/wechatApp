@@ -33,7 +33,7 @@
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-    background: #61b8a8;
+    background: #E60103;
     color: white;
 }
 .bars {

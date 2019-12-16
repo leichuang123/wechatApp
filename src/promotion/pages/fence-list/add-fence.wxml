@@ -12,7 +12,7 @@
         </view>
         <button type="primary" class="ok" bindtap="submit">确定</button>
     </view>
-    <map id="myMap" wx:if="{{!model}}" latitude="{{latitude}}" longitude="{{longitude}}" markers="{{markers}}" scale="{{scale}}" style="width:100%;height:{{height}}px"  bindregionchange="bindregionchange" />
+    <map id="myMap" wx:if="{{!model}}" latitude="{{latitude}}" longitude="{{longitude}}" markers="{{markers}}" scale="{{scale}}" style="width:100%;height:{{height}}px" bindregionchange="bindregionchange" />
     <cover-view class="circle" wx:if="{{!model}}" style="top:{{(height-300)/2+152}}px"></cover-view>
     <view class="model" wx:if="{{model}}">
         <view class="modeler">
@@ -21,7 +21,7 @@
             <text>报警类型</text>
             <radio-group class="radio-group" bindchange="radioChange">
                 <label class="radio" wx:for="{{items}}" wx:key="index">
-                    <radio value="{{item.value}}" checked="{{item.checked}}" color="#61B8A8" />
+                    <radio value="{{item.value}}" checked="{{item.checked}}" color="#E60103" />
                     {{item.name}}
                 </label>
             </radio-group>

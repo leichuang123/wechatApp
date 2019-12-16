@@ -1,5 +1,5 @@
 page {
-    background: #61b8a8;
+    background: #e60103;
 }
 .card {
     width: 90%;
@@ -17,7 +17,7 @@ page {
     border-bottom: 2px #ededed dotted;
 }
 .deduction_money {
-    color: #61b8a8;
+    color: #e60103;
     font-size: 28px;
 }
 .card_info {

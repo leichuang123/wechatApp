@@ -120,13 +120,13 @@ page {
     height: 37px;
     text-align: center;
     line-height: 37px;
-    color: #61b8a8;
+    color: #E60103;
     font-size: 14px;
     background: #ffffff;
     border: none;
     outline: none;
 }
 .action button:nth-child(2) {
-    background: #61b8a8;
+    background: #E60103;
     color: #ffffff;
 }

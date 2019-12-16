@@ -27,7 +27,7 @@
         <view class="links" bindtap="history">
             <view class="linkstitle">行驶轨迹</view>
             <view class="linksicon iconfont icon-xiangyou" style="font-size: 16px;;margin-top:2px;"></view>
-            <view class="linksicon iconfont icon-guiji" style="font-size:18px;color:#61B8A8"></view>
+            <view class="linksicon iconfont icon-guiji" style="font-size:18px;color:#E60103"></view>
         </view>
         <navigator class="links" url="../schedule-canvas/index?type=1">
             <view class="linkstitle">总里程</view>

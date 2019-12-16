@@ -90,7 +90,7 @@ page {
     margin: 8px 4px;
 }
 .actives {
-    background: #61b8a8;
+    background: #E60103;
     color: #ffffff;
 }
 .input {

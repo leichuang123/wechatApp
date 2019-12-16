@@ -11,7 +11,7 @@
 		"checkInvalidKey": true
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.7.0",
+	"libVersion": "2.9.4",
 	"appid": "wx68b84434fb5b8c17",
 	"projectname": "weapp-3rd-platform",
 	"simulatorType": "wechat",
@@ -32,24 +32,13 @@
 		"game": {
 			"list": []
 		},
+		"gamePlugin": {
+			"current": -1,
+			"list": []
+		},
 		"miniprogram": {
-			"current": 1,
-			"list": [
-				{
-					"id": -1,
-					"name": "obd首页",
-					"pathName": "promotion/pages/medical/medical-map",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": 1,
-					"name": "1",
-					"pathName": "paid-service/pages/business-progress/business-progress",
-					"query": "",
-					"scene": null
-				}
-			]
+			"current": -1,
+			"list": []
 		}
 	}
 }

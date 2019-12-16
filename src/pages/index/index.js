@@ -11,63 +11,6 @@ Page({
         unreceivedCoupons: []
     },
     /**
-     * 注册提醒
-     */
-    remindRegister: function() {
-        confirmMsg('亲', '您还没有注册呢，先注册一下吧', true, () => {
-            wx.navigateTo({
-                url: '/pages/register/register'
-            });
-        });
-    },
-    /**
-     * 绑定门店
-     */
-    bindStore: function(userData) {
-        scanCode()
-            .then(res => {
-                const storeData = JSON.parse(res.result);
-                const bindParams = {
-                    store_id: storeData.store_id,
-                    car_number: userData.car,
-                    mobile: userData.mobile,
-                    user_id: userData.id
-                };
-                api.post('weapp/bind', bindParams).then(res => {
-                    if (res.errcode === 0) {
-                        const locationInfo = wx.getStorageSync('locationInfo');
-                        const locationData = !locationInfo ? app.globalData.defaultLocation : locationInfo;
-                        const params = JSON.stringify({
-                            storeId: storeData.store_id,
-                            merchantId: storeData.merchant_id,
-                            latitude: locationData.latitude,
-                            longitude: locationData.longitude,
-                            fromPage: 'wash'
-                        });
-                        toastMsg('绑定成功', 'success', 1000, () => {
-                            wx.navigateTo({ url: '/pages/store-list/detail?storeData=' + params });
-                        });
-                        return;
-                    }
-                    confirmMsg('', res.errmsg, false);
-                });
-            })
-            .catch(res => {
-                console.log('扫码失败:', res);
-            });
-    },
-    /**
-     * 绑定门店时验证是否注册
-     */
-    onBindStore: function() {
-        const userData = wx.getStorageSync('userData');
-        if (!userData || !userData.registered) {
-            this.remindRegister();
-        } else {
-            this.bindStore(userData);
-        }
-    },
-    /**
      * 获取首页信息
      */
     getIndexInfo: function() {
@@ -196,46 +139,6 @@ Page({
                 city: this.data.city.substring(0, 3) + '...'
             });
         }
-    },
-    /**
-     * 进入车辆体检时验证是否注册
-     */
-    gotoMedical: function() {
-        showLoading();
-        const userData = wx.getStorageSync('userData');
-        //1.判断是否登录
-        if (!userData || !userData.registered) {
-            wx.hideLoading();
-            this.remindRegister();
-            return;
-        }
-        //2.判断用户是否注册obd
-        api.get('weapp-obd-user/check-register', { weapp_user_id: userData.id }).then(res => {
-            wx.hideLoading();
-            if (res.errcode !== 0) {
-                confirmMsg('温馨提示', '您还没有注册OBD哦，先绑定一下吧', true, () => {
-                    wx.navigateTo({
-                        url: '../../promotion/pages/medical/medical'
-                    });
-                });
-                return;
-            }
-            if (res.data.obd_device_ids.length < 1) {
-                wx.hideLoading();
-                confirmMsg('温馨提示', '您还没有绑定OBD哦，先绑定一下吧', true, () => {
-                    wx.navigateTo({
-                        url: '../../promotion/pages/medical/medical?type=1'
-                    });
-                });
-                return;
-            }
-            //已绑定，本地存储OBD平台用户信息
-            wx.setStorageSync('obd_device_id', res.data.obd_device_ids);
-            wx.hideLoading();
-            wx.navigateTo({
-                url: '../../promotion/pages/medical/medical-map'
-            });
-        });
     },
     /**
      * 生命周期函数--监听页面加载

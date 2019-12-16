@@ -1,6 +1,6 @@
 .wifi-bg {
     width: 100%;
-    background: #61b8a8;
+    background: #e60103;
     padding-top: 70px;
     padding-bottom: 70px;
     text-align: center;

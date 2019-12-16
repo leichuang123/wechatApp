@@ -6,8 +6,8 @@
 }
 
 .del-text {
-    color: #61b8a8;
-    text-align: right
+    color: #e60103;
+    text-align: right;
 }
 
 .top-line {

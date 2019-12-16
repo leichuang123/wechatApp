@@ -1,0 +1,10 @@
+.mart2 {
+    margin-top: 2px;
+}
+.auto .weui-check__label {
+    width: 80px;
+    margin: 0 auto;
+}
+.weui-input {
+    text-align: right;
+}

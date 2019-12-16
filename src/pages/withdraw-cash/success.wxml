@@ -1,7 +1,7 @@
 <view class='whole-scroll bg-white'>
     <view class='martb'>
         <view class='text-center'>
-            <icon type="success" size="38" color="#61b8a8"></icon>
+            <icon type="success" size="38" color="#E60103"></icon>
         </view>
         <view class='text-center'>提现成功</view>
     </view>

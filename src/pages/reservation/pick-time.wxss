@@ -71,8 +71,8 @@
 }
 
 .scroll-view-item__active {
-    color: #61b8a8;
-    border: 1px solid #61b8a8;
+    color: #e60103;
+    border: 1px solid #e60103;
 }
 
 ::-webkit-scrollbar {
@@ -88,6 +88,6 @@
     width: 33.33333333%;
     box-sizing: border-box;
     border: none;
-    border-right:5px solid #f4f4f4;
-    border-bottom:5px solid #f4f4f4;
+    border-right: 5px solid #f4f4f4;
+    border-bottom: 5px solid #f4f4f4;
 }

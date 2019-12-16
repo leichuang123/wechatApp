@@ -15,14 +15,15 @@
 .text-gray {
     color: gray;
 }
-.tab-menu{
+.tab-menu {
     background-color: #fff;
     text-align: center;
     font-size: 14px;
 }
-.icon-active {color: #61b8a8}
-.serivce-active{border-left: solid #61b8a8 5px;color: #61b8a8}
-
-
-
-
+.icon-active {
+    color: #e60103;
+}
+.serivce-active {
+    border-left: solid #e60103 5px;
+    color: #e60103;
+}

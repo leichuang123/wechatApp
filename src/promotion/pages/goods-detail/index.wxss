@@ -21,7 +21,7 @@
 }
 
 .reply-content {
-    color: #61b8a8;
+    color: #E60103;
 }
 
 .eavluate-content__padding {
