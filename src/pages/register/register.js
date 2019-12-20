@@ -66,6 +66,20 @@ Page({
             return;
         }
         let time = 60;
+        let interval = setInterval(() => {
+            time--;
+            this.setData({
+                codeText: time + 's后重新获取',
+                flag: true
+            });
+            if (time <= 0) {
+                clearInterval(interval);
+                this.setData({
+                    codeText: '获取验证码',
+                    flag: false
+                });
+            }
+        }, 1000);
         showLoading('提交请求中');
         api.get(
             'weapp/phonecode',
@@ -73,23 +87,13 @@ Page({
             false
         ).then(res => {
             wx.hideLoading();
-            if (res.errcode === 0) {
-                let interval = setInterval(() => {
-                    time--;
-                    this.setData({
-                        codeText: time + 's后重新获取',
-                        flag: true
-                    });
-                    if (time <= 0) {
-                        clearInterval(interval);
-                        this.setData({
-                            codeText: '获取验证码',
-                            flag: false
-                        });
-                    }
-                }, 1000);
-            } else {
+            if (res.errcode !== 0) {
                 confirmMsg('提示', res.errmsg, false);
+                clearInterval(interval);
+                this.setData({
+                    codeText: '获取验证码',
+                    flag: false
+                });
             }
         });
     },
