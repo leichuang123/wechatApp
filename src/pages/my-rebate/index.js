@@ -22,7 +22,7 @@ Page({
      */
     gotoMine: function() {
         wx.switchTab({
-            url: '/pages/mine/mine'
+            url: '/pages/index/index'
         });
     },
 

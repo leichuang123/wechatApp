@@ -1,6 +1,6 @@
 <view>
     <view>
-        <image src="../../assets/images/newBanner.png" style="width:100%;display:block" />
+        <image src="https://sh.huobanyc.com/images/weapp/newBanner.png" style="width:100%;display:block;height:200px;" />
     </view>
     <!-- <view class="area">
         <view class="weui-flex">
