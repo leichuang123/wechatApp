@@ -1,9 +1,17 @@
+.whole-scroll {
+    background-color: #ffffff;
+}
 .parl {
     padding-right: 20px;
 }
-.padLeft {
-    text-align: left;
-    padding-left: 15px;
+
+.flex_center {
+    display: flex;
+    justify-content: space-around;
+    flex: 1;
+}
+.coverd {
+    margin-left: -50px;
 }
 .weui-cell:before {
     border-top: none;
@@ -45,4 +53,9 @@
     width: 48px;
     height: 48px;
     display: block;
+}
+.svgClass {
+    width: 24px;
+    height: 24px;
+    margin-bottom: 3px;
 }

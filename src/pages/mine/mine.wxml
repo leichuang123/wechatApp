@@ -28,13 +28,13 @@
     </view>
 </view>
 <view class="weui-flex orien-list">
-    <navigator url="/pages/queue/queue" hover-class="none" class="weui-flex__item padLeft">
-        <text class="icon-group parl"></text>
-        排号单
+    <navigator url="/pages/queue/queue" hover-class="none" class="flex_center">
+        <image class="svgClass" src="../../assets/images/newIcon/rank.svg" />
+        <view class="coverd">排号单</view>
     </navigator>
-    <navigator class="weui-flex__item padLeft" url="/pages/reservation/reservation" hover-class="none">
-        <text class="icon-alarm parl"></text>
-        我的预约
+    <navigator class="flex_center" url="/pages/reservation/reservation" hover-class="none">
+        <image class="svgClass" src="../../assets/images/newIcon/reservation.svg" />
+        <view class="coverd">我的预约</view>
     </navigator>
 </view>
 <view class="weui-cells_after-title bg-white">
@@ -45,20 +45,20 @@
 </view>
 <view class="weui-cell orien-list-four bg-white fs14">
     <navigator url="/pages/order-list/order-list?type=1" hover-class="none" class="weui-cell__bd">
-        <view class="icon-wallet icon"></view>
-        待付款
+        <image class="weui-grid__icon svgClass" src="../../assets/images/newIcon/prePay.svg" />
+        <view>待付款</view>
     </navigator>
     <navigator url="/pages/order-list/order-list?type=2" hover-class="none" class="weui-cell__bd">
-        <view class="icon-credit-card icon"></view>
-        已付款
+        <image class="weui-grid__icon svgClass" src="../../assets/images/newIcon/hasPay.svg" />
+        <view>已付款</view>
     </navigator>
     <navigator url="/pages/order-list/order-list?type=3" hover-class="none" class="weui-cell__bd">
-        <view class="icon-check-square-o2 icon"></view>
-        已完成
+        <image class="weui-grid__icon svgClass" src="../../assets/images/newIcon/completed.svg" />
+        <view>已完成</view>
     </navigator>
     <navigator url="/pages/order-list/order-list?type=4" hover-class="none" class="weui-cell__bd">
-        <view class="icon-local_florist icon"></view>
-        待评价
+        <image class="weui-grid__icon svgClass" src="../../assets/images/newIcon/comment.svg" />
+        <view>待评价</view>
     </navigator>
 </view>
 <view class="weui-grids">
