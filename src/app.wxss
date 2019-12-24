@@ -480,6 +480,7 @@ button[disabled][type='yellow'][plain='flase'] {
 .radius-box {
     border-radius: 5px;
     overflow: hidden;
+    overflow-y: auto;
 }
 
 .padlr15 {
