@@ -481,6 +481,7 @@ button[disabled][type='yellow'][plain='flase'] {
     border-radius: 5px;
     overflow: hidden;
     overflow-y: auto;
+    height: 350px;
 }
 
 .padlr15 {

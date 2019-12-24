@@ -75,27 +75,29 @@
     <view class="dialog-cont">
         <view class='radius-box'>
             <view class="dialog-title">优惠券</view>
-            <block wx:for="{{unreceivedCoupons}}" wx:key="index">
-                <view class="weui-flex padlr15 borb bg-white" style="padding:15px">
-                    <view class="face-img-mine">
-                        <image src="{{item.pic_url}}" />
-                    </view>
-                    <view class="weui-flex__item">
-                        <view class="weui-flex center-item">
-                            <view class="weui-flex__item">
-                                <view class="fs18 fc-orange">{{item.name}}</view>
-                                <view class="fs13">有效期</view>
+            <view class="dialog-box">
+                <block wx:for="{{unreceivedCoupons}}" wx:key="index">
+                    <view class="weui-flex padlr15 borb bg-white" style="padding:15px">
+                        <view class="face-img-mine">
+                            <image src="{{item.pic_url}}" />
+                        </view>
+                        <view class="weui-flex__item">
+                            <view class="weui-flex center-item">
+                                <view class="weui-flex__item">
+                                    <view class="fs18 fc-orange">{{item.name}}</view>
+                                    <view class="fs13">有效期</view>
+                                </view>
+                                <view data-item="{{item}}" bindtap="onGetCoupon">
+                                    <text class="small-radius-btn">领取</text>
+                                </view>
                             </view>
-                            <view data-item="{{item}}" bindtap="onGetCoupon">
-                                <text class="small-radius-btn">领取</text>
+                            <view class="fs13 " style="color:#909399">
+                                {{item.start_time}}至{{item.end_time}}
                             </view>
                         </view>
-                        <view class="fs13 " style="color:#909399">
-                            {{item.start_time}}至{{item.end_time}}
-                        </view>
                     </view>
-                </view>
-            </block>
+                </block>
+            </view>
         </view>
         <view class="group text-center mart20">
             <icon type="cancel" size="40" color="white" bindtap="closeCouponDialog" />
