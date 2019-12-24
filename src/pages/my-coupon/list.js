@@ -46,6 +46,7 @@ Page({
             return;
         }
         this.setData({
+            'form.page': 1,
             'form.type': index,
             activeIndex: index,
             loadingVisible: true,
