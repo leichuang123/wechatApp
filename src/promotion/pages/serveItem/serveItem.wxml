@@ -1,0 +1,42 @@
+<import src="../../../common/templates/loading" />
+<view>
+    <view class="itemBox" style="height:{{boxHeight}}px">
+        <scroll-view scroll-x="true" class="scroll-view__container">
+            <view class="itemType">
+                <block wx:for="{{itemArr}}" wx:key="index">
+                    <view class="type-item {{class_id==item.class_id?'item__active':''}}" data-item="{{item}}" bindtap="typeChange">
+                        {{item.class_name}}
+                    </view>
+                </block>
+            </view>
+        </scroll-view>
+        <view class="radio-group">
+            <view wx:for-items="{{items}}" data-item="{{item}}" data-index="{{index}}" bindtap="choosse" wx:key="name" class="vip">
+                <view class="area">
+                    <radio class="radio" value="{{item.goods_id}}" checked="{{item.checked}}" color="#5677FC" disabled="{{item.shortage}}"></radio>
+                    <view class="radioMessage">
+                        <view class="flex">
+                            <view>
+                                <text class="vipname">{{item.goods_name}}</text>
+                            </view>
+                            <view>
+                                <view class="sale">{{item.sale_price}}</view>
+                                <view class="price" wx:if="{{item.sale_price !== item.ori_price}}">
+                                    {{item.ori_price}}
+                                </view>
+                            </view>
+                        </view>
+                        <view class="ins" wx:if="{{item.checked}}">{{item.goods_intro}}</view>
+                    </view>
+                </view>
+            </view>
+            <template is="loading" data="{{ loadingVisible,hasData}}" />
+            <template is="loadMore" data="{{ loadMoreVisible,hasMore,hasData}}" />
+        </view>
+    </view>
+    <view class="total">
+        <view class="all">合计金额：</view>
+        <view class="allMoney">{{allMoney}}</view>
+        <view class="totalButton">结算({{number}})</view>
+    </view>
+</view>

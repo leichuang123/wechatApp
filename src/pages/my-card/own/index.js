@@ -15,7 +15,11 @@ Page({
      * 获取我的会员卡
      */
     getCards: function() {
-        get('weapp/membercardlist').then(res => {
+        let bmsWeappStoreInfo = wx.getStorageSync('bmsWeappStoreInfo');
+        let params = {
+            merchant_id: bmsWeappStoreInfo.merchant_id
+        };
+        get('weapp/membercardlist', params).then(res => {
             if (res.errcode === 0) {
                 this.setData({
                     cards: res.data

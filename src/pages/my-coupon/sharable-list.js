@@ -16,7 +16,8 @@ Page({
         form: {
             user_id: 0,
             type: 1,
-            page: 1
+            page: 1,
+            merchant_id: 0
         }
     },
     /**
@@ -74,10 +75,12 @@ Page({
      */
     onLoad: function(options) {
         const mobile = wx.getStorageSync('systemInfo').windowWidth;
+        let bmsWeappStoreInfo = wx.getStorageSync('bmsWeappStoreInfo');
         let userData = wx.getStorageSync('userData');
         this.setData({
             sliderWidth: mobile / 4,
             'form.user_id': !!userData ? userData.id : 0,
+            'form.merchant_id': bmsWeappStoreInfo.merchant_id,
             sliderLeft: (app.globalData.windowWidth / this.data.tabs.length - this.data.sliderWidth) / 2,
             sliderOffset: (app.globalData.windowWidth / this.data.tabs.length) * this.data.activeIndex
         });

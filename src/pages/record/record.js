@@ -15,7 +15,8 @@ Page({
         tabs: ['最近三个月', '最近六个月', '最近一年'],
         form: {
             month: 3,
-            page: 1
+            page: 1,
+            merchant_id: 0
         }
     },
     /**
@@ -80,12 +81,14 @@ Page({
      */
     onLoad: function(options) {
         const mobile = wx.getStorageSync('systemInfo').windowWidth;
+        let bmsWeappStoreInfo = wx.getStorageSync('bmsWeappStoreInfo');
         this.setData({
             recordType: options.type,
             'form.month': options.month,
             sliderWidth: mobile / 3,
             sliderLeft: (app.globalData.windowWidth / this.data.tabs.length - this.data.sliderWidth) / 2,
-            sliderOffset: (app.globalData.windowWidth / this.data.tabs.length) * this.data.activeIndex
+            sliderOffset: (app.globalData.windowWidth / this.data.tabs.length) * this.data.activeIndex,
+            'form.merchant_id': bmsWeappStoreInfo.merchant_id
         });
         let title = options.type === 'bill' ? '开单记录' : options.type === 'count' ? '计次记录' : '消费记录';
         wx.setNavigationBarTitle({ title: title });

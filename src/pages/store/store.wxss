@@ -1,0 +1,141 @@
+.btn-list {
+    text-align: center;
+    padding: 10px 0 10px;
+    margin-top: 5px;
+    background: #ffffff;
+    overflow: hidden;
+}
+.btn-list .icon-border {
+    font-size: 20px;
+}
+.icon-border text {
+    font-size: 26px;
+    border: 2px solid #e60103;
+    color: #e60103;
+    border-radius: 100%;
+    padding: 10px;
+}
+.flexCenter {
+    display: flex;
+    justify-content: center;
+}
+.flexCenter image {
+    width: 50px;
+    height: 50px;
+    display: block;
+}
+.pad-top {
+    margin-top: 10px;
+    color: #4d4d4d;
+}
+.flex {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 15px;
+    background: #ffffff;
+    margin-top: 5px;
+}
+.fc-dark {
+    font-weight: 600;
+}
+.recommendList {
+    overflow: hidden;
+    padding: 10px;
+    height: 150px;
+    background: #ffffff;
+    display: flex;
+    justify-content: flex-start;
+}
+.recommendGood {
+    flex: 1;
+}
+.recommendImg image {
+    width: 90%;
+    height: 100px;
+}
+.recommendName {
+    margin-top: 5px;
+    font-size: 14px;
+    color: #101010;
+    width: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.recommendPrice {
+    font-size: 14px;
+    color: #ff0000;
+}
+.scroll-view__container {
+    width: 100%;
+    background: #ffffff;
+    white-space: nowrap;
+    margin-top: 5px;
+}
+.scroll-view-item {
+    display: inline-block;
+    padding: 5px;
+    line-height: 35px;
+    color: #373c45;
+    margin-right: 8px;
+    background-color: #fff;
+    margin-left: 8px;
+    font-size: 14px;
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.scroll-view-item__active {
+    color: #e60103;
+    border-bottom: 1px solid #e60103;
+}
+.goodList {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 6px;
+}
+.goods {
+    background-color: #ffffff;
+    width: 49%;
+    height: 245px;
+    border-radius: 5px;
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0);
+    margin-bottom: 6px;
+    overflow: hidden;
+    box-sizing: border-box;
+    padding: 5px;
+}
+.goodImg image {
+    width: 98%;
+    height: 150px;
+}
+.goodIns {
+    width: 100%;
+    font-size: 14px;
+    color: #101010;
+    height: 40px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: left;
+}
+.goodOther {
+    margin-top: 8px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+.buy {
+    width: 40px;
+    height: 20px;
+    line-height: 20px;
+    border-radius: 2px;
+    background-color: rgba(230, 1, 3, 1);
+    color: rgba(255, 255, 255, 1);
+    font-size: 12px;
+    text-align: center;
+    font-family: Roboto;
+}

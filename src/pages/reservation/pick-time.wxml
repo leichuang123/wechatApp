@@ -6,17 +6,21 @@
         </view>
     </block>
 </scroll-view>
-<time-picker second-visible="{{secondVisible}}" initial-time="{{initialTime}}" bind:timechange="timeChange"></time-picker>
-<view class="weui-flex bg-white reserve-top">
-    <view class="weui-flex__item">
-        <label class="solid-rectangle"></label>表示预约已满
-    </view>
-    <view class="weui-flex__item">
-        <label class="hollow-rectangle"></label>表示可以预约
+<!-- <time-picker second-visible="{{secondVisible}}" initial-time="{{initialTime}}" bind:timechange="timeChange"></time-picker> -->
+<view class='times clearfix text-center'>
+    <view class="weui-grid fs14 bg-white {{!item.status?'time-red':''}} {{timeIndex==index? 'timeActive' :''}}" wx:for="{{timetable}}" wx:key="index" data-item="{{item}}" data-index="{{index}}" bindtap="timeChange">
+        {{item.hour}}
     </view>
 </view>
-<view class='times clearfix text-center'>
-    <view class="weui-grid fs14 bg-white {{!item.status?'time-red':''}}" wx:for="{{timetable}}" wx:key="index">{{item.hour}}</view>
+<view class="weui-flex reserve-top">
+    <view class="weui-flex__item">
+        <label class="solid-rectangle"></label>
+        表示预约已满
+    </view>
+    <view class="weui-flex__item">
+        <label class="hollow-rectangle"></label>
+        表示可以预约
+    </view>
 </view>
 <view class="weui-btn-area">
     <button class="weui-btn" type="primary" bindtap="saveTime">确定</button>

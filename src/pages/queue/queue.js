@@ -11,20 +11,23 @@ Page({
      * 获取排队单号详情
      */
     getQueueInfo: function() {
-        api.get('weapp/queue', { car_numbers: this.data.carNumbers }).then(res => {
-            if (res.errcode === 0) {
+        let bmsWeappStoreInfo = wx.getStorageSync('bmsWeappStoreInfo');
+        api.get('weapp/queue', { car_numbers: this.data.carNumbers, store_id: bmsWeappStoreInfo.store_id }).then(
+            res => {
+                if (res.errcode === 0) {
+                    this.setData({
+                        queueInfo: res.data,
+                        loadingVisible: false
+                    });
+                    return;
+                }
                 this.setData({
-                    queueInfo: res.data,
-                    loadingVisible: false
+                    queueInfo: [],
+                    loadingVisible: false,
+                    hasData: false
                 });
-                return;
             }
-            this.setData({
-                queueInfo: [],
-                loadingVisible: false,
-                hasData: false
-            });
-        });
+        );
     },
     /**
      * 取消排队

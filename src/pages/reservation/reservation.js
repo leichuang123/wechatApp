@@ -13,7 +13,8 @@ Page({
         activeIndex: 0,
         reservations: [],
         form: {
-            type: 1
+            type: 1,
+            store_id: 0
         }
     },
     /**
@@ -71,7 +72,7 @@ Page({
      */
     cancelReservation: function(id) {
         showLoading('提交请求中');
-        api.post('weapp/cancelreserve', { id: id }).then(res => {
+        api.post('weapp/cancelreserve', { id: id, store_id: this.data.store_id }).then(res => {
             wx.hideLoading();
             if (res.errcode === 0) {
                 toastMsg('取消成功!', 'success', 1000, () => {
@@ -95,10 +96,12 @@ Page({
      */
     onLoad: function(options) {
         const mobile = wx.getStorageSync('systemInfo').windowWidth;
+        let bmsWeappStoreInfo = wx.getStorageSync('bmsWeappStoreInfo');
         this.setData({
             sliderWidth: mobile / 3,
             sliderLeft: (app.globalData.windowWidth / this.data.tabs.length - this.data.sliderWidth) / 2,
-            sliderOffset: (app.globalData.windowWidth / this.data.tabs.length) * this.data.activeIndex
+            sliderOffset: (app.globalData.windowWidth / this.data.tabs.length) * this.data.activeIndex,
+            'form.store_id': bmsWeappStoreInfo.store_id
         });
         this.getReservations();
     }

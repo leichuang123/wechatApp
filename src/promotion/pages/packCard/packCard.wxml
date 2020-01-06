@@ -1,0 +1,34 @@
+<import src="../../../common/templates/loading" />
+<view>
+    <view class="radio-group">
+        <view wx:for-items="{{items}}" data-item="{{item}}" data-index="{{index}}" bindtap="choosse" wx:key="name" class="vip">
+            <view class="area">
+                <radio class="radio" value="{{item.value}}" checked="{{item.checked}}" color="#5677FC" disabled="{{item.disabled}}"></radio>
+                <view class="radioMessage">
+                    <view class="flex">
+                        <view>
+                            <text class="vipname">{{item.package_name}}</text>
+                        </view>
+                        <view>
+                            <view class="sale">{{item.sale_price}}</view>
+                            <view class="price" wx:if="{{item.sale_price !== item.ori_price}}">
+                                {{item.sale_price}}
+                            </view>
+                        </view>
+                    </view>
+                    <view class="expirse" wx:if="{{item.checked}}">
+                        使用期限：{{item.term_of_validity}}
+                    </view>
+                    <view class="ins" wx:if="{{item.checked}}">{{item.package_intro}}</view>
+                </view>
+            </view>
+        </view>
+    </view>
+    <template is="loading" data="{{ loadingVisible,hasData}}" />
+    <template is="loadMore" data="{{ loadMoreVisible,hasMore,hasData}}" />
+    <view class="total">
+        <view class="all">合计金额：</view>
+        <view class="allMoney">{{allMoney}}</view>
+        <view class="totalButton">结算({{number}})</view>
+    </view>
+</view>

@@ -9,7 +9,11 @@ Page({
      * 获取股东账户列表
      */
     getAccounts: function() {
-        get('weapp/get-shareholder').then(res => {
+        let bmsWeappStoreInfo = wx.getStorageSync('bmsWeappStoreInfo');
+        let params = {
+            merchant_id: bmsWeappStoreInfo.merchant_id
+        };
+        get('weapp/get-shareholder', params).then(res => {
             if (res.errcode === 0) {
                 this.setData({
                     accounts: res.data

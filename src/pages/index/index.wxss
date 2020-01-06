@@ -23,7 +23,12 @@
     margin-top: 10px;
     color: #4d4d4d;
 }
-
+.mine-icon {
+    color: #353535;
+}
+.smallFont {
+    font-size: 12px;
+}
 .btn-list .icon-border {
     font-size: 20px;
 }

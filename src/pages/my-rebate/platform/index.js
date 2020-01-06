@@ -9,8 +9,12 @@ Page({
      * 获取用余额和户累计获得佣金
      */
     getBalanceWithAccumulatedBrokerage: function() {
+        let bmsWeappStoreInfo = wx.getStorageSync('bmsWeappStoreInfo');
+        let params = {
+            merchant_id: bmsWeappStoreInfo.merchant_id
+        };
         showLoading();
-        get('weapp/balance-with-brokerage').then(res => {
+        get('weapp/balance-with-brokerage', params).then(res => {
             wx.hideLoading();
             if (res.errcode === 0) {
                 this.setData({ brokerage: res.data.accumulated_brokerage, balance: res.data.balance });

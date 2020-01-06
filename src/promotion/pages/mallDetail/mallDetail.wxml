@@ -1,0 +1,79 @@
+<import src="../../../common/templates/loading" />
+<import src="../../../assets/plugins/wxParse/wxParse.wxml" />
+<view>
+    <view class="detail-benner">
+        <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
+            <block wx:for="{{goodImg}}" wx:key="index">
+                <swiper-item>
+                    <image src="{{host+item}}" />
+                </swiper-item>
+            </block>
+        </swiper>
+    </view>
+    <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell">
+            <view class="weui-cell__bd">
+                <text>{{goodInfo.goods_name}}</text>
+                <view class="goods_intro">{{goodInfo.goods_intro}}</view>
+                <view class="l-height">
+                    <text class="sale_price">¥{{goodInfo.sale_price}}</text>
+                    <text class="ori_price">{{goodInfo.ori_price}}</text>
+                </view>
+            </view>
+            <view class="navigation-width">
+                <view>已售{{goodInfo.already_num}}</view>
+            </view>
+        </view>
+    </view>
+    <view>
+        <view class='weui-cell top-menu' bindtap="changView">
+            <view data-index="0" class="weui-cell__bd {{activeIndex==0?'cur':''}}">详情</view>
+            <view data-index="1" class="weui-cell__bd {{activeIndex==1?'cur':''}}">评论</view>
+        </view>
+        <view wx-if='{{activeIndex==0}}' class="wx-parse__detail fs15 light-black" style="background:#ffffff;padding:5px;min-height:100px">
+            <template is="wxParse" data="{{wxParseData:detail.nodes}}" />
+        </view>
+        <scroll-view wx-if='{{activeIndex==1}}' scroll-y style="position:relative" scroll-top="{{scrollTop}}" bindscrolltolower="loadMore">
+            <block wx:for="{{comment}}" wx:key="index">
+                <view class="weui-panel">
+                    <view class="weui-media-box weui-media-box_small-appmsg">
+                        <view class="weui-cells weui-cells_in-small-appmsg">
+                            <view class="weui-cell">
+                                <view class="weui-cell__hd">
+                                    <image src="{{item.avatar}}" class="face-img-mine" />
+                                </view>
+                                <view class="weui-cell__bd">
+                                    <view class="weui-flex">
+                                        <view class="weui-flex__item small-size">
+                                            {{item.mobile}}
+                                        </view>
+                                        <view class="weui-flex__item small-size">
+                                            <block wx:for="{{5}}" wx:for-item="it" wx:for-index="i" wx:key="i">
+                                                <text wx:if="{{item.star<it+0.5}}" class="icon-star-full light-grey"></text>
+                                                <text wx:if="{{item.star>=it+0.5&&item.star<it+1}}" class="icon-star-half fc-orange"></text>
+                                                <text wx:if="{{item.star>=it+1}}" class="icon-star-full fc-orange"></text>
+                                            </block>
+                                        </view>
+                                        <view class="small-size">{{item.time}}</view>
+                                    </view>
+                                </view>
+                            </view>
+                            <view class="eavluate-content__padding">
+                                <view class="eavluate-content__margin small-size">
+                                    {{item.content}}
+                                </view>
+                                <block wx:for="{{item.pic_url}}" wx:for-item="pic" wx:for-index="i" wx:key="i">
+                                    <view class="img-box">
+                                        <image src="{{pic}}" />
+                                    </view>
+                                </block>
+                            </view>
+                        </view>
+                    </view>
+                </view>
+            </block>
+            <template is="loadMore" data="{{ loadMoreVisible,hasMore,hasData}}" />
+            <template is="loading" data="{{ loadingVisible,hasData}}" />
+        </scroll-view>
+    </view>
+</view>

@@ -80,7 +80,8 @@
         "pages/construction-case/category",
         "pages/construction-case/detail",
         "pages/my-reminding/index",
-        "pages/my-reminding/edit"
+        "pages/my-reminding/edit",
+        "pages/store/store"
     ],
     "subPackages": [
         {
@@ -114,7 +115,12 @@
                 "pages/fence-list/add-fence",
                 "pages/shareholders/shareholders",
                 "pages/shareholders/add",
-                "pages/shareholders/addSuccess"
+                "pages/shareholders/addSuccess",
+                "pages/recommendList/recommendList",
+                "pages/vipCard/vipCard",
+                "pages/packCard/packCard",
+                "pages/serveItem/serveItem",
+                "pages/mallDetail/mallDetail"
             ]
         }
     ],
@@ -137,10 +143,10 @@
                 "selectedIconPath": "assets/images/home-active.png"
             },
             {
-                "pagePath": "pages/promotion/index",
-                "text": "促销活动",
-                "iconPath": "assets/images/promotion.png",
-                "selectedIconPath": "assets/images/promotion-active.png"
+                "pagePath": "pages/store/store",
+                "text": "商城",
+                "iconPath": "assets/images/store.png",
+                "selectedIconPath": "assets/images/storeActive.png"
             },
             {
                 "pagePath": "pages/mine/mine",

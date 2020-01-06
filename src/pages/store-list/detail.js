@@ -132,14 +132,14 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function(options) {
-        const storeData = JSON.parse(options.storeData);
+        //const storeData = JSON.parse(options.storeData);
         const userData = wx.getStorageSync('userData');
         this.setData({
-            serviceType: storeData.fromPage,
-            storeForm: storeData,
-            'form.store_id': storeData.storeId,
+            serviceType: options.fromPage,
+            storeForm: options,
+            'form.store_id': options.storeId,
             'form.registered': !!userData && userData.registered,
-            'form.merchant_id': storeData.merchantId
+            'form.merchant_id': options.merchantId
         });
     },
     /**

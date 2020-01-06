@@ -8,8 +8,12 @@ Page({
      * 获取用户累计获得佣金
      */
     getAccumulatedIncome: function() {
+        let bmsWeappStoreInfo = wx.getStorageSync('bmsWeappStoreInfo');
+        let params = {
+            merchant_id: bmsWeappStoreInfo.merchant_id
+        };
         showLoading();
-        get('weapp/accumulated-income').then(res => {
+        get('weapp/accumulated-income', params).then(res => {
             wx.hideLoading();
             if (res.errcode === 0) {
                 this.setData({ income: res.data });

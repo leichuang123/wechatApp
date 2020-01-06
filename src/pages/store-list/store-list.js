@@ -1,4 +1,5 @@
 import api from '../../utils/api';
+import { showLoading, toastMsg } from '../../utils/util';
 const app = getApp();
 Page({
     data: {
@@ -230,13 +231,11 @@ Page({
      */
     getSubTypes: function(e) {
         const index = e.currentTarget.dataset.index;
-        console.log(index);
         const items = this.data.serviceClasses.map((n, i) => {
             return Object.assign({}, n, {
                 checked: i == index
             });
         });
-        console.log(items);
         if (items[index].children === undefined || items[index].children.length === 0) {
             this.setData({
                 subTypes: [],
@@ -269,21 +268,31 @@ Page({
         });
     },
     /**
-     * 跳转到门店详情页
+     * 切换门店
      */
     gotoDetail: function(e) {
-        let item = e.currentTarget.dataset.item,
-            storeData = JSON.stringify({
-                storeId: item.sid,
-                merchantId: item.merchans_id,
-                fromPage: this.data.form.fromPage,
-                latitude: this.data.form.latitude,
-                longitude: this.data.form.longitude
-            });
+        let item = e.currentTarget.dataset.item;
         item.status = item.wait >= 0 ? true : false;
         wx.setStorageSync('currentStore', item);
-        wx.navigateTo({
-            url: '/pages/store-list/detail?storeData=' + storeData
+        let bmsWeappStoreInfo = {
+            store_id: item.sid,
+            merchant_id: item.merchans_id,
+            store_name: item.store_name,
+            distance: item.distance
+        };
+        showLoading();
+        api.get('/weapp/change-select-store', { store_id: item.sid }).then(res => {
+            wx.hideLoading();
+            if (res.errcode !== 0) {
+                toastMsg(res.errmsg, 'error');
+                return;
+            }
+            toastMsg('门店切换成功', 'success', 1000, () => {
+                wx.setStorageSync('bmsWeappStoreInfo', bmsWeappStoreInfo);
+                wx.reLaunch({
+                    url: '/pages/index/index?from=list'
+                });
+            });
         });
     },
     /**
@@ -305,17 +314,12 @@ Page({
         const locationInfo = wx.getStorageSync('locationInfo');
         const selectedCity = wx.getStorageSync('selectedCity');
         this.setData({
-            'form.fromPage': options.fromPage,
             'form.latitude': locationInfo.latitude,
             'form.longitude': locationInfo.longitude,
             'form.cityId': selectedCity.code,
             'form.auth_type': app.globalData.extConfig.auth_type || 1,
             'form.auth_related_id': app.globalData.extConfig.auth_related_id || 1,
-            'selectedArea.name': selectedCity.name,
-            'selectedServiceClass.name': options.fromPage === 'queue' ? '洗车美容' : '全部分类'
-        });
-        wx.setNavigationBarTitle({
-            title: options.fromPage === 'queue' ? '排队取号' : '预约保养'
+            'selectedArea.name': selectedCity.name
         });
         this.getStoresWithClass();
     },

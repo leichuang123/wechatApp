@@ -20,14 +20,14 @@
         <view class="weui-cell weui-cell_access" bindtap="onChooseCategory">
             <view class="weui-cell__bd">
                 <text class="fc-red">*</text>
-                服务类型
+                预约服务类型
             </view>
             <view class="weui-cell__ft weui-cell__ft_in-access text-black">{{cateName}}</view>
         </view>
         <view class="weui-cell">
             <view class="weui-cell__bd">
                 <text class="star-hidden">*</text>
-                行驶里程
+                当前里程数
             </view>
             <view class="weui-cell__ft text-black">
                 <input placeholder="" type="digit" data-name="traveled" bindblur="getInputValue" />

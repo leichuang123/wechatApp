@@ -19,7 +19,8 @@ Page({
             auth_type: 0,
             auth_related_id: 0,
             type: 0, //1待付款，2已付款，3已完成，4退款
-            page: 1
+            page: 1,
+            merchant_id: 0
         },
         updateForm: {
             order_id: '',
@@ -217,10 +218,12 @@ Page({
      */
     onLoad: function(options) {
         const systemInfo = wx.getStorageSync('systemInfo');
+        let bmsWeappStoreInfo = wx.getStorageSync('bmsWeappStoreInfo');
         this.setData({
             'orderForm.auth_type': app.globalData.extConfig.auth_type || 0,
             'orderForm.auth_related_id': app.globalData.extConfig.auth_related_id || 0,
             'orderForm.type': options.type,
+            'orderForm.merchant_id': bmsWeappStoreInfo.merchant_id,
             sliderLeft: (systemInfo.windowWidth / this.data.tabs.length - sliderWidth) / 2,
             sliderOffset: (systemInfo.windowWidth / this.data.tabs.length) * options.type
         });

@@ -15,7 +15,8 @@ Page({
         tabs: ['待领取', '未使用', '已使用', '已过期'],
         form: {
             type: 0,
-            page: 1
+            page: 1,
+            merchant_id: 0
         }
     },
     /**
@@ -70,13 +71,15 @@ Page({
         }
     },
     initData: function() {
-        this.getCoupons();
+        let bmsWeappStoreInfo = wx.getStorageSync('bmsWeappStoreInfo');
         const mobile = wx.getStorageSync('systemInfo').windowWidth;
         this.setData({
+            'form.merchant_id': bmsWeappStoreInfo.merchant_id,
             sliderWidth: mobile / 4,
             sliderLeft: (app.globalData.windowWidth / this.data.tabs.length - this.data.sliderWidth) / 2,
             sliderOffset: (app.globalData.windowWidth / this.data.tabs.length) * this.data.activeIndex
         });
+        this.getCoupons();
     },
     /**
      * 生命周期函数--监听页面加载

@@ -8,12 +8,11 @@ Page({
         hasData: true,
         hasMore: true,
         loadMoreVisible: false,
-        collected: false,
         activeIndex: 0,
         storeInfo: {},
         evaluations: [],
         storeId: 0,
-        scrollHeight:0,
+        scrollHeight: 0,
         scrollTop: 59,
         form: {
             storeId: 0,
@@ -28,18 +27,6 @@ Page({
         }
     },
     /**
-     * 定位
-     */
-    openLocation: function() {
-        openLocation({
-            latitude: parseFloat(this.data.storeInfo.store_lati),
-            longitude: parseFloat(this.data.storeInfo.store_long),
-            scale: 18,
-            name: this.data.storeInfo.store_name,
-            address: this.data.storeInfo.store_address
-        });
-    },
-    /**
      * 获取门店简介
      */
     getStoreInfo: function() {
@@ -48,8 +35,7 @@ Page({
             wx.hideLoading();
             if (res.errcode === 0) {
                 this.setData({
-                    storeInfo: res.data,
-                    collected: res.data.favorite_status
+                    storeInfo: res.data
                 });
             }
         });
@@ -88,21 +74,6 @@ Page({
             evaluations: []
         });
         index == 0 ? this.getStoreInfo() : this.getEvaluations();
-    },
-    /**
-     * 收藏与取消
-     */
-    switchCollection: function() {
-        let operation = !this.data.collected ? 'addfavor' : 'delfavor';
-        api.post('weapp/' + operation, { store_id: this.data.storeId }).then(res => {
-            if (res.errcode === 0) {
-                this.setData({
-                    collected: !this.data.collected
-                });
-            } else {
-                toastMsg(res.errmsg, 'error');
-            }
-        });
     },
     /**
      * 打电话
@@ -151,7 +122,7 @@ Page({
             form: storeData,
             'evaluationForm.store_id': storeData.storeId,
             'form.user_avatar': wxUserInfo.avatar || '',
-            scrollHeight: systemInfo.windowHeight,
+            scrollHeight: systemInfo.windowHeight
         });
         storeData.type == 0 ? this.getStoreInfo() : this.getEvaluations();
     },

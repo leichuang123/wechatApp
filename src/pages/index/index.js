@@ -8,13 +8,24 @@ Page({
         city: '',
         queues: [],
         reservations: [],
-        unreceivedCoupons: []
+        unreceivedCoupons: [],
+        bmsWeappStoreInfo: {
+            store_id: '',
+            merchant_id: '',
+            oem_id: '',
+            store_name: '',
+            distance: ''
+        }
     },
     /**
      * 获取首页信息
      */
     getIndexInfo: function() {
-        api.get('weapp/indexinfo', {}, false).then(res => {
+        let bmsWeappStoreInfo = wx.getStorageSync('bmsWeappStoreInfo');
+        let params = {
+            store_id: bmsWeappStoreInfo.store_id
+        };
+        api.get('weapp/indexinfo', params, false).then(res => {
             if (res.errcode === 0) {
                 this.setData({
                     queues: !res.data.queues ? [] : res.data.queues,
@@ -32,6 +43,7 @@ Page({
      * 定位
      */
     getLocation: function() {
+        showLoading();
         getLocation({
             type: 'wgs84'
         })
@@ -41,6 +53,7 @@ Page({
                     longitude: res.longitude
                 };
                 api.get('weapp/getcityinfo', locationInfo, false).then(res => {
+                    wx.hideLoading();
                     const selectedCity = wx.getStorageSync('selectedCity');
                     if (res.errcode === 0) {
                         locationInfo.adcode = res.data.ad_info.adcode;
@@ -49,6 +62,12 @@ Page({
                         );
                         locationInfo.city = res.data.ad_info.city;
                         locationInfo.district = res.data.ad_info.district;
+                        //储存定位获取的最近的门店信息
+                        let bmsWeappStoreInfo = res.data.store_info;
+                        this.setData({
+                            bmsWeappStoreInfo: bmsWeappStoreInfo
+                        });
+                        wx.setStorageSync('bmsWeappStoreInfo', bmsWeappStoreInfo);
                         wx.setStorageSync('locationInfo', locationInfo);
                         const locatedCity = res.data.ad_info.city;
                         if (locatedCity !== selectedCity.name) {
@@ -82,6 +101,7 @@ Page({
                 });
             })
             .catch(res => {
+                wx.hideLoading();
                 wx.setStorageSync('locationInfo', app.globalData.defaultLocation);
             });
     },
@@ -129,7 +149,6 @@ Page({
         } else {
             this.getIndexInfo();
         }
-
         const selectedCity = wx.getStorageSync('selectedCity');
         this.setData({
             city: !selectedCity ? '请选择' : selectedCity.name
@@ -140,11 +159,32 @@ Page({
             });
         }
     },
+    //选择门店
+    selectStore() {
+        wx.navigateTo({
+            url: '/pages/store-list/store-list'
+        });
+    },
     /**
      * 生命周期函数--监听页面加载
      */
     onLoad: function(options) {
-        this.getLocation();
+        //首页首次进入
+        if (options.from !== 'list') {
+            this.getLocation();
+            return;
+        }
+        //从选择门店选择门店后进入
+        if (options.from == 'list') {
+            let bmsWeappStoreInfo = wx.getStorageSync('bmsWeappStoreInfo');
+            if (!bmsWeappStoreInfo) {
+                this.getLocation();
+                return;
+            }
+            this.setData({
+                bmsWeappStoreInfo: bmsWeappStoreInfo
+            });
+        }
     },
     onShow: function() {
         this.initData();

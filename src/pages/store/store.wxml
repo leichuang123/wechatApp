@@ -1,0 +1,68 @@
+<import src="../../common/templates/loading" />
+<view>
+    <view>
+        <image src="https://sh.huobanyc.com/images/weapp/newBanner.png" style="width:100%;display:block;height:185px;" />
+    </view>
+    <view class="btn-list">
+        <view class="weui-flex">
+            <navigator url="../../promotion/pages/vipCard/vipCard" hover-class="none" class="weui-flex__item">
+                <view class="icon-border  flexCenter">
+                    <image src="../../assets/images/newIcon/vipCard.png" />
+                </view>
+                <view class="pad-top">VIP卡</view>
+            </navigator>
+            <navigator url="../../promotion/pages/packCard/packCard" hover-class="none" class="weui-flex__item">
+                <view class="icon-border  flexCenter">
+                    <image src="../../assets/images/newIcon/packCard.png" />
+                </view>
+                <view class="pad-top">套餐卡</view>
+            </navigator>
+            <navigator url="../../promotion/pages/serveItem/serveItem" hover-class="none" class="weui-flex__item">
+                <view class="icon-border flexCenter">
+                    <image src="../../assets/images/newIcon/serveCard.png" />
+                </view>
+                <view class="pad-top">服务项目</view>
+            </navigator>
+        </view>
+    </view>
+    <view class="weui-cell_access flex">
+        <view class="weui-cell__bd">
+            <text class="fc-dark">推荐商品</text>
+        </view>
+        <view class="weui-cell__ft weui-cell__ft_in-access" bindtap="seeMore">更多</view>
+    </view>
+    <view class="recommendList">
+        <view wx:for="{{recommendList}}" class="recommendGood" wx:key="index" data-item="{{item}}" bindtap="seeDetail">
+            <view class="recommendImg">
+                <block>
+                    <image wx:if="{{item.goods_img}}" src="{{host+item.goods_img}}" />
+                </block>
+            </view>
+            <view class="recommendName">{{item.goods_name}}</view>
+            <view class="recommendPrice">{{item.sale_price}}</view>
+        </view>
+    </view>
+    <scroll-view scroll-x="true" class="scroll-view__container">
+        <block wx:for="{{type}}" wx:key="index">
+            <view class="scroll-view-item {{first_class_id==item.goods_class_id?'scroll-view-item__active':''}}" data-item="{{item}}" bindtap="typeChange">
+                {{item.goods_class_name}}
+            </view>
+        </block>
+    </scroll-view>
+    <view class="goodList">
+        <view class="goods" wx:for="{{goodList}}" wx:key="index" data-item="{{item}}" bindtap="seeDetail">
+            <view class="goodImg">
+                <block>
+                    <image wx:if="{{item.goods_img}}" src="{{host+item.goods_img}}" />
+                </block>
+            </view>
+            <view class="goodIns">{{item.goods_name}}</view>
+            <view class="goodOther">
+                <view class="recommendPrice">{{item.sale_price}}</view>
+                <view class="buy">购买</view>
+            </view>
+        </view>
+        <template is="loading" data="{{ loadingVisible,hasData}}" />
+        <template is="loadMore" data="{{ loadMoreVisible,hasMore,hasData}}" />
+    </view>
+</view>

@@ -25,7 +25,9 @@
                     </view>
                 </block>
                 <view class="take-number">
-                    <button class="weui-btn mini-btn" type="primary" size="mini" bindtap="gotoQueue">排队取号</button>
+                    <button class="weui-btn mini-btn" type="primary" size="mini" bindtap="gotoQueue">
+                        排队取号
+                    </button>
                 </view>
             </view>
             <view class='station-list' wx:if="{{storeInfo.waitMsg!==''}}">
@@ -43,18 +45,26 @@
                 </view>
                 <view class="weui-flex">
                     <view class="weui-flex__item">今天</view>
-                    <view class="weui-flex__item">{{storeInfo.reserveInfo.today?storeInfo.reserveInfo.today:0}}台</view>
+                    <view class="weui-flex__item">
+                        {{storeInfo.reserveInfo.today?storeInfo.reserveInfo.today:0}}台
+                    </view>
                 </view>
                 <view class="weui-flex">
                     <view class="weui-flex__item">明天</view>
-                    <view class="weui-flex__item">{{storeInfo.reserveInfo.tomorrow?storeInfo.reserveInfo.tomorrow:0}}台</view>
+                    <view class="weui-flex__item">
+                        {{storeInfo.reserveInfo.tomorrow?storeInfo.reserveInfo.tomorrow:0}}台
+                    </view>
                 </view>
                 <view class="weui-flex">
                     <view class="weui-flex__item">后天</view>
-                    <view class="weui-flex__item">{{storeInfo.reserveInfo.aftertomorrow?storeInfo.reserveInfo.aftertomorrow:0}}台</view>
+                    <view class="weui-flex__item">
+                        {{storeInfo.reserveInfo.aftertomorrow?storeInfo.reserveInfo.aftertomorrow:0}}台
+                    </view>
                 </view>
                 <view class="take-number reserve-dotted">
-                    <button class="weui-btn mini-btn reserve-btn" type="primary" size="mini" bindtap="gotoReservation">预约</button>
+                    <button class="weui-btn mini-btn reserve-btn" type="primary" size="mini" bindtap="gotoReservation">
+                        预约
+                    </button>
                 </view>
             </view>
         </view>
@@ -64,7 +74,9 @@
             <view class="weui-cell__bd">
                 <text>{{storeInfo.store_name}}</text>
                 <view class="l-height">
-                    <text class="direct-sale">{{storeInfo.store_sattri}}</text>总销量：{{storeInfo.sale_count}} 总评价：{{storeInfo.evaluate_count}}</view>
+                    <text class="direct-sale">{{storeInfo.store_sattri}}</text>
+                    总销量：{{storeInfo.sale_count}} 总评价：{{storeInfo.evaluate_count}}
+                </view>
                 <view class="tags">
                     <text wx:for="{{storeInfo.store_tags}}" wx:key="index">{{item}}</text>
                 </view>
@@ -78,21 +90,27 @@
         </view>
         <view class="weui-cell" bindtap="openLocation">
             <view class="weui-cell__bd fs15">
-                <text class="icon-map-marker mine-icon"></text>{{storeInfo.store_address}}</view>
-                <view class="weui-cell__ft weui-cell__ft_in-access"></view>
+                <text class="icon-map-marker mine-icon"></text>
+                {{storeInfo.store_address}}
+            </view>
+            <view class="weui-cell__ft weui-cell__ft_in-access"></view>
         </view>
         <view data-tel="{{storeInfo.contact}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active" bindtap="call">
             <view class="weui-cell__bd fs15">
-                <text class="icon-phone mine-icon"></text>{{storeInfo.contact}}</view>
+                <text class="icon-phone mine-icon"></text>
+                {{storeInfo.contact}}
+            </view>
             <view class="weui-cell__ft weui-cell__ft_in-access"></view>
         </view>
         <view class="weui-cell  weui-cell_access">
             <view class="weui-cell__bd fs15">
-                <text class="icon-alarm mine-icon"></text>营业时间：{{storeInfo.opening_hours}}</view>
+                <text class="icon-alarm mine-icon"></text>
+                营业时间：{{storeInfo.opening_hours}}
+            </view>
         </view>
     </view>
     <view class="bg-white">
-        <view class="btn-list">
+        <!-- <view class="btn-list">
             <view class="weui-flex">
                 <view url="" hover-class="none" class="weui-flex__item" bindtap="gotoStorePromotion">
                     <view class="icon-border automobile-border">
@@ -106,28 +124,28 @@
                     </view>
                     <view class="pad-top">服务项目</view>
                 </view>
+            </view>
+        </view> -->
+        <view class="btn-list">
+            <view class="weui-flex">
                 <view class="weui-flex__item" data-type="1" bindtap="gotoStoreEvaluation">
                     <view class="icon-border maximize-border">
-                        <image src='../../assets/images/store-evaluation.png' class='icon-width'></image>
+                        <image src='../../assets/images/store-evaluation.png' class='icon-width2'></image>
                     </view>
                     <view class="pad-top">门店评价</view>
                 </view>
-            </view>
-        </view>
-        <view class="btn-list">
-            <view class="weui-flex">
                 <navigator url="/pages/construction-case/index?merchantId={{storeInfo.merchant_id}}&storeId={{storeInfo.store_id}}" hover-class="none" class="weui-flex__item">
                     <view class="icon-border automobile-border">
                         <image src='../../assets/images/construction-case.png' class='icon-width2'></image>
                     </view>
                     <view class="pad-top">施工案例</view>
                 </navigator>
-                <navigator url="/pages/complaint/index?merchantId={{storeInfo.merchant_id}}&storeId={{storeInfo.store_id}}" hover-class="none" class="weui-flex__item">
+                <!-- <navigator url="/pages/complaint/index?merchantId={{storeInfo.merchant_id}}&storeId={{storeInfo.store_id}}" hover-class="none" class="weui-flex__item">
                     <view class="icon-border calendar2-border">
                         <image src='../../assets/images/recommendations.png' class='icon-width2'></image>
                     </view>
                     <view class="pad-top">投诉建议</view>
-                </navigator>
+                </navigator> -->
                 <navigator url="/pages/wifi/index?storeId={{storeInfo.store_id}}" class="weui-flex__item" hover-class="none">
                     <view class="icon-border maximize-border">
                         <image src='../../assets/images/free-wifi.png' class='icon-width2'></image>

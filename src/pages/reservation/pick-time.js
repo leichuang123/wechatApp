@@ -5,6 +5,7 @@ Page({
     data: {
         secondVisible: false,
         dayIndex: 0,
+        timeIndex: null,
         datetime: '',
         days: [],
         timetable: [],
@@ -42,8 +43,15 @@ Page({
      * 监听预约时间的改变
      */
     timeChange: function(e) {
+        const index = e.currentTarget.dataset.index;
+        let row = e.currentTarget.dataset.item;
+        if (!row.status) {
+            confirmMsg('提示', '所选时间预约已满', false);
+            return;
+        }
         this.setData({
-            datetime: this.data.timetableForm.date + ' ' + e.detail.time
+            datetime: this.data.timetableForm.date + ' ' + row.hour,
+            timeIndex: index
         });
     },
     /**
@@ -78,33 +86,42 @@ Page({
      * 保存选择的预约时间
      */
     saveTime: function() {
+        if (!this.data.datetime) {
+            confirmMsg('提示', '请选择预约时间段', false);
+            return;
+        }
         const pages = getCurrentPages();
         const prevPage = pages[pages.length - 2];
-        const item = this.data.timetable;
-        const len = item.length;
-        if (getDate() == this.data.timetableForm.date && this.data.datetime.substr(11, 2) < formatNumber(currentHour)) {
-            confirmMsg('提示', '所选时间小于当前时间', false);
-        } else if (
-            this.data.datetime.substr(11, 2) < item[0].hour.substr(0, 2) ||
-            this.data.datetime.substr(11, 2) >= item[len - 1].hour.substr(6, 2)
-        ) {
-            confirmMsg('提示', '所选时间不在预约时间范围内', false);
-        } else {
-            if (item.some(this.isTimeInRange)) {
-                if (!item[this.data.timeIndex].status) {
-                    confirmMsg('提示', '该时间段预约已满', false);
-                } else {
-                    prevPage.setData({
-                        'form.reserve_time': this.data.datetime
-                    });
-                    wx.navigateBack({
-                        delta: 1
-                    });
-                }
-            } else {
-                confirmMsg('提示', '所选时间不在预约时间范围内', false);
-            }
-        }
+        prevPage.setData({
+            'form.reserve_time': this.data.datetime
+        });
+        wx.navigateBack({
+            delta: 1
+        });
+        // const len = item.length;
+        // if (getDate() == this.data.timetableForm.date && this.data.datetime.substr(11, 2) < formatNumber(currentHour)) {
+        //     confirmMsg('提示', '所选时间小于当前时间', false);
+        // } else if (
+        //     this.data.datetime.substr(11, 2) < item[0].hour.substr(0, 2) ||
+        //     this.data.datetime.substr(11, 2) >= item[len - 1].hour.substr(6, 2)
+        // ) {
+        //     confirmMsg('提示', '所选时间不在预约时间范围内', false);
+        // } else {
+        //     if (item.some(this.isTimeInRange)) {
+        //         if (!item[this.data.timeIndex].status) {
+        //             confirmMsg('提示', '该时间段预约已满', false);
+        //         } else {
+        //             prevPage.setData({
+        //                 'form.reserve_time': this.data.datetime
+        //             });
+        //             wx.navigateBack({
+        //                 delta: 1
+        //             });
+        //         }
+        //     } else {
+        //         confirmMsg('提示', '所选时间不在预约时间范围内', false);
+        //     }
+        // }
     },
     get15DaysAndWeeks: function() {
         let days = [];
@@ -127,7 +144,7 @@ Page({
     onLoad: function(options) {
         this.setData({
             days: this.get15DaysAndWeeks(),
-            datetime: getDate() + ' ' + '08:00',
+            datetime: '',
             initialTime: [currentHour, 0],
             timetableForm: {
                 date: getDate(),

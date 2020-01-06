@@ -20,7 +20,8 @@ Page({
             mobile: '',
             details: ''
         },
-        radioItems: [{
+        radioItems: [
+            {
                 id: 1,
                 name: '投诉',
                 checked: true
@@ -126,9 +127,10 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function(options) {
+        let bmsWeappStoreInfo = wx.getStorageSync('bmsWeappStoreInfo');
         this.setData({
-            'form.merchant_id': options.merchantId,
-            'form.store_id': options.storeId
+            'form.merchant_id': bmsWeappStoreInfo.merchant_id,
+            'form.store_id': bmsWeappStoreInfo.store_id
         });
     }
 });

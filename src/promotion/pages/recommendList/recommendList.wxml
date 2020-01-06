@@ -1,0 +1,14 @@
+<view class="goodList">
+    <view class="goods" wx:for="{{goodList}}" wx:key="index" data-item="{{item}}" bindtap="seeDetail">
+        <view class="goodImg">
+            <block>
+                <image wx:if="{{item.goods_img}}" src="{{host+item.goods_img}}" />
+            </block>
+        </view>
+        <view class="goodIns">{{item.goods_name}}</view>
+        <view class="goodOther">
+            <view class="recommendPrice">{{item.sale_price}}</view>
+            <view class="buy">购买</view>
+        </view>
+    </view>
+</view>
