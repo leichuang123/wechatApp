@@ -108,7 +108,20 @@ Page({
             showTopTips(this, errMsg);
         } else {
             showLoading('提交请求中');
-            api.post('weapp/addreserve', this.data.form).then(res => {
+            let form = {
+                merchant_id: this.data.form.merchant_id,
+                store_id: this.data.form.store_id,
+                car_number: this.data.form.car_number,
+                category: this.data.form.category,
+                mobile: this.data.form.mobile,
+                contact: this.data.form.contact,
+                traveled: this.data.form.traveled,
+                reserve_time:
+                    this.data.form.reserve_time.split(' ')[0] +
+                    ' ' +
+                    this.data.form.reserve_time.split(' ')[1].split('-')[0]
+            };
+            api.post('weapp/addreserve', form).then(res => {
                 wx.hideLoading();
                 if (res.errcode === 0) {
                     wx.navigateTo({ url: 'detail?reservationData=' + JSON.stringify(res.data) });
