@@ -14,7 +14,8 @@ Page({
         reservations: [],
         form: {
             type: 1,
-            store_id: 0
+            store_id: 0,
+            merchant_id: 0
         }
     },
     /**
@@ -101,7 +102,8 @@ Page({
             sliderWidth: mobile / 3,
             sliderLeft: (app.globalData.windowWidth / this.data.tabs.length - this.data.sliderWidth) / 2,
             sliderOffset: (app.globalData.windowWidth / this.data.tabs.length) * this.data.activeIndex,
-            'form.store_id': bmsWeappStoreInfo.store_id
+            'form.store_id': bmsWeappStoreInfo.store_id,
+            'form.merchant_id': bmsWeappStoreInfo.merchant_id
         });
         this.getReservations();
     }

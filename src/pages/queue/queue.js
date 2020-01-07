@@ -12,22 +12,24 @@ Page({
      */
     getQueueInfo: function() {
         let bmsWeappStoreInfo = wx.getStorageSync('bmsWeappStoreInfo');
-        api.get('weapp/queue', { car_numbers: this.data.carNumbers, store_id: bmsWeappStoreInfo.store_id }).then(
-            res => {
-                if (res.errcode === 0) {
-                    this.setData({
-                        queueInfo: res.data,
-                        loadingVisible: false
-                    });
-                    return;
-                }
+        api.get('weapp/queue', {
+            car_numbers: this.data.carNumbers,
+            store_id: bmsWeappStoreInfo.store_id,
+            merchant_id: bmsWeappStoreInfo.merchant_id
+        }).then(res => {
+            if (res.errcode === 0) {
                 this.setData({
-                    queueInfo: [],
-                    loadingVisible: false,
-                    hasData: false
+                    queueInfo: res.data,
+                    loadingVisible: false
                 });
+                return;
             }
-        );
+            this.setData({
+                queueInfo: [],
+                loadingVisible: false,
+                hasData: false
+            });
+        });
     },
     /**
      * 取消排队
