@@ -44,7 +44,7 @@ Page({
     //获取全部服务项目
     getServeItem: function(type = false) {
         //showLoading();
-        api.get('mall/get-service-item-lists', {
+        api.get('mall/get-service-item-list', {
             merchant_id: this.data.merchant_id,
             first_class_id: this.data.class_id,
             page: this.data.page

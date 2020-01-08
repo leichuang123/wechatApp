@@ -36,7 +36,7 @@ Page({
     },
     getVipList: function(type = false) {
         //showLoading();
-        api.get('mall/get-vip-card-lists', { merchant_id: this.data.merchant_id, page: this.data.page }).then(res => {
+        api.get('mall/get-vip-card-list', { merchant_id: this.data.merchant_id, page: this.data.page }).then(res => {
             wx.hideLoading();
             if (res.errcode == 0) {
                 let hasMore = res.errcode !== 0 || this.data.page >= res.data.last_page ? false : true;
