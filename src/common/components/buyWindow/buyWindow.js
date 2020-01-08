@@ -66,6 +66,11 @@ Component({
                 value: number
             });
         },
-        onTap: function() {}
+        onTap: function() {
+            if (!this.data.goodInfo.goods_id) {
+                toastMsg('商品下架了', 'error');
+                return;
+            }
+        }
     }
 });

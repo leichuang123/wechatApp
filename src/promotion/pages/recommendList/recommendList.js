@@ -1,17 +1,35 @@
 import api from '../../../utils/api';
-import { showLoading } from '../../../utils/util';
+import { showLoading, toastMsg } from '../../../utils/util';
 import { host } from '../../../config';
 Page({
     data: {
         goodList: [
             {
                 goods_id: 0,
-                goods_name: '测试',
-                sale_price: 0.0,
+                goods_name: '万祥马牌机油全合成正品汽车5W-30汽油发动机润滑油 SN四季通用4L',
+                sale_price: '￥88',
                 inventory: 0,
                 already_num: 0.0,
-                goods_img: '/uploads/20200106/202001061619285312.png',
-                shortage: false
+                shortage: false,
+                goods_img: '/images/weapp/testImg/jiyou.jpg'
+            },
+            {
+                goods_id: 0,
+                goods_name: '米其林City grip/2ct半热熔摩托车轮胎裂行佳御UYN1电动车9090-12',
+                sale_price: '￥280',
+                inventory: 0,
+                already_num: 0.0,
+                shortage: false,
+                goods_img: '/images/weapp/testImg/luntai.jpg'
+            },
+            {
+                goods_id: 0,
+                goods_name: '途星犬汽车gps定位器车载OBD定位器卫星跟踪仪小型车辆防盗免安装',
+                sale_price: '￥229',
+                inventory: 0,
+                already_num: 0.0,
+                shortage: false,
+                goods_img: '/images/weapp/testImg/gps.jpg'
             }
         ],
         merchant_id: 0,
@@ -40,6 +58,10 @@ Page({
         });
     },
     seeDetail(e) {
+        if (!e.currentTarget.dataset.item.goods_id) {
+            toastMsg('商品下架了', 'error');
+            return;
+        }
         wx.navigateTo({
             url: '../mallDetail/mallDetail?goods_id=' + e.currentTarget.dataset.item.goods_id
         });

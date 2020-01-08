@@ -6,7 +6,7 @@ Page({
         items: [
             {
                 goods_id: 0,
-                goods_name: '测试',
+                goods_name: '服务项目',
                 first_class_id: 1,
                 goods_intro: '',
                 ori_price: 0,
@@ -97,7 +97,7 @@ Page({
         this.getServeItem(true);
     },
     choosse(e) {
-        if (e.currentTarget.dataset.item.disabled) {
+        if (e.currentTarget.dataset.item.shortage) {
             toastMsg('商品缺货中', 'error');
             return;
         }

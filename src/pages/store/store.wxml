@@ -1,7 +1,7 @@
 <import src="../../common/templates/loading" />
 <view>
     <view>
-        <image src="https://sh.huobanyc.com/images/weapp/newBanner.png" style="width:100%;display:block;height:185px;" />
+        <image src="{{host+'images/weapp/newBanner.png'}}" style="width:100%;display:block;height:185px;" />
     </view>
     <view class="btn-list">
         <view class="weui-flex">
@@ -36,6 +36,7 @@
             <view class="recommendImg">
                 <block>
                     <image wx:if="{{item.goods_img}}" src="{{host+item.goods_img}}" />
+                    <image wx:else src="{{host+'/images/weapp/newBanner.png'}}" />
                 </block>
             </view>
             <view class="recommendName">{{item.goods_name}}</view>

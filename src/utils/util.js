@@ -11,7 +11,9 @@ const formatTime = (date, withTime = true) => {
     const minute = date.getMinutes();
     const second = date.getSeconds();
     if (withTime) {
-        return [year, month, day].map(formatNumber).join('-') + ' ' + [hour, minute, second].map(formatNumber).join(':');
+        return (
+            [year, month, day].map(formatNumber).join('-') + ' ' + [hour, minute, second].map(formatNumber).join(':')
+        );
     }
     return [year, month, day].map(formatNumber).join('-');
 };

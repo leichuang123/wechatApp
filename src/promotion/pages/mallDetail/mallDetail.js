@@ -34,7 +34,7 @@ Page({
      * 获取门店详情
      */
     getStoreInfo: function() {
-        showLoading();
+        // showLoading();
         api.get('mall-goods/get-goods-detail', this.data.storeForm, false).then(res => {
             wx.hideLoading();
             if (res.errcode == 0) {
@@ -51,6 +51,7 @@ Page({
                     hasMore: hasMore,
                     hasData: this.data.comment.length === 0 ? false : true
                 });
+                return;
             }
         });
     },

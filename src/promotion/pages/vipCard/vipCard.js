@@ -5,7 +5,7 @@ Page({
         items: [
             {
                 stored_id: 0,
-                stored_name: '测试',
+                stored_name: 'VIP卡',
                 stored_abstract: '',
                 stored_sale: 0.0,
                 stored_give: 0.0,

@@ -6,12 +6,12 @@ Page({
         items: [
             {
                 package_id: 0,
-                package_name: '测试',
-                package_intro: '',
+                package_name: '套餐',
+                package_intro: '限2020年使用',
                 package_timelimit: 0,
-                ori_price: 0.0,
-                sale_price: 0.0,
-                term_of_validity: '',
+                ori_price: 1000,
+                sale_price: 900,
+                term_of_validity: '1年',
                 shortage: true,
                 checked: false
             }
@@ -65,7 +65,7 @@ Page({
         );
     },
     choosse(e) {
-        if (e.currentTarget.dataset.item.disabled) {
+        if (e.currentTarget.dataset.item.shortage) {
             toastMsg('套餐缺货中', 'error');
             return;
         }

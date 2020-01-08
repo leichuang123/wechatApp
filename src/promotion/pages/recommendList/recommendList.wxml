@@ -3,6 +3,7 @@
         <view class="goodImg" data-item="{{item}}" bindtap="seeDetail">
             <block>
                 <image wx:if="{{item.goods_img}}" src="{{host+item.goods_img}}" />
+                <image wx:else src="{{host+'/images/weapp/newBanner.png'}}" />
             </block>
         </view>
         <view class="goodIns" data-item="{{item}}" bindtap="seeDetail">{{item.goods_name}}</view>
