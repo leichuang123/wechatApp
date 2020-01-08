@@ -1,0 +1,34 @@
+<view class="keyboard">
+    <block wx:if="{{keyboardVisible}}">
+        <view class="goodWindow">
+            <view class="closeIcon" bindtap="onClose">
+                <icon type="clear" size="20" />
+            </view>
+            <view class="info">
+                <view class="infoImg">
+                    <image class="infoImgs" src="{{host+goodInfo.goods_img}}" />
+                </view>
+                <view class="infoOther">
+                    <view class="price">¥ {{goodInfo.sale_price}}</view>
+                    <view class="invited">库存{{goodInfo.inventory}}</view>
+                </view>
+            </view>
+            <view class="bugNum">
+                <view class="tit">购买数量</view>
+                <view class="board">
+                    <view class="action" bindtap="onDel">-</view>
+                    <input class="weui-input" type="number" value='{{value}}' />
+                    <view class="action" bindtap="onAdd">+</view>
+                </view>
+            </view>
+            <view>
+                <button wx:if="{{!goodInfo.shortage}}" class="btn" type="warn" loading="{{loading}}" disabled="{{goodInfo.shortage}}" bindtap="onTap">
+                    购买
+                </button>
+                <button wx:else class="btn" type="warn" disabled="{{goodInfo.shortage}}">
+                    缺货中
+                </button>
+            </view>
+        </view>
+    </block>
+</view>

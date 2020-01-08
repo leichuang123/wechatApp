@@ -25,6 +25,11 @@ Page({
         scrollTop: 59,
         comment: []
     },
+    homes: function() {
+        wx.switchTab({
+            url: '../../../pages/index/index'
+        });
+    },
     /**
      * 获取门店详情
      */
@@ -47,17 +52,6 @@ Page({
                     hasData: this.data.comment.length === 0 ? false : true
                 });
             }
-        });
-    },
-    /**
-     * 跳转到门店简介或评价页面
-     */
-    gotoStoreEvaluation: function(e) {
-        let storeData = this.data.storeForm;
-        storeData.type = e.currentTarget.dataset.type;
-        storeData = JSON.stringify(storeData);
-        wx.navigateTo({
-            url: '/pages/store-list/profile?storeData=' + storeData
         });
     },
     /**

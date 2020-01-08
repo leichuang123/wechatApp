@@ -2,7 +2,18 @@ import api from '../../../utils/api';
 import { toastMsg, showLoading } from '../../../utils/util';
 Page({
     data: {
-        items: [],
+        items: [
+            {
+                stored_id: 0,
+                stored_name: '测试',
+                stored_abstract: '',
+                stored_sale: 0.0,
+                stored_give: 0.0,
+                stored_amount: 0.0,
+                shortage: true,
+                can_buy: false
+            }
+        ],
         selectId: 0,
         allMoney: 0.0,
         number: 0,
@@ -24,8 +35,8 @@ Page({
         this.getVipList(true);
     },
     getVipList: function(type = false) {
-        showLoading();
-        api.get('mall/get-vip-card-list', { merchant_id: this.data.merchant_id, page: this.data.page }).then(res => {
+        //showLoading();
+        api.get('mall/get-vip-card-lists', { merchant_id: this.data.merchant_id, page: this.data.page }).then(res => {
             wx.hideLoading();
             if (res.errcode == 0) {
                 let hasMore = res.errcode !== 0 || this.data.page >= res.data.last_page ? false : true;

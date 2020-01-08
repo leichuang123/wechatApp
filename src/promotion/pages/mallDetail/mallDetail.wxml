@@ -1,6 +1,6 @@
 <import src="../../../common/templates/loading" />
 <import src="../../../assets/plugins/wxParse/wxParse.wxml" />
-<view>
+<view style="background:#ffffff">
     <view class="detail-benner">
         <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
             <block wx:for="{{goodImg}}" wx:key="index">
@@ -25,7 +25,7 @@
             </view>
         </view>
     </view>
-    <view>
+    <view style="padding-bottom:50px">
         <view class='weui-cell top-menu' bindtap="changView">
             <view data-index="0" class="weui-cell__bd {{activeIndex==0?'cur':''}}">详情</view>
             <view data-index="1" class="weui-cell__bd {{activeIndex==1?'cur':''}}">评论</view>
@@ -75,5 +75,21 @@
             <template is="loadMore" data="{{ loadMoreVisible,hasMore,hasData}}" />
             <template is="loading" data="{{ loadingVisible,hasData}}" />
         </scroll-view>
+    </view>
+    <view class="actionBar">
+        <view class="actionLeft">
+            <view class="lis" bindtap="homes">
+                <image src="../../../assets/images/home.png" />
+                <text>首页</text>
+            </view>
+            <view class="lis">
+                <image src="../../../assets/images/share-gray.png" />
+                <text>分享</text>
+            </view>
+        </view>
+        <view class="actionRight">
+            <view class="join">加入购物车</view>
+            <view class="pay">立即购买</view>
+        </view>
     </view>
 </view>

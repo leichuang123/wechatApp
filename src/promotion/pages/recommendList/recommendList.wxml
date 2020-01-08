@@ -1,14 +1,15 @@
 <view class="goodList">
-    <view class="goods" wx:for="{{goodList}}" wx:key="index" data-item="{{item}}" bindtap="seeDetail">
-        <view class="goodImg">
+    <view class="goods" wx:for="{{goodList}}" wx:key="index">
+        <view class="goodImg" data-item="{{item}}" bindtap="seeDetail">
             <block>
                 <image wx:if="{{item.goods_img}}" src="{{host+item.goods_img}}" />
             </block>
         </view>
-        <view class="goodIns">{{item.goods_name}}</view>
+        <view class="goodIns" data-item="{{item}}" bindtap="seeDetail">{{item.goods_name}}</view>
         <view class="goodOther">
             <view class="recommendPrice">{{item.sale_price}}</view>
-            <view class="buy">购买</view>
+            <view class="buy" data-item="{{item}}" bindtap="bug">购买</view>
         </view>
     </view>
+    <buyWindow wx:if="{{keyboardVisible}}" keyboard-visible="{{keyboardVisible}}" storeInfo='{{bugInfo}}' bind:hidekeyboard="hideKeyboard"></buyWindow>
 </view>

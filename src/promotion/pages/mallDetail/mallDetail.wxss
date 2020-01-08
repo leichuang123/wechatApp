@@ -84,3 +84,66 @@
 .top-menu {
     position: relative;
 }
+.actionBar {
+    width: 100%;
+    background-color: #ffffff;
+    height: 50px;
+    line-height: 30px;
+    display: flex;
+    justify-content: space-between;
+    box-sizing: border-box;
+    padding: 10px 20px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+}
+.actionLeft {
+    display: flex;
+    color: #101010;
+    font-size: 12px;
+}
+.lis {
+    position: relative;
+    width: 50px;
+    text-align: center;
+    margin-top: -5px;
+}
+.lis text {
+    position: absolute;
+    left: 0;
+    top: 18px;
+}
+.actionLeft image {
+    width: 18px;
+    height: 18px;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.actionRight {
+    display: flex;
+}
+.join {
+    width: 88px;
+    height: 30px;
+    line-height: 30px;
+    border-radius: 30px 0px 0px 30px;
+    background-color: rgba(255, 255, 255, 1);
+    color: rgba(230, 1, 3, 1);
+    font-size: 14px;
+    text-align: center;
+    font-family: Roboto;
+    border: 1px solid rgba(230, 1, 3, 1);
+}
+.pay {
+    width: 88px;
+    height: 30px;
+    line-height: 30px;
+    border-radius: 0px 30px 30px 0px;
+    background-color: rgba(230, 1, 3, 1);
+    color: rgba(255, 255, 255, 1);
+    font-size: 14px;
+    text-align: center;
+    font-family: Roboto;
+    border: 1px solid rgba(230, 1, 3, 1);
+}

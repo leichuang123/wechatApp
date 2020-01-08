@@ -7,14 +7,36 @@ Page({
         hasData: true,
         hasMore: true,
         loadMoreVisible: false, //加载更多
-        recommendList: [],
+        recommendList: [
+            {
+                goods_id: 0,
+                goods_name: '测试',
+                sale_price: 0.0,
+                inventory: 0,
+                already_num: 0.0,
+                goods_img: '/uploads/20200106/202001061619285312.png',
+                shortage: false
+            }
+        ],
         host: host,
         type: [],
-        goodList: [],
+        goodList: [
+            {
+                goods_id: 0,
+                goods_name: '测试',
+                sale_price: 0.0,
+                inventory: 0,
+                already_num: 0.0,
+                goods_img: '/uploads/20200106/202001061619285312.png',
+                shortage: false
+            }
+        ],
         merchant_id: 0,
         first_class_id: '',
         totalPage: 0,
-        page: 1
+        page: 1,
+        keyboardVisible: false,
+        bugInfo: {}
     },
     onLoad: function(options) {
         let bmsWeappStoreInfo = wx.getStorageSync('bmsWeappStoreInfo');
@@ -28,7 +50,7 @@ Page({
         });
         this.getRecommend();
         this.getType();
-        this.getGoodList();
+        this.getGoodList(true);
     },
     typeChange: function(e) {
         if (e.currentTarget.dataset.item.goods_class_id == this.data.first_class_id) {
@@ -45,6 +67,17 @@ Page({
             url: '../../promotion/pages/mallDetail/mallDetail?goods_id=' + e.currentTarget.dataset.item.goods_id
         });
     },
+    bug(e) {
+        this.setData({
+            keyboardVisible: true,
+            bugInfo: e.currentTarget.dataset.item
+        });
+    },
+    hideKeyboard: function() {
+        this.setData({
+            keyboardVisible: false
+        });
+    },
     //获取商品全部分类
     getType: function() {
         api.get('mall-goods/get-goods-class-list', { merchant_id: this.data.merchant_id }).then(res => {
@@ -59,34 +92,36 @@ Page({
     },
     //获取商品
     getGoodList: function(type = false) {
-        showLoading();
+        // showLoading();
         api.get('mall-goods/get-goods-list', {
             merchant_id: this.data.merchant_id,
             first_class_id: this.data.first_class_id,
             page: this.data.page
-        }).then(res => {
-            wx.hideLoading();
-            if (res.errcode == 0) {
-                let hasMore = res.errcode !== 0 || this.data.page >= res.data.last_page ? false : true;
-                this.setData({
-                    loadMoreVisible: false,
-                    loadingVisible: false,
-                    hasMore: hasMore,
-                    hasData: this.data.goodList.length === 0 ? false : true
-                });
-                if (type) {
+        })
+            .then(res => {
+                //wx.hideLoading();
+                if (res.errcode == 0) {
+                    let hasMore = res.errcode !== 0 || this.data.page >= res.data.last_page ? false : true;
                     this.setData({
-                        goodList: res.data.data,
+                        loadMoreVisible: false,
+                        loadingVisible: false,
+                        hasMore: hasMore,
+                        hasData: this.data.goodList.length === 0 ? false : true
+                    });
+                    if (type) {
+                        this.setData({
+                            goodList: res.data.data,
+                            totalPage: res.data.last_page
+                        });
+                        return;
+                    }
+                    this.setData({
+                        goodList: this.data.goodList.concat(res.data.data),
                         totalPage: res.data.last_page
                     });
-                    return;
                 }
-                this.setData({
-                    goodList: this.data.goodList.concat(res.data.data),
-                    totalPage: res.data.last_page
-                });
-            }
-        });
+            })
+            .catch(() => {});
     },
     //获取部分推荐商品
     getRecommend: function() {

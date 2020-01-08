@@ -3,7 +3,18 @@ import { toastMsg, showLoading } from '../../../utils/util';
 import { add, subtract } from '../../../utils/calculate';
 Page({
     data: {
-        items: [],
+        items: [
+            {
+                goods_id: 0,
+                goods_name: '测试',
+                first_class_id: 1,
+                goods_intro: '',
+                ori_price: 0,
+                sale_price: 0,
+                shortage: true,
+                checked: false
+            }
+        ],
         select: [],
         allMoney: 0.0,
         number: 0,
@@ -32,8 +43,8 @@ Page({
     },
     //获取全部服务项目
     getServeItem: function(type = false) {
-        showLoading();
-        api.get('mall/get-service-item-list', {
+        //showLoading();
+        api.get('mall/get-service-item-lists', {
             merchant_id: this.data.merchant_id,
             first_class_id: this.data.class_id,
             page: this.data.page

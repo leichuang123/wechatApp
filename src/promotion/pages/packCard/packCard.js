@@ -3,7 +3,19 @@ import { toastMsg, showLoading } from '../../../utils/util';
 import { add, subtract } from '../../../utils/calculate';
 Page({
     data: {
-        items: [],
+        items: [
+            {
+                package_id: 0,
+                package_name: '测试',
+                package_intro: '',
+                package_timelimit: 0,
+                ori_price: 0.0,
+                sale_price: 0.0,
+                term_of_validity: '',
+                shortage: true,
+                checked: false
+            }
+        ],
         select: [],
         allMoney: 0.0,
         number: 0,
@@ -22,10 +34,10 @@ Page({
         });
     },
     onShow: function() {
-        this.getPackList();
+        this.getPackList(true);
     },
     getPackList: function(type = false) {
-        showLoading();
+        //showLoading();
         api.get('mall/get-package-card-list', { merchant_id: this.data.merchant_id, page: this.data.page }).then(
             res => {
                 wx.hideLoading();
