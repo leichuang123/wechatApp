@@ -33,12 +33,12 @@
                 </view>
                 <view class="pad-top">预约服务</view>
             </navigator>
-            <navigator url="../../promotion/pages/shareholders/shareholders" hover-class="none" class="weui-flex__item">
+            <view class="weui-flex__item" bindtap='joinGuDong'>
                 <view class="icon-border flexCenter">
                     <image src="../../assets/images/newIcon/n3.png" />
                 </view>
                 <view class="pad-top">股东申请</view>
-            </navigator>
+            </view>
         </view>
         <view class="weui-flex" style="margin-top:20px">
             <navigator url="/pages/my-card/own/index" hover-class="none" class="weui-flex__item">

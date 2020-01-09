@@ -1,6 +1,6 @@
 import api from '../../utils/api';
-import { toastMsg, confirmMsg, showLoading } from '../../utils/util';
-import { scanCode, getLocation, getSystemInfo } from '../../utils/wx-api';
+import { confirmMsg, showLoading } from '../../utils/util';
+import { getLocation } from '../../utils/wx-api';
 const app = getApp();
 Page({
     data: {
@@ -164,6 +164,31 @@ Page({
         wx.navigateTo({
             url: '/pages/store-list/store-list'
         });
+    },
+    //股东申请
+    joinGuDong: function() {
+        showLoading();
+        //判断用户是否注册股东申请
+        api.post('/weapp/holder-application-info')
+            .then(res => {
+                wx.hideLoading();
+                if (res.errcode == 0) {
+                    wx.navigateTo({
+                        url: '../../promotion/pages/shareholders/shareholders'
+                    });
+                    return;
+                }
+                if (res.errcode == '1022') {
+                    wx.navigateTo({
+                        url: '../../promotion/pages/shareholders/shareholders?type=' + true
+                    });
+                    return;
+                }
+                confirmMsg('', res.errmsg, false);
+            })
+            .catch(() => {
+                wx.hideLoading();
+            });
     },
     /**
      * 生命周期函数--监听页面加载

@@ -9,7 +9,7 @@
             </view>
         </view>
         <view class="weui-cell__bd">
-            <input class="weui-input" data-name="contact" bindinput="getInputValue" />
+            <input class="weui-input" data-name="name" bindinput="getInputValue" />
         </view>
     </view>
     <view class="weui-cell weui-cell_input">
@@ -20,12 +20,12 @@
             </view>
         </view>
         <view class="weui-cell__bd">
-            <input class="weui-input" type="number" data-name="mobile" bindinput="getInputValue" />
+            <input class="weui-input" type="number" data-name="phone" bindinput="getInputValue" />
         </view>
     </view>
-    <view class="weui-cell weui-cell_input" style="margin-top:10px">
+    <view class="weui-cell weui-cell_input">
         <view class="weui-cell__hd">
-            <view class="weui-label">
+            <view class="weui-label" style="margin-top:8px">
                 <text class='fc-red'>*</text>
                 申请描述
             </view>
@@ -34,7 +34,7 @@
     <view class="weui-cells weui-cells_after-title">
         <view class="weui-cell">
             <view class="weui-cell__bd">
-                <textarea class="weui-textarea" placeholder="请简单描述您的资源情况" style="min-height: 3.3em" maxlength="200" data-name="details" bindinput="getInputValue" />
+                <textarea class="weui-textarea" placeholder="请简单描述您的资源情况" style="min-height: 3.3em" maxlength="200" data-name="desc" bindinput="getInputValue" />
             </view>
         </view>
     </view>
