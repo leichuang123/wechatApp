@@ -47,12 +47,14 @@ Page({
         this.getRecommend();
     },
     bug(e) {
+        wx.hideTabBar();
         this.setData({
             keyboardVisible: true,
             bugInfo: e.currentTarget.dataset.item
         });
     },
     hideKeyboard: function() {
+        wx.showTabBar();
         this.setData({
             keyboardVisible: false
         });

@@ -1,3 +1,6 @@
+page {
+    background-color: #ffffff;
+}
 .take-number {
     padding-top: 10px;
     padding-bottom: 8px;
@@ -81,8 +84,32 @@
 .station-list {
     font-size: 15px;
 }
-.top-menu {
+.top-menus {
     position: relative;
+    border: none;
+    text-align: center;
+    height: 44px;
+    line-height: 40px;
+    width: 100%;
+    background: #fff;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+}
+.wid60 {
+    width: 60px;
+    text-align: center;
+}
+.none {
+    width: 100%;
+    background-color: rgba(55, 60, 69, 0.52);
+    height: 40px;
+    line-height: 41px;
+    text-align: center;
+    color: #ffffff;
+    position: fixed;
+    bottom: 50px;
+    left: 0;
 }
 .actionBar {
     width: 100%;
@@ -96,6 +123,7 @@
     position: fixed;
     bottom: 0;
     left: 0;
+    border-top: 1px solid #f1f1f1;
 }
 .actionLeft {
     display: flex;
@@ -112,6 +140,7 @@
     position: absolute;
     left: 0;
     top: 18px;
+    font-size: 12px;
 }
 .actionLeft image {
     width: 18px;
@@ -122,9 +151,10 @@
 }
 .actionRight {
     display: flex;
+    border: 1px solid rgba(255, 255, 255, 1);
 }
 .join {
-    width: 88px;
+    width: 100px;
     height: 30px;
     line-height: 30px;
     border-radius: 30px 0px 0px 30px;
@@ -136,7 +166,7 @@
     border: 1px solid rgba(230, 1, 3, 1);
 }
 .pay {
-    width: 88px;
+    width: 100px;
     height: 30px;
     line-height: 30px;
     border-radius: 0px 30px 30px 0px;
@@ -146,4 +176,10 @@
     text-align: center;
     font-family: Roboto;
     border: 1px solid rgba(230, 1, 3, 1);
+}
+.wx-parse__detail image {
+    width: 100% !important;
+}
+.isNone {
+    opacity: 0.6;
 }

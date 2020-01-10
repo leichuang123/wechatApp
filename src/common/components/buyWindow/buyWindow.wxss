@@ -68,8 +68,14 @@
     text-align: center;
     border: 1px solid rgba(220, 223, 230, 1);
 }
+.value {
+    width: 100px;
+    height: 21px;
+    line-height: 20px;
+    text-align: center;
+}
 .action {
-    width: 80px;
+    width: 90px;
     height: 21px;
     line-height: 20px;
     border-radius: 4px 0px 0px 4px;

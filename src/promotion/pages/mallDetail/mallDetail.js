@@ -1,5 +1,5 @@
 import api from '../../../utils/api';
-import { showLoading } from '../../../utils/util';
+import { showLoading, toastMsg } from '../../../utils/util';
 import { host } from '../../../config';
 import WxParse from '../../../assets/plugins/wxParse/wxParse';
 Page({
@@ -30,30 +30,46 @@ Page({
             url: '../../../pages/index/index'
         });
     },
+    //立即购买
+    buyNow: function() {
+        // wx.navigateTo({
+        //     url: '../mallOrder/mallOrder'
+        // });
+    },
     /**
      * 获取门店详情
      */
     getStoreInfo: function() {
-        // showLoading();
-        api.get('mall-goods/get-goods-detail', this.data.storeForm, false).then(res => {
-            wx.hideLoading();
-            if (res.errcode == 0) {
-                this.setData({
-                    goodImg: res.data.goods_img,
-                    goodInfo: res.data.goods_detail,
-                    comment: this.data.comment.concat(res.data.comment)
+        showLoading();
+        api.get('/weapp/mall-goods/get-goods-detail', this.data.storeForm, false)
+            .then(res => {
+                wx.hideLoading();
+                if (res.errcode == 0) {
+                    this.setData({
+                        goodImg: res.data.goods_img,
+                        goodInfo: res.data.goods_detail,
+                        comment: this.data.comment.concat(res.data.comment)
+                    });
+                    WxParse.wxParse('detail', 'html', res.data.goods_detail.contents, this, 15);
+                    let hasMore = res.errcode !== 0 || this.data.page >= res.data.last_page ? false : true;
+                    this.setData({
+                        loadMoreVisible: false,
+                        loadingVisible: false,
+                        hasMore: hasMore,
+                        hasData: this.data.comment.length === 0 ? false : true
+                    });
+                    return;
+                }
+                wx.hideLoading();
+                toastMsg(res.errmsg, 'error', 1000, () => {
+                    wx.navigateBack({
+                        delta: 1
+                    });
                 });
-                WxParse.wxParse('detail', 'html', res.data.goods_detail.contents, this, 15);
-                let hasMore = res.errcode !== 0 || this.data.page >= res.data.last_page ? false : true;
-                this.setData({
-                    loadMoreVisible: false,
-                    loadingVisible: false,
-                    hasMore: hasMore,
-                    hasData: this.data.comment.length === 0 ? false : true
-                });
-                return;
-            }
-        });
+            })
+            .catch(() => {
+                wx.hideLoading();
+            });
     },
     /**
      * 生命周期函数--监听页面加载

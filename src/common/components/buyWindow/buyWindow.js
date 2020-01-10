@@ -39,13 +39,17 @@ Component({
     detached: function() {},
 
     methods: {
-        onClose: function() {
+        onClose: function(e) {
             this.setData({
                 keyboardVisible: false
             });
             this.triggerEvent('hidekeyboard', { keyboardVisible: false });
         },
         onAdd: function() {
+            if (this.data.goodInfo.shortage) {
+                toastMsg('商品缺货中', 'error');
+                return;
+            }
             let number = this.data.value;
             number++;
             if (this.data.value == this.data.max) {

@@ -3,19 +3,19 @@
     justify-content: flex-start;
 }
 .scroll-view__container {
-    width: 26%;
+    width: 28%;
 }
 .type-item {
     width: 100%;
     text-align: center;
-    padding: 8px 0;
+    padding: 15px 0;
 }
 .item__active {
     background-color: #ffffff;
     color: #e60103;
 }
 .radio-group {
-    width: 74%;
+    width: 72%;
     background-color: #ffffff;
 }
 .vip {

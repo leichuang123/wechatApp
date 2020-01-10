@@ -52,3 +52,9 @@
     text-align: center;
     font-family: Roboto;
 }
+.noData {
+    width: 100%;
+    color: #999999;
+    text-align: center;
+    line-height: 150px;
+}

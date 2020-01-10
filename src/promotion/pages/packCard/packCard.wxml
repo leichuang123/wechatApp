@@ -12,7 +12,7 @@
                         <view>
                             <view class="sale">{{item.sale_price}}</view>
                             <view class="price" wx:if="{{item.sale_price !== item.ori_price}}">
-                                {{item.sale_price}}
+                                {{item.ori_price}}
                             </view>
                         </view>
                     </view>

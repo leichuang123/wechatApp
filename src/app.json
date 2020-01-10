@@ -120,7 +120,8 @@
                 "pages/vipCard/vipCard",
                 "pages/packCard/packCard",
                 "pages/serveItem/serveItem",
-                "pages/mallDetail/mallDetail"
+                "pages/mallDetail/mallDetail",
+                "pages/mallOrder/mallOrder"
             ]
         }
     ],

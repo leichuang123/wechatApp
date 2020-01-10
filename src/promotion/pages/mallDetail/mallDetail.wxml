@@ -5,7 +5,8 @@
         <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
             <block wx:for="{{goodImg}}" wx:key="index">
                 <swiper-item>
-                    <image src="{{host+item}}" />
+                    <image wx:if="{{goodInfo.source=='self'}}" src="{{host+item}}" mode="aspectFit" />
+                    <image wx:else src="{{item}}" mode="aspectFit" />
                 </swiper-item>
             </block>
         </swiper>
@@ -26,11 +27,11 @@
         </view>
     </view>
     <view style="padding-bottom:50px">
-        <view class='weui-cell top-menu' bindtap="changView">
-            <view data-index="0" class="weui-cell__bd {{activeIndex==0?'cur':''}}">详情</view>
-            <view data-index="1" class="weui-cell__bd {{activeIndex==1?'cur':''}}">评论</view>
+        <view class='weui-cell top-menus' bindtap="changView">
+            <view data-index="0" class="wid60 {{activeIndex==0?'cur':''}}">详情</view>
+            <view data-index="1" class="wid60 {{activeIndex==1?'cur':''}}">评论</view>
         </view>
-        <view wx-if='{{activeIndex==0}}' class="wx-parse__detail fs15 light-black" style="background:#ffffff;padding:5px;min-height:100px">
+        <view wx-if='{{activeIndex==0}}' class="wx-parse__detail fs15 light-black" style="background:#ffffff;padding:5px;min-height:170px">
             <template is="wxParse" data="{{wxParseData:detail.nodes}}" />
         </view>
         <scroll-view wx-if='{{activeIndex==1}}' scroll-y style="position:relative" scroll-top="{{scrollTop}}" bindscrolltolower="loadMore">
@@ -76,6 +77,7 @@
             <template is="loading" data="{{ loadingVisible,hasData}}" />
         </scroll-view>
     </view>
+    <view class="none" wx:if="{{goodInfo.shortage}}">缺货中...</view>
     <view class="actionBar">
         <view class="actionLeft">
             <view class="lis" bindtap="homes">
@@ -88,8 +90,8 @@
             </view>
         </view>
         <view class="actionRight">
-            <view class="join">加入购物车</view>
-            <view class="pay">立即购买</view>
+            <view class="join {{goodInfo.shortage ? 'isNone':''}}">加入购物车</view>
+            <view class="pay {{goodInfo.shortage ? 'isNone':''}}" bindtap="buyNow">立即购买</view>
         </view>
     </view>
 </view>

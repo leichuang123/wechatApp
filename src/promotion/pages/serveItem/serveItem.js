@@ -3,18 +3,7 @@ import { toastMsg, showLoading } from '../../../utils/util';
 import { add, subtract } from '../../../utils/calculate';
 Page({
     data: {
-        items: [
-            {
-                goods_id: 0,
-                goods_name: '服务项目',
-                first_class_id: 1,
-                goods_intro: '',
-                ori_price: 0,
-                sale_price: 0,
-                shortage: true,
-                checked: false
-            }
-        ],
+        items: [],
         select: [],
         allMoney: 0.0,
         number: 0,
@@ -43,7 +32,7 @@ Page({
     },
     //获取全部服务项目
     getServeItem: function(type = false) {
-        //showLoading();
+        showLoading();
         api.get('mall/get-service-item-list', {
             merchant_id: this.data.merchant_id,
             first_class_id: this.data.class_id,
@@ -74,7 +63,7 @@ Page({
     },
     //获取分类
     getType: function() {
-        api.get('mall/get-service-item-class-list', { merchant_id: this.data.merchant_id }).then(res => {
+        api.get('/weapp/mall/get-service-item-class-list', { merchant_id: this.data.merchant_id }).then(res => {
             if (res.errcode == 0) {
                 let type = res.data;
                 type.unshift({ class_name: '全部', class_id: '' });

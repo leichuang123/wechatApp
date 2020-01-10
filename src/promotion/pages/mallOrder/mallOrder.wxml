@@ -1,0 +1,7 @@
+<import src="../../../common/templates/loading" />
+<view>
+    <view class="box"></view>
+    <view class="actionBar">
+        <view class="pay">提交订单</view>
+    </view>
+</view>

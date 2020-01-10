@@ -46,8 +46,14 @@
     display: flex;
     justify-content: flex-start;
 }
+.noData {
+    width: 100%;
+    color: #999999;
+    text-align: center;
+    line-height: 150px;
+}
 .recommendGood {
-    width: 30%;
+    flex: 1;
 }
 .recommendImg image {
     width: 90%;

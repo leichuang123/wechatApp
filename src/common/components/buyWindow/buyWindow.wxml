@@ -1,12 +1,13 @@
-<view class="keyboard">
+<view class="keyboard" bindtap="onClose">
     <block wx:if="{{keyboardVisible}}">
         <view class="goodWindow">
-            <view class="closeIcon" bindtap="onClose">
+            <view class="closeIcon" catchtap="onClose">
                 <icon type="clear" size="20" />
             </view>
             <view class="info">
                 <view class="infoImg">
-                    <image class="infoImgs" src="{{host+goodInfo.goods_img}}" />
+                    <image wx:if="{{item.source=='self'}}" class="infoImgs" src="{{host+goodInfo.goods_img}}" />
+                    <image class="infoImgs" wx:else src="{{goodInfo.goods_img}}" />
                 </view>
                 <view class="infoOther">
                     <view class="price">¥ {{goodInfo.sale_price}}</view>
@@ -16,9 +17,9 @@
             <view class="bugNum">
                 <view class="tit">购买数量</view>
                 <view class="board">
-                    <view class="action" bindtap="onDel">-</view>
-                    <input class="weui-input" type="number" value='{{value}}' />
-                    <view class="action" bindtap="onAdd">+</view>
+                    <view class="action" catchtap="onDel">-</view>
+                    <view class="value">{{value}}</view>
+                    <view class="action" catchtap='onAdd'>+</view>
                 </view>
             </view>
             <view>

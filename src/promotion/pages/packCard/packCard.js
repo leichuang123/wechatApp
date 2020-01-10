@@ -3,19 +3,7 @@ import { toastMsg, showLoading } from '../../../utils/util';
 import { add, subtract } from '../../../utils/calculate';
 Page({
     data: {
-        items: [
-            {
-                package_id: 0,
-                package_name: '套餐',
-                package_intro: '限2020年使用',
-                package_timelimit: 0,
-                ori_price: 1000,
-                sale_price: 900,
-                term_of_validity: '1年',
-                shortage: true,
-                checked: false
-            }
-        ],
+        items: [],
         select: [],
         allMoney: 0.0,
         number: 0,
@@ -37,8 +25,8 @@ Page({
         this.getPackList(true);
     },
     getPackList: function(type = false) {
-        //showLoading();
-        api.get('mall/get-package-card-list', { merchant_id: this.data.merchant_id, page: this.data.page }).then(
+        showLoading();
+        api.get('/weapp/mall/get-package-card-list', { merchant_id: this.data.merchant_id, page: this.data.page }).then(
             res => {
                 wx.hideLoading();
                 if (res.errcode == 0) {
