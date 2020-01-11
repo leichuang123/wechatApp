@@ -53,7 +53,7 @@
     line-height: 150px;
 }
 .recommendGood {
-    flex: 1;
+    width: 32%;
 }
 .recommendImg image {
     width: 90%;
