@@ -26,7 +26,7 @@
             </view>
         </view>
     </view>
-    <view style="padding-bottom:50px">
+    <view style="padding-bottom:54px">
         <view class='weui-cell top-menus' bindtap="changView">
             <view data-index="0" class="wid60 {{activeIndex==0?'cur':''}}">详情</view>
             <view data-index="1" class="wid60 {{activeIndex==1?'cur':''}}">评论</view>
@@ -90,8 +90,9 @@
             </view>
         </view>
         <view class="actionRight">
-            <view class="join {{goodInfo.shortage ? 'isNone':''}}">加入购物车</view>
+            <view class="join {{goodInfo.shortage ? 'isNone':''}}" bindtap="addCar">加入购物车</view>
             <view class="pay {{goodInfo.shortage ? 'isNone':''}}" bindtap="buyNow">立即购买</view>
         </view>
     </view>
+    <buyWindow wx:if="{{keyboardVisible}}" keyboard-visible="{{keyboardVisible}}" storeInfo='{{goodInfo}}' bind:hidekeyboard="hideKeyboard" bind:buyNow="buyTa"></buyWindow>
 </view>

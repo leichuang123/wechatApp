@@ -1,6 +1,6 @@
 <view class="keyboard" bindtap="onClose">
     <block wx:if="{{keyboardVisible}}">
-        <view class="goodWindow">
+        <view class="goodWindow" catchtap="oncatch">
             <view class="closeIcon" catchtap="onClose">
                 <icon type="clear" size="20" />
             </view>
@@ -10,20 +10,21 @@
                     <image class="infoImgs" wx:else src="{{goodInfo.goods_img}}" />
                 </view>
                 <view class="infoOther">
+                    <view class="theName">{{goodInfo.goods_name}}</view>
                     <view class="price">¥ {{goodInfo.sale_price}}</view>
-                    <view class="invited">库存{{goodInfo.inventory}}</view>
+                    <view class="invited">剩余库存 {{max}}</view>
                 </view>
             </view>
             <view class="bugNum">
                 <view class="tit">购买数量</view>
                 <view class="board">
                     <view class="action" catchtap="onDel">-</view>
-                    <view class="value">{{value}}</view>
+                    <view class="value">{{num}}</view>
                     <view class="action" catchtap='onAdd'>+</view>
                 </view>
             </view>
             <view>
-                <button wx:if="{{!goodInfo.shortage}}" class="btn" type="warn" loading="{{loading}}" disabled="{{goodInfo.shortage}}" bindtap="onTap">
+                <button wx:if="{{!goodInfo.shortage}}" class="btn" type="warn" loading="{{loading}}" disabled="{{goodInfo.shortage}}" catchtap="onTap">
                     购买
                 </button>
                 <button wx:else class="btn" type="warn" disabled="{{goodInfo.shortage}}">

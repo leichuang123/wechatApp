@@ -9,7 +9,6 @@
 }
 .goodWindow {
     width: 100%;
-    height: 220px;
     position: absolute;
     left: 0;
     bottom: 0;
@@ -18,6 +17,7 @@
     font-size: 14px;
     background-color: #ffffff;
     overflow: hidden;
+    height:250px;
 }
 .closeIcon {
     position: absolute;
@@ -40,6 +40,15 @@
 .infoOther {
     margin-left: 20px;
     margin-top: 15px;
+}
+.theName{
+    width:100%;
+    height:44px;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
 }
 .price {
     color: #ff0000;

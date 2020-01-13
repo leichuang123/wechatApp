@@ -121,7 +121,8 @@
                 "pages/packCard/packCard",
                 "pages/serveItem/serveItem",
                 "pages/mallDetail/mallDetail",
-                "pages/mallOrder/mallOrder"
+                "pages/mallOrder/mallOrder",
+                "pages/mallCar/mallCar"
             ]
         }
     ],

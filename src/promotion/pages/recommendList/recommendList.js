@@ -35,7 +35,8 @@ Page({
         merchant_id: 0,
         host: host,
         keyboardVisible: false,
-        bugInfo: {}
+        bugInfo: {},
+        num: 1
     },
     onLoad: function(options) {
         let bmsWeappStoreInfo = wx.getStorageSync('bmsWeappStoreInfo');
@@ -51,6 +52,18 @@ Page({
         this.setData({
             keyboardVisible: true,
             bugInfo: e.currentTarget.dataset.item
+        });
+    },
+    //立即购买
+    buyNow: function(e) {
+        let params = {
+            goods_id: e.detail.result.goods_id,
+            num: e.detail.result.num
+        };
+        let goods_list = [];
+        goods_list.push(params);
+        wx.navigateTo({
+            url: '../mallOrder/mallOrder?goods_list=' + JSON.stringify(goods_list)
         });
     },
     hideKeyboard: function() {
@@ -72,7 +85,7 @@ Page({
      * 获取全部推荐商品
      */
     getRecommend: function() {
-        //showLoading();
+        showLoading();
         let params = {
             merchant_id: this.data.merchant_id,
             type: 'all'
@@ -82,7 +95,8 @@ Page({
                 wx.hideLoading();
                 if (res.errcode === 0) {
                     this.setData({
-                        goodList: res.data
+                        goodList: res.data,
+                        keyboardVisible: false
                     });
                 }
             })

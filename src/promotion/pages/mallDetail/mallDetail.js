@@ -23,18 +23,58 @@ Page({
         loadMoreVisible: false,
         scrollHeight: 0,
         scrollTop: 59,
-        comment: []
+        comment: [],
+        keyboardVisible: false
     },
     homes: function() {
         wx.switchTab({
             url: '../../../pages/index/index'
         });
     },
+    hideKeyboard: function() {
+        this.setData({
+            keyboardVisible: false
+        });
+    },
     //立即购买
     buyNow: function() {
+        this.setData({
+            keyboardVisible: true
+        });
+        // let obj = {
+        //     goods_id: element.goods_id,
+        //     num: element.num
+        // };
         // wx.navigateTo({
         //     url: '../mallOrder/mallOrder'
         // });
+    },
+    buyTa: function(e) {
+        let params = {
+            goods_id: e.detail.result.goods_id,
+            num: e.detail.result.num
+        };
+        let goods_list = [];
+        goods_list.push(params);
+        wx.navigateTo({
+            url: '../mallOrder/mallOrder?goods_list=' + JSON.stringify(goods_list)
+        });
+    },
+    //加入购物车
+    addCar: function() {
+        showLoading();
+        api.get('/weapp/mall-cart/add-to-cart', this.data.storeForm).then(res => {
+            wx.hideLoading();
+            if (res.errcode != 0) {
+                toastMsg(res.errmsg, 'error', 1000);
+                return;
+            }
+            toastMsg('添加成功', 'success', 1000, () => {
+                wx.navigateTo({
+                    url: '../mallCar/mallCar'
+                });
+            });
+        });
     },
     /**
      * 获取门店详情
@@ -48,7 +88,9 @@ Page({
                     this.setData({
                         goodImg: res.data.goods_img,
                         goodInfo: res.data.goods_detail,
-                        comment: this.data.comment.concat(res.data.comment)
+                        comment: this.data.comment.concat(res.data.comment),
+                        'goodInfo.goods_id': res.data.goods_id,
+                        keyboardVisible: false
                     });
                     WxParse.wxParse('detail', 'html', res.data.goods_detail.contents, this, 15);
                     let hasMore = res.errcode !== 0 || this.data.page >= res.data.last_page ? false : true;

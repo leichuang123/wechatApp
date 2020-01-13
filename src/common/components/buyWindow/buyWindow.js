@@ -1,7 +1,6 @@
 import { host } from '../../../config';
 import { confirmMsg, toastMsg } from '../../../utils/util';
 import { subtract } from '../../../utils/calculate';
-import { api } from '../../../utils/api';
 Component({
     behaviors: [],
 
@@ -25,7 +24,7 @@ Component({
     data: {
         host: host,
         goodInfo: {},
-        value: 1,
+        num: 1,
         has: false,
         loading: false,
         max: 0
@@ -50,24 +49,24 @@ Component({
                 toastMsg('商品缺货中', 'error');
                 return;
             }
-            let number = this.data.value;
-            number++;
-            if (this.data.value == this.data.max) {
+            let number = this.data.num;
+            if (this.data.num == this.data.max) {
                 toastMsg('已超过剩余数量', 'error');
                 return;
             }
+            number++;
             this.setData({
-                value: number
+                num: number
             });
         },
         onDel: function() {
-            let number = this.data.value;
+            let number = this.data.num;
             if (number == 1) {
                 return;
             }
             number--;
             this.setData({
-                value: number
+                num: number
             });
         },
         onTap: function() {
@@ -75,6 +74,15 @@ Component({
                 toastMsg('商品下架了', 'error');
                 return;
             }
+            let result = {
+                goods_id: this.data.storeInfo.goods_id,
+                num: this.data.num,
+                sale_price: this.data.storeInfo.sale_price
+            };
+            this.triggerEvent('buyNow', { keyboardVisible: false, result: result });
+        },
+        oncatch: function() {
+            return;
         }
     }
 });

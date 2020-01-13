@@ -1,7 +1,39 @@
 <import src="../../../common/templates/loading" />
 <view>
-    <view class="box"></view>
+    <view class="box">
+        <view class="boxImg">
+            <image src="../../../assets/images/location.png" class="small" />
+        </view>
+        <view class="boxInfo">
+            <view>
+                {{addressInfo.contacts}}
+                <text class="phone">{{addressInfo.mobile}}</text>
+            </view>
+            <view class="address">{{addressInfo.address}}</view>
+        </view>
+    </view>
+    <view class="boxed">
+        <view class="box noMargin" wx:for="{{productList}}" wx:key="index">
+            <view class="boxImg">
+                <image src="{{item.goods_img}}" class="big" />
+            </view>
+            <view class="boxInfo">
+                <view class="boxTitle">{{item.goods_name}}</view>
+                <view class="price">
+                    <view class="salePrice">
+                        ¥ {{item.sale_price}}
+                        <text class="saleNum">x {{item.num}}</text>
+                    </view>
+                    <view class="otherPrice">快递 ¥ {{item.postage_amount}}</view>
+                </view>
+            </view>
+        </view>
+    </view>
     <view class="actionBar">
-        <view class="pay">提交订单</view>
+        <view class="actionInfo">
+            共{{productList.length}}件，合计
+            <text class="allMoney">¥ {{total_amount}}</text>
+        </view>
+        <view class="pay" bindtap='sumitOrder'>提交订单</view>
     </view>
 </view>

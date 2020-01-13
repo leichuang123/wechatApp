@@ -114,7 +114,7 @@ page {
 .actionBar {
     width: 100%;
     background-color: #ffffff;
-    height: 50px;
+    height: 54px;
     line-height: 30px;
     display: flex;
     justify-content: space-between;

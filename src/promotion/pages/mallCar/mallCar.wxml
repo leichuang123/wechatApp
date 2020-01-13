@@ -1,0 +1,73 @@
+<import src="../../../common/templates/loading" />
+<view>
+    <view class="length" wx:if="{{myCar.length}}">共{{myCar.length}}件商品</view>
+    <view wx:if="{{myCar.length==0 && myCarDie.length==0}}" class="empty">购物车空空如也</view>
+    <view class="data">
+        <view class="box" wx:for="{{myCar}}" wx:key="index" data-item="{{item}}" data-index="{{index}}" bindtap="seeDetail">
+            <radio class="radio" value="{{item.goods_id}}" color="#E60103" checked="{{item.checked}}" disabled="{{item.shortage || !item.can_buy}}" data-item="{{item}}" data-index="{{index}}" catchtap="choosse"></radio>
+            <view class="boxImg">
+                <image class="big" src="{{item.goods_img}}" />
+            </view>
+            <view class="boxInfo">
+                <view class="boxTitle">{{item.goods_name}}</view>
+                <view class="price">
+                    <view class="salePrice">¥{{item.sale_price}}</view>
+                    <view class="otherPrice" wx:if="{{item.can_buy}}">
+                        <view class="board">
+                            <view class="action" data-item="{{item}}" data-index="{{index}}" catchtap="onDel">
+                                -
+                            </view>
+                            <view class="value">{{item.num}}</view>
+                            <view class="action" data-item="{{item}}" data-index="{{index}}" catchtap='onAdd'>
+                                +
+                            </view>
+                        </view>
+                    </view>
+                    <view class="rechange" wx:else data-item="{{item}}" data-index="{{index}}" catchtap="onRe">
+                        重选
+                    </view>
+                </view>
+                <view class="isMax" wx:if="{{!item.can_buy}}">库存不足，请重新选择</view>
+            </view>
+        </view>
+        <!-- 失效 -->
+        <view class="boxed" wx:if="{{myCarDie.length}}">
+            <view class="dieTop">
+                <view>失效商品{{myCarDie.length}}件</view>
+                <view class="die" bindtap='clearDie'>清除失效商品</view>
+            </view>
+            <view class="box noMargin" wx:for="{{myCarDie}}" wx:key="index" data-item="{{item}}" data-index="{{index}}">
+                <view class="dieIcon">失效</view>
+                <view class="boxImg">
+                    <image class="big" wx:if="{{item.source=='self'}}" src="{{host+item.goods_img}}" />
+                    <image class="big" wx:else src="{{item.goods_img}}" />
+                </view>
+                <view class="boxInfo">
+                    <view class="boxTitle">{{item.goods_name}}</view>
+                    <view class="price">
+                        <view class="salePrice">¥{{item.sale_price}}</view>
+                        <view class="otherPrice">{{item.reason}}</view>
+                    </view>
+                </view>
+            </view>
+        </view>
+    </view>
+    <view class="actionBar">
+        <view class="flexs">
+            <view>
+                <radio class="radioAll" color="#E60103" checked="{{isAll}}" bindtap='clickAll'>
+                    全选
+                </radio>
+            </view>
+            <view class="delSome" bindtap='delAll'>删除</view>
+        </view>
+        <view class="flexs">
+            <view class="actionInfo">
+                合计：
+                <text class="allMoney">¥{{allMoney}}</text>
+            </view>
+            <view class="pay" bindtap='sumitOrder'>结算（{{select.length}}）</view>
+        </view>
+    </view>
+    <buyWindow wx:if="{{keyboardVisible}}" keyboard-visible="{{keyboardVisible}}" storeInfo='{{reInfo}}' bind:hidekeyboard="hideKeyboard" bind:buyNow="buyNow"></buyWindow>
+</view>

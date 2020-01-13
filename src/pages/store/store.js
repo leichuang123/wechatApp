@@ -83,10 +83,12 @@ Page({
     },
     onShow: function() {
         this.setData({
-            goodList: []
+            goodList: [],
+            keyboardVisible: false
         });
         this.getRecommend();
         this.getGoodList(true);
+        wx.showTabBar();
     },
     typeChange: function(e) {
         if (e.currentTarget.dataset.item.goods_class_id == this.data.first_class_id) {
@@ -118,6 +120,17 @@ Page({
         wx.showTabBar();
         this.setData({
             keyboardVisible: false
+        });
+    },
+    buyNow: function(e) {
+        let params = {
+            goods_id: e.detail.result.goods_id,
+            num: e.detail.result.num
+        };
+        let goods_list = [];
+        goods_list.push(params);
+        wx.navigateTo({
+            url: '../../promotion/pages/mallOrder/mallOrder?goods_list=' + JSON.stringify(goods_list)
         });
     },
     //获取商品全部分类
@@ -186,11 +199,32 @@ Page({
                 wx.hideLoading();
             });
     },
+    //查看购物车
+    goToCar() {
+        wx.navigateTo({
+            url: '../../promotion/pages/mallCar/mallCar'
+        });
+    },
     //查看更多推荐商品
     seeMore() {
         wx.navigateTo({
             url: '../../promotion/pages/recommendList/recommendList'
         });
+    },
+    /**
+     * 下拉刷新
+     */
+    onPullDownRefresh: function() {
+        this.setData({
+            loadingVisible: true,
+            loadMoreVisible: false,
+            hasData: true,
+            hasMore: true,
+            page: 1,
+            first_class_id: '',
+            goodList: []
+        });
+        this.getGoodList(true);
     },
     /**
      * 下拉加载更多
