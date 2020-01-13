@@ -16,7 +16,9 @@
             <text class="icon-map-marker mine-icon"></text>
             <text class="fc-dark">{{bmsWeappStoreInfo.store_name}}</text>
         </view>
-        <view class="weui-cell__ft smallFont">{{'距您 '+bmsWeappStoreInfo.distance}}</view>
+        <view class="weui-cell__ft smallFont" wx:if="{{bmsWeappStoreInfo.distance}}">
+            {{'距您 '+bmsWeappStoreInfo.distance}}
+        </view>
         <view class="weui-cell__ft weui-cell__ft_in-access"></view>
     </view>
     <view class="btn-list">
