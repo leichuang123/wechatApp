@@ -306,7 +306,8 @@ Page({
         this.watchCheck();
     },
     sumitOrder: function() {
-        if (this.data.myCar.length == 0) {
+        if (this.data.select.length == 0) {
+            toastMsg('请选择商品', 'error');
             return;
         }
         confirmMsg('', '确定结算？', true, () => {
@@ -322,7 +323,7 @@ Page({
                 }
             });
             wx.navigateTo({
-                url: '../mallOrder/mallOrder?goods_list=' + JSON.stringify(goods_list)
+                url: '../mallOrder/mallOrder?cart_buy=true' + '&goods_list=' + JSON.stringify(goods_list)
             });
         });
     },

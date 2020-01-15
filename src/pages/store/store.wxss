@@ -78,6 +78,11 @@
     white-space: nowrap;
     margin-top: 5px;
 }
+.isTop {
+    position: fixed;
+    top: 0;
+    left: 0;
+}
 .scroll-view-item {
     display: inline-block;
     padding: 5px;
@@ -110,10 +115,14 @@
     top: 70%;
     right: 5px;
     z-index: 999;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .shopCar image {
-    width: 45px;
-    height: 45px;
+    width: 32px;
+    height: 32px;
 }
 .goods {
     background-color: #ffffff;

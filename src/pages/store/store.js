@@ -72,7 +72,8 @@ Page({
         totalPage: 0,
         page: 1,
         keyboardVisible: false,
-        bugInfo: {}
+        bugInfo: {},
+        isTop: false
     },
     onLoad: function(options) {
         let bmsWeappStoreInfo = wx.getStorageSync('bmsWeappStoreInfo');
@@ -86,6 +87,19 @@ Page({
     onShow: function() {
         wx.showTabBar();
     },
+
+    onPageScroll: function(res) {
+        if (res.scrollTop > 460) {
+            this.setData({
+                isTop: true
+            });
+        } else {
+            this.setData({
+                isTop: false
+            });
+        }
+    },
+
     typeChange: function(e) {
         if (e.currentTarget.dataset.item.goods_class_id == this.data.first_class_id) {
             return;

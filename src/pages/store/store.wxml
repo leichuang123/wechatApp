@@ -44,7 +44,7 @@
         </view>
         <view wx:if="{{recommendList.length==0}}" class="noData">暂无推荐商品</view>
     </view>
-    <scroll-view scroll-x="true" class="scroll-view__container">
+    <scroll-view scroll-x="true" class="scroll-view__container {{isTop? 'isTop':''}}">
         <block wx:for="{{type}}" wx:key="index">
             <view class="scroll-view-item {{first_class_id==item.goods_class_id?'scroll-view-item__active':''}}" data-item="{{item}}" bindtap="typeChange">
                 {{item.goods_class_name}}
