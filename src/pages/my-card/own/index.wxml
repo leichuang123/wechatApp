@@ -17,20 +17,20 @@
                     <view>{{item.merchant_name}}</view>
                 </view>
                 <!-- 计次卡 -->
-                <view class='station-list' style="border-top: 1px dotted #bbbbbb;padding-top:6px" wx:for="{{item.times_cards}}" wx:key="index">
+                <view class='station-list' style="border-top: 1px dotted #bbbbbb;padding-top:6px" wx:for="{{item.times_cards}}" wx:key="index" data-item="{{item}}" bindtap="gotoDetail">
                     <view class="titles">
-                        <view class="types" data-item="{{item}}" bindtap="gotoDetail">服务套餐</view>
-                        <view class="see" bindtap="gotoCountRecord" data-item="{{item.card_number}}">
+                        <view class="types">服务套餐</view>
+                        <view class="see" catchtap="gotoCountRecord" data-item="{{item.card_number}}">
                             查看计次记录>
                         </view>
                     </view>
-                    <view class="weui-flex table-header" data-item="{{item}}" bindtap="gotoDetail">
+                    <view class="weui-flex table-header">
                         <view class="weui-flex__item">套餐项目</view>
                         <view class="weui-flex__item">总数量</view>
                         <view class="weui-flex__item">剩余</view>
                         <view class="weui-flex__item">到期时间</view>
                     </view>
-                    <block wx:key="service_name" data-item="{{item}}" bindtap="gotoDetail">
+                    <block wx:key="service_name">
                         <view class="weui-flex table-row" wx:for="{{item.detail}}" wx:key="index">
                             <view class="weui-flex__item">{{item.item_name}}</view>
                             <view class="weui-flex__item">{{item.total}}</view>
@@ -42,14 +42,14 @@
                     </block>
                 </view>
                 <!-- 储值卡 -->
-                <view class="card-record__table" style="border-top: 1px dotted #bbbbbb;padding-top:6px" wx:for="{{item.stored_value_card}}" wx:key="index">
+                <view class="card-record__table" style="border-top: 1px dotted #bbbbbb;padding-top:6px" wx:for="{{item.stored_value_card}}" wx:key="index" data-item="{{item}}" bindtap="gotoDetail">
                     <view class="titles">
-                        <view class="types" data-item="{{item}}" bindtap="gotoDetail">储值</view>
-                        <view class="see" bindtap="gotoValue" id='{{item.card_number}}'>
+                        <view class="types">储值</view>
+                        <view class="see" catchtap="gotoValue" id='{{item.card_number}}'>
                             查看储值记录>
                         </view>
                     </view>
-                    <view class="titles" style="margin-top:8px" data-item="{{item}}" bindtap="gotoDetail">
+                    <view class="titles" style="margin-top:8px">
                         <view class="types" style="font-size:12px;">余额</view>
                         <view class="see" style="color:#E51C23">{{item.detail.balance}}</view>
                     </view>

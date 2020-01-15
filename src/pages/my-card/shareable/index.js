@@ -5,7 +5,7 @@ Page({
         loadingVisible: true,
         hasData: true,
         cards: [],
-        activeIndex: 0,
+        activeIndex: 1,
         sliderOffset: 0,
         sliderLeft: 0,
         sliderWidth: sliderWidth,

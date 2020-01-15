@@ -80,14 +80,10 @@ Page({
             merchant_id: bmsWeappStoreInfo.merchant_id
         });
         this.getType();
-    },
-    onShow: function() {
-        this.setData({
-            goodList: [],
-            keyboardVisible: false
-        });
         this.getRecommend();
         this.getGoodList(true);
+    },
+    onShow: function() {
         wx.showTabBar();
     },
     typeChange: function(e) {

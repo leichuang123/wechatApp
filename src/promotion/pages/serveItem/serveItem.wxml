@@ -1,7 +1,7 @@
 <import src="../../../common/templates/loading" />
 <view>
     <view class="itemBox" style="height:{{boxHeight}}px">
-        <scroll-view scroll-x="true" class="scroll-view__container">
+        <scroll-view scroll-y="true" class="scroll-view__container">
             <view class="itemType">
                 <block wx:for="{{itemArr}}" wx:key="index">
                     <view class="type-item {{class_id==item.class_id?'item__active':''}}" data-item="{{item}}" bindtap="typeChange">
@@ -10,7 +10,7 @@
                 </block>
             </view>
         </scroll-view>
-        <view class="radio-group">
+        <view class="radio-group" style="height:{{boxHeight}}px;overflow-y:auto;">
             <view wx:for-items="{{items}}" data-item="{{item}}" data-index="{{index}}" bindtap="choosse" wx:key="name" class="vip">
                 <view class="area">
                     <radio class="radio" value="{{item.goods_id}}" checked="{{item.checked}}" color="#5677FC" disabled="{{item.shortage}}"></radio>

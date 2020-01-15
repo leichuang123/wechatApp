@@ -32,6 +32,102 @@ Page({
     onShow: function() {
         this.getShopData();
     },
+    /**
+     * 手指触摸开始
+     */
+    _touchStart: function(e) {
+        this.setData({
+            touchStartPageX: e.changedTouches[0].pageX
+        });
+    },
+    /**
+     * 手指触摸结束
+     */
+    _touchEnd: function(e) {
+        let touchEndPageX = e.changedTouches[0].pageX,
+            offSetStartToEnd = touchEndPageX - this.data.touchStartPageX;
+        if ((offSetStartToEnd < 10) & (offSetStartToEnd > -10)) {
+            return;
+        }
+    },
+    deleteDie: function(e) {
+        let dieArr = this.data.myCarDie;
+        let index = e.currentTarget.dataset.index;
+        let ids = e.currentTarget.dataset.item.goods_id;
+        let params = {
+            merchant_id: this.data.merchant_id,
+            goods_ids: [ids]
+        };
+        showLoading();
+        api.post('/weapp/mall-cart/delete-goods', params).then(res => {
+            wx.hideLoading();
+            if (res.errcode == 0) {
+                toastMsg('删除成功', 'success', 1000, () => {
+                    dieArr.splice(index, 1);
+                    this.setData({
+                        myCarDie: dieArr
+                    });
+                });
+                return;
+            }
+            confirmMsg('', res.errmsg, false);
+        });
+    },
+    /**
+     * 点击删除按钮
+     */
+    deleteTouchEnd: function(e) {
+        let touchEndPageX = e.changedTouches[0].pageX,
+            offSetStartToEnd = touchEndPageX - this.data.touchStartPageX;
+        if ((offSetStartToEnd < 10) & (offSetStartToEnd > -10)) {
+            this.dieThis(e);
+        }
+        return;
+    },
+    //左滑删除
+    dieThis: function(e) {
+        let dieArr = this.data.myCar;
+        let index = e.currentTarget.dataset.index;
+        let ids = e.currentTarget.dataset.item.goods_id;
+        let params = {
+            merchant_id: this.data.merchant_id,
+            goods_ids: [ids]
+        };
+        showLoading();
+        api.post('/weapp/mall-cart/delete-goods', params).then(res => {
+            wx.hideLoading();
+            if (res.errcode == 0) {
+                toastMsg('删除成功', 'success', 1000, () => {
+                    this.checkHas(e);
+                    dieArr.splice(index, 1);
+                    this.setData({
+                        myCar: dieArr
+                    });
+                    this.watchCheck();
+                });
+                return;
+            }
+            confirmMsg('', res.errmsg, false);
+        });
+    },
+    checkHas: function(e) {
+        let id = e.currentTarget.dataset.item.goods_id;
+        let isChecked = e.currentTarget.dataset.item.checked;
+        let select = this.data.select;
+        let money = 0;
+        if (isChecked) {
+            let spliceIndex = select.indexOf(id);
+            select.splice(spliceIndex, 1);
+            money = subtract(
+                this.data.allMoney,
+                multiply(e.currentTarget.dataset.item.sale_price, e.currentTarget.dataset.item.num)
+            );
+            this.setData({
+                allMoney: money,
+                select: select
+            });
+        }
+    },
     //获取购物车列表
     getShopData: function() {
         showLoading();
@@ -100,15 +196,8 @@ Page({
                 wx.hideLoading();
                 if (res.errcode == 0) {
                     toastMsg('删除成功', 'success', 1000, () => {
-                        this.setData({
-                            select: []
-                        });
                         this.getShopData();
                         this.calData();
-                        this.setData({
-                            allMoney: 0,
-                            select: []
-                        });
                     });
                     return;
                 }
@@ -147,15 +236,14 @@ Page({
             confirmMsg('', res.errmsg, false);
         });
     },
+    //全选
     calData: function() {
         let arr = this.data.myCar;
         let money = 0;
         let select = [];
         arr.forEach(element => {
             if (element.can_buy) {
-                element.checked = !element.checked;
-            }
-            if (element.checked) {
+                element.checked = true;
                 money = add(money, multiply(element.sale_price, element.num));
                 select.push(element.goods_id);
             }
@@ -172,7 +260,24 @@ Page({
         this.setData({
             isAll: stauts
         });
-        this.calData();
+        if (stauts) {
+            this.calData();
+            return;
+        }
+        this.clearData();
+    },
+    clearData: function() {
+        let arr = this.data.myCar;
+        arr.forEach(element => {
+            if (element.can_buy) {
+                element.checked = false;
+            }
+        });
+        this.setData({
+            myCar: arr,
+            allMoney: 0,
+            select: []
+        });
     },
     choosse(e) {
         if (!e.currentTarget.dataset.item.can_buy) {
