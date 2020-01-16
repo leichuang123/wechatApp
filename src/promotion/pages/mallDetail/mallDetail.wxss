@@ -135,6 +135,7 @@ page {
     width: 50px;
     text-align: center;
     margin-top: -5px;
+    border: none;
 }
 .lis text {
     position: absolute;

@@ -69,11 +69,7 @@ Page({
                 toastMsg(res.errmsg, 'error', 1000);
                 return;
             }
-            toastMsg('添加成功', 'success', 1000, () => {
-                wx.navigateTo({
-                    url: '../mallCar/mallCar'
-                });
-            });
+            toastMsg('添加成功', 'success', 1000);
         });
     },
     /**
