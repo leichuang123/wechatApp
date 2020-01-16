@@ -84,10 +84,10 @@
                 <image src="../../../assets/images/home.png" />
                 <text>首页</text>
             </view>
-            <view class="lis">
+            <!-- <view class="lis" bindtap="shares">
                 <image src="../../../assets/images/share-gray.png" />
                 <text>分享</text>
-            </view>
+            </view> -->
         </view>
         <view class="actionRight">
             <view class="join {{goodInfo.shortage ? 'isNone':''}}" bindtap="addCar">加入购物车</view>

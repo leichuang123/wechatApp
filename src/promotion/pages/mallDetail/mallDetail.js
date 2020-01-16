@@ -31,6 +31,7 @@ Page({
             url: '../../../pages/index/index'
         });
     },
+    shares: function() {},
     hideKeyboard: function() {
         this.setData({
             keyboardVisible: false
@@ -41,13 +42,6 @@ Page({
         this.setData({
             keyboardVisible: true
         });
-        // let obj = {
-        //     goods_id: element.goods_id,
-        //     num: element.num
-        // };
-        // wx.navigateTo({
-        //     url: '../mallOrder/mallOrder'
-        // });
     },
     buyTa: function(e) {
         let params = {
