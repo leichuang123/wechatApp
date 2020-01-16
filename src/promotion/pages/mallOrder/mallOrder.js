@@ -75,7 +75,7 @@ Page({
                     wxPay(
                         payArgs,
                         () => {
-                            toastMsg('支付成功', 'error', 1000, () => {
+                            toastMsg('支付成功', 'success', 1000, () => {
                                 wx.navigateTo({
                                     url: '/pages/payment/success'
                                 });
