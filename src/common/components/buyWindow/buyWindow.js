@@ -1,5 +1,5 @@
 import { host } from '../../../config';
-import { confirmMsg, toastMsg } from '../../../utils/util';
+import { toastMsg } from '../../../utils/util';
 import { subtract } from '../../../utils/calculate';
 Component({
     behaviors: [],

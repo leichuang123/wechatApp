@@ -180,7 +180,8 @@ Page({
         });
     },
     delAll: function() {
-        if (this.data.myCar.length == 0) {
+        if (this.data.select.length == 0) {
+            toastMsg('请选择商品', 'error');
             return;
         }
         if (this.data.select == 0) {
