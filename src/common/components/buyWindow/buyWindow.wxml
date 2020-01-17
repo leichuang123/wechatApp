@@ -6,8 +6,7 @@
             </view>
             <view class="info">
                 <view class="infoImg">
-                    <image wx:if="{{item.source=='self'}}" class="infoImgs" src="{{host+goodInfo.goods_img}}" />
-                    <image class="infoImgs" wx:else src="{{goodInfo.goods_img}}" />
+                    <image class="infoImgs" src="{{goodInfo.goods_img}}" />
                 </view>
                 <view class="infoOther">
                     <view class="theName">{{goodInfo.goods_name}}</view>

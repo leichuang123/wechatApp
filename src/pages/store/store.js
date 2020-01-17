@@ -121,9 +121,14 @@ Page({
     },
     bug(e) {
         wx.hideTabBar();
+        let data = e.currentTarget.dataset.item;
+        if (data.source == 'self') {
+            data.goods_img = host + data.goods_img;
+        }
+
         this.setData({
-            keyboardVisible: true,
-            bugInfo: e.currentTarget.dataset.item
+            bugInfo: data,
+            keyboardVisible: true
         });
     },
     hideKeyboard: function() {
