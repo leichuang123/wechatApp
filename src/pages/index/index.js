@@ -54,8 +54,22 @@ Page({
                 this.getLocationInfo(locationInfo);
             })
             .catch(res => {
-                this.getLocationInfo();
-                wx.setStorageSync('locationInfo', app.globalData.defaultLocation);
+                let me = this;
+                wx.showModal({
+                    content: '请您开启手机GPS定位',
+                    confirmText: '我已开启',
+                    confirmColor: '#e60103',
+                    success(res) {
+                        if (res.confirm) {
+                            wx.reLaunch({
+                                url: '/pages/index/index'
+                            });
+                        } else if (res.cancel) {
+                            me.getLocationInfo();
+                            wx.setStorageSync('locationInfo', app.globalData.defaultLocation);
+                        }
+                    }
+                });
             });
     },
     getLocationInfo: function(locationInfo) {

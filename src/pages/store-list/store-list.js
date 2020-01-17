@@ -296,27 +296,15 @@ Page({
         });
     },
     /**
-     * 获取位置信息
-     */
-    getLocation: function() {
-        app.getLocation(res => {
-            this.setData({
-                'form.latitude': res.latitude,
-                'form.longitude': res.longitude
-            });
-            this.getStoresWithClass();
-        });
-    },
-    /**
      * 生命周期函数--监听页面加载
      */
     onLoad: function(options) {
-        const locationInfo = wx.getStorageSync('locationInfo');
         const selectedCity = wx.getStorageSync('selectedCity');
+        let bmsWeappStoreInfo = wx.getStorageSync('bmsWeappStoreInfo');
         this.setData({
-            'form.latitude': locationInfo.latitude,
-            'form.longitude': locationInfo.longitude,
-            'form.cityId': selectedCity.code,
+            'form.latitude': bmsWeappStoreInfo.latitude,
+            'form.longitude': bmsWeappStoreInfo.longitude,
+            'form.cityId': bmsWeappStoreInfo.store_city,
             'form.auth_type': app.globalData.extConfig.auth_type || 1,
             'form.auth_related_id': app.globalData.extConfig.auth_related_id || 1,
             'selectedArea.name': selectedCity.name

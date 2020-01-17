@@ -80,6 +80,7 @@ Page({
                         goodInfo: res.data.goods_detail,
                         comment: this.data.comment.concat(res.data.comment),
                         'goodInfo.goods_id': res.data.goods_id,
+                        'goodInfo.goods_img': res.data.goods_img[0],
                         keyboardVisible: false
                     });
                     WxParse.wxParse('detail', 'html', res.data.goods_detail.contents, this, 15);
