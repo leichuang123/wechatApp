@@ -5,7 +5,8 @@ import { scanCode, getLocation, getSystemInfo } from '../../utils/wx-api';
 const app = getApp();
 Page({
     data: {
-        userInfo: null
+        userInfo: null,
+        bmsWeappStoreInfo: {}
     },
     /**
      * 获取平台用户信息
@@ -100,5 +101,99 @@ Page({
      */
     onLoad: function(options) {
         this.initData();
+        let bmsWeappStoreInfo = wx.getStorageSync('bmsWeappStoreInfo');
+        if (!bmsWeappStoreInfo) {
+            this.getLocation();
+            return;
+        }
+        this.setData({
+            bmsWeappStoreInfo: bmsWeappStoreInfo
+        });
+    },
+    /**
+     * 定位
+     */
+    getLocation: function() {
+        getLocation({
+            type: 'wgs84'
+        })
+            .then(res => {
+                let locationInfo = {
+                    latitude: res.latitude,
+                    longitude: res.longitude
+                };
+                this.getLocationInfo(locationInfo);
+            })
+            .catch(res => {
+                let me = this;
+                wx.showModal({
+                    content: '请您开启手机GPS定位',
+                    confirmText: '我已开启',
+                    confirmColor: '#e60103',
+                    success(res) {
+                        if (res.confirm) {
+                            wx.reLaunch({
+                                url: '/pages/mine/mine'
+                            });
+                        } else if (res.cancel) {
+                            me.getLocationInfo();
+                        }
+                    }
+                });
+            });
+    },
+    getLocationInfo: function(locationInfo) {
+        showLoading();
+        api.get('weapp/getcityinfo', locationInfo, false).then(res => {
+            wx.hideLoading();
+            if (res.errcode === 0) {
+                if (locationInfo) {
+                    const selectedCity = wx.getStorageSync('selectedCity');
+                    const locatedCity = res.data.ad_info.city;
+                    if (locatedCity !== selectedCity.name) {
+                        const content = '您当前的位置为' + locatedCity + '，是否切换到当前城市';
+                        confirmMsg(
+                            '',
+                            content,
+                            true,
+                            () => {
+                                this.setData({
+                                    city: locatedCity
+                                });
+                                wx.setStorageSync('selectedCity', {
+                                    name: locatedCity,
+                                    code: locationInfo.city_code
+                                });
+                            },
+                            () => {
+                                this.setData({
+                                    city: !selectedCity ? '请选择' : selectedCity.name
+                                });
+                            }
+                        );
+                    }
+                    locationInfo.adcode = res.data.ad_info.adcode;
+                    locationInfo.city_code = res.data.ad_info.city_code.substring(res.data.ad_info.nation_code.length);
+                    locationInfo.city = res.data.ad_info.city;
+                    locationInfo.district = res.data.ad_info.district;
+                    wx.setStorageSync('locationInfo', locationInfo);
+                }
+                //储存定位获取的最近的门店信息
+                let bmsWeappStoreInfo = res.data.store_info;
+                this.setData({
+                    bmsWeappStoreInfo: bmsWeappStoreInfo.merchant_id
+                });
+                wx.setStorageSync('bmsWeappStoreInfo', bmsWeappStoreInfo);
+                this.getType();
+                this.getRecommend();
+                this.getGoodList(true);
+            } else {
+                confirmMsg('', res.errmsg, false, () => {
+                    wx.reLaunch({
+                        url: '/pages/index/index'
+                    });
+                });
+            }
+        });
     }
 });
