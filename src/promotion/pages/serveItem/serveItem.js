@@ -1,6 +1,7 @@
 import api from '../../../utils/api';
-import { toastMsg, showLoading } from '../../../utils/util';
+import { toastMsg, showLoading, confirmMsg } from '../../../utils/util';
 import { add, subtract } from '../../../utils/calculate';
+import wxPay from '../../../utils/requestPayment';
 Page({
     data: {
         items: [],
@@ -8,6 +9,7 @@ Page({
         allMoney: 0.0,
         number: 0,
         merchant_id: 0,
+        store_id: 0,
         boxHeight: 0,
         itemArr: [],
         class_id: '',
@@ -23,12 +25,22 @@ Page({
         let systemInfo = wx.getStorageSync('systemInfo');
         this.setData({
             merchant_id: bmsWeappStoreInfo.merchant_id,
+            store_id: bmsWeappStoreInfo.store_id,
             boxHeight: systemInfo.windowHeight
         });
     },
     onShow: function() {
         this.getType();
         this.getServeItem(true);
+    },
+    formatData(data) {
+        let compareData = this.data.select;
+        data.forEach(element => {
+            if (compareData.indexOf(element.goods_id) > -1) {
+                element.checked = true;
+            }
+        });
+        return data;
     },
     //获取全部服务项目
     getServeItem: function(type = false) {
@@ -49,13 +61,13 @@ Page({
                 });
                 if (type) {
                     this.setData({
-                        items: res.data.data,
+                        items: this.formatData(res.data.data),
                         totalPage: res.data.last_page
                     });
                     return;
                 }
                 this.setData({
-                    items: this.data.items.concat(res.data.data),
+                    items: this.data.items.concat(this.formatData(res.data.data)),
                     totalPage: res.data.last_page
                 });
             }
@@ -80,7 +92,6 @@ Page({
         this.setData({
             class_id: e.currentTarget.dataset.item.class_id,
             page: 1,
-            select: [],
             number: 0
         });
         this.getServeItem(true);
@@ -123,5 +134,48 @@ Page({
             page: this.data.page + 1
         });
         this.getServeItem();
+    },
+    buy: function() {
+        if (!this.data.select.length) {
+            toastMsg('请选择服务项目', 'error');
+            return;
+        }
+        confirmMsg('', '确定结算？', true, () => {
+            showLoading();
+            let param = {
+                merchant_id: this.data.merchant_id,
+                store_id: this.data.store_id,
+                service_item_ids: this.data.select
+            };
+            api.post('/weapp/mall/buy-service-item', param)
+                .then(res => {
+                    wx.hideLoading();
+                    if (res.errcode !== 0) {
+                        confirmMsg('', res.errmsg, false);
+                        return;
+                    }
+                    let payArgs = res.data;
+                    wxPay(
+                        payArgs,
+                        () => {
+                            toastMsg('支付成功', 'success', 1000, () => {
+                                wx.navigateTo({
+                                    url: '/pages/payment/success'
+                                });
+                            });
+                        },
+                        () => {
+                            toastMsg('支付失败', 'error', 1000, () => {
+                                wx.navigateBack({
+                                    delta: 2
+                                });
+                            });
+                        }
+                    );
+                })
+                .catch(() => {
+                    wx.hideLoading();
+                });
+        });
     }
 });

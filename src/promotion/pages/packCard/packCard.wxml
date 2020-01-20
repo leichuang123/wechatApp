@@ -29,6 +29,6 @@
     <view class="total">
         <view class="all">合计金额：</view>
         <view class="allMoney">{{allMoney}}</view>
-        <view class="totalButton">结算({{number}})</view>
+        <view class="totalButton" bindtap='buy'>结算({{number}})</view>
     </view>
 </view>

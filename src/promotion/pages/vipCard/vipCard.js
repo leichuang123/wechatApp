@@ -1,5 +1,6 @@
 import api from '../../../utils/api';
-import { toastMsg, showLoading } from '../../../utils/util';
+import { toastMsg, showLoading, confirmMsg } from '../../../utils/util';
+import wxPay from '../../../utils/requestPayment';
 Page({
     data: {
         items: [],
@@ -7,6 +8,7 @@ Page({
         allMoney: 0.0,
         number: 0,
         merchant_id: 0,
+        store_id: 0,
         page: 1,
         loadingVisible: false, //加载中
         hasData: true,
@@ -17,7 +19,8 @@ Page({
     onLoad: function(options) {
         let bmsWeappStoreInfo = wx.getStorageSync('bmsWeappStoreInfo');
         this.setData({
-            merchant_id: bmsWeappStoreInfo.merchant_id
+            merchant_id: bmsWeappStoreInfo.merchant_id,
+            store_id: bmsWeappStoreInfo.store_id
         });
     },
     onShow: function() {
@@ -29,7 +32,7 @@ Page({
             res => {
                 wx.hideLoading();
                 if (res.errcode == 0) {
-                    let hasMore = res.errcode !== 0 || this.data.page >= res.data.last_page ? false : true;
+                    let hasMore = res.errcode != 0 || this.data.page >= res.data.last_page ? false : true;
                     this.setData({
                         loadMoreVisible: false,
                         loadingVisible: false,
@@ -61,7 +64,7 @@ Page({
             return;
         }
         this.setData({
-            selectId: e.currentTarget.dataset.item.stored_id,
+            selectId: e.currentTarget.dataset.item.vip_card_id,
             number: 1,
             allMoney: e.currentTarget.dataset.item.stored_sale
         });
@@ -78,5 +81,48 @@ Page({
             page: this.data.page + 1
         });
         this.getVipList();
+    },
+    sumit: function() {
+        if (!this.data.selectId) {
+            toastMsg('请选择VIP卡', 'error');
+            return;
+        }
+        confirmMsg('', '确定结算？', true, () => {
+            showLoading();
+            let param = {
+                merchant_id: this.data.merchant_id,
+                store_id: this.data.store_id,
+                vip_card_id: this.data.selectId
+            };
+            api.post('/weapp/mall/buy-vip-card', param)
+                .then(res => {
+                    wx.hideLoading();
+                    if (res.errcode !== 0) {
+                        confirmMsg('', res.errmsg, false);
+                        return;
+                    }
+                    let payArgs = res.data;
+                    wxPay(
+                        payArgs,
+                        () => {
+                            toastMsg('支付成功', 'success', 1000, () => {
+                                wx.navigateTo({
+                                    url: '/pages/payment/success'
+                                });
+                            });
+                        },
+                        () => {
+                            toastMsg('支付失败', 'error', 1000, () => {
+                                wx.navigateBack({
+                                    delta: 2
+                                });
+                            });
+                        }
+                    );
+                })
+                .catch(() => {
+                    wx.hideLoading();
+                });
+        });
     }
 });

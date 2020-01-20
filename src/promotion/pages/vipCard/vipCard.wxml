@@ -3,7 +3,7 @@
     <radio-group class="radio-group">
         <view wx:for-items="{{items}}" data-item="{{item}}" data-index="{{index}}" bindtap="choosse" wx:key="name" class="vip">
             <view class="area">
-                <radio class="radio" value="{{item.stored_id}}" checked="{{item.stored_id==selectId}}" disabled="{{item.shortage}}" color="#5677FC"></radio>
+                <radio class="radio" value="{{item.vip_card_id}}" checked="{{item.vip_card_id==selectId}}" disabled="{{item.shortage}}" color="#5677FC"></radio>
                 <view class="radioMessage">
                     <view class="flex">
                         <view>
@@ -16,7 +16,7 @@
                             </view>
                         </view>
                     </view>
-                    <view class="ins" wx:if="{{selectId==item.stored_id}}">
+                    <view class="ins" wx:if="{{selectId==item.vip_card_id}}">
                         {{item.stored_abstract}}
                     </view>
                 </view>
@@ -28,6 +28,6 @@
     <view class="total">
         <view class="all">合计金额：</view>
         <view class="allMoney">{{allMoney}}</view>
-        <view class="totalButton">结算({{number}})</view>
+        <view class="totalButton" bindtap='sumit'>结算({{number}})</view>
     </view>
 </view>
