@@ -174,12 +174,12 @@ Page({
         const userData = wx.getStorageSync('userData');
         const linkman = wx.getStorageSync('linkman');
         const params = JSON.parse(options.params);
-        const carNumber = !!userData ? userData.default_car : '';
+        const carNumber = userData ? userData.default_car : '';
         this.setData({
             'form.store_id': params.store_id,
             'form.merchant_id': params.merchant_id,
-            'form.car_number': userData.car[0],
-            'form.mobile': !!userData ? userData.mobile : '',
+            'form.car_number': userData.default_car ?  userData.default_car:'',
+            'form.mobile': userData ? userData.mobile : '',
             'form.contact': !linkman ? '' : linkman,
             carNumbers: !!userData ? userData.car : []
         });

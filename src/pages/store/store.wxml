@@ -1,7 +1,16 @@
 <import src="../../common/templates/loading" />
 <view>
-    <view>
+    <!-- <view>
         <image src="{{host+'images/weapp/newBanner.png'}}" style="width:100%;display:block;height:185px;" />
+    </view> -->
+    <view class="detail-benner">
+        <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
+            <block wx:for="{{weappList}}" wx:key="index">
+                <swiper-item  bindtap='clickPic' data-item="{{item}}" >
+                    <image src="{{item.img_url}}" />
+                </swiper-item>
+            </block>
+        </swiper>
     </view>
     <view class="btn-list">
         <view class="weui-flex">

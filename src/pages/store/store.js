@@ -75,8 +75,36 @@ Page({
         page: 1,
         keyboardVisible: false,
         bugInfo: {},
-        isTop: false
+        isTop: false,
+        indicatorDots: true,
+        autoplay: true,
+        interval: 5000,
+        duration: 1000,
+        weappList:[]
     },
+    //获取banner
+    getBannerList:function(merchant_id){
+        let params={
+            merchant_id:merchant_id,
+            position:'mall'
+        };
+        api.get('/weapp/ad/get-weapp-list', params, false).then(res => {
+             if(res.errcode==0){
+                 this.setData({
+                    weappList:res.data
+                 })
+             }
+        })
+    },
+    //点击banner跳转商品详情
+    clickPic:function(row){
+        if(!row.currentTarget.dataset.item.jump_goods_page){
+             return;
+        }
+        wx.navigateTo({
+            url: '../../promotion/pages/mallDetail/mallDetail?goods_id=' + row.currentTarget.dataset.item.goods_id
+        });
+    },    
     /**
      * 定位
      */
@@ -175,6 +203,7 @@ Page({
         this.getType();
         this.getRecommend();
         this.getGoodList(true);
+        this.getBannerList(bmsWeappStoreInfo.merchant_id);
     },
     onShow: function() {
         wx.showTabBar();

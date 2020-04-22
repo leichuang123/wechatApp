@@ -15,7 +15,35 @@ Page({
             oem_id: '',
             store_name: '',
             distance: ''
+        },
+        indicatorDots: true,
+        autoplay: true,
+        interval: 5000,
+        duration: 1000,
+        weappList:[]
+    },
+    //获取banner
+    getBannerList:function(merchant_id){
+        let params={
+            merchant_id:merchant_id,
+            position:'homepage'
+        };
+        api.get('/weapp/ad/get-weapp-list', params, false).then(res => {
+             if(res.errcode==0){
+                 this.setData({
+                    weappList:res.data
+                 })
+             }
+        })
+    },
+    //点击banner跳转商品详情
+    clickPic:function(row){
+        if(!row.currentTarget.dataset.item.jump_goods_page){
+             return;
         }
+        wx.navigateTo({
+            url: '../../promotion/pages/mallDetail/mallDetail?goods_id=' + row.currentTarget.dataset.item.goods_id
+        });
     },
     /**
      * 获取首页信息
@@ -34,6 +62,7 @@ Page({
                     couponDialogVisible: !!res.data.unreceivedCoupons && res.data.unreceivedCoupons.data.length > 0
                 });
                 wx.setStorageSync('userData', res.data.userData);
+                this.getBannerList(bmsWeappStoreInfo.merchant_id);
             } else {
                 console.log(res.errmsg);
             }
