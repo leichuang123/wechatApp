@@ -18,7 +18,9 @@
                 <view class="goods_intro">{{goodInfo.goods_intro}}</view>
                 <view class="l-height">
                     <text class="sale_price">¥{{goodInfo.sale_price}}</text>
-                    <text class="ori_price">{{goodInfo.ori_price}}</text>
+                    <text class="ori_price" wx:if="{{goodInfo.ori_price<goodInfo.sale_price}}">
+                        {{goodInfo.ori_price}}
+                    </text>
                 </view>
             </view>
             <view class="navigation-width">
@@ -84,9 +86,15 @@
                 <image src="../../../assets/images/home.png" />
                 <text>首页</text>
             </view>
-            <!-- <view class="lis" bindtap="shares">
+            <button class="lis"  open-type="share" plain='true' style="border:0;overflow:inherit">
                 <image src="../../../assets/images/share-gray.png" />
                 <text>分享</text>
+            </button>
+            <!-- <view class="lis" bindtap="shares">
+                <button class="weui-btn" open-type="share">
+                    <image src="../../../assets/images/share-gray.png" />
+                    <text>分享</text>
+                </button>
             </view> -->
         </view>
         <view class="actionRight">

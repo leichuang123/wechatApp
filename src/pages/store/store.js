@@ -207,6 +207,9 @@ Page({
     },
     onShow: function() {
         wx.showTabBar();
+        this.setData({
+            keyboardVisible: false
+        });
     },
 
     onPageScroll: function(res) {
