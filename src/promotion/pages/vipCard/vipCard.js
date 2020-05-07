@@ -14,7 +14,9 @@ Page({
         hasData: true,
         hasMore: true,
         loadMoreVisible: false, //加载更多
-        totalPage: 0
+        totalPage: 0,
+        isbuy:true,
+        sMoney:null
     },
     onLoad: function(options) {
         let bmsWeappStoreInfo = wx.getStorageSync('bmsWeappStoreInfo');
@@ -59,14 +61,27 @@ Page({
             toastMsg('商品缺货中', 'error');
             return;
         }
-        if (!e.currentTarget.dataset.item.can_buy) {
-            toastMsg('该卡暂时不能购买', 'error');
-            return;
-        }
+        // if (!e.currentTarget.dataset.item.can_buy) {
+        //     confirmMsg('', '您已经有vip卡了，将会给vip卡充值', true, () => {
+        //         this.setData({
+        //             selectId: e.currentTarget.dataset.item.vip_card_id,
+        //             number: 1,
+        //             allMoney: e.currentTarget.dataset.item.stored_sale
+        //         });
+        //     },()=>{
+        //         this.setData({
+        //             selectId:0,
+        //             number: 0,
+        //             allMoney: 0.00
+        //         });
+        //     })        
+        // }
         this.setData({
+            isbuy:e.currentTarget.dataset.item.can_buy,
             selectId: e.currentTarget.dataset.item.vip_card_id,
             number: 1,
-            allMoney: e.currentTarget.dataset.item.stored_sale
+            allMoney: e.currentTarget.dataset.item.stored_sale,
+            sMoney:e.currentTarget.dataset.item.stored_amount
         });
     },
     /**

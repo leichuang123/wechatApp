@@ -41,6 +41,9 @@
     color: #607d8b;
     text-decoration: line-through;
 }
+.ispading{
+    height: 56px;
+}
 .total {
     background-color: #ffffff;
     position: fixed;

@@ -256,5 +256,6 @@ Page({
     },
     onShow: function() {
         this.initData();
+        wx.showTabBar();
     }
 });
