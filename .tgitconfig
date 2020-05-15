@@ -1,0 +1,7 @@
+[bugtraq]
+	url = http://pms.hb400.net:85/bug-view-%BUGID%.html
+	append = true
+	number = true
+	warnifnoissue = false
+	logregex = ""
+	message = http://pms.hb400.net:85/bug-view-%BUGID%.html
