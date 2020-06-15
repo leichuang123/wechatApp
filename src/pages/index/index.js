@@ -20,27 +20,28 @@ Page({
         autoplay: true,
         interval: 5000,
         duration: 1000,
-        weappList:[],
-        fromList:false
+        weappList: [],
+        fromList: false,
+        initLocationInfo: false
     },
     //获取banner
-    getBannerList:function(merchant_id){
-        let params={
-            merchant_id:merchant_id,
-            position:'homepage'
+    getBannerList: function(merchant_id) {
+        let params = {
+            merchant_id: merchant_id,
+            position: 'homepage'
         };
         api.get('/weapp/ad/get-weapp-list', params, false).then(res => {
-             if(res.errcode==0){
-                 this.setData({
-                    weappList:res.data
-                 })
-             }
-        })
+            if (res.errcode == 0) {
+                this.setData({
+                    weappList: res.data
+                });
+            }
+        });
     },
     //点击banner跳转商品详情
-    clickPic:function(row){
-        if(!row.currentTarget.dataset.item.jump_goods_page){
-             return;
+    clickPic: function(row) {
+        if (!row.currentTarget.dataset.item.jump_goods_page) {
+            return;
         }
         wx.navigateTo({
             url: '../../promotion/pages/mallDetail/mallDetail?goods_id=' + row.currentTarget.dataset.item.goods_id
@@ -189,9 +190,8 @@ Page({
         if (!app.globalData.sessionKey) {
             app.doLoginCallBack = sessionKey => {
                 wx.setStorageSync('sessionKey', sessionKey);
-
             };
-        } 
+        }
         const selectedCity = wx.getStorageSync('selectedCity');
         this.setData({
             city: !selectedCity ? '请选择' : selectedCity.name
@@ -240,17 +240,23 @@ Page({
         //从选择门店选择门店后进入
         if (options.from == 'list') {
             this.setData({
-                fromList:true,
+                fromList: true
             });
         }
+        this.setData({
+            initLocationInfo: true
+        });
     },
     onShow: function() {
         this.initData();
         wx.showTabBar();
         let bmsWeappStoreInfo = wx.getStorageSync('bmsWeappStoreInfo');
         //没有缓存定位信息，不是从选择门店选择门店后进入
-        if (!bmsWeappStoreInfo && !this.data.fromList) {
+        if ((!bmsWeappStoreInfo && !this.data.fromList) || this.data.initLocationInfo) {
             this.getLocation();
+            this.setData({
+                initLocationInfo: false
+            });
             return;
         }
         this.setData({
