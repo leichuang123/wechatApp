@@ -62,7 +62,6 @@ Page({
                     couponDialogVisible: !!res.data.unreceivedCoupons && res.data.unreceivedCoupons.data.length > 0
                 });
                 wx.setStorageSync('userData', res.data.userData);
-                this.getBannerList(bmsWeappStoreInfo.merchant_id);
             } else {
                 console.log(res.errmsg);
             }
@@ -143,6 +142,8 @@ Page({
                     bmsWeappStoreInfo: bmsWeappStoreInfo
                 });
                 wx.setStorageSync('bmsWeappStoreInfo', bmsWeappStoreInfo);
+                this.getIndexInfo();
+                this.getBannerList(bmsWeappStoreInfo.merchant_id);
             } else {
                 confirmMsg('', res.errmsg, false);
             }
@@ -187,11 +188,9 @@ Page({
         if (!app.globalData.sessionKey) {
             app.doLoginCallBack = sessionKey => {
                 wx.setStorageSync('sessionKey', sessionKey);
-                this.getIndexInfo();
+
             };
-        } else {
-            this.getIndexInfo();
-        }
+        } 
         const selectedCity = wx.getStorageSync('selectedCity');
         this.setData({
             city: !selectedCity ? '请选择' : selectedCity.name
