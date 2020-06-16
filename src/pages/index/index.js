@@ -251,8 +251,8 @@ Page({
         this.initData();
         wx.showTabBar();
         let bmsWeappStoreInfo = wx.getStorageSync('bmsWeappStoreInfo');
-        //没有缓存定位信息，不是从选择门店选择门店后进入
-        if ((!bmsWeappStoreInfo && !this.data.fromList) || this.data.initLocationInfo) {
+        //(没有缓存定位信息 or 初始化定位信息) and 不是从门店列表选择门店后进入
+        if ((!bmsWeappStoreInfo || this.data.initLocationInfo) && !this.data.fromList) {
             this.getLocation();
             this.setData({
                 initLocationInfo: false
