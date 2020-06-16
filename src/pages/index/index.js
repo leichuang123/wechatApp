@@ -259,6 +259,10 @@ Page({
             });
             return;
         }
+        //初始化定位信息 and 从门店列表选择门店后进入
+        if (this.data.initLocationInfo && this.data.fromList) {
+            this.getBannerList(bmsWeappStoreInfo.merchant_id);
+        }
         this.setData({
             bmsWeappStoreInfo: bmsWeappStoreInfo
         });

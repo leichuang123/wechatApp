@@ -52,7 +52,7 @@ Page({
             longitude: 0,
             fromPage: '',
             cityId: '',
-            classId: 1,
+            classId: 0,
             classType: 'first',
             sortType: '',
             page: 1
@@ -274,12 +274,11 @@ Page({
         let item = e.currentTarget.dataset.item;
         item.status = item.wait >= 0 ? true : false;
         wx.setStorageSync('currentStore', item);
-        let bmsWeappStoreInfo = {
-            store_id: item.sid,
-            merchant_id: item.merchans_id,
-            store_name: item.store_name,
-            distance: item.distance
-        };
+        let bmsWeappStoreInfo = wx.getStorageSync('bmsWeappStoreInfo');
+        bmsWeappStoreInfo.store_id = item.sid;
+        bmsWeappStoreInfo.merchant_id = item.merchans_id;
+        bmsWeappStoreInfo.store_name = item.store_name;
+        bmsWeappStoreInfo.distance = item.distance;
         showLoading();
         api.get('/weapp/change-select-store', { store_id: item.sid }).then(res => {
             wx.hideLoading();
@@ -304,7 +303,6 @@ Page({
         this.setData({
             'form.latitude': bmsWeappStoreInfo.latitude,
             'form.longitude': bmsWeappStoreInfo.longitude,
-            'form.cityId': bmsWeappStoreInfo.store_city,
             'form.auth_type': app.globalData.extConfig.auth_type || 1,
             'form.auth_related_id': app.globalData.extConfig.auth_related_id || 1,
             'selectedArea.name': selectedCity.name
