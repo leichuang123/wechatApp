@@ -1,0 +1,18 @@
+page {
+    background: white;
+}
+.exchangeinput {
+    width: 96%;
+    margin: 10px auto;
+    border: 1px solid rgba(255, 255, 255, 0);
+    height: 54px;
+    border-radius: 6px;
+    background-color: rgba(244, 244, 244, 1);
+    padding-left: 5px;
+}
+.mini-btn {
+    width: 50%;
+    margin-top: 30px;
+    background-color: #e60103;
+    color: #ffffff;
+}

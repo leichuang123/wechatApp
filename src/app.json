@@ -122,7 +122,8 @@
                 "pages/serveItem/serveItem",
                 "pages/mallDetail/mallDetail",
                 "pages/mallOrder/mallOrder",
-                "pages/mallCar/mallCar"
+                "pages/mallCar/mallCar",
+                "pages/exchange/exchange"
             ]
         }
     ],

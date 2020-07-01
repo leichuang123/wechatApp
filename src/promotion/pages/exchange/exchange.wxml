@@ -1,0 +1,8 @@
+<view>
+    <view class="weui-cell weui-cell_input">
+        <input class="weui-input exchangeinput" data-name="exchange_code" bindinput="getInputValue" auto-focus placeholder="请输入兑换码" />
+    </view>
+    <view>
+        <button class="mini-btn" bindtap='exchangeGo'>兑换</button>
+    </view>
+</view>
