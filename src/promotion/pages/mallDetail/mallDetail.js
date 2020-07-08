@@ -55,6 +55,14 @@ Page({
             keyboardVisible: true,
         });
     },
+    previewImg: function (e) {
+        var currentUrl = e.currentTarget.dataset.currenturl;
+        var previewUrls = e.currentTarget.dataset.previewurl;
+        wx.previewImage({
+            current: currentUrl, //必须是http图片，本地图片无效
+            urls: previewUrls, //必须是http图片，本地图片无效
+        });
+    },
     bugJointlyCard: function () {
         confirmMsg('', '确定结算？', true, () => {
             let submitParams = {
@@ -62,7 +70,7 @@ Page({
                 store_id: this.data.storeForm.store_id,
                 jointly_card_type_id: this.data.goodInfo.goods_id,
             };
-            api.post('/weapp/mall-jointly-card/place-order'.submitParams).then((res) => {
+            api.post('/weapp/mall-jointly-card/place-order', submitParams).then((res) => {
                 if (res.errcode !== 0) {
                     confirmMsg('', res.errmsg, false);
                     return;
@@ -170,13 +178,12 @@ Page({
             'storeForm.goods_id': options.goods_id,
             'storeForm.type': options.type,
         });
+        this.getStoreInfo();
     },
     /**
      * 生命周期函数--监听页面显示
      */
-    onShow: function () {
-        this.getStoreInfo();
-    },
+    onShow: function () {},
     /**
      * 切换视图
      */

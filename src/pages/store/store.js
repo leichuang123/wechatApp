@@ -108,7 +108,11 @@ Page({
             return;
         }
         wx.navigateTo({
-            url: '../../promotion/pages/mallDetail/mallDetail?goods_id=' + row.currentTarget.dataset.item.goods_id,
+            url:
+                '../../promotion/pages/mallDetail/mallDetail?goods_id=' +
+                row.currentTarget.dataset.item.goods_id +
+                '&type=' +
+                e.currentTarget.dataset.item.type,
         });
     },
     /**

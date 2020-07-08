@@ -4,7 +4,7 @@
     <view class="detail-benner">
         <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
             <block wx:for="{{goodImg}}" wx:key="index">
-                <swiper-item>
+                <swiper-item bindtap='previewImg' data-previewurl='{{goodImg}}'>
                     <image wx:if="{{goodInfo.source=='self'}}" src="{{host+item}}" mode="aspectFit" />
                     <image wx:else src="{{item}}" mode="aspectFit" />
                 </swiper-item>
