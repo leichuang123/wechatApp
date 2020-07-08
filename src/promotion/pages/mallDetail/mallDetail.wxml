@@ -2,11 +2,11 @@
 <import src="../../../assets/plugins/wxParse/wxParse.wxml" />
 <view style="background:#ffffff">
     <view class="detail-benner">
-        <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
+        <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" indicator-active-color='#E60103' duration="{{duration}}">
             <block wx:for="{{goodImg}}" wx:key="index">
                 <swiper-item bindtap='previewImg' data-previewurl='{{goodImg}}'>
-                    <image wx:if="{{goodInfo.source=='self'}}" src="{{host+item}}" mode="aspectFit" />
-                    <image wx:else src="{{item}}" mode="aspectFit" />
+                    <image wx:if="{{goodInfo.source=='self'}}" src="{{host+item}}" />
+                    <image wx:else src="{{item}}" />
                 </swiper-item>
             </block>
         </swiper>

@@ -2,10 +2,10 @@
     <!-- <view>
         <image src="https://sh.huobanyc.com/images/weapp/newBanner.png" style="width:100%;display:block;height:185px;" />
     </view> -->
-        <view class="detail-benner">
-        <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
+    <view class="detail-benner">
+        <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" indicator-active-color='#E60103' duration="{{duration}}">
             <block wx:for="{{weappList}}" wx:key="index">
-                <swiper-item  bindtap='clickPic' data-item="{{item}}" >
+                <swiper-item bindtap='clickPic' data-item="{{item}}">
                     <image src="{{item.img_url}}" />
                 </swiper-item>
             </block>
