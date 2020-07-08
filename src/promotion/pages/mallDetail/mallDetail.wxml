@@ -86,7 +86,7 @@
                 <image src="../../../assets/images/home.png" />
                 <text>首页</text>
             </view>
-            <button class="lis"  open-type="share" plain='true' style="border:0;overflow:inherit">
+            <button class="lis" open-type="share" plain='true' style="border:0;overflow:inherit">
                 <image src="../../../assets/images/share-gray.png" />
                 <text>分享</text>
             </button>
@@ -98,7 +98,9 @@
             </view> -->
         </view>
         <view class="actionRight">
-            <view class="join {{goodInfo.shortage ? 'isNone':''}}" bindtap="addCar">加入购物车</view>
+            <view class="join {{goodInfo.shortage ? 'isNone':''}} {{goodInfo.type=='JointlyCard' ?'iscard':''}}" bindtap="addCar">
+                加入购物车
+            </view>
             <view class="pay {{goodInfo.shortage ? 'isNone':''}}" bindtap="buyNow">立即购买</view>
         </view>
     </view>

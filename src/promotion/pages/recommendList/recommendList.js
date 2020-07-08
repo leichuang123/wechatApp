@@ -11,7 +11,8 @@ Page({
                 inventory: 0,
                 already_num: 0.0,
                 shortage: false,
-                goods_img: '/images/weapp/testImg/jiyou.jpg'
+                goods_img: '/images/weapp/testImg/jiyou.jpg',
+                source: 'self',
             },
             {
                 goods_id: 0,
@@ -20,7 +21,8 @@ Page({
                 inventory: 0,
                 already_num: 0.0,
                 shortage: false,
-                goods_img: '/images/weapp/testImg/luntai.jpg'
+                goods_img: '/images/weapp/testImg/luntai.jpg',
+                source: 'self',
             },
             {
                 goods_id: 0,
@@ -29,22 +31,23 @@ Page({
                 inventory: 0,
                 already_num: 0.0,
                 shortage: false,
-                goods_img: '/images/weapp/testImg/gps.jpg'
-            }
+                goods_img: '/images/weapp/testImg/gps.jpg',
+                source: 'self',
+            },
         ],
         merchant_id: 0,
         host: host,
         keyboardVisible: false,
         bugInfo: {},
-        num: 1
+        num: 1,
     },
-    onLoad: function(options) {
+    onLoad: function (options) {
         let bmsWeappStoreInfo = wx.getStorageSync('bmsWeappStoreInfo');
         this.setData({
-            merchant_id: bmsWeappStoreInfo.merchant_id
+            merchant_id: bmsWeappStoreInfo.merchant_id,
         });
     },
-    onShow: function() {
+    onShow: function () {
         this.getRecommend();
     },
     bug(e) {
@@ -55,25 +58,25 @@ Page({
 
         this.setData({
             bugInfo: data,
-            keyboardVisible: true
+            keyboardVisible: true,
         });
     },
     //立即购买
-    buyNow: function(e) {
+    buyNow: function (e) {
         let params = {
             goods_id: e.detail.result.goods_id,
-            num: e.detail.result.num
+            num: e.detail.result.num,
         };
         let goods_list = [];
         goods_list.push(params);
         wx.navigateTo({
-            url: '../mallOrder/mallOrder?goods_list=' + JSON.stringify(goods_list)
+            url: '../mallOrder/mallOrder?goods_list=' + JSON.stringify(goods_list),
         });
     },
-    hideKeyboard: function() {
+    hideKeyboard: function () {
         wx.showTabBar();
         this.setData({
-            keyboardVisible: false
+            keyboardVisible: false,
         });
     },
     seeDetail(e) {
@@ -82,30 +85,34 @@ Page({
             return;
         }
         wx.navigateTo({
-            url: '../mallDetail/mallDetail?goods_id=' + e.currentTarget.dataset.item.goods_id
+            url:
+                '../mallDetail/mallDetail?goods_id=' +
+                e.currentTarget.dataset.item.goods_id +
+                '&type=' +
+                e.currentTarget.dataset.item.type,
         });
     },
     /**
      * 获取全部推荐商品
      */
-    getRecommend: function() {
+    getRecommend: function () {
         showLoading();
         let params = {
             merchant_id: this.data.merchant_id,
-            type: 'all'
+            type: 'all',
         };
-        api.get('mall-goods/get-recommend-list', params, false)
-            .then(res => {
+        api.get('/weapp/mall-goods/get-recommend-lists', params, false)
+            .then((res) => {
                 wx.hideLoading();
                 if (res.errcode === 0) {
                     this.setData({
                         goodList: res.data,
-                        keyboardVisible: false
+                        keyboardVisible: false,
                     });
                 }
             })
             .catch(() => {
                 wx.hideLoading();
             });
-    }
+    },
 });

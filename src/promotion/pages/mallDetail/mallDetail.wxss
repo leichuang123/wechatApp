@@ -185,3 +185,6 @@ page {
 .isNone {
     opacity: 0.6;
 }
+.iscard {
+    opacity: 0.3;
+}

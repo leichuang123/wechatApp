@@ -1,6 +1,6 @@
 {
     "navigationBarTitleText": "购物车",
     "usingComponents": {
-        "buyWindow": "../../common/components/buyWindow/buyWindow"
+        "buyWindow": "../../../common/components/buyWindow/buyWindow"
     }
 }

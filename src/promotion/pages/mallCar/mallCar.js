@@ -15,57 +15,57 @@ Page({
         reIndex: 0,
         select: [],
         allMoney: 0.0,
-        isCanCheckLength: 0
+        isCanCheckLength: 0,
     },
     /**
      * 生命周期函数--监听页面加载
      */
-    onLoad: function(options) {
+    onLoad: function (options) {
         let bmsWeappStoreInfo = wx.getStorageSync('bmsWeappStoreInfo');
         this.setData({
-            merchant_id: bmsWeappStoreInfo.merchant_id
+            merchant_id: bmsWeappStoreInfo.merchant_id,
         });
     },
     /**
      * 生命周期函数--监听页面显示
      */
-    onShow: function() {
+    onShow: function () {
         this.getShopData();
     },
     /**
      * 手指触摸开始
      */
-    _touchStart: function(e) {
+    _touchStart: function (e) {
         this.setData({
-            touchStartPageX: e.changedTouches[0].pageX
+            touchStartPageX: e.changedTouches[0].pageX,
         });
     },
     /**
      * 手指触摸结束
      */
-    _touchEnd: function(e) {
+    _touchEnd: function (e) {
         let touchEndPageX = e.changedTouches[0].pageX,
             offSetStartToEnd = touchEndPageX - this.data.touchStartPageX;
         if ((offSetStartToEnd < 10) & (offSetStartToEnd > -10)) {
             return;
         }
     },
-    deleteDie: function(e) {
+    deleteDie: function (e) {
         let dieArr = this.data.myCarDie;
         let index = e.currentTarget.dataset.index;
         let ids = e.currentTarget.dataset.item.goods_id;
         let params = {
             merchant_id: this.data.merchant_id,
-            goods_ids: [ids]
+            goods_ids: [ids],
         };
         showLoading();
-        api.post('/weapp/mall-cart/delete-goods', params).then(res => {
+        api.post('/weapp/mall-cart/delete-goods', params).then((res) => {
             wx.hideLoading();
             if (res.errcode == 0) {
                 toastMsg('删除成功', 'success', 1000, () => {
                     dieArr.splice(index, 1);
                     this.setData({
-                        myCarDie: dieArr
+                        myCarDie: dieArr,
                     });
                 });
                 return;
@@ -76,7 +76,7 @@ Page({
     /**
      * 点击删除按钮
      */
-    deleteTouchEnd: function(e) {
+    deleteTouchEnd: function (e) {
         let touchEndPageX = e.changedTouches[0].pageX,
             offSetStartToEnd = touchEndPageX - this.data.touchStartPageX;
         if ((offSetStartToEnd < 10) & (offSetStartToEnd > -10)) {
@@ -85,23 +85,23 @@ Page({
         return;
     },
     //左滑删除
-    dieThis: function(e) {
+    dieThis: function (e) {
         let dieArr = this.data.myCar;
         let index = e.currentTarget.dataset.index;
         let ids = e.currentTarget.dataset.item.goods_id;
         let params = {
             merchant_id: this.data.merchant_id,
-            goods_ids: [ids]
+            goods_ids: [ids],
         };
         showLoading();
-        api.post('/weapp/mall-cart/delete-goods', params).then(res => {
+        api.post('/weapp/mall-cart/delete-goods', params).then((res) => {
             wx.hideLoading();
             if (res.errcode == 0) {
                 toastMsg('删除成功', 'success', 1000, () => {
                     this.checkHas(e);
                     dieArr.splice(index, 1);
                     this.setData({
-                        myCar: dieArr
+                        myCar: dieArr,
                     });
                     this.watchCheck();
                 });
@@ -110,7 +110,7 @@ Page({
             confirmMsg('', res.errmsg, false);
         });
     },
-    checkHas: function(e) {
+    checkHas: function (e) {
         let id = e.currentTarget.dataset.item.goods_id;
         let isChecked = e.currentTarget.dataset.item.checked;
         let select = this.data.select;
@@ -124,14 +124,14 @@ Page({
             );
             this.setData({
                 allMoney: money,
-                select: select
+                select: select,
             });
         }
     },
     //获取购物车列表
-    getShopData: function() {
+    getShopData: function () {
         showLoading();
-        api.get('/weapp/mall-cart/get-cart-list', { merchant_id: this.data.merchant_id }).then(res => {
+        api.get('/weapp/mall-cart/get-cart-list', { merchant_id: this.data.merchant_id }).then((res) => {
             wx.hideLoading();
             if (res.errcode == 0) {
                 let myCar = res.data.goods_list;
@@ -141,45 +141,49 @@ Page({
                     myCarDie: myCarDie,
                     select: [],
                     isAll: false,
-                    allMoney: 0
+                    allMoney: 0,
                 });
                 this.watchCheck();
             }
         });
     },
     //监听有效的勾选
-    watchCheck: function() {
+    watchCheck: function () {
         let arr = this.data.myCar;
         if (arr.length == 0) {
             return;
         }
         let allLength = 0;
         let selectLength = this.data.select.length;
-        arr.forEach(element => {
+        arr.forEach((element) => {
             if (element.can_buy) {
                 allLength++;
             }
         });
         this.setData({
-            isCanCheckLength: allLength
+            isCanCheckLength: allLength,
         });
         if (allLength == selectLength) {
             this.setData({
-                isAll: true
+                isAll: true,
             });
         } else {
             this.setData({
-                isAll: false
+                isAll: false,
             });
         }
     },
     //查看详情
-    seeDetail: function(e) {
+    seeDetail: function (e) {
         wx.navigateTo({
-            url: '../mallDetail/mallDetail?goods_id=' + e.currentTarget.dataset.item.goods_id
+            url:
+                '../mallDetail/mallDetail?goods_id=' +
+                e.currentTarget.dataset.item.goods_id +
+                '&type=' +
+                e.currentTarget.dataset.item.type,
         });
     },
-    delAll: function() {
+    delAll: function () {
         if (this.data.select.length == 0) {
             toastMsg('请选择商品', 'error');
             return;
@@ -191,9 +195,9 @@ Page({
             showLoading();
             let params = {
                 merchant_id: this.data.merchant_id,
-                goods_ids: this.data.select
+                goods_ids: this.data.select,
             };
-            api.post('/weapp/mall-cart/delete-goods', params).then(res => {
+            api.post('/weapp/mall-cart/delete-goods', params).then((res) => {
                 wx.hideLoading();
                 if (res.errcode == 0) {
                     toastMsg('删除成功', 'success', 1000, () => {
@@ -207,29 +211,29 @@ Page({
         });
     },
     //清除失效
-    clearDie: function() {
+    clearDie: function () {
         confirmMsg('', '确定清除失效商品？', true, () => {
             this.clearAllDie();
         });
     },
-    clearAllDie: function() {
+    clearAllDie: function () {
         let dieArr = this.data.myCarDie;
         let dieIds = [];
-        dieArr.forEach(element => {
+        dieArr.forEach((element) => {
             dieIds.push(element.goods_id);
         });
         let params = {
             merchant_id: this.data.merchant_id,
-            goods_ids: dieIds
+            goods_ids: dieIds,
         };
         showLoading();
-        api.post('/weapp/mall-cart/delete-goods', params).then(res => {
+        api.post('/weapp/mall-cart/delete-goods', params).then((res) => {
             wx.hideLoading();
             if (res.errcode == 0) {
                 toastMsg('删除成功', 'success', 1000, () => {
                     dieArr = [];
                     this.setData({
-                        myCarDie: dieArr
+                        myCarDie: dieArr,
                     });
                 });
                 return;
@@ -238,11 +242,11 @@ Page({
         });
     },
     //全选
-    calData: function() {
+    calData: function () {
         let arr = this.data.myCar;
         let money = 0;
         let select = [];
-        arr.forEach(element => {
+        arr.forEach((element) => {
             if (element.can_buy) {
                 element.checked = true;
                 money = add(money, multiply(element.sale_price, element.num));
@@ -252,14 +256,14 @@ Page({
         this.setData({
             myCar: arr,
             allMoney: money,
-            select: select
+            select: select,
         });
     },
     clickAll() {
         let stauts = this.data.isAll;
         stauts = !stauts;
         this.setData({
-            isAll: stauts
+            isAll: stauts,
         });
         if (stauts) {
             this.calData();
@@ -267,9 +271,9 @@ Page({
         }
         this.clearData();
     },
-    clearData: function() {
+    clearData: function () {
         let arr = this.data.myCar;
-        arr.forEach(element => {
+        arr.forEach((element) => {
             if (element.can_buy) {
                 element.checked = false;
             }
@@ -277,7 +281,7 @@ Page({
         this.setData({
             myCar: arr,
             allMoney: 0,
-            select: []
+            select: [],
         });
     },
     choosse(e) {
@@ -302,11 +306,11 @@ Page({
         this.setData({
             select: select,
             myCar: item,
-            allMoney: money
+            allMoney: money,
         });
         this.watchCheck();
     },
-    sumitOrder: function() {
+    sumitOrder: function () {
         if (this.data.select.length == 0) {
             toastMsg('请选择商品', 'error');
             return;
@@ -314,21 +318,21 @@ Page({
         confirmMsg('', '确定结算？', true, () => {
             let reslutData = this.data.myCar;
             let goods_list = [];
-            reslutData.forEach(element => {
+            reslutData.forEach((element) => {
                 if (element.checked) {
                     let obj = {
                         goods_id: element.goods_id,
-                        num: element.num
+                        num: element.num,
                     };
                     goods_list.push(obj);
                 }
             });
             wx.navigateTo({
-                url: '../mallOrder/mallOrder?cart_buy=true' + '&goods_list=' + JSON.stringify(goods_list)
+                url: '../mallOrder/mallOrder?cart_buy=true' + '&goods_list=' + JSON.stringify(goods_list),
             });
         });
     },
-    onAdd: function(e) {
+    onAdd: function (e) {
         if (e.currentTarget.dataset.item.shortage) {
             toastMsg('商品缺货中', 'error');
             return;
@@ -344,10 +348,10 @@ Page({
         let params = {
             num: newCarData[currentIndex].num,
             merchant_id: this.data.merchant_id,
-            goods_id: newCarData[currentIndex].goods_id
+            goods_id: newCarData[currentIndex].goods_id,
         };
         showLoading();
-        api.get('/weapp/mall-cart/update-goods-num', params).then(res => {
+        api.get('/weapp/mall-cart/update-goods-num', params).then((res) => {
             wx.hideLoading();
             if (res.errcode !== 0) {
                 confirmMsg('', res.errmsg, false);
@@ -359,11 +363,11 @@ Page({
             }
             this.setData({
                 myCar: newCarData,
-                allMoney: money
+                allMoney: money,
             });
         });
     },
-    onDel: function(e) {
+    onDel: function (e) {
         if (e.currentTarget.dataset.item.shortage) {
             toastMsg('商品缺货中', 'error');
             return;
@@ -378,10 +382,10 @@ Page({
         let params = {
             num: newCarData[currentIndex].num,
             merchant_id: this.data.merchant_id,
-            goods_id: newCarData[currentIndex].goods_id
+            goods_id: newCarData[currentIndex].goods_id,
         };
         showLoading();
-        api.get('/weapp/mall-cart/update-goods-num', params).then(res => {
+        api.get('/weapp/mall-cart/update-goods-num', params).then((res) => {
             wx.hideLoading();
             if (res.errcode !== 0) {
                 confirmMsg('', res.errmsg, false);
@@ -393,7 +397,7 @@ Page({
             }
             this.setData({
                 myCar: newCarData,
-                allMoney: money
+                allMoney: money,
             });
         });
     },
@@ -401,22 +405,22 @@ Page({
         this.setData({
             keyboardVisible: true,
             reInfo: e.currentTarget.dataset.item,
-            reIndex: e.currentTarget.dataset.index
+            reIndex: e.currentTarget.dataset.index,
         });
     },
-    hideKeyboard: function() {
+    hideKeyboard: function () {
         this.setData({
-            keyboardVisible: false
+            keyboardVisible: false,
         });
     },
-    buyNow: function(e) {
+    buyNow: function (e) {
         let params = {
             num: e.detail.result.num,
             merchant_id: this.data.merchant_id,
-            goods_id: this.data.reInfo.goods_id
+            goods_id: this.data.reInfo.goods_id,
         };
         showLoading();
-        api.get('/weapp/mall-cart/update-goods-num', params).then(res => {
+        api.get('/weapp/mall-cart/update-goods-num', params).then((res) => {
             wx.hideLoading();
             if (res.errcode !== 0) {
                 confirmMsg('', res.errmsg, false);
@@ -427,9 +431,9 @@ Page({
             reslutData[this.data.reIndex].can_buy = true;
             this.setData({
                 keyboardVisible: false,
-                myCar: reslutData
+                myCar: reslutData,
             });
             this.watchCheck();
         });
-    }
+    },
 });

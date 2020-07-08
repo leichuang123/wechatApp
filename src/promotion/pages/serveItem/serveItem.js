@@ -18,24 +18,24 @@ Page({
         hasData: true,
         hasMore: true,
         loadMoreVisible: false, //加载更多
-        totalPage: 0
+        totalPage: 0,
     },
-    onLoad: function(options) {
+    onLoad: function (options) {
         let bmsWeappStoreInfo = wx.getStorageSync('bmsWeappStoreInfo');
         let systemInfo = wx.getStorageSync('systemInfo');
         this.setData({
             merchant_id: bmsWeappStoreInfo.merchant_id,
             store_id: bmsWeappStoreInfo.store_id,
-            boxHeight: systemInfo.windowHeight
+            boxHeight: systemInfo.windowHeight,
         });
     },
-    onShow: function() {
+    onShow: function () {
         this.getType();
         this.getServeItem(true);
     },
     formatData(data) {
         let compareData = this.data.select;
-        data.forEach(element => {
+        data.forEach((element) => {
             if (compareData.indexOf(element.goods_id) > -1) {
                 element.checked = true;
             }
@@ -43,13 +43,13 @@ Page({
         return data;
     },
     //获取全部服务项目
-    getServeItem: function(type = false) {
+    getServeItem: function (type = false) {
         showLoading();
-        api.get('mall/get-service-item-list', {
+        api.get('weapp/mall/get-service-item-list', {
             merchant_id: this.data.merchant_id,
             first_class_id: this.data.class_id,
-            page: this.data.page
-        }).then(res => {
+            page: this.data.page,
+        }).then((res) => {
             wx.hideLoading();
             if (res.errcode == 0) {
                 let hasMore = res.errcode !== 0 || this.data.page >= res.data.last_page ? false : true;
@@ -57,30 +57,30 @@ Page({
                     loadMoreVisible: false,
                     loadingVisible: false,
                     hasMore: hasMore,
-                    hasData: this.data.items.length === 0 ? false : true
+                    hasData: this.data.items.length === 0 ? false : true,
                 });
                 if (type) {
                     this.setData({
                         items: this.formatData(res.data.data),
-                        totalPage: res.data.last_page
+                        totalPage: res.data.last_page,
                     });
                     return;
                 }
                 this.setData({
                     items: this.data.items.concat(this.formatData(res.data.data)),
-                    totalPage: res.data.last_page
+                    totalPage: res.data.last_page,
                 });
             }
         });
     },
     //获取分类
-    getType: function() {
-        api.get('/weapp/mall/get-service-item-class-list', { merchant_id: this.data.merchant_id }).then(res => {
+    getType: function () {
+        api.get('/weapp/mall/get-service-item-class-list', { merchant_id: this.data.merchant_id }).then((res) => {
             if (res.errcode == 0) {
                 let type = res.data;
                 type.unshift({ class_name: '全部', class_id: '' });
                 this.setData({
-                    itemArr: type
+                    itemArr: type,
                 });
             }
         });
@@ -92,7 +92,7 @@ Page({
         this.setData({
             class_id: e.currentTarget.dataset.item.class_id,
             page: 1,
-            number: 0
+            number: 0,
         });
         this.getServeItem(true);
     },
@@ -119,23 +119,23 @@ Page({
             select: select,
             items: item,
             number: select.length,
-            allMoney: money
+            allMoney: money,
         });
     },
     /**
      * 下拉加载更多
      */
-    onReachBottom: function() {
+    onReachBottom: function () {
         if (!this.data.hasMore || this.data.page >= this.data.totalPage) {
             return;
         }
         this.setData({
             loadMoreVisible: true,
-            page: this.data.page + 1
+            page: this.data.page + 1,
         });
         this.getServeItem();
     },
-    buy: function() {
+    buy: function () {
         if (!this.data.select.length) {
             toastMsg('请选择服务项目', 'error');
             return;
@@ -145,10 +145,10 @@ Page({
             let param = {
                 merchant_id: this.data.merchant_id,
                 store_id: this.data.store_id,
-                service_item_ids: this.data.select
+                service_item_ids: this.data.select,
             };
             api.post('/weapp/mall/buy-service-item', param)
-                .then(res => {
+                .then((res) => {
                     wx.hideLoading();
                     if (res.errcode !== 0) {
                         confirmMsg('', res.errmsg, false);
@@ -160,14 +160,14 @@ Page({
                         () => {
                             toastMsg('支付成功', 'success', 1000, () => {
                                 wx.navigateTo({
-                                    url: '/pages/payment/success'
+                                    url: '/pages/payment/success',
                                 });
                             });
                         },
                         () => {
                             toastMsg('支付失败', 'error', 1000, () => {
                                 wx.navigateBack({
-                                    delta: 2
+                                    delta: 2,
                                 });
                             });
                         }
@@ -177,5 +177,5 @@ Page({
                     wx.hideLoading();
                 });
         });
-    }
+    },
 });
