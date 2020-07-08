@@ -1,6 +1,7 @@
 import api from '../../../utils/api';
 import { showLoading, toastMsg, confirmMsg } from '../../../utils/util';
 import { host } from '../../../config';
+import wxPay from '../../../utils/requestPayment';
 import WxParse from '../../../assets/plugins/wxParse/wxParse';
 Page({
     data: {
