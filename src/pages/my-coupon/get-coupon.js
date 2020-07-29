@@ -135,7 +135,12 @@ Page({
         showLoading('提交请求中');
         api.get(
             'weapp/phonecode',
-            { mobile: this.data.form.mobile, oem_id: app.globalData.extConfig.oem_id || 0 },
+            {
+                mobile: this.data.form.mobile,
+                oem_id: app.globalData.extConfig.oem_id || 0,
+                auth_type: app.globalData.extConfig.auth_type || 0,
+                auth_related_id: app.globalData.extConfig.auth_related_id || 0
+            },
             false
         ).then(res => {
             wx.hideLoading();
