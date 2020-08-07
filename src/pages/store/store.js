@@ -257,7 +257,7 @@ Page({
                 e.currentTarget.dataset.item.type,
         });
     },
-    bug(e) {
+    listBuy(e) {
         wx.hideTabBar();
         let data = e.currentTarget.dataset.item;
         if (data.source == 'self') {

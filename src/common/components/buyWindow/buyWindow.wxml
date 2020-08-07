@@ -17,9 +17,13 @@
             <view class="bugNum">
                 <view class="tit">购买数量</view>
                 <view class="board">
-                    <view class="action" catchtap="onDel">-</view>
+                    <view class="action" wx:if="{{goodInfo.type!=='JointlyCard'}}" catchtap="onDel">
+                        -
+                    </view>
                     <view class="value">{{num}}</view>
-                    <view class="action" catchtap='onAdd'>+</view>
+                    <view class="action" wx:if="{{goodInfo.type!=='JointlyCard'}}" catchtap='onAdd'>
+                        +
+                    </view>
                 </view>
             </view>
             <view>

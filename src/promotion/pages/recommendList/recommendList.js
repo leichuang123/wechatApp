@@ -1,6 +1,8 @@
 import api from '../../../utils/api';
-import { showLoading, toastMsg } from '../../../utils/util';
+import { showLoading, toastMsg, confirmMsg } from '../../../utils/util';
 import { host } from '../../../config';
+import wxPay from '../../../utils/requestPayment';
+
 Page({
     data: {
         goodList: [
@@ -36,6 +38,7 @@ Page({
             },
         ],
         merchant_id: 0,
+        store_id: 0,
         host: host,
         keyboardVisible: false,
         bugInfo: {},
@@ -45,12 +48,14 @@ Page({
         let bmsWeappStoreInfo = wx.getStorageSync('bmsWeappStoreInfo');
         this.setData({
             merchant_id: bmsWeappStoreInfo.merchant_id,
+            store_id: bmsWeappStoreInfo.store_id,
         });
     },
     onShow: function () {
         this.getRecommend();
     },
-    bug(e) {
+    //点击购买赋值给组织bugwindow
+    listBuy(e) {
         let data = e.currentTarget.dataset.item;
         if (data.source == 'self') {
             data.goods_img = host + data.goods_img;
@@ -63,6 +68,10 @@ Page({
     },
     //立即购买
     buyNow: function (e) {
+        if (e.detail.result.type == 'JointlyCard') {
+            this.bugJointlyCard(e);
+            return;
+        }
         let params = {
             goods_id: e.detail.result.goods_id,
             num: e.detail.result.num,
@@ -73,8 +82,37 @@ Page({
             url: '../mallOrder/mallOrder?goods_list=' + JSON.stringify(goods_list),
         });
     },
+    //买联名卡
+    bugJointlyCard: function (e) {
+        confirmMsg('', '确定结算？', true, () => {
+            let submitParams = {
+                merchant_id: this.data.merchant_id,
+                store_id: this.data.store_id,
+                jointly_card_type_id: e.detail.result.goods_id,
+            };
+            api.post('/weapp/mall-jointly-card/place-order', submitParams).then((res) => {
+                if (res.errcode !== 0) {
+                    confirmMsg('', res.errmsg, false);
+                    return;
+                }
+                let payArgs = res.data;
+                wxPay(
+                    payArgs,
+                    () => {
+                        toastMsg('支付成功', 'success', 1000, () => {
+                            wx.navigateTo({
+                                url: '/pages/payment/success',
+                            });
+                        });
+                    },
+                    () => {
+                        toastMsg('支付失败', 'error', 1000, () => {});
+                    }
+                );
+            });
+        });
+    },
     hideKeyboard: function () {
-        wx.showTabBar();
         this.setData({
             keyboardVisible: false,
         });

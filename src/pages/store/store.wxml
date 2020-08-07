@@ -74,7 +74,7 @@
             <view class="goodIns">{{item.goods_name}}</view>
             <view class="goodOther">
                 <view class="recommendPrice">{{item.sale_price}}</view>
-                <view class="buy" data-item="{{item}}" catchtap="bug">购买</view>
+                <view class="buy" data-item="{{item}}" catchtap="listBuy">购买</view>
             </view>
         </view>
         <template is="loading" data="{{ loadingVisible,hasData}}" />

@@ -8,18 +8,18 @@ Component({
         keyboardVisible: {
             type: Boolean,
             value: false,
-            observer: function(newVal, oldVal) {}
+            observer: function (newVal, oldVal) {},
         },
         storeInfo: {
             type: Object,
             value: '',
-            observer: function(newVal, oldVal) {
+            observer: function (newVal, oldVal) {
                 this.setData({
                     goodInfo: newVal,
-                    max: subtract(parseInt(newVal.inventory), parseInt(newVal.already_num))
+                    max: subtract(parseInt(newVal.inventory), parseInt(newVal.already_num)),
                 });
-            }
-        }
+            },
+        },
     },
     data: {
         host: host,
@@ -27,24 +27,24 @@ Component({
         num: 1,
         has: false,
         loading: false,
-        max: 0
+        max: 0,
     },
 
     // 生命周期函数，可以为函数，或一个在methods段中定义的方法名
-    attached: function() {
+    attached: function () {
         this.setData({});
     },
-    moved: function() {},
-    detached: function() {},
+    moved: function () {},
+    detached: function () {},
 
     methods: {
-        onClose: function(e) {
+        onClose: function (e) {
             this.setData({
-                keyboardVisible: false
+                keyboardVisible: false,
             });
             this.triggerEvent('hidekeyboard', { keyboardVisible: false });
         },
-        onAdd: function() {
+        onAdd: function () {
             if (this.data.goodInfo.shortage) {
                 toastMsg('商品缺货中', 'error');
                 return;
@@ -56,20 +56,20 @@ Component({
             }
             number++;
             this.setData({
-                num: number
+                num: number,
             });
         },
-        onDel: function() {
+        onDel: function () {
             let number = this.data.num;
             if (number == 1) {
                 return;
             }
             number--;
             this.setData({
-                num: number
+                num: number,
             });
         },
-        onTap: function() {
+        onTap: function () {
             if (!this.data.goodInfo.goods_id) {
                 toastMsg('商品下架了', 'error');
                 return;
@@ -77,12 +77,13 @@ Component({
             let result = {
                 goods_id: this.data.storeInfo.goods_id,
                 num: this.data.num,
-                sale_price: this.data.storeInfo.sale_price
+                sale_price: this.data.storeInfo.sale_price,
+                type: this.data.storeInfo.type,
             };
             this.triggerEvent('buyNow', { keyboardVisible: false, result: result });
         },
-        oncatch: function() {
+        oncatch: function () {
             return;
-        }
-    }
+        },
+    },
 });
