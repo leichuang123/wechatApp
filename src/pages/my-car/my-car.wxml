@@ -17,8 +17,8 @@
                     <image src="{{item.car_brand_logo}}" />
                 </view>
                 <view class="weui-cell__bd">
-                    <view wx:if="{{item.car_brand!==null}}">{{item.car_brand}}-{{item.car_serie}}</view>
-                    <view wx:if="{{item.car_category!==null}}">{{item.car_category}}</view>
+                    <view wx:if="{{item.car_brand!==\"\"}}">{{item.car_brand}}-{{item.car_serie}}</view>
+                    <view wx:if="{{item.car_category!==\"\"}}">{{item.produce_year}} {{item.car_category}}</view>
                     <view>{{item.car_number}}</view>
                 </view>
             </navigator>
