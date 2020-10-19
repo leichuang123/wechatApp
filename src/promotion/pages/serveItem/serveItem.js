@@ -52,25 +52,25 @@ Page({
         }).then((res) => {
             wx.hideLoading();
             if (res.errcode == 0) {
-                let hasMore = res.errcode !== 0 || this.data.page >= res.data.last_page ? false : true;
-                this.setData({
-                    loadMoreVisible: false,
-                    loadingVisible: false,
-                    hasMore: hasMore,
-                    hasData: this.data.items.length === 0 ? false : true,
-                });
                 if (type) {
                     this.setData({
                         items: this.formatData(res.data.data),
                         totalPage: res.data.last_page,
                     });
-                    return;
+                } else {
+                    this.setData({
+                        items: this.data.items.concat(this.formatData(res.data.data)),
+                        totalPage: res.data.last_page,
+                    });
                 }
-                this.setData({
-                    items: this.data.items.concat(this.formatData(res.data.data)),
-                    totalPage: res.data.last_page,
-                });
             }
+            let hasMore = res.errcode !== 0 || this.data.page >= res.data.last_page ? false : true;
+            this.setData({
+                loadMoreVisible: false,
+                loadingVisible: false,
+                hasMore: hasMore,
+                hasData: this.data.items.length === 0 ? false : true,
+            });
         });
     },
     //获取分类
@@ -126,6 +126,7 @@ Page({
      * 下拉加载更多
      */
     onReachBottom: function () {
+        console.log(1);
         if (!this.data.hasMore || this.data.page >= this.data.totalPage) {
             return;
         }

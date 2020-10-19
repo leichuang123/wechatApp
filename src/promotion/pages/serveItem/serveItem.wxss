@@ -1,9 +1,13 @@
 .itemBox {
     display: flex;
     justify-content: flex-start;
+    padding-bottom: 56px;
 }
 .scroll-view__container {
     width: 28%;
+    position: fixed;
+    top: 0;
+    left: 0;
 }
 .type-item {
     width: 100%;
@@ -16,6 +20,7 @@
 }
 .radio-group {
     width: 72%;
+    margin-left: 28%;
     background-color: #ffffff;
 }
 .vip {
