@@ -15,22 +15,22 @@ Page({
         hasData: true,
         hasMore: true,
         loadMoreVisible: false, //加载更多
-        totalPage: 0
+        totalPage: 0,
     },
-    onLoad: function(options) {
+    onLoad: function (options) {
         let bmsWeappStoreInfo = wx.getStorageSync('bmsWeappStoreInfo');
         this.setData({
             merchant_id: bmsWeappStoreInfo.merchant_id,
-            store_id: bmsWeappStoreInfo.store_id
+            store_id: bmsWeappStoreInfo.store_id,
         });
     },
-    onShow: function() {
+    onShow: function () {
         this.getPackList(true);
     },
-    getPackList: function(type = false) {
+    getPackList: function (type = false) {
         showLoading();
         api.get('/weapp/mall/get-package-card-list', { merchant_id: this.data.merchant_id, page: this.data.page }).then(
-            res => {
+            (res) => {
                 wx.hideLoading();
                 if (res.errcode == 0) {
                     let hasMore = res.errcode !== 0 || this.data.page >= res.data.last_page ? false : true;
@@ -38,18 +38,18 @@ Page({
                         loadMoreVisible: false,
                         loadingVisible: false,
                         hasMore: hasMore,
-                        hasData: this.data.items.length === 0 ? false : true
+                        hasData: this.data.items.length === 0 ? false : true,
                     });
                     if (type) {
                         this.setData({
                             items: res.data.data,
-                            totalPage: res.data.last_page
+                            totalPage: res.data.last_page,
                         });
                         return;
                     }
                     this.setData({
                         items: this.data.items.concat(res.data.data),
-                        totalPage: res.data.last_page
+                        totalPage: res.data.last_page,
                     });
                 }
             }
@@ -78,10 +78,10 @@ Page({
             select: select,
             items: item,
             number: select.length,
-            allMoney: money
+            allMoney: money,
         });
     },
-    buy: function() {
+    buy: function () {
         if (!this.data.select.length) {
             toastMsg('请选择套餐', 'error');
             return;
@@ -91,10 +91,10 @@ Page({
             let param = {
                 merchant_id: this.data.merchant_id,
                 store_id: this.data.store_id,
-                package_ids: this.data.select
+                package_ids: this.data.select,
             };
             api.post('/weapp/mall/buy-package-card', param)
-                .then(res => {
+                .then((res) => {
                     wx.hideLoading();
                     if (res.errcode !== 0) {
                         confirmMsg('', res.errmsg, false);
@@ -106,14 +106,14 @@ Page({
                         () => {
                             toastMsg('支付成功', 'success', 1000, () => {
                                 wx.navigateTo({
-                                    url: '/pages/payment/success'
+                                    url: '/pages/payment/success',
                                 });
                             });
                         },
                         () => {
                             toastMsg('支付失败', 'error', 1000, () => {
                                 wx.navigateBack({
-                                    delta: 2
+                                    delta: 2,
                                 });
                             });
                         }
@@ -123,5 +123,18 @@ Page({
                     wx.hideLoading();
                 });
         });
-    }
+    },
+    /**
+     * 下拉加载更多
+     */
+    onReachBottom: function () {
+        if (!this.data.hasMore || this.data.page >= this.data.totalPage) {
+            return;
+        }
+        this.setData({
+            loadMoreVisible: true,
+            page: this.data.page + 1,
+        });
+        this.getPackList();
+    },
 });

@@ -24,6 +24,7 @@
             </view>
         </view>
     </view>
+    <view class="ispading"></view>
     <template is="loading" data="{{ loadingVisible,hasData}}" />
     <template is="loadMore" data="{{ loadMoreVisible,hasMore,hasData}}" />
     <view class="total">
