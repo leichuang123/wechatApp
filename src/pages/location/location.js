@@ -111,7 +111,7 @@ Page({
      * 获取定位城市信息
      */
     getCityInfo: function(params) {
-        api.get('weapp/getcityinfo', params, false).then(res => {
+        api.get('weapp/getcityinfo', params, true).then(res => {
             this.setData({ loading: false });
             if (res.errcode === 0) {
                 this.setData({
@@ -179,7 +179,7 @@ Page({
      */
     gotoIndex: function(e) {
         const item = e.currentTarget.dataset.item;
-        console.log(item)
+        console.log(item);
         wx.setStorageSync('selectedCity', {
             name: item.name,
             code: item.code

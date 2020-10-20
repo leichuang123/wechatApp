@@ -22,7 +22,7 @@ App({
             weapp_config_id: this.globalData.extConfig.weapp_config_id || 0,
             wechat_config_id: this.globalData.extConfig.wechat_config_id || 0
         };
-        api.get('weapp/login', params, false).then(res => {
+        api.get('weapp/login', params, true).then(res => {
             if (res.errcode === 0) {
                 wx.setStorageSync('sessionKey', res.data);
                 this.globalData.sessionKey = res.data;

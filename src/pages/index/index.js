@@ -14,7 +14,7 @@ Page({
             merchant_id: '',
             oem_id: '',
             store_name: '',
-            distance: '',
+            distance: ''
         },
         indicatorDots: true,
         autoplay: true,
@@ -22,46 +22,46 @@ Page({
         duration: 1000,
         weappList: [],
         fromList: false,
-        initLocationInfo: false,
+        initLocationInfo: false
     },
     //获取banner
-    getBannerList: function (merchant_id) {
+    getBannerList: function(merchant_id) {
         let params = {
             merchant_id: merchant_id,
-            position: 'homepage',
+            position: 'homepage'
         };
-        api.get('/weapp/ad/get-weapp-list', params, false).then((res) => {
+        api.get('/weapp/ad/get-weapp-list', params, false).then(res => {
             if (res.errcode == 0) {
                 this.setData({
-                    weappList: res.data,
+                    weappList: res.data
                 });
             }
         });
     },
     //点击banner跳转商品详情
-    clickPic: function (row) {
+    clickPic: function(row) {
         if (!row.currentTarget.dataset.item.jump_goods_page) {
             return;
         }
         wx.navigateTo({
-            url: '../../promotion/pages/mallDetail/mallDetail?goods_id=' + row.currentTarget.dataset.item.goods_id,
+            url: '../../promotion/pages/mallDetail/mallDetail?goods_id=' + row.currentTarget.dataset.item.goods_id
         });
     },
     /**
      * 获取首页信息
      */
-    getIndexInfo: function () {
+    getIndexInfo: function() {
         let bmsWeappStoreInfo = wx.getStorageSync('bmsWeappStoreInfo');
         let params = {
-            store_id: bmsWeappStoreInfo.store_id,
+            store_id: bmsWeappStoreInfo.store_id
         };
-        api.get('weapp/indexinfo', params, false).then((res) => {
+        api.get('weapp/indexinfo', params, false).then(res => {
             if (res.errcode === 0) {
                 this.setData({
                     queues: !res.data.queues ? [] : res.data.queues,
                     reservations: !res.data.reservations ? [] : res.data.reservations,
                     unreceivedCoupons: !res.data.unreceivedCoupons ? [] : res.data.unreceivedCoupons.data,
-                    couponDialogVisible: !!res.data.unreceivedCoupons && res.data.unreceivedCoupons.data.length > 0,
+                    couponDialogVisible: !!res.data.unreceivedCoupons && res.data.unreceivedCoupons.data.length > 0
                 });
                 wx.setStorageSync('userData', res.data.userData);
             } else {
@@ -72,18 +72,18 @@ Page({
     /**
      * 定位
      */
-    getLocation: function () {
+    getLocation: function() {
         getLocation({
-            type: 'wgs84',
+            type: 'wgs84'
         })
-            .then((res) => {
+            .then(res => {
                 let locationInfo = {
                     latitude: res.latitude,
-                    longitude: res.longitude,
+                    longitude: res.longitude
                 };
                 this.getLocationInfo(locationInfo);
             })
-            .catch((res) => {
+            .catch(res => {
                 let me = this;
                 wx.showModal({
                     content: '请您开启手机GPS定位',
@@ -92,19 +92,19 @@ Page({
                     success(res) {
                         if (res.confirm) {
                             wx.reLaunch({
-                                url: '/pages/index/index',
+                                url: '/pages/index/index'
                             });
                         } else if (res.cancel) {
                             me.getLocationInfo();
                             wx.setStorageSync('locationInfo', app.globalData.defaultLocation);
                         }
-                    },
+                    }
                 });
             });
     },
-    getLocationInfo: function (locationInfo) {
+    getLocationInfo: function(locationInfo) {
         showLoading();
-        api.get('weapp/getcityinfo', locationInfo, false).then((res) => {
+        api.get('weapp/getcityinfo', locationInfo, true).then(res => {
             wx.hideLoading();
             if (res.errcode === 0) {
                 if (locationInfo) {
@@ -118,16 +118,16 @@ Page({
                             true,
                             () => {
                                 this.setData({
-                                    city: locatedCity,
+                                    city: locatedCity
                                 });
                                 wx.setStorageSync('selectedCity', {
                                     name: locatedCity,
-                                    code: locationInfo.city_code,
+                                    code: locationInfo.city_code
                                 });
                             },
                             () => {
                                 this.setData({
-                                    city: !selectedCity ? '请选择' : selectedCity.name,
+                                    city: !selectedCity ? '请选择' : selectedCity.name
                                 });
                             }
                         );
@@ -141,7 +141,7 @@ Page({
                 //储存定位获取的最近的门店信息
                 let bmsWeappStoreInfo = res.data.store_info;
                 this.setData({
-                    bmsWeappStoreInfo: bmsWeappStoreInfo,
+                    bmsWeappStoreInfo: bmsWeappStoreInfo
                 });
                 wx.setStorageSync('bmsWeappStoreInfo', bmsWeappStoreInfo);
                 this.getIndexInfo();
@@ -151,79 +151,79 @@ Page({
             }
         });
     },
-    onGetCoupon: function (e) {
+    onGetCoupon: function(e) {
         const params = JSON.stringify(e.currentTarget.dataset.item);
         this.updateRemindCount();
         wx.navigateTo({
-            url: '/pages/my-coupon/share-detail?params=' + params,
+            url: '/pages/my-coupon/share-detail?params=' + params
         });
     },
-    updateRemindCount: function () {
+    updateRemindCount: function() {
         const ids = this.getUnreceivedCouponSendDetailIds();
-        api.post('/weapp-coupon/update-remind-count', { id: ids }).then((res) => {
+        api.post('/weapp-coupon/update-remind-count', { id: ids }).then(res => {
             if (res.errcode !== 0) {
                 console.log(res.errmsg);
             }
         });
     },
-    getUnreceivedCouponSendDetailIds: function () {
-        return this.data.unreceivedCoupons.map((val) => val.id);
+    getUnreceivedCouponSendDetailIds: function() {
+        return this.data.unreceivedCoupons.map(val => val.id);
     },
     /**
      * 关闭优惠券领取提醒框
      *
      * @param {event} e
      */
-    closeCouponDialog: function (e) {
+    closeCouponDialog: function(e) {
         this.setData({
-            couponDialogVisible: false,
+            couponDialogVisible: false
         });
         this.updateRemindCount();
     },
-    initData: function () {
+    initData: function() {
         this.setData({
             couponDialogVisible: false,
             queues: [],
             reservations: [],
-            unreceivedCoupons: [],
+            unreceivedCoupons: []
         });
         if (!app.globalData.sessionKey) {
-            app.doLoginCallBack = (sessionKey) => {
+            app.doLoginCallBack = sessionKey => {
                 wx.setStorageSync('sessionKey', sessionKey);
             };
         }
         const selectedCity = wx.getStorageSync('selectedCity');
         this.setData({
-            city: !selectedCity ? '请选择' : selectedCity.name,
+            city: !selectedCity ? '请选择' : selectedCity.name
         });
         if (this.data.city.length > 4) {
             this.setData({
-                city: this.data.city.substring(0, 3) + '...',
+                city: this.data.city.substring(0, 3) + '...'
             });
         }
     },
     //选择门店
     selectStore() {
         wx.navigateTo({
-            url: '/pages/store-list/store-list',
+            url: '/pages/store-list/store-list'
         });
     },
     //股东申请
-    joinGuDong: function () {
+    joinGuDong: function() {
         showLoading();
         //判断用户是否注册股东申请
         api.post('/weapp/holder-application-info')
-            .then((res) => {
+            .then(res => {
                 wx.hideLoading();
                 if (res.errcode == 0) {
                     wx.navigateTo({
-                        url: '../../promotion/pages/shareholders/shareholders',
+                        url: '../../promotion/pages/shareholders/shareholders'
                     });
                     return;
                 }
                 if (res.errcode == '1022') {
                     wx.navigateTo({
-                        url: '../../promotion/pages/shareholders/shareholders?type=' + true,
+                        url: '../../promotion/pages/shareholders/shareholders?type=' + true
                     });
                     return;
                 }
@@ -236,18 +236,18 @@ Page({
     /**
      * 生命周期函数--监听页面加载
      */
-    onLoad: function (options) {
+    onLoad: function(options) {
         //从选择门店选择门店后进入
         if (options.from == 'list') {
             this.setData({
-                fromList: true,
+                fromList: true
             });
         }
         this.setData({
-            initLocationInfo: true,
+            initLocationInfo: true
         });
     },
-    onShow: function () {
+    onShow: function() {
         this.initData();
         wx.showTabBar();
         let bmsWeappStoreInfo = wx.getStorageSync('bmsWeappStoreInfo');
@@ -255,7 +255,7 @@ Page({
         if ((!bmsWeappStoreInfo || this.data.initLocationInfo) && !this.data.fromList) {
             this.getLocation();
             this.setData({
-                initLocationInfo: false,
+                initLocationInfo: false
             });
             return;
         }
@@ -265,7 +265,7 @@ Page({
         }
         this.getIndexInfo();
         this.setData({
-            bmsWeappStoreInfo: bmsWeappStoreInfo,
+            bmsWeappStoreInfo: bmsWeappStoreInfo
         });
-    },
+    }
 });
